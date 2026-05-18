@@ -1,0 +1,202 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.uid in [
+        'yDsFujEL8lUkEzrtFXQvgFoseH22', // fruiterre@gmail.com (added 2026-05-01)
+        'BYR9pdEGCfYpU5kmbMoyRr9paRq1', // legacy — remove once new account is verified
+      ];
+    }
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // ── Client profiles ─────────────────────────────────────────────────
+    match /users/{userId} {
+      allow read:   if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId);
+      allow update: if isAdmin()
+                    || (isOwner(userId)
+                        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['status']));
+      allow delete: if isAdmin();
+
+      match /docs/{docId} {
+        allow read:  if isOwner(userId) || isAdmin();
+        allow write: if isAdmin();
+      }
+    }
+
+    // ── Tarifs (pricing plans) ───────────────────────────────────────────
+    match /tarifs/{tarifId} {
+      allow read:  if true;
+      allow write: if isAdmin();
+    }
+
+    // ── Bookings ─────────────────────────────────────────────────────────
+    match /bookings/{bookingId} {
+      allow read:   if isAdmin() || (request.auth != null && resource.data.clientUid == request.auth.uid);
+      allow create: if isAdmin() || (request.auth != null && request.resource.data.clientUid == request.auth.uid);
+      allow update: if isAdmin()
+                    || (request.auth != null
+                        && resource.data.clientUid == request.auth.uid
+                        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rescheduleNote', 'status'])
+                        && request.resource.data.status == 'reschedule_requested');
+      allow delete: if isAdmin();
+    }
+
+    // ── Conversations (chat + meetings) ──────────────────────────────────
+    match /conversations/{clientUid} {
+      allow read, write: if isAdmin() || isOwner(clientUid);
+
+      match /messages/{msgId} {
+        allow read:   if isAdmin() || isOwner(clientUid);
+        allow create: if isAdmin() || isOwner(clientUid);
+        allow update: if isAdmin() || isOwner(clientUid);
+        allow delete: if isAdmin();
+      }
+
+      match /meetings/{meetingId} {
+        allow read:   if isAdmin() || isOwner(clientUid);
+        allow create: if isAdmin();
+        allow update: if isAdmin()
+                      || (isOwner(clientUid)
+                          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['clientTranscript']));
+        allow delete: if isAdmin();
+      }
+    }
+
+    // ── Shared documents (broadcast) ─────────────────────────────────────
+    match /sharedDocs/{docId} {
+      allow read:  if request.auth != null;
+      allow write: if isAdmin();
+    }
+
+    // ── Leads (Connecter form submissions) ───────────────────────────────
+    match /leads/{leadId} {
+      allow read:   if isAdmin();
+      allow create: if true; // Anyone can submit the Connecter form
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── Intervention requests (custom forms from Mouvement/Education/Events/Therapie) ──
+    match /interventionRequests/{reqId} {
+      allow read:   if isAdmin();
+      allow create: if true; // Public — visitors don't need to log in
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── Site content overrides (admin's "Modifier le site" mode) ─────────
+    match /siteOverrides/{key} {
+      allow read:  if true; // Public site needs to read overrides
+      allow write: if isAdmin();
+    }
+
+    // ── Products (Boutique) ──────────────────────────────────────────────
+    match /products/{productId} {
+      allow read:  if true; // Public catalog
+      allow write: if isAdmin();
+    }
+
+    // ── Resources ────────────────────────────────────────────────────────
+    match /resources/{resourceId} {
+      allow read:  if true;
+      allow write: if isAdmin();
+    }
+
+    // ── Events ───────────────────────────────────────────────────────────
+    match /events/{eventId} {
+      allow read:  if true;
+      allow write: if isAdmin();
+
+      match /registrations/{userId} {
+        allow read:   if isAdmin() || isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isAdmin();
+        allow delete: if isAdmin();
+      }
+    }
+
+    // ── Classes (Mouvement / dance) ──────────────────────────────────────
+    match /classes/{classId} {
+      allow read:  if true;
+      allow write: if isAdmin();
+
+      match /requests/{userId} {
+        allow read:   if isAdmin() || isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isAdmin();
+        allow delete: if isAdmin() || isOwner(userId);
+      }
+
+      match /members/{userId} {
+        allow read:   if isAdmin() || isOwner(userId)
+                      || (request.auth != null && exists(/databases/$(database)/documents/classes/$(classId)/members/$(request.auth.uid)));
+        allow write:  if isAdmin();
+      }
+
+      match /messages/{msgId} {
+        // Anyone who is a member of this class can read & post
+        allow read:   if isAdmin() || (request.auth != null
+                      && exists(/databases/$(database)/documents/classes/$(classId)/members/$(request.auth.uid)));
+        allow create: if request.auth != null
+                      && exists(/databases/$(database)/documents/classes/$(classId)/members/$(request.auth.uid))
+                      && request.resource.data.uid == request.auth.uid;
+        allow update: if false;
+        allow delete: if isAdmin() || (request.auth != null && resource.data.uid == request.auth.uid);
+      }
+    }
+
+    // ── Posts (blog) ─────────────────────────────────────────────────────
+    match /posts/{slug} {
+      allow read:  if resource.data.published == true || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // ── Orders (server-written by Stripe webhook) ────────────────────────
+    match /orders/{orderId} {
+      allow read:   if isAdmin() || (request.auth != null && resource.data.userId == request.auth.uid);
+      allow write:  if false; // Only Cloud Functions admin SDK
+    }
+
+    // ── User subscriptions ───────────────────────────────────────────────
+    match /users/{userId}/subscriptions/{subId} {
+      allow read:  if isOwner(userId) || isAdmin();
+      allow write: if false; // Only via webhook
+    }
+
+    // ── Newsletter notifications (drafted on publish) ────────────────────
+    match /notifications/{notifId} {
+      allow read:   if isAdmin();
+      allow write:  if isAdmin();
+    }
+
+    // ── Calendar: availability (Elise's open hours) ──────────────────────
+    match /availability/{slotId} {
+      allow read:  if true; // Public so booking UI shows open slots
+      allow write: if isAdmin();
+    }
+
+    // ── Calendar: appointments ───────────────────────────────────────────
+    // Clients can only see their own; admin sees all.
+    match /appointments/{apptId} {
+      allow read:   if isAdmin()
+                    || (request.auth != null && resource.data.clientUid == request.auth.uid);
+      allow create: if isAdmin()
+                    || (request.auth != null
+                        && request.resource.data.clientUid == request.auth.uid
+                        && request.resource.data.status == "requested"
+                        && request.resource.data.createdBy == "client");
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── Calendar: personal events (admin-only) ───────────────────────────
+    match /personalEvents/{evId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

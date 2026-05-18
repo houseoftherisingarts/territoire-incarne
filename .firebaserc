@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "territoireincarne-80bb9"
+  },
+  "targets": {
+    "territoireincarne-80bb9": {
+      "hosting": {
+        "territoireincarne": [
+          "territoireincarne-80bb9"
+        ]
+      }
+    }
+  }
+}
