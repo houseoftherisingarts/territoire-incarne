@@ -59,6 +59,7 @@ export const App = () => {
       />
 
       <div
+        id="contenu"
         className={`transition-all duration-[2000ms] ease-in-out h-full ${
           view ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"
         }`}
