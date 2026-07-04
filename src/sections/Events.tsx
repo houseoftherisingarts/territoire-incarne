@@ -110,7 +110,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
         Vous portez l'idée d'un événement ?
       </h3>
       <p className="font-serif italic text-sm text-stone-600 dark:text-stone-300 max-w-md mx-auto leading-relaxed">
-        Atelier, retraite, cérémonie, festival — proposez-moi votre vision et nous regarderons ensemble si c'est possible.
+        Atelier, retraite, cérémonie, festival : proposez-moi votre vision et nous regarderons ensemble si c'est possible.
       </p>
       <button
         onClick={() => setShowRequest(true)}
