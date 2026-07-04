@@ -89,7 +89,7 @@ export const Boutique = ({ t, cart, subtotal, onAdd, onRemove }: Props) => {
   if (products.length === 0) {
     return (
       <p className="font-serif italic opacity-60 py-12 text-center">
-        La boutique est en préparation — revenez bientôt.
+        La boutique est en préparation, revenez bientôt.
       </p>
     );
   }
