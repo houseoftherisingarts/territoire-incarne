@@ -48,7 +48,7 @@ export const Connecter = ({ content }: { content: Content["sections"]["connecter
           disabled={status === "sending" || status === "sent"}
           className="text-sm font-sans tracking-[0.3em] uppercase hover:text-rust dark:hover:text-white transition-colors border-b border-transparent hover:border-rust dark:hover:border-white pb-1 text-ink dark:text-stone-200 w-full text-left disabled:opacity-50"
         >
-          {status === "sending" ? "Envoi…" : status === "sent" ? "✓ Reçu — merci" : content.btn}
+          {status === "sending" ? "Envoi…" : status === "sent" ? "✓ Reçu, merci" : content.btn}
         </button>
         {status === "error" && (
           <p className="font-sans text-xs text-rust">Un problème est survenu. Réessayez svp.</p>
