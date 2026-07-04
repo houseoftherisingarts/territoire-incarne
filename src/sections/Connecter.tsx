@@ -31,15 +31,17 @@ export const Connecter = ({ content }: { content: Content["sections"]["connecter
       <form className="space-y-8 w-full" onSubmit={submit}>
         <div className="relative">
           <input
+            id="connecter-email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder=" "
+            aria-label={content.placeholder}
             disabled={status === "sending" || status === "sent"}
             className="peer w-full bg-transparent border-b border-stone-400 dark:border-stone-500 py-4 text-xl outline-none focus:border-rust dark:focus:border-white transition-colors text-ink dark:text-stone-100 disabled:opacity-50"
             required
           />
-          <label className="absolute left-0 top-4 text-stone-400 dark:text-stone-400 transition-all duration-300 peer-focus:-top-6 peer-focus:text-xs peer-focus:text-rust dark:peer-focus:text-white peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-xs">
+          <label htmlFor="connecter-email" className="absolute left-0 top-4 text-stone-400 dark:text-stone-400 transition-all duration-300 peer-focus:-top-6 peer-focus:text-xs peer-focus:text-rust dark:peer-focus:text-white peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-xs">
             {content.placeholder}
           </label>
         </div>
