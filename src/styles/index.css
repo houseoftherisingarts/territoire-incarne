@@ -18,6 +18,42 @@ body {
   overflow-x: hidden;
 }
 
+/* Visible keyboard focus (the codebase strips outlines in a few inputs). */
+:focus-visible {
+  outline: 2px solid #9a6a4f;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip-to-content link: off-screen until focused. */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -3rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: #1f2520;
+  color: #f5f3ee;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+/* Honour reduced-motion: kill decorative transitions/animations, keep content. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
