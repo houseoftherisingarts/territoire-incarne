@@ -234,6 +234,14 @@ export const ClientPortal = () => {
             ← Retour au site
           </a>
           <button
+            onClick={toggleTheme}
+            aria-label={theme === "light" ? "Passer au mode sombre" : "Passer au mode clair"}
+            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-[10px] text-stone-100/60 hover:text-rust transition-colors"
+          >
+            {theme === "light" ? <Moon size={11} /> : <Sun size={11} />}
+            {theme === "light" ? "Mode sombre" : "Mode clair"}
+          </button>
+          <button
             onClick={logout}
             className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-[10px] text-stone-100/60 hover:text-rust transition-colors"
           >
