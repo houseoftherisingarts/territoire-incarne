@@ -84,8 +84,11 @@ export const Education = ({ content }: { content: Content["sections"]["education
                   <span className="font-bold text-rust dark:text-stone-300">{vid.price}</span>
                 </div>
                 <p className="text-sm text-stone-600 dark:text-stone-400 mb-4">{vid.desc}</p>
-                <button className="self-start px-6 py-2 bg-ink text-white dark:bg-white dark:text-forest rounded-full text-xs uppercase tracking-widest hover:opacity-90">
-                  Acheter
+                <button
+                  disabled
+                  className="self-start px-6 py-2 bg-ink/40 text-white dark:bg-white/40 dark:text-forest rounded-full text-xs uppercase tracking-widest cursor-not-allowed"
+                >
+                  Bientôt
                 </button>
               </div>
             </div>
