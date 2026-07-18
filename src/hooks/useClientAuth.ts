@@ -28,6 +28,10 @@ export interface ClientProfile {
   status: "pending" | "accepted" | "refused";
   newsletterOptIn: boolean;
   createdAt: unknown;
+  /** Forfait de séances défini par Élise (admin-only, voir firestore.rules). */
+  seancesTotal?: number;
+  /** Séances restantes; décrémenté quand une rencontre est complétée. */
+  seancesRemaining?: number;
 }
 
 let _signupOptOut = false;
