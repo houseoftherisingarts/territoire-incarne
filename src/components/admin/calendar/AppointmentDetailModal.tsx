@@ -38,11 +38,31 @@ export const AppointmentDetailModal = ({ appointment: a, onClose }: Props) => {
     }
   };
 
+  const complete = async () => {
+    setBusy(true);
+    try {
+      await completeSeance(a.clientUid, doc(db, "appointments", a.id), "completed");
+      await updateDoc(doc(db, "appointments", a.id), { notes });
+      onClose();
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const reject = async () => {
     setBusy(true);
-    await updateDoc(doc(db, "appointments", a.id), { status: "cancelled", notes });
-    setBusy(false);
-    onClose();
+    try {
+      if (a.status === "completed") {
+        // Redonne la séance décomptée avant d'annuler.
+        await uncompleteSeance(a.clientUid, doc(db, "appointments", a.id), "cancelled");
+        await updateDoc(doc(db, "appointments", a.id), { notes });
+      } else {
+        await updateDoc(doc(db, "appointments", a.id), { status: "cancelled", notes });
+      }
+      onClose();
+    } finally {
+      setBusy(false);
+    }
   };
 
   const remove = async () => {
