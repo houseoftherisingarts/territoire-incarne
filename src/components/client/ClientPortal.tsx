@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { Home, CalendarDays, MessageSquare, FolderOpen, LogOut, Menu, X, Send, ExternalLink, Video, Music } from "lucide-react";
+import { Home, CalendarDays, MessageSquare, FolderOpen, LogOut, Menu, X, Send, ExternalLink, Video, Music, Moon, Sun } from "lucide-react";
 import { ClientLogin } from "./ClientLogin";
 import { ClientProfile } from "./ClientProfile";
 import { ClientMeetingTab } from "./ClientMeetingTab";
 import { ClientClassesTab } from "./ClientClassesTab";
 import { ClientReservationsTab } from "./ClientReservationsTab";
 import { useClientAuth } from "../../hooks/useClientAuth";
+import { useTheme } from "../../hooks/useTheme";
 import { useChat } from "../../hooks/useChat";
 import { useClientDocs } from "../../hooks/useClientDocs";
 import { consumeReturnTo } from "../../lib/requireAuth";
