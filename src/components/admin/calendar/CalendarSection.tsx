@@ -54,6 +54,11 @@ export const AdminCalendarSection = () => {
 
   const firstError = appointmentsErr ?? availabilityErr ?? personalErr;
 
+  // Keep the technical detail in the console for the dev; the UI stays user-facing.
+  useEffect(() => {
+    if (firstError) console.error("Calendar load error:", firstError);
+  }, [firstError]);
+
   // Compute the start of the week containing `date` (Sunday)
   const weekStart = useMemo(() => addDays(date, -dayOfWeekMontreal(date)), [date]);
 
