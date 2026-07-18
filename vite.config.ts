@@ -12,6 +12,21 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: false,
     target: "es2020",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Isolate the Firebase SDK into its own long-cached vendor chunk so an
+          // app-code change doesn't force every visitor to re-download ~500 kB.
+          firebase: [
+            "firebase/app",
+            "firebase/auth",
+            "firebase/firestore",
+            "firebase/storage",
+            "firebase/functions",
+          ],
+        },
+      },
+    },
   },
   resolve: {
     alias: {
