@@ -52,6 +52,22 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
         )}
       </div>
 
+      {/* Séances card — visible dès qu'Élise a défini un forfait */}
+      {(typeof profile.seancesTotal === "number" || typeof profile.seancesRemaining === "number") && (
+        <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border bg-rust/5 dark:bg-rust/10 border-stone-200 dark:border-stone-700">
+          <CalendarHeart size={20} className="text-rust" />
+          <div>
+            <p className="font-sans text-[10px] uppercase tracking-widest opacity-60 mb-0.5">Séances restantes</p>
+            <p className="font-serif text-lg">
+              {profile.seancesRemaining ?? 0}
+              {typeof profile.seancesTotal === "number" && (
+                <span className="opacity-50 text-sm"> sur {profile.seancesTotal}</span>
+              )}
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Profile card */}
       <div className="border border-stone-200 dark:border-stone-700 rounded-2xl p-6 space-y-5 bg-white/40 dark:bg-white/5">
         {/* Avatar */}
