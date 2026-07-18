@@ -85,7 +85,7 @@ export const AdminShell = ({ section, onSectionChange, onLogout, children }: Pro
       >
         <div className="px-6 pt-8 pb-6 border-b border-white/10 flex items-center gap-4">
           <div className="w-12 h-12 rounded-full overflow-hidden border border-rust/40 shrink-0">
-            <img src={ELISE_MAIN_IMG} alt="Elise" className="w-full h-full object-cover grayscale-[20%]" />
+            <img src={ELISE_AVATAR_IMG} alt="Elise" className="w-full h-full object-cover grayscale-[20%]" />
           </div>
           <div className="min-w-0">
             <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-rust">Territoire Incarné</p>
