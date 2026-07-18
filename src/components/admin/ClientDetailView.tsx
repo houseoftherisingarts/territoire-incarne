@@ -6,12 +6,16 @@ import {
   XCircle,
   Send,
   Plus,
+  Minus,
   Trash2,
   FolderOpen,
   ExternalLink,
   CalendarDays,
   Video,
 } from "lucide-react";
+import { doc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { setForfait, adjustSeances, completeSeance, uncompleteSeance } from "../../lib/seances";
 import { MeetingTab } from "./MeetingTab";
 import { useChat } from "../../hooks/useChat";
 import { useClientDocs } from "../../hooks/useClientDocs";
