@@ -39,8 +39,10 @@ export const App = () => {
 
   const t = getContent(lang);
 
-  if (clientMode) return <Suspense fallback={null}><ClientPortal /></Suspense>;
-  if (adminMode)  return <Suspense fallback={null}><AdminDashboard /></Suspense>;
+  // font-serif so the "Territoire Incarné" brand title keeps Cormorant Garamond
+  // inside the portals too (explicit font-sans classes still win where set).
+  if (clientMode) return <div className="font-serif"><Suspense fallback={null}><ClientPortal /></Suspense></div>;
+  if (adminMode)  return <div className="font-serif"><Suspense fallback={null}><AdminDashboard /></Suspense></div>;
 
   return (
     <div className="h-screen w-full font-serif selection:bg-stone-300 dark:selection:bg-stone-600 selection:text-ink overflow-hidden bg-paper dark:bg-forest text-ink dark:text-stone-100 relative transition-colors duration-500">
