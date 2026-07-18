@@ -435,6 +435,83 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
   );
 };
 
+// ─── Séances (forfait + décompte) ────────────────────────────────────────────
+
+const SeancesWidget = ({ client }: { client: ClientProfile }) => {
+  const [forfaitVal, setForfaitVal] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const remaining = client.seancesRemaining ?? 0;
+  const total = client.seancesTotal;
+  const hasForfait = typeof total === "number";
+
+  const run = async (fn: () => Promise<void>) => {
+    setBusy(true);
+    try { await fn(); } finally { setBusy(false); }
+  };
+
+  const applyForfait = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const n = parseInt(forfaitVal, 10);
+    if (Number.isNaN(n) || n < 0) return;
+    await run(() => setForfait(client.uid, n));
+    setForfaitVal("");
+  };
+
+  return (
+    <div className="mt-5 pt-5 border-t border-ink/10 dark:border-white/10 flex flex-col md:flex-row md:items-center gap-4">
+      <div className="flex items-center gap-4">
+        <div>
+          <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 mb-1">Séances restantes</p>
+          <p className="font-serif text-3xl leading-none">
+            {remaining}
+            {hasForfait && (
+              <span className="text-base opacity-50"> / {total}</span>
+            )}
+          </p>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={() => run(() => adjustSeances(client.uid, -1))}
+            disabled={busy || remaining === 0}
+            aria-label="Retirer une séance"
+            className="p-2 rounded-full border border-ink/10 dark:border-white/10 hover:border-rust hover:text-rust transition-colors disabled:opacity-30"
+          >
+            <Minus size={13} />
+          </button>
+          <button
+            onClick={() => run(() => adjustSeances(client.uid, 1))}
+            disabled={busy}
+            aria-label="Ajouter une séance"
+            className="p-2 rounded-full border border-ink/10 dark:border-white/10 hover:border-rust hover:text-rust transition-colors disabled:opacity-30"
+          >
+            <Plus size={13} />
+          </button>
+        </div>
+      </div>
+
+      <form onSubmit={applyForfait} className="flex items-center gap-2 md:ml-auto">
+        <input
+          type="number"
+          min={0}
+          value={forfaitVal}
+          onChange={(e) => setForfaitVal(e.target.value)}
+          placeholder={hasForfait ? `Forfait : ${total}` : "ex. 10"}
+          aria-label="Nombre de séances du forfait"
+          className="w-28 bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust"
+        />
+        <button
+          type="submit"
+          disabled={busy || forfaitVal === ""}
+          className="px-4 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors disabled:opacity-40"
+        >
+          Définir le forfait
+        </button>
+      </form>
+    </div>
+  );
+};
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 type Tab = "messagerie" | "documents" | "rendez-vous" | "réunion";
