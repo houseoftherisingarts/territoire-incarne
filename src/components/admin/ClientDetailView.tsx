@@ -410,7 +410,7 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
               <div className="flex items-center gap-2 shrink-0">
                 <select
                   value={b.status}
-                  onChange={(e) => patch(b.id, e.target.value as BookingStatus)}
+                  onChange={(e) => changeStatus(b, e.target.value as BookingStatus)}
                   className={`text-[10px] font-sans uppercase tracking-widest font-bold px-3 py-1.5 rounded-full border-0 outline-none cursor-pointer ${STATUS_BOOKING_COLORS[b.status]}`}
                 >
                   {(["à venir", "confirmé", "annulé", "complété"] as BookingStatus[]).map((s) => (
