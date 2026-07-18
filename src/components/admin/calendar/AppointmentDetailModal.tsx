@@ -127,6 +127,11 @@ export const AppointmentDetailModal = ({ appointment: a, onClose }: Props) => {
                 <Check size={12} /> Approuver
               </button>
             )}
+            {a.status === "confirmed" && (
+              <button onClick={complete} disabled={busy} className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
+                <Check size={12} /> Séance complétée
+              </button>
+            )}
             {a.status !== "cancelled" && (
               <button onClick={reject} disabled={busy} className="inline-flex items-center gap-2 border border-rust/30 text-rust px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-rust hover:text-paper transition-colors disabled:opacity-50">
                 <X size={12} /> Annuler
