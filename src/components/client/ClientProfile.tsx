@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User, CheckCircle, Clock, XCircle, Edit2, Check, X, Mail } from "lucide-react";
+import { User, CheckCircle, Clock, XCircle, Edit2, Check, X, Mail, CalendarHeart } from "lucide-react";
 import type { ClientProfile as ClientProfileData } from "../../hooks/useClientAuth";
 
 const STATUS_CONFIG = {
