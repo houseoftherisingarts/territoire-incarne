@@ -593,6 +593,8 @@ export const ClientDetailView = ({ client, onBack, onUpdateStatus }: Props) => {
             </button>
           </div>
         </div>
+
+        <SeancesWidget client={client} />
       </Card>
 
       <div className="border-b border-ink/10 dark:border-white/10 flex gap-6 flex-wrap">
