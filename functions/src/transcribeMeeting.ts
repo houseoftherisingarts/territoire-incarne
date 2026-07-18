@@ -3,6 +3,12 @@ import { getFirestore } from "firebase-admin/firestore";
 
 const DAILY_BASE = "https://api.daily.co/v1";
 
+// Mirror of src/lib/admins.ts ADMIN_UIDS. Keep in sync with firestore.rules.
+const ADMIN_UIDS = [
+  "yDsFujEL8lUkEzrtFXQvgFoseH22", // fruiterre@gmail.com (added 2026-05-01)
+  "BYR9pdEGCfYpU5kmbMoyRr9paRq1", // legacy admin — remove once new account is verified
+];
+
 export const transcribeMeeting = onCall(
   {
     secrets: ["DAILY_API_KEY", "OPENAI_API_KEY"],
