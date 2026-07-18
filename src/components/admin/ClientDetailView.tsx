@@ -280,6 +280,18 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
   const [form, setForm] = useState({ title: "", date: "", time: "", notes: "" });
   const [busy, setBusy] = useState(false);
 
+  // "complété" décompte une séance du forfait; en sortir la redonne.
+  const changeStatus = async (b: { id: string; status: BookingStatus }, status: BookingStatus) => {
+    const ref = doc(db, "bookings", b.id);
+    if (status === "complété" && b.status !== "complété") {
+      await completeSeance(clientUid, ref, status);
+    } else if (b.status === "complété" && status !== "complété") {
+      await uncompleteSeance(clientUid, ref, status);
+    } else {
+      await patch(b.id, status);
+    }
+  };
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title.trim() || !form.date) return;
