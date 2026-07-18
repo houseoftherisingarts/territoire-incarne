@@ -77,6 +77,7 @@ interface Props {
 
 export const AdminShell = ({ section, onSectionChange, onLogout, children }: Props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggle: toggleTheme } = useTheme();
   const current = NAV.find((n) => n.id === section);
 
   return (
