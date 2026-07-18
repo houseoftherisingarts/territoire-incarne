@@ -88,8 +88,8 @@ export const createCheckoutSession = onCall(
       mode: isSubscription ? "subscription" : "payment",
       customer: customerId,
       line_items: lineItems,
-      success_url: `${APP_BASE_URL}${data.successPath ?? "/"}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${APP_BASE_URL}${data.cancelPath ?? "/"}`,
+      success_url: `${APP_BASE_URL}${successPath}?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${APP_BASE_URL}${cancelPath}`,
       metadata: { ...data.metadata, firebaseUid: uid, purpose: data.purpose },
       ...(isSubscription
         ? {}
