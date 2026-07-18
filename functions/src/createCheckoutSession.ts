@@ -39,6 +39,14 @@ export const createCheckoutSession = onCall(
       throw new HttpsError("invalid-argument", "purpose is required");
     }
 
+    // Only accept in-app relative paths for the post-checkout redirect, so a
+    // forged successPath like "@evil.example/x" can't turn the Stripe redirect
+    // into an open redirect that leaks the session_id.
+    const safePath = (p: string | undefined, fallback: string): string =>
+      typeof p === "string" && p.startsWith("/") && !p.startsWith("//") ? p : fallback;
+    const successPath = safePath(data.successPath, "/");
+    const cancelPath = safePath(data.cancelPath, "/");
+
     const stripe = getStripe();
     const db = getFirestore();
     const uid = request.auth.uid;
