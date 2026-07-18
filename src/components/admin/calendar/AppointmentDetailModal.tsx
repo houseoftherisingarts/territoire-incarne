@@ -4,6 +4,7 @@ import { X, Check, Trash2, Mail, Video, Clock, FileText } from "lucide-react";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { fmtDateLong, fmtTime } from "../../../lib/datetime";
+import { completeSeance, uncompleteSeance } from "../../../lib/seances";
 import { createDailyRoom } from "../../../services/daily";
 import type { Appointment } from "../../../types/calendar";
 
