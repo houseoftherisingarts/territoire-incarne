@@ -143,7 +143,7 @@ export const DetailView = ({
           </button>
         )}
 
-        <div className={`${fullWidth ? "p-8 md:p-16 lg:px-24 lg:pt-24 lg:pb-16 max-w-7xl" : "p-8 md:p-16 lg:p-24 max-w-3xl"} mx-auto min-h-full flex flex-col relative z-10`}>
+        <div className={`${fullWidth ? "p-8 md:p-16 lg:px-24 lg:pt-24 lg:pb-16 max-w-7xl" : "p-8 md:p-16 lg:p-24 max-w-3xl xl:max-w-4xl"} mx-auto min-h-full flex flex-col relative z-10`}>
           <div className="mb-12 pt-8 md:pt-0">
             <span className="block text-xs font-sans tracking-widest opacity-60 dark:opacity-50 mb-4 uppercase border-b border-stone-300 dark:border-stone-500 inline-block pb-1 text-ink dark:text-stone-300">
               {navTitle}
