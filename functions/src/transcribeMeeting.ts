@@ -11,10 +11,20 @@ export const transcribeMeeting = onCall(
     region: "us-central1",
   },
   async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Sign-in required");
+    }
+
     const { clientUid, meetingId } = request.data as { clientUid: string; meetingId: string };
 
     if (!clientUid || !meetingId) {
       throw new HttpsError("invalid-argument", "clientUid and meetingId are required");
+    }
+
+    // Only the meeting's own client or an admin can trigger transcription.
+    const isAdmin = ADMIN_UIDS.includes(request.auth.uid);
+    if (request.auth.uid !== clientUid && !isAdmin) {
+      throw new HttpsError("permission-denied", "Not allowed to transcribe this meeting");
     }
 
     const db = getFirestore();
