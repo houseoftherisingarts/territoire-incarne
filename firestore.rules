@@ -19,7 +19,7 @@ service cloud.firestore {
       allow create: if isOwner(userId);
       allow update: if isAdmin()
                     || (isOwner(userId)
-                        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['status', 'seancesTotal', 'seancesRemaining']));
+                        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['status', 'seancesTotal', 'seancesRemaining', 'stripeCustomerId', 'email']));
       allow delete: if isAdmin();
 
       match /docs/{docId} {
