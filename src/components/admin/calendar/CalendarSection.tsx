@@ -129,9 +129,8 @@ export const AdminCalendarSection = () => {
             <p className="font-bold text-red-700 dark:text-red-300 mb-1">
               Le calendrier n'arrive pas à charger.
             </p>
-            <p className="font-mono text-xs opacity-70 break-words">{firstError.message}</p>
             <p className="font-serif italic text-xs opacity-70 mt-1">
-              Si l'erreur mentionne "permission-denied", redéployez les règles Firestore. Sinon, contactez votre développeuse.
+              Réessayez dans un instant. Si le calendrier ne revient pas, écrivez à votre équipe technique.
             </p>
           </div>
         </div>
