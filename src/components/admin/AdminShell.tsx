@@ -20,7 +20,7 @@ import {
   Inbox,
   Pencil,
 } from "lucide-react";
-import { ELISE_MAIN_IMG } from "../../assets/images";
+import { ELISE_AVATAR_IMG } from "../../assets/images";
 
 export type AdminSectionId =
   | "dashboard"
