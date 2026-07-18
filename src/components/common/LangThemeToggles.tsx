@@ -57,7 +57,7 @@ export const LangThemeToggles = ({
           ) : (
             <LogIn size={12} className="shrink-0" />
           )}
-          <span className="text-[10px] font-sans uppercase tracking-widest">
+          <span className="hidden sm:inline text-[10px] font-sans uppercase tracking-widest">
             {user ? user.displayName?.split(" ")[0] || myClientSpaceLabel : clientSpaceLabel}
           </span>
         </button>
