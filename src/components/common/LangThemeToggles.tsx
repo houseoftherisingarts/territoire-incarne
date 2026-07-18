@@ -65,7 +65,11 @@ export const LangThemeToggles = ({
 
       <button
         onClick={onToggleTheme}
-        aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+        aria-label={
+          theme === "light"
+            ? (lang === "fr" ? "Passer au mode sombre" : "Switch to dark mode")
+            : (lang === "fr" ? "Passer au mode clair" : "Switch to light mode")
+        }
         className="opacity-50 hover:opacity-100 transition-opacity"
       >
         {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
