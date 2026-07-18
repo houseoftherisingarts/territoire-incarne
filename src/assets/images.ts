@@ -7,6 +7,8 @@ const px = (url: string, w: number): string =>
   `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=${w}&output=webp&q=75`;
 
 export const ELISE_MAIN_IMG = px(`${BASE}/elise%20main.png`, 1200);
+/** Small variant of the portrait for avatar slots (sidebar, login), ~48-64px. */
+export const ELISE_AVATAR_IMG = px(`${BASE}/elise%20main.png`, 128);
 export const ELISE_FIELD_IMG = px(`${BASE}/Elise%20field.png`, 1200);
 export const IMG_GLOBAL_BG = px(`${BASE}/Gemini_Generated_Image_7xqaqz7xqaqz7xqa.png`, 1600);
 export const IMG_THERAPIE = px(`${BASE}/Gemini_Generated_Image_3kge2o3kge2o3kge.png`, 1200);
