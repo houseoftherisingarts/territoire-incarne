@@ -66,20 +66,6 @@ export const fr = {
       title: "Soin Somatique",
       intro:
         "Une approche pour guérir les traumas et retrouver la sécurité. Un espace pour déposer ce qui est lourd et renouer avec sa vitalité.",
-      servicesList: [
-        {
-          title: "Soin de resensibilisation",
-          short: "Corps & Organes",
-          desc: "Un accompagnement doux pour rétablir la sensibilité et la sécurité dans le corps et les organes sexuels. Ce soin vise à libérer les mémoires traumatiques enkystées dans les tissus.",
-          image: IMG_THERAPIE,
-        },
-        {
-          title: "Peer Counseling",
-          short: "Soutien par les pairs",
-          desc: "Un espace d'écoute horizontale et de résonance. Ici, pas de hiérarchie soignant-soigné, mais une humanité partagée qui permet de déposer sa vérité sans jugement.",
-          image: ELISE_FIELD_IMG,
-        },
-      ],
       locations: [
         { type: "En Ligne", desc: "Via Zoom, dans le confort de votre foyer." },
         { type: "Présentiel", desc: "Au studio ou à domicile." },
