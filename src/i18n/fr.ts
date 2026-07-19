@@ -1,9 +1,3 @@
-import {
-  IMG_THERAPIE,
-  IMG_WRITINGS,
-  ELISE_FIELD_IMG,
-} from "../assets/images";
-
 export const fr = {
   general: {
     close: "Fermer",
