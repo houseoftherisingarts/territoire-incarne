@@ -99,21 +99,16 @@ export const Home = ({ t, onOpen }: Props) => {
         </nav>
       </div>
 
-      {/* Single feature portrait, centered in the hero. It floats toward the cursor
-          (spring-smoothed) with a soft 3D tilt, and warms to colour on direct hover. */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none"
-        style={{ perspective: 900 }}
-      >
-        <motion.div
-          style={{ x: floatX, y: floatY, rotateX, rotateY }}
-          className="group pointer-events-auto w-36 sm:w-40 lg:w-48 aspect-square overflow-hidden shadow-lg transition-shadow duration-700 ease-out hover:shadow-2xl"
-        >
+      {/* Single feature portrait, centered in the hero. The square frame stays fixed;
+          the image inside drifts with the cursor (spring-smoothed) for a parallax feel,
+          and warms to colour on direct hover. */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-36 sm:w-40 lg:w-48 aspect-square overflow-hidden shadow-lg group transition-shadow duration-700 ease-out hover:shadow-2xl">
+        <motion.div style={{ x: floatX, y: floatY, scale: 1.18 }} className="w-full h-full">
           <EditableImage
             contentKey="home.portrait.field"
             defaultUrl={ELISE_FIELD_IMG}
             alt="Elise .G Lortie dans un champ"
-            className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.06] transition-all duration-1000 ease-out"
+            className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-[filter] duration-1000 ease-out"
             loading="eager"
           />
         </motion.div>
