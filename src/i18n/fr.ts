@@ -88,22 +88,6 @@ export const fr = {
     education: {
       title: "Éducation",
       intro: "Un hub de ressources pour déconstruire les tabous et cultiver le consentement.",
-      bookConfTitle: "Conférences",
-      bookConfText: "Réserver une conférence pour votre organisation",
-      bookConfBtn: "Me contacter",
-      tabs: [
-        { title: "Conférences", content: ["Conférence sur l'attachement & Trauma", "La diversité & le droit de jouir"] },
-        { title: "Pratiques", content: ["Yoni Massage & Soin du sexe féminin", "Célébration Sexuelle Consensuelle"] },
-        { title: "En Ligne", content: ["Ateliers en ligne & Webinaire", "Cercles de parole virtuels"] },
-      ],
-      videoSection: {
-        title: "Vidéos à la carte",
-        items: [
-          { title: "Introduction à l'Anatomie Sensible", price: "45$", desc: "Exploration guidée du bassin et des fascias. (45 min)", img: IMG_WRITINGS },
-          { title: "Auto-Massage du Ventre", price: "30$", desc: "Pratique douce pour la digestion émotionnelle. (30 min)", img: IMG_THERAPIE },
-          { title: "Rituel du Matin", price: "15$", desc: "Mise en mouvement pour réveiller le corps. (15 min)", img: ELISE_FIELD_IMG },
-        ],
-      },
     },
     events: {
       title: "Événements",
