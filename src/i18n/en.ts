@@ -113,38 +113,6 @@ export const en: Content = {
     boutique: {
       title: "Shop",
       intro: "Simple tools to support your practice. Flat $30 shipping.",
-      categories: [
-        {
-          name: "Yoni Steam",
-          items: [
-            { name: "Herbs", price: 25, desc: "Blend for menopause and postpartum.", img: IMG_BOUTIQUE },
-            { name: "Artisan Benches", price: 150, desc: "Handmade from local wood.", img: IMG_ZEN_STONE },
-            { name: "Ritual Bowls", price: 45, desc: "Hand-thrown ceramic.", img: IMG_BOUTIQUE },
-          ],
-        },
-        {
-          name: "Stones & Tools",
-          items: [
-            { name: "Jade Eggs", price: 55, desc: "Certified nephrite jade for practice.", img: IMG_ZEN_STONE },
-            { name: "Obsidian", price: 60, desc: "Stone of truth and grounding.", img: IMG_BOUTIQUE },
-            { name: "Ceramic Dildos", price: 85, desc: "Soft-ceramic body art.", img: IMG_ZEN_STONE },
-          ],
-        },
-        {
-          name: "Body Care",
-          items: [
-            { name: "Ecstatic Honey", price: 20, desc: "Honey infused with aphrodisiac herbs.", img: IMG_BOUTIQUE },
-            { name: "Sacred Oils", price: 35, desc: "Anointing for body and soul.", img: IMG_ZEN_STONE },
-          ],
-        },
-        {
-          name: "Art & Culture",
-          items: [
-            { name: "Art Prints", price: 40, desc: "Yoni art prints on archival paper.", img: IMG_BOUTIQUE },
-            { name: "Album", price: 25, desc: "Sacred chants for practice.", img: IMG_ZEN_STONE },
-          ],
-        },
-      ],
     },
     writings: {
       title: "Writings",
