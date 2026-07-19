@@ -20,7 +20,7 @@ const handleNav =
   };
 
 export const Home = ({ t, onOpen }: Props) => {
-  // Pointer position over the hero, normalized to -0.5..0.5, spring-smoothed so the
+  // Pointer position over the portrait frame, normalized to -0.5..0.5, spring-smoothed so the
   // centered portrait gently floats toward the cursor instead of snapping.
   const px = useMotionValue(0);
   const py = useMotionValue(0);
