@@ -100,7 +100,11 @@ export const Home = ({ t, onOpen }: Props) => {
       {/* Single feature portrait, centered in the hero. The square frame stays fixed;
           the image inside drifts with the cursor (spring-smoothed) for a parallax feel,
           and warms to colour on direct hover. */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-36 sm:w-40 lg:w-48 aspect-square overflow-hidden shadow-lg group transition-shadow duration-700 ease-out hover:shadow-2xl">
+      <div
+        onPointerMove={trackPointer}
+        onPointerLeave={resetPointer}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-36 sm:w-40 lg:w-48 aspect-square overflow-hidden shadow-lg group transition-shadow duration-700 ease-out hover:shadow-2xl"
+      >
         <motion.div style={{ x: floatX, y: floatY, scale: 1.18 }} className="w-full h-full">
           <EditableImage
             contentKey="home.portrait.field"
