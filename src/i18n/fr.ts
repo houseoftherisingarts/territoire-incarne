@@ -116,11 +116,6 @@ export const fr = {
     writings: {
       title: "Écrits",
       intro: "Réflexions sur la lenteur, l'anatomie et le vivant.",
-      posts: [
-        { date: "Anatomie", title: "Le Clitoris : temple souterrain" },
-        { date: "Écologie", title: "Fruit de la terre : les fameux condoms" },
-        { date: "Réflexion", title: "Temple du vrai Soi : abondance et sécurité" },
-      ],
     },
     connecter: {
       title: "Connecter",
