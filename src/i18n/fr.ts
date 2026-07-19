@@ -112,38 +112,6 @@ export const fr = {
     boutique: {
       title: "Boutique",
       intro: "Des outils simples pour accompagner votre pratique. Frais de livraison fixes de 30$.",
-      categories: [
-        {
-          name: "Yoni Steam",
-          items: [
-            { name: "Plantes", price: 25, desc: "Mélange pour la ménopause et le postpartum.", img: IMG_BOUTIQUE },
-            { name: "Bancs artisanaux", price: 150, desc: "Fabriqué à la main en bois local.", img: IMG_ZEN_STONE },
-            { name: "Bols rituels", price: 45, desc: "Céramique tournée à la main.", img: IMG_BOUTIQUE },
-          ],
-        },
-        {
-          name: "Pierres & Outils",
-          items: [
-            { name: "Oeufs de Jade", price: 55, desc: "Jade néphrite certifié pour la pratique.", img: IMG_ZEN_STONE },
-            { name: "Obsidienne", price: 60, desc: "Pierre de vérité et d'ancrage.", img: IMG_BOUTIQUE },
-            { name: "Dildos Poterie", price: 85, desc: "Art corporel en céramique douce.", img: IMG_ZEN_STONE },
-          ],
-        },
-        {
-          name: "Body Care",
-          items: [
-            { name: "Ecstatic Honey", price: 20, desc: "Miel infusé aux herbes aphrodisiaques.", img: IMG_BOUTIQUE },
-            { name: "Sacred Oils", price: 35, desc: "Onction pour le corps et l'âme.", img: IMG_ZEN_STONE },
-          ],
-        },
-        {
-          name: "Art & Culture",
-          items: [
-            { name: "Art Prints", price: 40, desc: "Impressions Yoni sur papier d'archive.", img: IMG_BOUTIQUE },
-            { name: "Album", price: 25, desc: "Chants sacrés pour la pratique.", img: IMG_ZEN_STONE },
-          ],
-        },
-      ],
     },
     writings: {
       title: "Écrits",
