@@ -108,16 +108,6 @@ export const fr = {
     events: {
       title: "Événements",
       intro: "Retraites immersives et cercles de pratique pour plonger dans la matière.",
-      eventsList: [
-        { date: "12-14 Septembre", title: "Retraite: Le Silence des Os", loc: "Val-David", full: false },
-        { date: "25 Octobre", title: "Cercle: Voix & Ventre", loc: "Mont-Tremblant", full: true },
-        { date: "Novembre", title: "Immersion: Whirling Dervish", loc: "Ripon", full: false },
-      ],
-      historyTitle: "Archives",
-      historyList: [
-        { date: "Été 2023", title: "Festival du Féminin Sacré", loc: "Brocéliande" },
-        { date: "Hiver 2022", title: "Retraite: Racines Profondes", loc: "Sainte-Lucie" },
-      ],
     },
     boutique: {
       title: "Boutique",
