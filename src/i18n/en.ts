@@ -109,16 +109,6 @@ export const en: Content = {
     events: {
       title: "Events",
       intro: "Immersive retreats and practice circles to dive into matter.",
-      eventsList: [
-        { date: "Sept 12–14", title: "Retreat: The Silence of Bones", loc: "Val-David", full: false },
-        { date: "Oct 25", title: "Circle: Voice & Belly", loc: "Mont-Tremblant", full: true },
-        { date: "November", title: "Immersion: Whirling Dervish", loc: "Ripon", full: false },
-      ],
-      historyTitle: "Archives",
-      historyList: [
-        { date: "Summer 2023", title: "Sacred Feminine Festival", loc: "Brocéliande" },
-        { date: "Winter 2022", title: "Retreat: Deep Roots", loc: "Sainte-Lucie" },
-      ],
     },
     boutique: {
       title: "Shop",
