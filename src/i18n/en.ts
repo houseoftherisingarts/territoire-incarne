@@ -117,11 +117,6 @@ export const en: Content = {
     writings: {
       title: "Writings",
       intro: "Reflections on slowness, anatomy, and the living.",
-      posts: [
-        { date: "Anatomy", title: "The Clitoris: Underground Temple" },
-        { date: "Ecology", title: "Fruit of the Earth: The Famous Condoms" },
-        { date: "Reflection", title: "True Self Temple: Abundance & Safety" },
-      ],
     },
     connecter: {
       title: "Connect",
