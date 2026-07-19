@@ -527,6 +527,104 @@ const BookingFlow = ({
   );
 };
 
+const PastAppointmentRow = ({ a }: { a: Appointment }) => {
+  const cancelled = a.status === "cancelled";
+  const hasFeedback = !!(a.feedbackAt || a.feedbackLiked || a.feedbackLessLiked);
+  const [open, setOpen] = useState(false);
+  const [liked, setLiked] = useState(a.feedbackLiked ?? "");
+  const [lessLiked, setLessLiked] = useState(a.feedbackLessLiked ?? "");
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  // Stay in sync if the doc changes in real time (e.g. edited on another device).
+  useEffect(() => {
+    setLiked(a.feedbackLiked ?? "");
+    setLessLiked(a.feedbackLessLiked ?? "");
+  }, [a.feedbackLiked, a.feedbackLessLiked]);
+
+  const save = async () => {
+    setSaving(true);
+    try {
+      await updateDoc(doc(db, "appointments", a.id), {
+        feedbackLiked: liked.trim(),
+        feedbackLessLiked: lessLiked.trim(),
+        feedbackAt: serverTimestamp(),
+      });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err) {
+      console.error("Rétroaction échouée:", err);
+      alert("Impossible d'enregistrer la rétroaction. Réessayez.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="rounded-2xl border border-stone-200 dark:border-stone-700 bg-white/30 dark:bg-white/5">
+      <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
+        <span className="font-mono text-xs w-28 opacity-70">{fmtDateShort(a.start.toDate())}</span>
+        <span className="font-serif italic opacity-80">{a.type ?? "Consultation"}</span>
+        <span className={`text-[10px] uppercase tracking-widest ${cancelled ? "text-rust" : "text-stone-500"}`}>
+          {cancelled ? "Annulé" : "Terminé"}
+        </span>
+        {!cancelled && (
+          <button
+            onClick={() => setOpen(!open)}
+            className="ml-auto inline-flex items-center gap-1.5 text-[10px] font-sans uppercase tracking-widest text-rust hover:text-ink dark:hover:text-stone-100 transition-colors"
+          >
+            <MessageSquare size={11} />
+            {hasFeedback ? "Ma rétroaction" : "Laisser une rétroaction"}
+          </button>
+        )}
+      </div>
+
+      {open && !cancelled && (
+        <div className="px-4 pb-4 pt-1 space-y-3 border-t border-stone-200/70 dark:border-stone-700/70">
+          <div>
+            <label className="block text-[10px] font-sans uppercase tracking-[0.2em] text-forest dark:text-emerald-300 mb-1.5">
+              Qu'est-ce que tu as aimé de cette rencontre ?
+            </label>
+            <textarea
+              value={liked}
+              onChange={(e) => setLiked(e.target.value)}
+              rows={2}
+              placeholder="Ce qui t'a fait du bien…"
+              className="w-full bg-paper dark:bg-black/30 border border-forest/25 dark:border-white/10 rounded-xl px-3 py-2 text-sm font-serif outline-none focus:border-forest resize-none"
+            />
+          </div>
+          <div>
+            <label className="block text-[10px] font-sans uppercase tracking-[0.2em] text-rust mb-1.5">
+              Qu'est-ce que tu as moins aimé ?
+            </label>
+            <textarea
+              value={lessLiked}
+              onChange={(e) => setLessLiked(e.target.value)}
+              rows={2}
+              placeholder="Ce qui pourrait être ajusté…"
+              className="w-full bg-paper dark:bg-black/30 border border-rust/25 dark:border-white/10 rounded-xl px-3 py-2 text-sm font-serif outline-none focus:border-rust resize-none"
+            />
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={save}
+              disabled={saving}
+              className="bg-rust text-paper px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold hover:bg-ink transition-colors disabled:opacity-50"
+            >
+              {saving ? "Envoi…" : hasFeedback ? "Mettre à jour" : "Envoyer"}
+            </button>
+            {saved && (
+              <span className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-forest dark:text-emerald-300">
+                <Sparkles size={11} /> Merci, envoyé.
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const CallOverlay = ({ url, onClose }: { url: string; onClose: () => void }) => (
   <div className="fixed inset-0 z-[200] bg-black/80 flex items-center justify-center p-4">
     <div className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden">
