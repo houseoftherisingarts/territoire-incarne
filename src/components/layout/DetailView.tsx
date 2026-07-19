@@ -163,7 +163,6 @@ export const DetailView = ({
           </div>
 
           {id === "therapie" && <Therapie content={t.sections.therapie} />}
-          {id === "education" && <Education content={t.sections.education} />}
           {id === "mouvement" && <Mouvement content={t.sections.mouvement} />}
           {id === "events" && <Events content={t.sections.events} />}
           {id === "ressources" && <Ressources content={t.sections.ressources} />}
