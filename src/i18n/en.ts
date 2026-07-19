@@ -67,20 +67,6 @@ export const en: Content = {
       title: "Somatic Care",
       intro:
         "An approach to heal trauma and rebuild safety. A space to set down what is heavy and reconnect with vitality.",
-      servicesList: [
-        {
-          title: "Resensitization Care",
-          short: "Body & Organs",
-          desc: "Gentle support to restore sensitivity and safety in the body and sexual organs. This work releases traumatic memories held in the tissues.",
-          image: IMG_THERAPIE,
-        },
-        {
-          title: "Peer Counseling",
-          short: "Peer support",
-          desc: "A space of horizontal listening and resonance. No caregiver–patient hierarchy — a shared humanity where truth can be set down without judgment.",
-          image: ELISE_FIELD_IMG,
-        },
-      ],
       locations: [
         { type: "Online", desc: "Via Zoom, from the comfort of your home." },
         { type: "In Person", desc: "At the studio or at home." },
