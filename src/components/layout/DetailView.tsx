@@ -3,7 +3,6 @@ import type { Content } from "../../i18n";
 import type { CartItem, Lang, SectionId } from "../../types";
 import {
   ELISE_MAIN_IMG,
-  IMG_BOUTIQUE,
   IMG_THERAPIE,
   IMG_WRITINGS,
   IMG_ZEN_STONE,
