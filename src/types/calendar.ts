@@ -60,6 +60,12 @@ export interface Appointment {
   meetingUrl?: string;
   createdBy: "client" | "admin";
   createdAt: Timestamp | null;
+  /** Marks that this rencontre already decremented the client's séance counter. */
+  seanceCounted?: boolean;
+  /** Post-session feedback left by the client (real-time). */
+  feedbackLiked?: string;
+  feedbackLessLiked?: string;
+  feedbackAt?: Timestamp | null;
 }
 
 export interface PersonalEvent {
