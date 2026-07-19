@@ -1,8 +1,3 @@
-import {
-  IMG_THERAPIE,
-  IMG_WRITINGS,
-  ELISE_FIELD_IMG,
-} from "../assets/images";
 import type { Content } from "./fr";
 
 export const en: Content = {
