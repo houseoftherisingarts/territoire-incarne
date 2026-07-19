@@ -121,6 +121,26 @@ export const AppointmentDetailModal = ({ appointment: a, onClose }: Props) => {
               className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm font-serif italic outline-none focus:border-rust resize-none" />
           </div>
 
+          {(a.feedbackLiked || a.feedbackLessLiked) && (
+            <div className="space-y-2 rounded-2xl bg-ink/5 dark:bg-white/5 p-3">
+              <p className="text-[10px] font-sans uppercase tracking-widest text-rust flex items-center gap-1.5">
+                <MessageSquare size={11} /> Rétroaction de la cliente
+              </p>
+              {a.feedbackLiked && (
+                <div>
+                  <p className="text-[10px] font-sans uppercase tracking-widest text-forest dark:text-emerald-300 mb-0.5">Aimé</p>
+                  <p className="text-sm font-serif italic">{a.feedbackLiked}</p>
+                </div>
+              )}
+              {a.feedbackLessLiked && (
+                <div>
+                  <p className="text-[10px] font-sans uppercase tracking-widest text-rust mb-0.5">Moins aimé</p>
+                  <p className="text-sm font-serif italic">{a.feedbackLessLiked}</p>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="flex flex-wrap gap-2 pt-3 border-t border-ink/5 dark:border-white/5">
             {a.status === "requested" && (
               <button onClick={approve} disabled={busy} className="inline-flex items-center gap-2 bg-forest text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
