@@ -233,13 +233,7 @@ const MyAppointments = ({
           <h3 className="font-sans text-[10px] uppercase tracking-[0.3em] opacity-60 mb-3">Passés</h3>
           <div className="space-y-2">
             {past.slice(0, 8).map((a) => (
-              <div key={a.id} className="flex items-center gap-3 py-2 text-sm opacity-70">
-                <span className="font-mono text-xs w-32">{fmtDateShort(a.start.toDate())}</span>
-                <span className="font-serif italic">{a.type ?? "Consultation"}</span>
-                <span className={`ml-auto text-[10px] uppercase tracking-widest ${a.status === "cancelled" ? "text-rust" : "text-stone-500"}`}>
-                  {a.status === "cancelled" ? "Annulé" : "Terminé"}
-                </span>
-              </div>
+              <PastAppointmentRow key={a.id} a={a} />
             ))}
           </div>
         </div>
