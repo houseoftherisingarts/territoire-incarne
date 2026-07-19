@@ -10,7 +10,10 @@ export const ELISE_MAIN_IMG = px(`${BASE}/elise%20main.png`, 1200);
 /** Small variant of the portrait for avatar slots (sidebar, login), ~48-64px. */
 export const ELISE_AVATAR_IMG = px(`${BASE}/elise%20main.png`, 128);
 export const ELISE_FIELD_IMG = px(`${BASE}/Elise%20field.png`, 1200);
-export const IMG_GLOBAL_BG = px(`${BASE}/Gemini_Generated_Image_7xqaqz7xqaqz7xqa.png`, 1600);
+// Global atmospheric texture (path through a field) + home feature background
+// (Élise in nature, AI-upscaled). Served locally from public/media, so no proxy.
+export const IMG_GLOBAL_BG = "/media/elise-road.webp";
+export const ELISE_HOME_BG = "/media/elise-home-bg.webp";
 export const IMG_THERAPIE = px(`${BASE}/Gemini_Generated_Image_3kge2o3kge2o3kge.png`, 1200);
 export const IMG_BOUTIQUE = px(`${BASE}/Gemini_Generated_Image_jm4kgyjm4kgyjm4k.png`, 1200);
 export const IMG_WRITINGS = px(`${BASE}/Gemini_Generated_Image_1lmib01lmib01lmi.png`, 1200);
