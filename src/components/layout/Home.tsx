@@ -49,26 +49,6 @@ export const Home = ({ t, onOpen }: Props) => (
           />
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 w-full max-w-[140px] md:max-w-[160px] lg:max-w-[180px] overflow-hidden flex-shrink-0 pl-12 lg:pl-0">
-          {[
-            { key: "home.portrait.main",  src: ELISE_MAIN_IMG,  alt: "Portrait d'Elise G. Lortie", priority: true },
-            { key: "home.portrait.soin",  src: IMG_THERAPIE,    alt: "Soin somatique",             priority: false },
-            { key: "home.portrait.field", src: ELISE_FIELD_IMG, alt: "Elise dans un champ",        priority: false },
-          ].map((img) => (
-            <div
-              key={img.key}
-              className="relative group w-full aspect-square overflow-hidden shadow-lg transition-transform duration-700 hover:scale-[1.02]"
-            >
-              <EditableImage
-                contentKey={img.key}
-                defaultUrl={img.src}
-                alt={img.alt}
-                className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000"
-                loading={img.priority ? "eager" : "lazy"}
-              />
-            </div>
-          ))}
-        </div>
       </div>
 
       <nav
