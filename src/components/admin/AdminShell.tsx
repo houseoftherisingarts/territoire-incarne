@@ -93,7 +93,7 @@ export const AdminShell = ({ section, onSectionChange, onLogout, children }: Pro
           </div>
           <div className="min-w-0">
             <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-rust">Territoire Incarné</p>
-            <p className="text-sm font-serif italic text-stone-100/80 mt-0.5 truncate">Elise G. Lortie</p>
+            <p className="text-sm font-serif italic text-stone-100/80 mt-0.5 truncate">Elise .G Lortie</p>
           </div>
         </div>
 

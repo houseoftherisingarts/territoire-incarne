@@ -44,7 +44,7 @@ export const Home = ({ t, onOpen }: Props) => (
           <EditableText
             as="p"
             contentKey="home.hero.subtitle"
-            defaultValue="par Elise G. Lortie"
+            defaultValue="par Elise .G Lortie"
             className="font-sans text-xs tracking-[0.25em] opacity-50 uppercase ml-1 border-l border-stone-400 dark:border-stone-500 pl-4 py-1 dark:text-stone-200 inline-block"
           />
         </div>
@@ -74,11 +74,11 @@ export const Home = ({ t, onOpen }: Props) => (
     </div>
 
     {/* Single feature portrait, centered along the base of the hero for a deliberate, editorial feel. */}
-    <div className="absolute bottom-8 lg:bottom-10 left-1/2 -translate-x-1/2 z-10 w-36 sm:w-40 lg:w-48 aspect-square overflow-hidden shadow-lg group">
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-36 sm:w-40 lg:w-48 aspect-square overflow-hidden shadow-lg group">
       <EditableImage
         contentKey="home.portrait.field"
         defaultUrl={ELISE_FIELD_IMG}
-        alt="Elise G. Lortie dans un champ"
+        alt="Elise .G Lortie dans un champ"
         className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000"
         loading="eager"
       />

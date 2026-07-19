@@ -31,7 +31,7 @@ export const AdminLogin = ({ onLogin, onDevBypass }: Props) => {
           <img src={IMG_ZEN_STONE} className="w-full h-full object-cover opacity-30 mix-blend-multiply dark:mix-blend-overlay" alt="" />
         </div>
         <div className="relative z-20 w-full max-w-sm aspect-[3/4] shadow-2xl -rotate-1 rounded-[30px] overflow-hidden">
-          <img src={ELISE_MAIN_IMG} className="w-full h-full object-cover grayscale-[20%] opacity-90" alt="Elise G. Lortie" />
+          <img src={ELISE_MAIN_IMG} className="w-full h-full object-cover grayscale-[20%] opacity-90" alt="Elise .G Lortie" />
         </div>
       </div>
 
@@ -46,7 +46,7 @@ export const AdminLogin = ({ onLogin, onDevBypass }: Props) => {
             Territoire Incarné
           </h1>
           <p className="font-sans text-[11px] tracking-[0.25em] opacity-50 uppercase mb-10 border-l border-stone-400 dark:border-stone-500 pl-4 py-1">
-            Tableau de bord · Elise G. Lortie
+            Tableau de bord · Elise .G Lortie
           </p>
 
           <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-2">

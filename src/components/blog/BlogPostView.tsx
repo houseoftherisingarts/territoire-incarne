@@ -41,7 +41,7 @@ export const BlogPostView = ({ slug, lang, onBack }: Props) => {
     const t = post.seo?.metaTitle || (lang === "en" ? post.en?.title : post.fr.title) || "Territoire Incarné";
     document.title = `${t} · Territoire Incarné`;
     return () => {
-      document.title = "Territoire Incarné | Elise G. Lortie";
+      document.title = "Territoire Incarné | Elise .G Lortie";
     };
   }, [post, lang]);
 

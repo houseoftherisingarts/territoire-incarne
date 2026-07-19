@@ -36,7 +36,7 @@ export const fr = {
     apropos: {
       title: "À propos",
       intro:
-        "Elise G. Lortie tisse des espaces où le corps redevient un territoire de vérité. Thérapeute somatique et artiste, elle accompagne le retour au sensible par le mouvement, la parole et le silence.",
+        "Elise .G Lortie tisse des espaces où le corps redevient un territoire de vérité. Thérapeute somatique et artiste, elle accompagne le retour au sensible par le mouvement, la parole et le silence.",
       longText:
         "Notre méthode repose sur la conviction que le corps détient sa propre sagesse. À travers une écoute profonde des fascias, du système nerveux et des impulsions subtiles, nous apprenons à naviguer les paysages intérieurs avec douceur. Ce n'est pas une correction de ce qui est brisé, mais une révélation de ce qui est déjà entier. Nous cultivons la lenteur comme un acte de résistance, permettant à l'intégration de se faire au rythme organique du vivant.",
     },

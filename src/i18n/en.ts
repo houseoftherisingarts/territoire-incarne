@@ -37,7 +37,7 @@ export const en: Content = {
     apropos: {
       title: "About",
       intro:
-        "Elise G. Lortie weaves spaces where the body becomes a territory of truth again. A somatic therapist and artist, she accompanies the return to the sensible through movement, voice, and silence.",
+        "Elise .G Lortie weaves spaces where the body becomes a territory of truth again. A somatic therapist and artist, she accompanies the return to the sensible through movement, voice, and silence.",
       longText:
         "Our method rests on the conviction that the body holds its own wisdom. Through deep listening to fascia, the nervous system, and subtle impulses, we learn to navigate inner landscapes with gentleness. This is not a correction of what is broken, but a revelation of what is already whole. We cultivate slowness as an act of resistance, letting integration unfold at the organic rhythm of the living.",
     },
