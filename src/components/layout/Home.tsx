@@ -70,18 +70,18 @@ export const Home = ({ t, onOpen }: Props) => (
             </span>
           </a>
         ))}
-
-        {/* Single feature portrait, tucked under the menu, right-aligned with the nav. */}
-        <div className="mt-10 lg:mt-14 w-40 sm:w-44 lg:w-52 aspect-square relative group overflow-hidden shadow-lg flex-shrink-0">
-          <EditableImage
-            contentKey="home.portrait.field"
-            defaultUrl={ELISE_FIELD_IMG}
-            alt="Elise G. Lortie dans un champ"
-            className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000"
-            loading="eager"
-          />
-        </div>
       </nav>
+    </div>
+
+    {/* Single feature portrait, centered along the base of the hero for a deliberate, editorial feel. */}
+    <div className="absolute bottom-8 lg:bottom-10 left-1/2 -translate-x-1/2 z-10 w-36 sm:w-40 lg:w-48 aspect-square overflow-hidden shadow-lg group">
+      <EditableImage
+        contentKey="home.portrait.field"
+        defaultUrl={ELISE_FIELD_IMG}
+        alt="Elise G. Lortie dans un champ"
+        className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000"
+        loading="eager"
+      />
     </div>
   </main>
 );
