@@ -42,8 +42,6 @@ export const Home = ({ t, onOpen }: Props) => {
 
   return (
     <main
-      onPointerMove={trackPointer}
-      onPointerLeave={resetPointer}
       className="h-full w-full flex flex-col relative transition-all duration-[2000ms] ease-in-out px-6 md:px-12 lg:px-16 pt-8 pb-8"
     >
       {/* Home feature background: Élise in nature (AI-upscaled), kept legible by a paper/forest gradient. */}
