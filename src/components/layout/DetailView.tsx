@@ -17,7 +17,6 @@ import {
   Apropos,
   Boutique,
   Connecter,
-  Education,
   Events,
   Mouvement,
   MouvementSidebarForm,
