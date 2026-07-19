@@ -36,8 +36,6 @@ const sidebarFor = (id: SectionId): SidebarConfig => {
       return { image: ELISE_MAIN_IMG, imageScaleClass: "scale-100" };
     case "therapie":
       return { image: IMG_THERAPIE, imageScaleClass: "scale-110" };
-    case "education":
-      return { image: IMG_BOUTIQUE, imageScaleClass: "scale-100" };
     case "writings":
       return { image: IMG_WRITINGS, imageScaleClass: "scale-100" };
     case "events":
