@@ -25,7 +25,6 @@ export interface CartItem {
 
 export const NAV_ORDER: SectionId[] = [
   "therapie",
-  "education",
   "mouvement",
   "events",
   "ressources",
