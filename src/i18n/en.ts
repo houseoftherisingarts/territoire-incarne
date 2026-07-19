@@ -89,22 +89,6 @@ export const en: Content = {
     education: {
       title: "Education",
       intro: "A hub of resources to undo taboo and cultivate consent.",
-      bookConfTitle: "Talks",
-      bookConfText: "Book a talk for your organization",
-      bookConfBtn: "Contact me",
-      tabs: [
-        { title: "Talks", content: ["Attachment & Trauma talk", "Diversity & the right to pleasure"] },
-        { title: "Practices", content: ["Yoni Massage & Female Sexual Care", "Consensual Sexual Celebration"] },
-        { title: "Online", content: ["Online workshops & webinars", "Virtual sharing circles"] },
-      ],
-      videoSection: {
-        title: "Videos on demand",
-        items: [
-          { title: "Intro to Sensible Anatomy", price: "$45", desc: "Guided exploration of the pelvis and fascia. (45 min)", img: IMG_WRITINGS },
-          { title: "Belly Self-Massage", price: "$30", desc: "Gentle practice for emotional digestion. (30 min)", img: IMG_THERAPIE },
-          { title: "Morning Ritual", price: "$15", desc: "Movement to awaken the body. (15 min)", img: ELISE_FIELD_IMG },
-        ],
-      },
     },
     events: {
       title: "Events",
