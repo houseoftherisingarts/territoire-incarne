@@ -190,7 +190,13 @@ service cloud.firestore {
                         && request.resource.data.clientUid == request.auth.uid
                         && request.resource.data.status == "requested"
                         && request.resource.data.createdBy == "client");
-      allow update: if isAdmin();
+      // Admin can update anything; the client (owner) can only write their own
+      // post-session feedback, never status/price/anything else.
+      allow update: if isAdmin()
+                    || (request.auth != null
+                        && resource.data.clientUid == request.auth.uid
+                        && request.resource.data.diff(resource.data).affectedKeys()
+                            .hasOnly(['feedbackLiked', 'feedbackLessLiked', 'feedbackAt']));
       allow delete: if isAdmin();
     }
 
