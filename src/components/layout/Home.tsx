@@ -27,10 +27,8 @@ export const Home = ({ t, onOpen }: Props) => {
   const spring = { stiffness: 90, damping: 16, mass: 0.7 };
   const sx = useSpring(px, spring);
   const sy = useSpring(py, spring);
-  const floatX = useTransform(sx, (v) => v * 46);
-  const floatY = useTransform(sy, (v) => v * 46);
-  const rotateY = useTransform(sx, (v) => v * 9);
-  const rotateX = useTransform(sy, (v) => v * -9);
+  const floatX = useTransform(sx, (v) => v * 30);
+  const floatY = useTransform(sy, (v) => v * 30);
 
   const trackPointer = (e: React.PointerEvent<HTMLElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
