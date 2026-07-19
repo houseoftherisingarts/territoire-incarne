@@ -20,16 +20,19 @@ const handleNav =
 
 export const Home = ({ t, onOpen }: Props) => (
   <main className="h-full w-full flex flex-col relative transition-all duration-[2000ms] ease-in-out px-6 md:px-12 lg:px-16 pt-8 pb-8">
-    {/* Home feature background: Élise in nature (AI-upscaled), kept legible by a paper/forest gradient. */}
-    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+    {/* Home feature image: Élise in nature (AI-upscaled) gets its OWN zone on the
+        right so the left column (title + thumbnails) never sits on top of it.
+        A soft left/top fade blends its edge into the page and keeps text legible. */}
+    <div className="absolute inset-y-0 right-0 left-[28%] md:left-[32%] overflow-hidden pointer-events-none select-none" aria-hidden="true">
       <img
         src={ELISE_HOME_BG}
         alt=""
-        className="w-full h-full object-cover opacity-[0.30] dark:opacity-[0.22] grayscale"
+        className="w-full h-full object-cover object-[22%_center] opacity-90 dark:opacity-[0.72] grayscale"
         loading="eager"
         decoding="async"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-paper via-paper/65 to-paper/25 dark:from-forest dark:via-forest/75 dark:to-forest/35" />
+      <div className="absolute inset-0 bg-gradient-to-r from-paper via-paper/15 to-transparent dark:from-forest dark:via-forest/15 dark:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-paper/60 via-transparent to-transparent dark:from-forest/70 dark:via-transparent dark:to-transparent" />
     </div>
 
     <div className="flex flex-col lg:flex-row justify-between items-start w-full z-10 h-full">
