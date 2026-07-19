@@ -1,4 +1,4 @@
-import { ELISE_MAIN_IMG, ELISE_FIELD_IMG, IMG_THERAPIE, ELISE_HOME_BG } from "../../assets/images";
+import { ELISE_FIELD_IMG, ELISE_HOME_BG } from "../../assets/images";
 import { NAV_ORDER, type SectionId } from "../../types";
 import { pathForSection } from "../../routes";
 import type { Content } from "../../i18n";
