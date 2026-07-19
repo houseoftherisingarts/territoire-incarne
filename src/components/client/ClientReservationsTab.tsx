@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import {
   collection, onSnapshot, query, where, addDoc, serverTimestamp, Timestamp, orderBy,
+  doc, updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useFirestoreCollection } from "../../hooks/useFirestoreCollection";
