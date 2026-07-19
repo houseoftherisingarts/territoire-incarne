@@ -4,7 +4,6 @@ export const SECTION_TO_PATH: Record<SectionId, string> = {
   apropos: "/a-propos",
   therapie: "/therapie",
   mouvement: "/mouvement",
-  education: "/education",
   events: "/evenements",
   ressources: "/ressources",
   connecter: "/connecter",
