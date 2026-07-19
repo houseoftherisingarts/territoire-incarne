@@ -1,8 +1,6 @@
 import {
   IMG_THERAPIE,
-  IMG_BOUTIQUE,
   IMG_WRITINGS,
-  IMG_ZEN_STONE,
   ELISE_FIELD_IMG,
 } from "../assets/images";
 import type { Content } from "./fr";
