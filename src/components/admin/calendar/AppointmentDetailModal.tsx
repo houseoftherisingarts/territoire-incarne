@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { X, Check, Trash2, Mail, Video, Clock, FileText } from "lucide-react";
+import { X, Check, Trash2, Mail, Video, Clock, FileText, MessageSquare } from "lucide-react";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { fmtDateLong, fmtTime } from "../../../lib/datetime";
