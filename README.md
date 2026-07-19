@@ -2,7 +2,7 @@
 
 Site for Elise G. Lortie — somatic therapy, movement, and education.
 
-Stack: **Vite + React 19 + TypeScript + Tailwind CSS**, deployed on **Firebase Hosting** to **territoireincarne.ca**.
+Stack: **Vite + React 19 + TypeScript + Tailwind CSS**, deployed on **Firebase Hosting** to **territoireincarne.com**.
 
 ## Project structure
 
@@ -58,9 +58,9 @@ npm run deploy                 # prod
 npm run deploy:preview         # temporary preview channel URL
 ```
 
-## Custom domain: territoireincarne.ca
+## Custom domain: territoireincarne.com
 
-In Firebase Console → Hosting → **Add custom domain** → enter `territoireincarne.ca`
+In Firebase Console → Hosting → **Add custom domain** → enter `territoireincarne.com`
 (add `www` as a second domain if desired).
 
 Firebase gives you DNS records to add at your registrar:

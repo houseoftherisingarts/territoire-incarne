@@ -42,7 +42,7 @@ export const buildIcs = (events: IcalEvent[], calendarName = "Territoire Incarn√
   const now = fmtUtc(new Date());
   for (const ev of events) {
     lines.push("BEGIN:VEVENT");
-    lines.push(`UID:${ev.uid}@territoireincarne.ca`);
+    lines.push(`UID:${ev.uid}@territoireincarne.com`);
     lines.push(`DTSTAMP:${now}`);
     lines.push(`DTSTART:${fmtUtc(ev.start)}`);
     lines.push(`DTEND:${fmtUtc(ev.end)}`);

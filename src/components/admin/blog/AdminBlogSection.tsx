@@ -365,7 +365,7 @@ const PostEditor = ({ existing, onClose }: EditorProps) => {
           <div>
             <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Adresse de l'article</label>
             <div className="flex items-center gap-2 font-mono text-sm">
-              <span className="opacity-50">territoireincarne.ca/ecrits/</span>
+              <span className="opacity-50">territoireincarne.com/ecrits/</span>
               <input
                 type="text"
                 value={post.slug || slug}

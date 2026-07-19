@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://territoireincarne.ca/sitemap.xml
+Sitemap: https://territoireincarne.com/sitemap.xml

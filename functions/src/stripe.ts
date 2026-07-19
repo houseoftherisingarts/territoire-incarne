@@ -11,4 +11,4 @@ export const getStripe = (): Stripe => {
 };
 
 export const APP_BASE_URL =
-  process.env.APP_BASE_URL ?? "https://territoireincarne.ca";
+  process.env.APP_BASE_URL ?? "https://territoireincarne.com";
