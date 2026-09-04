@@ -12,12 +12,18 @@ import {
 import { Send, Music } from "lucide-react";
 import { db } from "../../firebase";
 import { startCheckout } from "../../hooks/useCheckout";
+import { GroupRoom } from "../common/GroupRoom";
+import type { Seance } from "../../lib/groupSchedule";
 
 interface MyClassRow {
   classId: string;
   status: "pending" | "approved" | "paid" | "rejected";
   title: string;
   priceCents: number;
+  format: "video" | "audio";
+  seances: Seance[];
+  roomUrl?: string;
+  roomName?: string;
 }
 
 interface ChatMessage {
@@ -44,11 +50,16 @@ const useMyRequests = (uid: string) => {
           const reqSnap = await getDoc(doc(db, `classes/${d.id}/requests/${uid}`));
           if (reqSnap.exists()) {
             const r = reqSnap.data();
+            const c = d.data();
             all.push({
               classId: d.id,
               status: (r.status as MyClassRow["status"]) ?? "pending",
-              title: d.data().title ?? "",
-              priceCents: d.data().priceCents ?? 0,
+              title: c.title ?? "",
+              priceCents: c.priceCents ?? 0,
+              format: (c.format as MyClassRow["format"]) ?? "video",
+              seances: (c.seances as Seance[]) ?? [],
+              roomUrl: c.roomUrl as string | undefined,
+              roomName: c.roomName as string | undefined,
             });
           }
         }),
@@ -187,6 +198,16 @@ export const ClientClassesTab = ({ uid, displayName }: { uid: string; displayNam
               </button>
             )}
           </div>
+          {row.status === "paid" && (
+            <div className="mt-4">
+              <GroupRoom
+                format={row.format}
+                seances={row.seances}
+                roomUrl={row.roomUrl}
+                roomName={row.roomName}
+              />
+            </div>
+          )}
           {row.status === "paid" && <ClassChatroom classId={row.classId} uid={uid} displayName={displayName} />}
         </div>
       ))}

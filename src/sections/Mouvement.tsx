@@ -11,6 +11,7 @@ import { ELISE_FIELD_IMG } from "../assets/images";
 import { requireAuth } from "../lib/requireAuth";
 import type { Content } from "../i18n";
 import type { DanceClass } from "../components/admin/ClassesAdminSection";
+import { prochaineSeance, formatSeance } from "../lib/groupSchedule";
 
 const money = (cents: number) =>
   cents === 0 ? "Gratuit" : (cents / 100).toLocaleString("fr-CA", { style: "currency", currency: "CAD" });
@@ -83,7 +84,14 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
         {cls.description && (
           <p className="text-sm font-serif italic opacity-70 mt-1">{cls.description}</p>
         )}
-        <p className="text-xs opacity-60 mt-1">{money(cls.priceCents)}</p>
+        <p className="text-xs opacity-60 mt-1">
+          {money(cls.priceCents)}
+          {" · "}
+          {(cls.format ?? "video") === "audio" ? "en audio" : "en vidéo"}
+          {prochaineSeance(cls.seances ?? []) && (
+            <span className="capitalize"> · {formatSeance(prochaineSeance(cls.seances ?? [])!.debut)}</span>
+          )}
+        </p>
       </div>
       <button
         onClick={request}

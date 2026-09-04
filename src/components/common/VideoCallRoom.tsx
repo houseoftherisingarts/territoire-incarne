@@ -22,11 +22,22 @@ const getSR = (): (new () => SpeechRec) | null =>
 interface Props {
   roomUrl: string;
   token: string;
-  onTranscriptChunk: (chunk: string) => void;
+  onTranscriptChunk?: (chunk: string) => void;
   onEnd: () => void;
+  /** Les cercles de groupe ne se transcrivent pas : le bouton disparait. */
+  allowTranscript?: boolean;
+  /** Ce qui s'ecrit sur le bouton de sortie. */
+  endLabel?: string;
 }
 
-export const VideoCallRoom = ({ roomUrl, token, onTranscriptChunk, onEnd }: Props) => {
+export const VideoCallRoom = ({
+  roomUrl,
+  token,
+  onTranscriptChunk,
+  onEnd,
+  allowTranscript = true,
+  endLabel = "Terminer",
+}: Props) => {
   const [transcribing, setTranscribing] = useState(false);
   const [liveText, setLiveText] = useState("");
   const recognitionRef = useRef<SpeechRec | null>(null);
@@ -44,7 +55,7 @@ export const VideoCallRoom = ({ roomUrl, token, onTranscriptChunk, onEnd }: Prop
       for (let i = e.resultIndex; i < e.results.length; i++) {
         const t = e.results[i][0].transcript as string;
         if (e.results[i].isFinal) {
-          onTranscriptChunk(t.trim());
+          onTranscriptChunk?.(t.trim());
         } else {
           interim += t;
         }
@@ -93,7 +104,7 @@ export const VideoCallRoom = ({ roomUrl, token, onTranscriptChunk, onEnd }: Prop
         )}
 
         <div className="flex gap-2 shrink-0 ml-auto">
-          {SR && (
+          {SR && allowTranscript && (
             <button
               onClick={transcribing ? stopTranscription : startTranscription}
               title={transcribing ? "Arrêter la transcription" : "Démarrer la transcription"}
@@ -112,7 +123,7 @@ export const VideoCallRoom = ({ roomUrl, token, onTranscriptChunk, onEnd }: Prop
             onClick={onEnd}
             className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-600 text-white text-[10px] font-sans uppercase tracking-widest font-bold hover:bg-red-700 transition-colors backdrop-blur-sm"
           >
-            <X size={13} /> Terminer
+            <X size={13} /> {endLabel}
           </button>
         </div>
       </div>

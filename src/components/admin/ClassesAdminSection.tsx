@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus, Trash2, Pencil, Eye, EyeOff, Users, CheckCircle, XCircle } from "lucide-react";
+import { Plus, Trash2, Pencil, Eye, EyeOff, Users, CheckCircle, XCircle, Video, Loader2 } from "lucide-react";
 import {
   collection,
   doc,
@@ -13,6 +13,16 @@ import {
 import { db } from "../../firebase";
 import { useFirestoreCollection } from "../../hooks/useFirestoreCollection";
 import { Card } from "./sections";
+import { GroupRoom } from "../common/GroupRoom";
+import { createDailyGroupRoom, updateDailyRoomExpiry } from "../../services/daily";
+import {
+  expirationSalle,
+  versChampLocal,
+  depuisChampLocal,
+  formatSeance,
+  prochaineSeance,
+  type Seance,
+} from "../../lib/groupSchedule";
 
 export interface DanceClass {
   id: string;
@@ -22,6 +32,13 @@ export interface DanceClass {
   priceCents: number;
   active: boolean;
   createdAt: Timestamp | null;
+  /** Un cercle peut se tenir camera ouverte ou en audio seulement. */
+  format?: "video" | "audio";
+  /** Les rencontres du groupe. La salle s'ouvre 15 minutes avant chacune. */
+  seances?: Seance[];
+  /** La salle Daily du groupe, creee une fois et gardee. */
+  roomUrl?: string;
+  roomName?: string;
 }
 
 interface JoinRequest {
@@ -40,6 +57,8 @@ const blank = (): Omit<DanceClass, "id" | "createdAt"> => ({
   capacity: 12,
   priceCents: 0,
   active: true,
+  format: "video",
+  seances: [],
 });
 
 const money = (cents: number) =>
@@ -78,6 +97,8 @@ export const ClassesAdminSection = () => {
   const [creating, setCreating] = useState(false);
   const [form, setForm] = useState(blank());
   const [viewing, setViewing] = useState<string | null>(null);
+  const [salleEnCours, setSalleEnCours] = useState<string | null>(null);
+  const [salleErreur, setSalleErreur] = useState<string | null>(null);
   const requests = useRequests(viewing);
   const memberCount = useMembers(viewing);
 
@@ -90,6 +111,8 @@ export const ClassesAdminSection = () => {
       capacity: c.capacity,
       priceCents: c.priceCents,
       active: c.active,
+      format: c.format ?? "video",
+      seances: [...(c.seances ?? [])],
     });
   };
   const cancel = () => {
@@ -99,9 +122,64 @@ export const ClassesAdminSection = () => {
   };
   const save = async () => {
     if (!form.title.trim()) return;
-    if (editing) await update(editing.id, form);
-    else await add(form);
+    if (editing) {
+      await update(editing.id, form);
+      // L'horaire vient peut-etre de s'allonger : la salle doit vivre assez
+      // longtemps pour la derniere rencontre.
+      if (editing.roomName) {
+        try {
+          await updateDailyRoomExpiry(editing.roomName, expirationSalle(form.seances ?? []));
+        } catch (e) {
+          console.error("Expiration de la salle:", e);
+        }
+      }
+    } else {
+      await add(form);
+    }
     cancel();
+  };
+
+  const ouvrirSalle = async (c: DanceClass) => {
+    setSalleEnCours(c.id);
+    setSalleErreur(null);
+    try {
+      const salle = await createDailyGroupRoom(
+        `ti-groupe-${c.id}`.toLowerCase(),
+        (c.capacity || 12) + 1,
+        expirationSalle(c.seances ?? []),
+        (c.format ?? "video") === "audio",
+      );
+      await update(c.id, { roomUrl: salle.url, roomName: salle.name });
+    } catch (e) {
+      console.error("Creation de la salle:", e);
+      setSalleErreur("La salle n'a pas pu être créée. Vérifiez la clé Daily.co.");
+    } finally {
+      setSalleEnCours(null);
+    }
+  };
+
+  const majSeance = (id: string, patch: Partial<Seance>) =>
+    setForm((f) => ({
+      ...f,
+      seances: (f.seances ?? []).map((s) => (s.id === id ? { ...s, ...patch } : s)),
+    }));
+
+  const ajouterSeance = () => {
+    const depart = new Date();
+    depart.setDate(depart.getDate() + 7);
+    depart.setHours(19, 0, 0, 0);
+    setForm((f) => ({
+      ...f,
+      seances: [
+        ...(f.seances ?? []),
+        {
+          id: `s${Date.now()}`,
+          titre: `Rencontre ${(f.seances?.length ?? 0) + 1}`,
+          debut: depart.toISOString(),
+          duree: 90,
+        },
+      ],
+    }));
   };
 
   const approve = async (classId: string, req: JoinRequest) => {
@@ -145,6 +223,38 @@ export const ClassesAdminSection = () => {
             {memberCount} membre·s · {requests.filter((r) => r.status === "pending").length} en attente
           </p>
         </Card>
+
+        {cls && (
+          <Card className="p-6 space-y-4">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <h3 className="font-serif text-lg">La salle du groupe</h3>
+              {!cls.roomUrl && (
+                <button
+                  onClick={() => ouvrirSalle(cls)}
+                  disabled={salleEnCours === cls.id}
+                  className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
+                >
+                  {salleEnCours === cls.id ? <Loader2 size={13} className="animate-spin" /> : <Video size={13} />}
+                  Créer la salle
+                </button>
+              )}
+            </div>
+            {salleErreur && <p className="text-xs text-rust">{salleErreur}</p>}
+            {!cls.roomUrl && !salleErreur && (
+              <p className="text-xs font-serif italic opacity-60">
+                La salle se crée une seule fois et sert à toutes les rencontres du groupe. Rien ne s'y
+                enregistre.
+              </p>
+            )}
+            <GroupRoom
+              format={cls.format ?? "video"}
+              seances={cls.seances ?? []}
+              roomUrl={cls.roomUrl}
+              roomName={cls.roomName}
+              isOwner
+            />
+          </Card>
+        )}
         <div className="space-y-2">
           {requests.length === 0 && (
             <Card className="p-10 text-center italic opacity-60 font-serif">Aucune demande.</Card>
@@ -235,6 +345,69 @@ export const ClassesAdminSection = () => {
               />
             </div>
           </div>
+          <div>
+            <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Format des rencontres</label>
+            <select
+              value={form.format ?? "video"}
+              onChange={(e) => setForm({ ...form, format: e.target.value as "video" | "audio" })}
+              className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust"
+            >
+              <option value="video">Vidéo</option>
+              <option value="audio">Audio seulement</option>
+            </select>
+          </div>
+
+          <div className="pt-3 border-t border-ink/5 dark:border-white/5">
+            <div className="flex items-center justify-between mb-3">
+              <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Les rencontres</label>
+              <button
+                onClick={ajouterSeance}
+                className="inline-flex items-center gap-1.5 text-[11px] font-sans uppercase tracking-[0.2em] font-bold text-rust hover:text-ink transition-colors"
+              >
+                <Plus size={12} /> Ajouter
+              </button>
+            </div>
+            {(form.seances ?? []).length === 0 && (
+              <p className="text-xs font-serif italic opacity-60">
+                Aucune rencontre. Le cours restera annoncé sans date.
+              </p>
+            )}
+            <div className="space-y-2">
+              {(form.seances ?? []).map((sc) => (
+                <div key={sc.id} className="flex flex-wrap items-center gap-2">
+                  <input
+                    type="text"
+                    value={sc.titre}
+                    onChange={(e) => majSeance(sc.id, { titre: e.target.value })}
+                    className="flex-1 min-w-[140px] bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust"
+                  />
+                  <input
+                    type="datetime-local"
+                    value={versChampLocal(sc.debut)}
+                    onChange={(e) => majSeance(sc.id, { debut: depuisChampLocal(e.target.value) })}
+                    className="bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust"
+                  />
+                  <input
+                    type="number"
+                    min={15}
+                    step={15}
+                    value={sc.duree}
+                    onChange={(e) => majSeance(sc.id, { duree: parseInt(e.target.value, 10) || 0 })}
+                    className="w-20 bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust"
+                  />
+                  <span className="text-xs opacity-60">min</span>
+                  <button
+                    onClick={() => setForm({ ...form, seances: (form.seances ?? []).filter((x) => x.id !== sc.id) })}
+                    className="p-2 rounded-full opacity-40 hover:opacity-100 hover:bg-rust/15 hover:text-rust"
+                    aria-label="Retirer la rencontre"
+                  >
+                    <Trash2 size={13} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <label className="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} className="accent-rust" />
             <span className="text-xs font-sans uppercase tracking-widest">Visible sur le site</span>
@@ -263,7 +436,11 @@ export const ClassesAdminSection = () => {
                   </span>
                 </div>
                 <p className="text-xs opacity-60">
-                  {money(c.priceCents)} · {c.capacity} places
+                  {money(c.priceCents)} · {c.capacity} places · {(c.format ?? "video") === "audio" ? "audio" : "vidéo"}
+                  {prochaineSeance(c.seances ?? []) && (
+                    <span className="capitalize"> · {formatSeance(prochaineSeance(c.seances ?? [])!.debut)}</span>
+                  )}
+                  {c.roomUrl ? " · salle ouverte" : " · pas de salle"}
                 </p>
               </div>
               <div className="flex gap-2 shrink-0">
