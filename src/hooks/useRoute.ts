@@ -37,7 +37,7 @@ export const useRoute = () => {
     if (window.location.pathname !== target) {
       window.history.pushState({}, "", target);
     }
-    setState({ view: next, postSlug: null });
+    setState({ view: next, postSlug: null, notFound: false });
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   };
 
@@ -46,9 +46,9 @@ export const useRoute = () => {
     if (window.location.pathname !== target) {
       window.history.pushState({}, "", target);
     }
-    setState({ view: "writings", postSlug: slug });
+    setState({ view: "writings", postSlug: slug, notFound: false });
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   };
 
-  return { view: state.view, postSlug: state.postSlug, navigate, navigateToPost };
+  return { view: state.view, postSlug: state.postSlug, notFound: state.notFound, navigate, navigateToPost };
 };
