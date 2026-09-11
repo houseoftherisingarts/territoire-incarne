@@ -5,15 +5,23 @@ import { pathForSection, pathForPost, sectionForPath, slugForPath } from "../rou
 interface RouteState {
   view: SectionId | null;
   postSlug: string | null;
+  notFound: boolean;
 }
 
-const read = (): RouteState =>
-  typeof window === "undefined"
-    ? { view: null, postSlug: null }
-    : {
-        view: sectionForPath(window.location.pathname),
-        postSlug: slugForPath(window.location.pathname),
-      };
+const KNOWN_PREFIXES = ["/admin", "/client"];
+
+const read = (): RouteState => {
+  if (typeof window === "undefined") return { view: null, postSlug: null, notFound: false };
+  const path = window.location.pathname;
+  const view = sectionForPath(path);
+  const postSlug = slugForPath(path);
+  const known =
+    path === "/" ||
+    view !== null ||
+    postSlug !== null ||
+    KNOWN_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`));
+  return { view, postSlug, notFound: !known };
+};
 
 export const useRoute = () => {
   const [state, setState] = useState<RouteState>(read);
