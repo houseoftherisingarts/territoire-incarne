@@ -11,8 +11,8 @@
     "rules": "storage.rules"
   },
   "emulators": {
-    "firestore": { "port": 8181 },
-    "storage": { "port": 9299 }
+    "firestore": { "port": 8182 },
+    "storage": { "port": 9298 }
   },
   "hosting": {
     "site": "territoireincarne-80bb9",
