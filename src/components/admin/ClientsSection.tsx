@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { CheckCircle, XCircle, Clock } from "lucide-react";
+import { CheckCircle, XCircle, Clock, Download } from "lucide-react";
 import { useFirestoreClients } from "../../hooks/useFirestoreClients";
 import type { ClientProfile } from "../../hooks/useClientAuth";
 import { ClientDetailView } from "./ClientDetailView";
+import { useDossierConfig, clientesCsv, telecharger } from "../../lib/dossier";
 
 const STATUS_LABEL: Record<ClientProfile["status"], string> = {
   pending: "En attente",
