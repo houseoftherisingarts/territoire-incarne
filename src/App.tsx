@@ -90,6 +90,7 @@ export const App = () => {
       )}
 
       <EditModeBar />
+      <BadgeVexel />
     </div>
   );
 };
