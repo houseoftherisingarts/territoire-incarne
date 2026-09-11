@@ -6,16 +6,18 @@ interface Props {
   onSignInGoogle: () => Promise<void>;
   onSignInEmail: (email: string, pass: string) => Promise<void>;
   onSignUpEmail: (email: string, pass: string, name: string) => Promise<void>;
+  onResetPassword: (email: string) => Promise<boolean>;
   error: string | null;
 }
 
-export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, error }: Props) => {
+export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onResetPassword, error }: Props) => {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [name, setName] = useState("");
   const [optOut, setOptOut] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +25,15 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, erro
     if (mode === "signup") setSignupNewsletterOptOut(optOut);
     if (mode === "login") await onSignInEmail(email, pass);
     else await onSignUpEmail(email, pass, name);
+    setBusy(false);
+  };
+
+  const forgotPassword = async () => {
+    if (!email.trim()) return;
+    setBusy(true);
+    setResetSent(false);
+    const ok = await onResetPassword(email.trim());
+    setResetSent(ok);
     setBusy(false);
   };
 
