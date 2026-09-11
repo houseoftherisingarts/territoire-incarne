@@ -22,7 +22,7 @@ export const EditModeBar = () => {
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[250] bg-rust text-paper rounded-full shadow-2xl flex items-center gap-3 px-5 py-3 text-xs font-sans uppercase tracking-widest font-bold">
       <Pencil size={14} className="animate-pulse" />
       <span>Mode édition</span>
-      <span className="opacity-60 normal-case font-serif italic text-xs">
+      <span className="opacity-60 normal-case font-serif text-xs">
         Cliquez sur un texte ou une image pour modifier
       </span>
       <button onClick={goAdmin} className="ml-3 underline opacity-80 hover:opacity-100">

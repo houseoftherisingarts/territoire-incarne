@@ -33,3 +33,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Captures QA (regénérées à chaque passe)
+scripts/qa/shots/

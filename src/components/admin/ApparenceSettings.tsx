@@ -3,16 +3,13 @@ import { Plus, Trash2 } from "lucide-react";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Card, SectionTitle } from "./sections";
-import { useMode, setSiteMode } from "../../hooks/useMode";
 import { useDossierConfig, CONFIG_PATH, PIECES_PAR_DEFAUT, ETAPES_PAR_DEFAUT } from "../../lib/dossier";
 import type { PieceDef, EtapeDef } from "../../types/dossier";
 
 const uid = () => Math.random().toString(36).slice(2, 8);
 
-/** Réglages › Apparence : la bascule entre le site actuel et le mode éditorial, et le
- *  catalogue des pièces et des étapes du dossier client, tous deux éditables par Élise. */
+/** Réglages › Dossier : le catalogue des pièces et des étapes du dossier client, éditable par Élise. */
 export const ApparenceSettings = () => {
-  const mode = useMode();
   const config = useDossierConfig();
   const [pieces, setPieces] = useState<PieceDef[] | null>(null);
   const [etapes, setEtapes] = useState<EtapeDef[] | null>(null);
@@ -42,34 +39,6 @@ export const ApparenceSettings = () => {
 
   return (
     <div className="space-y-6">
-      <Card className="p-6">
-        <SectionTitle>Apparence du site</SectionTitle>
-        <p className="text-sm font-serif opacity-80 leading-relaxed mb-4">
-          Le site actuel reste ce que vos visiteurs voient tant que vous n'avez rien changé ici. Le mode
-          éditorial est une seconde peau, plus posée, construite avec vos propres couleurs et vos propres
-          polices. Vous pouvez comparer les deux avant de choisir.
-        </p>
-        <div className="grid grid-cols-2 gap-4">
-          <button
-            onClick={() => setSiteMode("actuel")}
-            className={`p-4 rounded-2xl border text-left transition-all ${mode === "actuel" ? "border-rust bg-rust/5" : "border-stone-200 dark:border-stone-700 hover:border-stone-300"}`}
-          >
-            <p className="font-serif text-lg">Actuel</p>
-            <p className="font-sans text-xs uppercase tracking-widest opacity-50 mt-1">Le site tel qu'il est aujourd'hui</p>
-          </button>
-          <button
-            onClick={() => setSiteMode("editorial")}
-            className={`p-4 rounded-2xl border text-left transition-all ${mode === "editorial" ? "border-rust bg-rust/5" : "border-stone-200 dark:border-stone-700 hover:border-stone-300"}`}
-          >
-            <p className="font-serif text-lg">Éditorial</p>
-            <p className="font-sans text-xs uppercase tracking-widest opacity-50 mt-1">Une seconde peau, plus posée</p>
-          </button>
-        </div>
-        <p className="font-sans text-xs opacity-50 mt-4">
-          Pour voir le mode éditorial sans changer ce réglage, ajoutez <span className="font-mono">?mode=editorial</span> à l'adresse du site.
-        </p>
-      </Card>
-
       <Card className="p-6">
         <SectionTitle>Les pièces demandées dans « Mon dossier »</SectionTitle>
         <div className="space-y-3">

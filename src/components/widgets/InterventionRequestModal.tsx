@@ -75,7 +75,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
       aria-modal="true"
     >
       <div
-        className="bg-paper dark:bg-stone-900 max-w-xl w-full rounded-[30px] shadow-2xl relative animate-[fadeIn_0.3s_ease-out] max-h-[92vh] overflow-y-auto"
+        className="bg-paper dark:bg-stone-900 max-w-xl w-full rounded-none shadow-2xl relative animate-[fadeIn_0.3s_ease-out] max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={onClose} aria-label="Fermer" className="absolute top-4 right-4 z-10 p-2 hover:opacity-60 bg-paper/80 dark:bg-stone-900/80 rounded-full">
@@ -85,8 +85,8 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
         {success ? (
           <div className="p-10 text-center space-y-4">
             <Sparkles className="mx-auto text-rust" size={32} />
-            <h3 className="font-serif text-2xl">Merci — votre demande est partie.</h3>
-            <p className="font-serif italic text-stone-600 dark:text-stone-300 leading-relaxed">
+            <h3 className="font-serif text-2xl">Merci : votre demande est partie.</h3>
+            <p className="font-serif text-stone-600 dark:text-stone-300 leading-relaxed">
               Elise lit chaque demande personnellement et reviendra vers vous à l'adresse fournie.
             </p>
             <button
@@ -103,7 +103,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                 {config.label}
               </p>
               <h2 className="font-serif text-2xl md:text-3xl mb-3 leading-tight">{config.modalTitle}</h2>
-              <p className="font-serif italic text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+              <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
                 {config.intro}
               </p>
             </div>
@@ -149,7 +149,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                       />
                     )}
                     {f.helpText && (
-                      <p className="text-xs font-serif italic opacity-50">{f.helpText}</p>
+                      <p className="text-xs font-serif opacity-50">{f.helpText}</p>
                     )}
                   </div>
                 );

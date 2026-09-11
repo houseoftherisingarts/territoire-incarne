@@ -3,10 +3,19 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isAdmin() {
-      return request.auth != null && request.auth.uid in [
-        'yDsFujEL8lUkEzrtFXQvgFoseH22', // fruiterre@gmail.com (added 2026-05-01)
-        'BYR9pdEGCfYpU5kmbMoyRr9paRq1', // legacy — remove once new account is verified
-      ];
+      return request.auth != null && (
+        request.auth.uid in [
+          'yDsFujEL8lUkEzrtFXQvgFoseH22', // fruiterre@gmail.com (mot de passe, 2026-05-01)
+          'BYR9pdEGCfYpU5kmbMoyRr9paRq1', // alex@lesalondesinconnus.com (mot de passe)
+          'v5CuWU6AithXyyW684dwDoUkXF03'  // houseoftherisingarts@gmail.com (Google, 2026-09-11)
+        ]
+        || (request.auth.token.email_verified == true && request.auth.token.email in [
+          'territoireincarne@gmail.com',
+          'fruiterre@gmail.com',
+          'houseoftherisingarts@gmail.com',
+          'alex@lesalondesinconnus.com'
+        ])
+      );
     }
 
     function isOwner(uid) {
@@ -141,8 +150,13 @@ service cloud.firestore {
 
       match /registrations/{userId} {
         allow read:   if isAdmin() || isOwner(userId);
-        allow create: if isOwner(userId);
-        allow update: if isAdmin();
+        // « pending » avant la caisse ou en attente d'un virement Interac; « confirmed » tout de suite
+        // quand l'événement est gratuit. Le webhook Stripe (admin SDK) écrit « paid ».
+        allow create, update: if isAdmin()
+          || (isOwner(userId)
+              && (request.resource.data.status == "pending"
+                  || (request.resource.data.status == "confirmed"
+                      && get(/databases/$(database)/documents/events/$(eventId)).data.priceCents == 0)));
         allow delete: if isAdmin();
       }
     }
@@ -154,8 +168,13 @@ service cloud.firestore {
 
       match /requests/{userId} {
         allow read:   if isAdmin() || isOwner(userId);
-        allow create: if isOwner(userId);
-        allow update: if isAdmin();
+        // Inscription directe : « pending » avant la caisse Stripe (le webhook écrit « paid »),
+        // ou « paid » tout de suite quand le cours est gratuit. Jamais « paid » sur un cours payant.
+        allow create, update: if isAdmin()
+          || (isOwner(userId)
+              && (request.resource.data.status == "pending"
+                  || (request.resource.data.status == "paid"
+                      && get(/databases/$(database)/documents/classes/$(classId)).data.priceCents == 0)));
         allow delete: if isAdmin() || isOwner(userId);
       }
 
@@ -249,6 +268,18 @@ service cloud.firestore {
     match /settings/{settingId} {
       allow read:  if true;
       allow write: if isAdmin();
+    }
+
+    // ── Occupations : le miroir des créneaux pris (rendez-vous des autres clientes, agenda Google
+    //    d'Élise), sans aucun détail : début, fin, source. Écrit par les fonctions seulement.
+    match /occupations/{occId} {
+      allow read:  if true;
+      allow write: if false;
+    }
+
+    // ── Privé : jetons OAuth et jeton du flux iCal. Personne côté client, admin compris.
+    match /prive/{docId} {
+      allow read, write: if false;
     }
   }
 }

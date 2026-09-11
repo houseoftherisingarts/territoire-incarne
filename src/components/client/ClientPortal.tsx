@@ -17,7 +17,7 @@ import { uploadProfilPhoto } from "../../lib/storage";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { consumeReturnTo } from "../../lib/requireAuth";
-import { isAdmin } from "../../lib/admins";
+import { isAdminUser } from "../../lib/admins";
 
 type TabId = "dossier" | "reservations" | "cours" | "messagerie" | "ressources" | "réunion" | "profil";
 
@@ -114,7 +114,10 @@ const MessagerieTab = ({ uid }: { uid: string }) => {
 export const ClientPortal = () => {
   const { user, profile, loading, error, signInWithGoogle, signInWithEmail, signUpWithEmail, updateDisplayName, setNewsletterOptIn, resetPassword, logout } = useClientAuth();
   const { theme, toggle: toggleTheme } = useTheme();
-  const [tab, setTab] = useState<TabId>("dossier");
+  const [tab, setTab] = useState<TabId>(() => {
+    const voulu = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("onglet") : null;
+    return voulu && TABS.some((t) => t.id === voulu) ? (voulu as TabId) : "dossier";
+  });
   const [uploadingBanner, setUploadingBanner] = useState(false);
   const bannerInput = useRef<HTMLInputElement>(null);
 
@@ -138,7 +141,7 @@ export const ClientPortal = () => {
     );
   }
 
-  const adminMode = isAdmin(user.uid);
+  const adminMode = isAdminUser(user);
 
   const uploadBanner = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

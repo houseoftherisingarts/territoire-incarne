@@ -21,7 +21,7 @@ export const CheckoutModal = ({ cart, subtotal, onClose, onConfirm, confirming, 
       onClick={onClose}
     >
       <div
-        className="bg-paper dark:bg-stone-900 p-8 max-w-md w-full shadow-2xl relative animate-[fadeIn_0.3s_ease-out] rounded-[30px]"
+        className="bg-paper dark:bg-stone-900 p-8 max-w-md w-full shadow-2xl relative animate-[fadeIn_0.3s_ease-out] rounded-none"
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={onClose} aria-label="Close" className="absolute top-4 right-4">
@@ -47,7 +47,7 @@ export const CheckoutModal = ({ cart, subtotal, onClose, onConfirm, confirming, 
         <button
           onClick={onConfirm}
           disabled={confirming}
-          className="w-full mt-2 bg-ink text-white dark:bg-white dark:text-black py-3 text-xs uppercase tracking-widest hover:opacity-90 flex items-center justify-center gap-2 rounded-[30px] disabled:opacity-50"
+          className="w-full mt-2 bg-ink text-white dark:bg-white dark:text-black py-3 text-xs uppercase tracking-widest hover:opacity-90 flex items-center justify-center gap-2 rounded-none disabled:opacity-50"
         >
           <CreditCard size={14} /> {confirming ? "Redirection…" : "Payer avec Stripe"}
         </button>

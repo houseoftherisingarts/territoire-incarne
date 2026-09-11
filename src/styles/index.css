@@ -65,12 +65,10 @@ body {
   }
 }
 
-/* ── Mode éditorial ────────────────────────────────────────────────────────
-   Seconde peau, sur les mêmes jetons de couleur et les mêmes polices (paper/
-   ink/rust, Cormorant Garamond/Montserrat) : voir 30_library/territoire-
-   incarne-design-system.md. Rien ici ne s'applique tant que <html> ne porte
-   pas data-mode="editorial" (bascule dans Paramètres › Apparence). */
-[data-mode="editorial"] .ed-kicker {
+/* ── Grammaire éditoriale ─────────────────────────────────────────────────
+   Kickers, filets, titres display : la seule peau du site depuis le 11 sept
+   2026 (voir 30_library/territoire-incarne-design-system.md). */
+.ed-kicker {
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
@@ -78,34 +76,21 @@ body {
   font-size: 0.8125rem; /* 13px : jamais moins, règle dure */
   color: #8c5e45;
 }
-
-[data-mode="editorial"] .ed-hairline {
-  border-color: rgba(43, 41, 26, 0.15);
+.ed-hairline {
+  border-color: rgba(43, 41, 38, 0.15);
 }
-.dark[data-mode="editorial"] .ed-hairline,
-[data-mode="editorial"] .dark .ed-hairline {
+.dark .ed-hairline {
   border-color: rgba(255, 255, 255, 0.15);
 }
-
-[data-mode="editorial"] .ed-display {
+.ed-display {
   font-family: "Cormorant Garamond", serif;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.05;
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
 }
-
-[data-mode="editorial"] .ed-photo,
-[data-mode="editorial"] .ed-photo img {
-  border-radius: 0 !important;
-  transform: none !important;
-  box-shadow: none !important;
-}
-[data-mode="editorial"] .ed-photo:hover {
-  transform: none !important;
-}
-
-[data-mode="editorial"] .ed-index {
-  opacity: 1 !important;
+/* Un élément marqué hidden reste caché, même sous display:flex. */
+[hidden] {
+  display: none !important;
 }
 
 /* ── Collant Vexel (pied de page) ────────────────────────────────────────

@@ -1,23 +1,26 @@
 # Territoire Incarné
 
-> Le site d'Elise .G Lortie : thérapie somatique, mouvement et éducation. Un retour au sensible.
+> Le site d'Elise .G Lortie, au Québec : thérapie somatique, mouvement, éducation, retraites. Elise .G Lortie tisse des espaces où le corps redevient un territoire de vérité.
 
-Territoire Incarné est le site de services d'Elise .G Lortie, au Québec. Il présente ses accompagnements
-en thérapie somatique et en mouvement, ses formations, ses événements, sa boutique et ses écrits.
+Territoire Incarné est l'organisme à but non lucratif à travers lequel Elise .G Lortie, thérapeute somatique et artiste, accompagne le retour au sensible par le mouvement, la parole et le silence. Le site présente ses soins somatiques (en ligne ou en présentiel), ses cours de mouvement et de danse, ses événements, ses ressources, ses écrits et une boutique. La prise de rendez-vous se fait depuis le site, dans un espace personnel.
 
-## Pages principales
+## Pages
 
-- [Accueil](https://territoireincarne.com/) — présentation générale
-- [Thérapie](https://territoireincarne.com/therapie) — accompagnement en thérapie somatique
-- [Mouvement](https://territoireincarne.com/mouvement) — cours et pratiques de mouvement
-- [Événements](https://territoireincarne.com/evenements) — ateliers, retraites, rencontres
-- [Ressources](https://territoireincarne.com/ressources) — lectures et outils partagés
-- [Écrits](https://territoireincarne.com/ecrits) — textes publiés par Elise .G Lortie
-- [Boutique](https://territoireincarne.com/boutique) — produits et services en vente
-- [Connecter](https://territoireincarne.com/connecter) — prendre contact
+- [Accueil](https://territoireincarne.com/) : présentation générale et sommaire
+- [Prendre rendez-vous](https://territoireincarne.com/rendez-vous) : les trois temps de la prise de rendez-vous et les soins ouverts à la réservation
+- [Thérapie](https://territoireincarne.com/therapie) : soin somatique, une approche pour guérir les traumas et retrouver la sécurité; modèle de contribution (suggérée, solidaire, généreuse, troc conscient)
+- [Mouvement](https://territoireincarne.com/mouvement) : le corps en mouvement, cours de danse et pratiques (Danse-Baladi et Gypsie, Whirling, Improvisation et Continuum, Yoga et régulation du système nerveux)
+- [Événements](https://territoireincarne.com/evenements) : retraites immersives et cercles de pratique
+- [À propos](https://territoireincarne.com/a-propos) : Elise .G Lortie et sa méthode
+- [Écrits](https://territoireincarne.com/ecrits) : réflexions sur la lenteur, l'anatomie et le vivant
+- [Ressources](https://territoireincarne.com/ressources) : outils, lectures et soutiens
+- [Boutique](https://territoireincarne.com/boutique) : des outils simples pour accompagner votre pratique
+- [Connecter](https://territoireincarne.com/connecter) : recevoir des nouvelles, dates de retraite et festivals
 
-## Notes
+## Faits
 
-Le contenu réel (soins offerts, prix, disponibilités) est géré par Elise .G Lortie elle-même et peut
-changer sans préavis. Pour des informations à jour, consulter directement les pages ci-dessus plutôt
-que de s'appuyer sur un résumé mis en cache.
+- Nom : Territoire Incarné (organisme à but non lucratif), porté par Elise .G Lortie
+- Lieu : Québec, Canada; soins en ligne ou en présentiel
+- Courriel : territoireincarne@gmail.com
+- Langues : français et anglais
+- Les prix, les disponibilités et le contenu des cours sont gérés par Elise .G Lortie elle-même et peuvent changer sans préavis : consulter les pages ci-dessus plutôt qu'un résumé en cache.

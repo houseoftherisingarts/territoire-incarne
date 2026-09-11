@@ -97,7 +97,7 @@ export const VideoCallRoom = ({
 
       <div className="absolute bottom-4 left-4 right-4 flex items-end gap-2">
         {liveText && (
-          <div className="flex-1 bg-black/70 text-white text-sm font-serif italic px-4 py-2 rounded-xl backdrop-blur-sm">
+          <div className="flex-1 bg-black/70 text-white text-sm font-serif px-4 py-2 rounded-xl backdrop-blur-sm">
             <FileText size={12} className="inline mr-1.5 opacity-60" />
             {liveText}
           </div>

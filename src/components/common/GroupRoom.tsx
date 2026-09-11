@@ -88,7 +88,7 @@ export const GroupRoom = ({ format, seances, roomUrl, roomName, isOwner = false 
               <p className="text-xs font-sans uppercase tracking-[0.3em] text-forest dark:text-stone-100 font-bold">
                 La rencontre est ouverte
               </p>
-              <p className="font-serif italic opacity-70 text-sm mt-1">
+              <p className="font-serif opacity-70 text-sm mt-1">
                 {format === "audio"
                   ? "Vous entrez en audio, la caméra fermée."
                   : "Votre micro et votre caméra restent fermés tant que vous ne les ouvrez pas."}
@@ -103,7 +103,7 @@ export const GroupRoom = ({ format, seances, roomUrl, roomName, isOwner = false 
               </p>
             </>
           ) : (
-            <p className="font-serif italic opacity-60">Aucune rencontre n'est encore au calendrier.</p>
+            <p className="font-serif opacity-60">Aucune rencontre n'est encore au calendrier.</p>
           )}
         </div>
 
@@ -118,7 +118,7 @@ export const GroupRoom = ({ format, seances, roomUrl, roomName, isOwner = false 
           </button>
         )}
         {enDirect && !roomUrl && (
-          <p className="text-xs font-serif italic opacity-60 shrink-0">
+          <p className="text-xs font-serif opacity-60 shrink-0">
             La salle n'est pas encore ouverte.
           </p>
         )}

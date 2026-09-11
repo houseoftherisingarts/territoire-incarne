@@ -9,6 +9,7 @@ export const SECTION_TO_PATH: Record<SectionId, string> = {
   connecter: "/connecter",
   boutique: "/boutique",
   writings: "/ecrits",
+  rendezvous: "/rendez-vous",
 };
 
 export const PATH_TO_SECTION: Record<string, SectionId> = Object.fromEntries(

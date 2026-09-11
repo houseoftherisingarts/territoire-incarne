@@ -171,6 +171,27 @@ async function main() {
     uploadBytes(ref(stAdmin, 'media/photo.jpg'), petitFichier(100), { contentType: 'image/jpeg' }),
   ));
 
+  // ── classes/{id}/requests et events/{id}/registrations : inscription directe, Interac, gratuit ──
+  await testEnv.withSecurityRulesDisabled(async (ctx) => {
+    await setDoc(doc(ctx.firestore(), 'classes', 'payant'), { title: 'Baladi', priceCents: 4500, capacity: 12, active: true });
+    await setDoc(doc(ctx.firestore(), 'classes', 'gratuit'), { title: 'Cercle', priceCents: 0, capacity: 12, active: true });
+    await setDoc(doc(ctx.firestore(), 'events', 'retraite'), { title: 'Retraite', priceCents: 12000, published: true });
+    await setDoc(doc(ctx.firestore(), 'events', 'ouvert'), { title: 'Cercle ouvert', priceCents: 0, published: true });
+  });
+  await verifie('la cliente réserve sa place (pending) à un cours payant', assertSucceeds(setDoc(doc(dbA, 'classes/payant/requests', UID_A), { status: 'pending', paiement: 'interac', email: 'a@x' })));
+  await verifie('la cliente ne peut PAS se marquer payée sur un cours payant', assertFails(setDoc(doc(dbA, 'classes/payant/requests', UID_A), { status: 'paid' })));
+  await verifie('la cliente entre tout de suite (paid) dans un cours gratuit', assertSucceeds(setDoc(doc(dbA, 'classes/gratuit/requests', UID_A), { status: 'paid', email: 'a@x' })));
+  await verifie('une autre cliente ne peut pas écrire la place de A', assertFails(setDoc(doc(dbB, 'classes/gratuit/requests', UID_A), { status: 'paid' })));
+  await verifie('Élise marque payée une place Interac', assertSucceeds(setDoc(doc(dbAdmin, 'classes/payant/requests', UID_A), { status: 'paid' }, { merge: true })));
+  await verifie('la cliente réserve (pending) une place à un événement payant', assertSucceeds(setDoc(doc(dbA, 'events/retraite/registrations', UID_A), { status: 'pending', paiement: 'interac' })));
+  await verifie('la cliente ne peut PAS se confirmer sur un événement payant', assertFails(setDoc(doc(dbA, 'events/retraite/registrations', UID_A), { status: 'confirmed' })));
+  await verifie('la cliente se confirme sur un événement gratuit', assertSucceeds(setDoc(doc(dbA, 'events/ouvert/registrations', UID_A), { status: 'confirmed' })));
+  await verifie('un visiteur lit les occupations (miroir des créneaux pris)', assertSucceeds(getDocs(collection(dbAnon, 'occupations'))));
+  await verifie('la cliente ne peut pas écrire une occupation', assertFails(setDoc(doc(dbA, 'occupations', 'x'), { start: new Date(), end: new Date(), source: 'rdv' })));
+  await verifie('Élise elle-même ne lit pas prive/agenda_google', assertFails(getDoc(doc(dbAdmin, 'prive', 'agenda_google'))));
+  await verifie('un visiteur lit settings/sections', assertSucceeds(getDoc(doc(dbAnon, 'settings', 'sections'))));
+  await verifie('la cliente ne peut pas éteindre une section', assertFails(setDoc(doc(dbA, 'settings', 'sections'), { hidden: ['boutique'] })));
+
   await testEnv.cleanup();
 
   console.log(resultats.join('\n'));

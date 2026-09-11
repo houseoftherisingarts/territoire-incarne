@@ -50,11 +50,11 @@ export const Writings = ({ lang = "fr", onOpenPost }: Props) => {
     }
   };
 
-  if (loading) return <p className="font-serif italic opacity-60 py-10 text-center">Chargement…</p>;
+  if (loading) return <p className="font-serif opacity-60 py-10 text-center">Chargement…</p>;
 
   if (posts.length === 0) {
     return (
-      <p className="font-serif italic opacity-60 py-12 text-center">
+      <p className="font-serif opacity-60 py-12 text-center">
         Les premiers écrits arrivent bientôt.
       </p>
     );
@@ -86,7 +86,7 @@ export const Writings = ({ lang = "fr", onOpenPost }: Props) => {
                 {c.title}
               </h3>
               {c.excerpt && (
-                <p className="text-sm font-serif italic opacity-70 leading-relaxed flex-1">{c.excerpt}</p>
+                <p className="text-sm font-serif opacity-70 leading-relaxed flex-1">{c.excerpt}</p>
               )}
               <span className="mt-4 self-start text-xs font-sans uppercase tracking-widest text-rust dark:text-stone-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                 Lire l'article <ArrowUpRight size={11} />

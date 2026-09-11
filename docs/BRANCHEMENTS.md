@@ -1,81 +1,94 @@
-# Branchements
+# Branchements de Territoire Incarné
 
-Ce que chaque intégration externe du site demande d'Alex : un compte, une clé, un geste précis, et où
-déposer le résultat. Une section par intégration, avec son état au 11 septembre 2026. Le projet
-Firebase est `territoireincarne-80bb9` (Hosting, Firestore, Auth, Storage; Cloud Functions déclarées
-dans `functions/` mais jamais déployées à ce jour).
+Ce que le site sait faire, et ce qui attend une clé ou un geste de console avant de tourner en
+production. Chaque bloc dit ce que ça fait, où vit le code, et le geste exact qui reste à poser.
+Mis à jour le 11 septembre 2026.
 
-## Le bouton « Problème technique » (porte Vexel `recevoirDemande`)
+## Connexion Google (clientes et admin)
 
-Ce que ça fait : depuis l'espace client (`src/components/client/ProblemeTechnique.tsx`), une cliente
-décrit un pépin, capture ou téléverse une image, puis l'envoi range le rapport dans `bugs/{id}` sur ce
-projet ET le transmet à la porte commune de Vexel (`recevoirDemande`), où l'onglet Demandes de l'admin
-Vexel le montre sous la fiche de Territoire Incarné, comme chez Krystine.
+Ce que ça fait : n'importe qui ouvre son espace personnel avec son compte Google, et Élise entre
+dans le tableau de bord avec le sien (`territoireincarne@gmail.com`), reconnu par courriel vérifié.
+Le fournisseur Google est activé dans Firebase Auth, les domaines `territoireincarne.com` et
+`www.territoireincarne.com` sont autorisés, et la CSP laisse passer `apis.google.com` et l'iframe
+d'authentification de `territoireincarne-80bb9.firebaseapp.com` (c'est cette CSP, posée le 11
+septembre au matin, qui bloquait la fenêtre Google jusqu'au soir).
 
-État : **codé jusqu'au branchement, la clé manque**. `VEXEL_CLE` dans `ProblemeTechnique.tsx` vaut
-`"A_BRANCHER"` : tant que ce n'est pas une vraie clé, la porte Vexel refuse l'appel silencieusement (le
-rapport reste quand même écrit dans `bugs/{id}` sur ce projet, rien n'est perdu, seul le double envoi au
-studio manque).
+La liste des administratrices vit dans `src/lib/admins.ts`, `functions/src/admins.ts`,
+`firestore.rules` et `storage.rules`, à tenir alignées : `territoireincarne@gmail.com`,
+`fruiterre@gmail.com`, `houseoftherisingarts@gmail.com`, `alex@lesalondesinconnus.com`.
 
-Geste exact d'Alex : depuis l'admin de `vexelwebstudio.com`, ajouter Territoire Incarné à la liste des
-clients qui posent des demandes (le même geste que pour Krystine), obtenir la clé émise pour
-`client: "territoire-incarne"`, puis coller cette clé dans `VEXEL_CLE`
-(`src/components/client/ProblemeTechnique.tsx`), rebuild et redéployer le hosting.
+Rien à brancher. Si un jour l'authDomain passe au domaine du site (fenêtre Google qui reste au
+premier niveau dans Safari), il faudra d'abord ajouter
+`https://territoireincarne.com/__/auth/handler` aux URI de redirection du client OAuth
+« Web client (auto created by Google Service) » dans la console Google Cloud, sinon
+`redirect_uri_mismatch`.
 
-## Le collant « Site créé par Vexel Webstudio »
+## Stripe (cours de danse, événements, boutique)
 
-Ce que ça fait : `src/components/common/BadgeVexel.tsx`, en bas à droite du site public, mène à
-`vexelwebstudio.com`. Territoire Incarné n'est pas dans un programme partenaire Vexel : aucun rabais ni
-commission n'est promis dans ce collant, contrairement au badge de Xena Horizon.
+Ce que ça fait : une personne s'inscrit à un cours de danse payant ou à un événement, passe par la
+caisse Stripe, et le webhook marque sa place payée. Le prix se lit dans Firestore côté serveur,
+jamais dans la requête, et la capacité se vérifie avant d'ouvrir la caisse. Le code vit dans
+`functions/src/createCheckoutSession.ts` et `functions/src/stripeWebhook.ts`; côté site,
+`src/sections/Mouvement.tsx` (inscription directe) et `src/sections/Events.tsx`.
 
-État : **branché**, aucun geste requis.
+Ce qui attend : **le compte Stripe d'Élise**. L'argent des cours est le sien, il ne passe pas par le
+compte du Salon. Une fois son compte ouvert (stripe.com, compte standard au nom de Territoire
+Incarné) :
 
-## Le mode éditorial
+```bash
+cd "~/Documents/Websites/territoire-incarné (1)"
+firebase functions:secrets:set STRIPE_SECRET_KEY        # sk_live_…
+firebase functions:secrets:set STRIPE_WEBHOOK_SECRET    # whsec_… (voir ci-dessous)
+firebase deploy --only functions:createCheckoutSession,functions:stripeWebhook
+```
 
-Ce que ça fait : la bascule Actuel/Éditorial dans Paramètres écrit `settings/apparence.mode` dans
-Firestore, lu par `useMode()` au chargement. Aucune clé, aucun compte : c'est un document Firestore,
-déjà protégé par les règles (lecture publique, écriture admin seulement).
+Le webhook se déclare dans le tableau de bord Stripe (Développeurs › Webhooks) à l'adresse
+`https://us-central1-territoireincarne-80bb9.cloudfunctions.net/stripeWebhook` avec les événements
+`checkout.session.completed`, `customer.subscription.updated`, `customer.subscription.deleted` et
+`invoice.payment_failed`; le `whsec_` qu'il rend est le deuxième secret. Tant que les deux secrets
+portent la valeur de garde, le bouton « Payer ma place » répond « Le paiement n'est pas encore
+ouvert ». Les cours gratuits, eux, marchent dès maintenant.
 
-État : **branché**, aucun geste requis. Le mode par défaut est `actuel` : le public ne voit rien changer
-tant qu'Élise n'a pas basculé le réglage.
+## Google Agenda (rendez-vous)
 
-## Le dossier client (« Mon dossier »)
+Deux chemins, le premier marche tout de suite.
 
-Ce que ça fait : pièces déposées, parcours en étapes, notes privées, exports Markdown et CSV — tout
-vit dans `users/{uid}` et sa sous-collection `notes`, plus `settings/dossier` pour le catalogue
-éditable. Aucune clé externe.
+**1. Le flux iCal d'abonnement (en ligne).** Admin › Calendrier › Google Agenda › « Obtenir mon lien
+d'abonnement ». Élise colle ce lien dans Google Agenda (Autres agendas › À partir de l'URL) ou dans
+Apple Calendrier : ses rendez-vous confirmés et ses demandes en attente y apparaissent et s'y
+mettent à jour (Google rafraîchit un agenda abonné toutes les quelques heures). Code :
+`functions/src/calendrierIcs.ts`.
 
-État : **branché**, aucun geste requis. Le catalogue par défaut (`src/lib/dossier.ts`,
-`PIECES_PAR_DEFAUT` et `ETAPES_PAR_DEFAUT`) est un point de départ raisonnable, pas un catalogue
-confirmé par Élise : à revoir avec elle avant que de vraies clientes déposent des documents, exactement
-la même réserve que Xena a posée pour Laurie. Modifiable depuis Paramètres sans redéploiement.
+**2. La synchronisation OAuth (attend la console).** Ses rendez-vous confirmés deviennent des
+événements dans SON agenda, et ses plages déjà prises chez Google bloquent les créneaux du site.
+Code : `functions/src/agenda/google.ts`, panneau `GoogleAgendaPanel.tsx`. Gestes de console :
 
-## Ce qui reste des dettes de sécurité connues (non aggravées, non toutes réglées cette passe)
+1. Sur [console.cloud.google.com](https://console.cloud.google.com), projet `territoireincarne-80bb9`,
+   activer l'API **Google Calendar API**.
+2. « APIs et services › Écran de consentement OAuth » : type Externe, nom « Territoire Incarné »,
+   portées `.../auth/calendar.events` et `.../auth/calendar.readonly`, et le courriel d'Élise en
+   utilisatrice de test tant que l'app n'est pas publiée.
+3. « Identifiants › Créer un ID client OAuth » de type Application Web, avec l'URI de redirection
+   `https://us-central1-territoireincarne-80bb9.cloudfunctions.net/agendaGoogleRetour`.
+4. Poser les secrets et redéployer :
 
-Ces points existaient avant cette passe (`~/.claude/projects/-Users-lesalondesinconnus/memory/project_territoire_incarne.md`,
-`~/Documents/Onyx/10_projects/territoire-incarne/plan-action-fable5-2026-07-04.md`) et restent à régler
-par un chantier serveur séparé :
+```bash
+firebase functions:secrets:set GOOGLE_OAUTH_CLIENT_ID
+firebase functions:secrets:set GOOGLE_OAUTH_CLIENT_SECRET
+firebase deploy --only functions
+```
 
-- **Clé API Daily.co dans le bundle public** (`src/services/daily.ts`) : la création de salles et de
-  jetons vidéo tourne côté client. À roter et déplacer côté serveur (une Cloud Function admin).
-- **UID admin legacy** (`BYR9pdEGCfYpU5kmbMoyRr9paRq1`) encore dans `lib/admins.ts` et
-  `firestore.rules` : à retirer une fois confirmé qu'il ne sert plus à personne.
-- **Prix de checkout fixés côté client** (`functions/src/createCheckoutSession.ts`) : à corriger en
-  rechargeant le prix depuis Firestore côté serveur.
-- **`storage.rules` : réglé cette passe** (le fichier n'existait pas du tout avant le 11 septembre 2026,
-  voir plus haut « Ce qui a été ajouté cette passe »).
+Puis Élise clique « Connecter mon Google Agenda » dans Admin › Calendrier › Google Agenda. La
+synchronisation tourne toutes les 15 minutes et sur-le-champ à chaque changement de rendez-vous.
 
-## Ce qui a été ajouté cette passe (11 septembre 2026), sans dépendance externe
+## Rencontre vidéo (Daily.co)
 
-- `storage.rules` (n'existait pas) : règles par dossier (`dossiers/{uid}`, `profils/{uid}`, `bugs/{uid}`,
-  médiathèque publique), bornes de taille et de type, testées sur l'émulateur (`tests/rules.test.mjs`,
-  `npm run test:rules`).
-- `firestore.rules` : ajout de `dossierClientOK()` (bornes sur `bio`, `liensUrl`, `projet`), verrou sur
-  `etape` et `revue` (admin seulement), collections `bugs` et `settings`, sous-collection
-  `users/{uid}/notes` (admin-only).
-- En-têtes de sécurité dans `firebase.json` : `X-Frame-Options: DENY` et une Content-Security-Policy
-  complète (`script-src 'self'`, connexions limitées aux domaines Firebase/Google et à
-  `*.cloudfunctions.net`, `frame-src` limité à Daily.co et Google, `frame-ancestors 'none'`). Vérifié
-  sans erreur de console en production après déploiement (voir le rapport de session).
-- `public/llms.txt`, page 404 réelle (`src/components/common/NotFound.tsx`), catalogue de pièces/étapes
-  éditable, journal des changements (`src/lib/changelog.ts`).
+La clé `VITE_DAILY_API_KEY` est encore lue côté navigateur (`src/services/daily.ts`), donc visible
+dans le bundle : elle doit tourner et passer derrière une fonction, comme chez Xena avec Jitsi. C'est
+la dette de sécurité numéro un du dépôt, notée depuis juillet.
+
+## Bouton « Problème technique »
+
+Le bouton de l'espace client écrit dans `bugs/` et tente d'envoyer à Vexel par `VEXEL_PORTE`
+(`src/components/client/ProblemeTechnique.tsx`). La clé Vexel de ce client reste à poser dans la fiche
+de Territoire Incarné chez Vexel (panneau Branchements).

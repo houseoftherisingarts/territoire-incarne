@@ -39,6 +39,34 @@ exports.createCheckoutSession = (0, https_1.onCall)({
         await userRef.set({ stripeCustomerId: customerId }, { merge: true });
     }
     const isSubscription = data.purpose === "subscription";
+    // Cours et événements : le prix vient du document Firestore (jamais du client), et la
+    // capacité se vérifie ici, avant d'ouvrir la caisse.
+    if (data.purpose === "class" || data.purpose === "event") {
+        const coll = data.purpose === "class" ? "classes" : "events";
+        const sous = data.purpose === "class" ? "requests" : "registrations";
+        const docId = data.metadata?.[data.purpose === "class" ? "classId" : "eventId"];
+        if (!docId)
+            throw new https_1.HttpsError("invalid-argument", "identifiant manquant");
+        const snap = await db.doc(`${coll}/${docId}`).get();
+        if (!snap.exists)
+            throw new https_1.HttpsError("not-found", "introuvable");
+        const d = snap.data();
+        if (data.purpose === "class" ? d.active === false : d.published === false) {
+            throw new https_1.HttpsError("failed-precondition", "fermé aux inscriptions");
+        }
+        if (!Number.isInteger(d.priceCents) || d.priceCents <= 0) {
+            throw new https_1.HttpsError("failed-precondition", "gratuit : aucun paiement à faire");
+        }
+        if (d.capacity && d.capacity > 0) {
+            const payes = await db.collection(`${coll}/${docId}/${sous}`).where("status", "==", "paid").count().get();
+            const dejaMembre = await db.doc(`${coll}/${docId}/${sous}/${uid}`).get();
+            if (payes.data().count >= d.capacity && dejaMembre.data()?.status !== "paid") {
+                throw new https_1.HttpsError("resource-exhausted", "complet");
+            }
+        }
+        data.lineItems = [{ name: d.title, amount: d.priceCents, quantity: 1, image: d.image || undefined }];
+        data.priceId = undefined;
+    }
     const lineItems = data.priceId
         ? [{ price: data.priceId, quantity: 1 }]
         : data.lineItems.map((li) => ({

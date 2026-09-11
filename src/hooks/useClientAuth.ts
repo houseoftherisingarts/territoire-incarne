@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  GoogleAuthProvider,
-  signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -19,7 +17,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
-import { isAdmin } from "../lib/admins";
+import { isAdminUser } from "../lib/admins";
+import { connexionGoogle, messageErreurAuth, recupererRedirection } from "../lib/googleSignIn";
 import type { PieceDeposee, ProjetDossier, RevuePiece } from "../types/dossier";
 import { ETAPES_PAR_DEFAUT } from "../lib/dossier";
 
@@ -64,12 +63,14 @@ export const useClientAuth = () => {
 
   useEffect(() => {
     let profileUnsub: (() => void) | null = null;
+    // Une connexion Google par redirection revient ici : on la récupère avant d'écouter l'état.
+    void recupererRedirection(auth);
 
     const authUnsub = onAuthStateChanged(auth, async (firebaseUser) => {
       if (profileUnsub) { profileUnsub(); profileUnsub = null; }
       setUser(firebaseUser);
 
-      if (firebaseUser && !isAdmin(firebaseUser.uid)) {
+      if (firebaseUser && !isAdminUser(firebaseUser)) {
         const ref = doc(db, "users", firebaseUser.uid);
         const snap = await getDoc(ref);
         if (!snap.exists()) {
@@ -104,9 +105,10 @@ export const useClientAuth = () => {
   const signInWithGoogle = async () => {
     setError(null);
     try {
-      await signInWithPopup(auth, new GoogleAuthProvider());
-    } catch {
-      setError("Erreur lors de la connexion Google. Veuillez réessayer.");
+      await connexionGoogle(auth);
+    } catch (err) {
+      console.error("Connexion Google :", err);
+      setError(messageErreurAuth(err));
     }
   };
 

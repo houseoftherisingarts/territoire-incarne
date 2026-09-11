@@ -56,6 +56,9 @@ export const ClientReservationsTab = ({ uid, email, displayName, onOpenMessageri
   const [tab, setTab] = useState<SubTab>("mine");
   const { items: mine, loading } = useMyAppointments(uid);
   const { items: availability } = useFirestoreCollection<AvailabilitySlot>("availability");
+  // Le miroir public des créneaux pris (rendez-vous des autres clientes, agenda Google d'Élise) :
+  // début et fin seulement, écrit par les fonctions.
+  const { items: occupations } = useFirestoreCollection<{ id: string; start: Timestamp; end: Timestamp }>("occupations");
   const { tarifs } = useTarifs();
   const consultations = useMemo(
     () => tarifs.filter((t) => t.active && t.category === "consultation"),
@@ -65,11 +68,15 @@ export const ClientReservationsTab = ({ uid, email, displayName, onOpenMessageri
   // (rightly) prevent reading other clients' bookings. Elise handles cross-client
   // overlap when approving requests.
   const taken = useMemo(
-    () =>
-      mine
+    () => [
+      ...mine
         .filter((a) => a.status !== "cancelled")
         .map((a) => ({ start: a.start.toDate(), end: a.end.toDate() })),
-    [mine],
+      ...occupations
+        .filter((o) => o.start?.toDate && o.end?.toDate)
+        .map((o) => ({ start: o.start.toDate(), end: o.end.toDate() })),
+    ],
+    [mine, occupations],
   );
 
   const upcoming = useMemo(

@@ -43,7 +43,7 @@ export const GlossaryText = ({ content, lang }: { content?: string; lang: Lang }
               {tok}
             </span>
             <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-64 p-6 text-sm bg-paper dark:bg-forest border border-stone-200 dark:border-stone-600 shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none font-serif z-50 rounded-sm">
-              <span className="block text-rust dark:text-white mb-2 italic">
+              <span className="block text-rust dark:text-white mb-2 ">
                 {lang === "fr" ? term.fr : term.en}
               </span>
               {def}

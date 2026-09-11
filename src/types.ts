@@ -9,7 +9,8 @@ export type SectionId =
   | "connecter"
   | "apropos"
   | "boutique"
-  | "writings";
+  | "writings"
+  | "rendezvous";
 
 export interface GlossaryTerm {
   fr: string;
@@ -23,13 +24,20 @@ export interface CartItem {
   price: number;
 }
 
+/** L'ordre du sommaire : la thérapie et les cours de danse en tête (ordre d'Alex, 11 sept 2026),
+ *  la prise de rendez-vous vit en bouton d'appel plutôt que dans cette liste. */
 export const NAV_ORDER: SectionId[] = [
   "therapie",
   "mouvement",
   "events",
-  "ressources",
-  "connecter",
   "apropos",
-  "boutique",
   "writings",
+  "ressources",
+  "boutique",
+  "connecter",
+];
+
+/** Les sections qu'Élise peut éteindre depuis Paramètres › Sections du site. */
+export const SECTIONS_ETEIGNABLES: SectionId[] = [
+  "therapie", "mouvement", "events", "apropos", "writings", "ressources", "boutique", "connecter", "rendezvous",
 ];

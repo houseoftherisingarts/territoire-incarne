@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Plus, Download, Clock, Mail, Calendar as CalendarIcon, AlertCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Download, Clock, Mail, Calendar as CalendarIcon, AlertCircle, Link2 } from "lucide-react";
 import { useFirestoreCollection } from "../../../hooks/useFirestoreCollection";
 import { DayGrid, type GridBlock } from "../../calendar/DayGrid";
 import { WeekGrid } from "../../calendar/WeekGrid";
@@ -11,8 +11,9 @@ import { fmtDateLong, fmtDateShort, isoDate, addDays, fmtTime, dayOfWeekMontreal
 import { buildIcs, downloadIcs } from "../../../lib/ical";
 import type { Appointment, AvailabilitySlot, PersonalEvent } from "../../../types/calendar";
 import { Card } from "../sections";
+import { GoogleAgendaPanel } from "./GoogleAgendaPanel";
 
-type Tab = "agenda" | "availability" | "requests";
+type Tab = "agenda" | "availability" | "requests" | "google";
 type CalView = "day" | "week" | "month";
 
 const MONTH_LONG = new Intl.DateTimeFormat("fr-CA", {
@@ -206,6 +207,7 @@ export const AdminCalendarSection = () => {
           { id: "agenda", label: "Agenda", Icon: CalendarIcon, badge: 0 },
           { id: "availability", label: "Heures d'ouverture", Icon: Clock, badge: 0 },
           { id: "requests", label: "RDV en attente", Icon: Mail, badge: requestsCount },
+          { id: "google", label: "Google Agenda", Icon: Link2, badge: 0 },
         ] as const).map(({ id, label, Icon, badge }) => (
           <button
             key={id}
@@ -257,6 +259,8 @@ export const AdminCalendarSection = () => {
       )}
 
       {tab === "availability" && <AvailabilityEditor />}
+
+      {tab === "google" && <GoogleAgendaPanel />}
 
       {tab === "requests" && (
         <RequestsList appointments={appointments.filter((a) => a.status === "requested")} onOpen={setOpenAppt} />

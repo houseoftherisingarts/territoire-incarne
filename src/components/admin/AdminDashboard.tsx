@@ -19,18 +19,31 @@ import { AdminBlogSection } from "./blog/AdminBlogSection";
 import { AdminCalendarSection } from "./calendar/CalendarSection";
 import { ChangelogSection } from "./ChangelogSection";
 import { ApparenceSettings } from "./ApparenceSettings";
+import { SectionsSettings } from "./SectionsSettings";
 import { useAdminAuth } from "../../hooks/useAdminAuth";
 import { useAdminStore } from "../../hooks/useAdminStore";
 import { ClientsSection } from "./ClientsSection";
 import { TarifsSection } from "./TarifsSection";
 
 export const AdminDashboard = () => {
-  const { authed, loading, login, logout, enableDevBypass } = useAdminAuth();
+  const { authed, loading, notAdmin, user, error, login, loginGoogle, logout, enableDevBypass } = useAdminAuth();
   const { data, update, reset } = useAdminStore();
   const [section, setSection] = useState<AdminSectionId>("dashboard");
 
   if (loading) return null;
-  if (!authed) return <AdminLogin onLogin={login} onDevBypass={enableDevBypass} />;
+  if (!authed) {
+    return (
+      <AdminLogin
+        onLoginGoogle={loginGoogle}
+        onLogin={login}
+        onLogout={logout}
+        notAdmin={notAdmin}
+        connectedEmail={user?.email ?? null}
+        error={error}
+        onDevBypass={enableDevBypass}
+      />
+    );
+  }
 
   return (
     <AdminShell section={section} onSectionChange={setSection} onLogout={logout}>
@@ -61,6 +74,7 @@ export const AdminDashboard = () => {
       {section === "changelog"  && <ChangelogSection />}
       {section === "settings"   && (
         <div className="space-y-6">
+          <SectionsSettings />
           <ApparenceSettings />
           <SettingsSection onReset={reset} />
         </div>

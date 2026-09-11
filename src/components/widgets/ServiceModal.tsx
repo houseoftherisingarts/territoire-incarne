@@ -26,7 +26,7 @@ export const ServiceModal = ({ service, onClose, onBook, bookLabel }: Props) => 
       aria-label={service.title}
     >
       <div
-        className="bg-paper dark:bg-stone-900 w-full max-w-lg rounded-[30px] shadow-2xl relative animate-[fadeIn_0.3s_ease-out] overflow-hidden"
+        className="bg-paper dark:bg-stone-900 w-full max-w-lg rounded-none shadow-2xl relative animate-[fadeIn_0.3s_ease-out] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative h-64 w-full">
@@ -49,7 +49,7 @@ export const ServiceModal = ({ service, onClose, onBook, bookLabel }: Props) => 
           </p>
           <button
             onClick={onBook}
-            className="w-full py-3 bg-rust text-white dark:bg-white dark:text-forest text-xs uppercase tracking-widest hover:opacity-90 rounded-[30px]"
+            className="w-full py-3 bg-rust text-white dark:bg-white dark:text-forest text-xs uppercase tracking-widest hover:opacity-90 rounded-none"
           >
             {bookLabel}
           </button>

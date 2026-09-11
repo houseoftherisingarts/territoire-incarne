@@ -1,18 +1,17 @@
-import { X } from "lucide-react";
+import { motion } from "framer-motion";
 import type { Content } from "../../i18n";
 import type { CartItem, Lang, SectionId } from "../../types";
 import {
   ELISE_MAIN_IMG,
+  ELISE_FIELD_IMG,
   IMG_THERAPIE,
   IMG_WRITINGS,
   IMG_ZEN_STONE,
 } from "../../assets/images";
-import { LinenPattern } from "../decor/LinenPattern";
-import { SomaticCurves } from "../decor/SomaticCurves";
 import { GlossaryText } from "../common/GlossaryText";
 import { BlogPostView } from "../blog/BlogPostView";
-import { useMode } from "../../hooks/useMode";
 import { Reveal } from "../motion/Reveal";
+import { EditableImage } from "../edit/EditableImage";
 
 import {
   Apropos,
@@ -20,41 +19,32 @@ import {
   Connecter,
   Events,
   Mouvement,
-  MouvementSidebarForm,
+  RendezVous,
   Ressources,
   Therapie,
   Writings,
 } from "../../sections";
 
-interface SidebarConfig {
-  image: string | null;
-  imageScaleClass: string;
-}
-
-const sidebarFor = (id: SectionId): SidebarConfig => {
+const photoPour = (id: SectionId): string | null => {
   switch (id) {
-    case "apropos":
-      return { image: ELISE_MAIN_IMG, imageScaleClass: "scale-100" };
-    case "therapie":
-      return { image: IMG_THERAPIE, imageScaleClass: "scale-110" };
-    case "writings":
-      return { image: IMG_WRITINGS, imageScaleClass: "scale-100" };
-    case "events":
-      return { image: IMG_ZEN_STONE, imageScaleClass: "scale-100" };
-    case "ressources":
-      return { image: IMG_ZEN_STONE, imageScaleClass: "scale-100" };
-    default:
-      return { image: null, imageScaleClass: "scale-100" };
+    case "apropos": return ELISE_MAIN_IMG;
+    case "therapie": return IMG_THERAPIE;
+    case "rendezvous": return IMG_THERAPIE;
+    case "mouvement": return ELISE_FIELD_IMG;
+    case "writings": return IMG_WRITINGS;
+    case "events": return IMG_ZEN_STONE;
+    case "ressources": return IMG_ZEN_STONE;
+    case "connecter": return IMG_ZEN_STONE;
+    default: return null;
   }
 };
 
 interface Props {
   id: SectionId;
+  index: number;
   lang: Lang;
   t: Content;
   navTitle: string;
-  closeText: string;
-  onClose: () => void;
   onOpenPost?: (slug: string) => void;
   postSlug?: string | null;
   cart: CartItem[];
@@ -63,13 +53,17 @@ interface Props {
   removeFromCart: (index: number) => void;
 }
 
+const EASE = [0.16, 0.8, 0.24, 1] as const;
+
+/** Une page de section : la photo tient la colonne de gauche et reste collée pendant que le texte
+ *  défile à droite, comme une double page de magazine. La boutique et un écrit ouvert prennent
+ *  toute la largeur. */
 export const DetailView = ({
   id,
+  index,
   lang,
   t,
   navTitle,
-  closeText,
-  onClose,
   onOpenPost,
   postSlug,
   cart,
@@ -77,122 +71,85 @@ export const DetailView = ({
   addToCart,
   removeFromCart,
 }: Props) => {
-  const sidebar = sidebarFor(id);
-  const sectionContent = t.sections[id];
+  const photo = photoPour(id);
+  const sectionContent = t.sections[id] as { title: string; intro?: string };
   const fullWidth = id === "boutique" || (id === "writings" && !!postSlug);
-  const editorial = useMode() === "editorial";
-  // En mode actuel, le contenu apparaît d'un bloc (aucun changement de comportement);
-  // en mode éditorial seulement, il se révèle au défilement.
-  const Corps = ({ children, className }: { children: React.ReactNode; className?: string }) =>
-    editorial ? <Reveal className={className}>{children}</Reveal> : <div className={className}>{children}</div>;
+  const numero = index >= 0 ? `0${index + 1}` : "";
 
   return (
-    <div className="fixed inset-0 z-50 bg-paper dark:bg-forest animate-[fadeIn_0.7s_ease-out] flex flex-col md:flex-row overflow-hidden text-ink dark:text-stone-100">
-      <div
-        className={`${fullWidth ? "hidden" : "w-full md:w-1/2 h-[30vh] md:h-full"} relative overflow-hidden bg-stone-200 dark:bg-stone-900/40 flex-shrink-0 flex items-center justify-center p-6 md:p-12 transition-colors duration-500 ${
-          id === "connecter" ? "p-0" : ""
-        }`}
+    <main id="contenu" className="w-full">
+      <motion.article
+        key={id + (postSlug ?? "")}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: EASE }}
+        className={`w-full ${fullWidth ? "" : "grid grid-cols-1 lg:grid-cols-12"}`}
       >
-        <SomaticCurves className="z-10 text-white/40 absolute inset-0" />
-        <div className="absolute inset-0 bg-stone-500/5 dark:bg-black/40 mix-blend-multiply dark:mix-blend-overlay" />
-
-        {id === "mouvement" ? (
-          <MouvementSidebarForm content={t.sections.mouvement} />
-        ) : id === "connecter" ? (
-          <div className="absolute inset-0 w-full h-full z-0">
-            <img
-              src={IMG_ZEN_STONE}
-              className="w-full h-full object-cover opacity-80 mix-blend-multiply dark:mix-blend-overlay"
-              alt=""
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        ) : sidebar.image ? (
-          <div className="ed-photo relative z-20 w-full max-w-lg aspect-[3/4] shadow-2xl rotate-1 transition-transform duration-[2s] hover:rotate-0 rounded-[30px] overflow-hidden">
-            <div className="w-full h-full overflow-hidden flex items-center justify-center">
-              <img
-                src={sidebar.image}
-                className={`w-full h-full object-cover grayscale-[20%] opacity-90 dark:opacity-80 transition-transform duration-1000 ${sidebar.imageScaleClass} rounded-[30px]`}
-                alt={navTitle}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </div>
-        ) : null}
-
-        <button
-          onClick={onClose}
-          className="absolute top-8 left-8 z-50 group flex items-center gap-3 text-sm font-sans tracking-widest uppercase text-ink dark:text-stone-100 hover:opacity-70 transition-opacity bg-white/10 p-2 rounded-sm backdrop-blur-sm"
-          aria-label={closeText}
-        >
-          <X size={16} className="group-hover:rotate-90 transition-transform duration-700" />
-          <span>{closeText}</span>
-        </button>
-      </div>
-
-      <div className={`${fullWidth ? "w-full" : "w-full md:w-1/2"} h-full relative overflow-y-auto bg-paper dark:bg-forest transition-colors duration-500`}>
-        <SomaticCurves className="text-stone-400/20 dark:text-white/5 absolute inset-0 z-0 pointer-events-none" />
-
-        {fullWidth && (
-          <button
-            onClick={onClose}
-            className="absolute top-8 left-8 z-50 group flex items-center gap-3 text-sm font-sans tracking-widest uppercase text-ink dark:text-stone-100 hover:opacity-70 transition-opacity"
-            aria-label={closeText}
-          >
-            <X size={16} className="group-hover:rotate-90 transition-transform duration-700" />
-            <span>{closeText}</span>
-          </button>
+        {!fullWidth && (
+          <aside className="lg:col-span-5 relative h-[44dvh] lg:sticky lg:top-20 lg:self-start lg:h-[calc(100dvh-5rem)] overflow-hidden bg-stone-200 dark:bg-stone-900/40 lg:border-r border-ink/10 dark:border-white/10">
+            {photo ? (
+              <motion.div
+                initial={{ scale: 1.06 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1.4, ease: EASE }}
+                className="absolute inset-0"
+              >
+                <EditableImage
+                  contentKey={`section.${id}.photo`}
+                  defaultUrl={photo}
+                  alt={navTitle}
+                  className={`w-full h-full object-cover ${id === "connecter" || id === "events" || id === "ressources" ? "opacity-80 mix-blend-multiply dark:mix-blend-overlay" : "grayscale-[10%]"}`}
+                  loading="eager"
+                />
+              </motion.div>
+            ) : null}
+            <p className="hidden lg:block absolute left-8 bottom-8 ed-kicker text-paper drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">{numero ? `${numero} · ` : ""}{navTitle}</p>
+          </aside>
         )}
 
-        <div className={`${fullWidth ? "p-8 md:p-16 lg:px-24 lg:pt-24 lg:pb-16 max-w-7xl" : "p-8 md:p-16 lg:p-24 max-w-3xl xl:max-w-4xl"} mx-auto min-h-full flex flex-col relative z-10`}>
-          <div className="mb-12 pt-8 md:pt-0">
-            <span className="ed-kicker ed-hairline block text-xs font-sans tracking-widest opacity-60 dark:opacity-50 mb-4 uppercase border-b border-stone-300 dark:border-stone-500 inline-block pb-1 text-ink dark:text-stone-300">
-              {navTitle}
-            </span>
-            <h2 className="ed-display text-4xl md:text-5xl lg:text-6xl font-light leading-none text-ink dark:text-stone-100">
+        <div className={`${fullWidth ? "w-full px-5 md:px-12 lg:px-16 pt-10 md:pt-16 pb-24" : "lg:col-span-7 px-5 md:px-12 lg:px-16 pt-10 md:pt-16 lg:pt-24 pb-24"}`}>
+          <header className="mb-12 md:mb-16">
+            <p className="ed-kicker ed-hairline inline-block border-b pb-1 mb-5">{numero ? `${numero} · ` : ""}{navTitle}</p>
+            <h1 className="ed-display text-[clamp(2.6rem,6vw,5.5rem)] text-ink dark:text-stone-100">
               {sectionContent.title}
-            </h2>
-          </div>
+            </h1>
+          </header>
 
-          <Corps className="mb-12 relative">
-            <LinenPattern className="w-full h-32 top-0" />
-            {"intro" in sectionContent && sectionContent.intro && (
-              <p className="text-xl md:text-2xl leading-relaxed font-light text-stone-600 dark:text-stone-200 font-serif">
+          <Reveal className="mb-14 md:mb-20">
+            {sectionContent.intro && (
+              <p className="max-w-2xl font-serif text-2xl md:text-3xl font-light leading-snug text-ink/80 dark:text-stone-200">
                 <GlossaryText content={sectionContent.intro} lang={lang} />
               </p>
             )}
-            {id === "apropos" && (
-              <Apropos content={t.sections.apropos} lang={lang} />
+            {id === "apropos" && <Apropos content={t.sections.apropos} lang={lang} />}
+          </Reveal>
+
+          <div className={fullWidth ? "" : "max-w-3xl"}>
+            {id === "therapie" && <Therapie content={t.sections.therapie} />}
+            {id === "rendezvous" && <RendezVous content={t.sections.rendezvous} general={t.general} />}
+            {id === "mouvement" && <Mouvement content={t.sections.mouvement} />}
+            {id === "events" && <Events content={t.sections.events} />}
+            {id === "ressources" && <Ressources content={t.sections.ressources} />}
+            {id === "writings" && !postSlug && (
+              <Writings content={t.sections.writings} lang={lang} onOpenPost={onOpenPost} />
             )}
-          </Corps>
-
-          {id === "therapie" && <Therapie content={t.sections.therapie} />}
-          {id === "mouvement" && <Mouvement content={t.sections.mouvement} />}
-          {id === "events" && <Events content={t.sections.events} />}
-          {id === "ressources" && <Ressources content={t.sections.ressources} />}
-          {id === "writings" && !postSlug && (
-            <Writings content={t.sections.writings} lang={lang} onOpenPost={onOpenPost} />
-          )}
-          {id === "writings" && postSlug && (
-            <BlogPostView slug={postSlug} lang={lang} onBack={() => onOpenPost && history.back()} />
-          )}
-          {id === "connecter" && <Connecter content={t.sections.connecter} />}
-          {id === "boutique" && (
-            <Boutique
-              content={t.sections.boutique}
-              t={t.general}
-              cart={cart}
-              subtotal={subtotal}
-              onAdd={addToCart}
-              onRemove={removeFromCart}
-            />
-          )}
-
-          <div className="h-24" />
+            {id === "writings" && postSlug && (
+              <BlogPostView slug={postSlug} lang={lang} onBack={() => onOpenPost && history.back()} />
+            )}
+            {id === "connecter" && <Connecter content={t.sections.connecter} />}
+            {id === "boutique" && (
+              <Boutique
+                content={t.sections.boutique}
+                t={t.general}
+                cart={cart}
+                subtotal={subtotal}
+                onAdd={addToCart}
+                onRemove={removeFromCart}
+              />
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      </motion.article>
+    </main>
   );
 };

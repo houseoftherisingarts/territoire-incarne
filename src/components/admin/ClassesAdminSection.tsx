@@ -46,6 +46,8 @@ interface JoinRequest {
   displayName?: string;
   email?: string;
   status: "pending" | "approved" | "paid" | "rejected";
+  /** « interac » quand la personne a annoncé un virement plutôt que la carte. */
+  paiement?: "interac" | "carte";
   requestedAt?: Timestamp;
   paidAt?: Timestamp;
   stripeSessionId?: string;
@@ -201,6 +203,12 @@ export const ClassesAdminSection = () => {
     // Otherwise: a paid class. The client will see "approved" status and can complete payment from their portal.
   };
 
+  /** Le virement Interac est arrivé : la place devient payée, comme après la caisse Stripe. */
+  const marquerPaye = async (classId: string, req: JoinRequest) => {
+    await setDoc(doc(db, `classes/${classId}/requests/${req.id}`), { status: "paid", paidAt: serverTimestamp() }, { merge: true });
+    await setDoc(doc(db, `classes/${classId}/members/${req.id}`), { displayName: req.displayName ?? "", email: req.email ?? "", joinedAt: serverTimestamp() }, { merge: true });
+  };
+
   const reject = async (classId: string, req: JoinRequest) => {
     await setDoc(doc(db, `classes/${classId}/requests/${req.id}`), { status: "rejected" }, { merge: true });
   };
@@ -272,10 +280,15 @@ export const ClassesAdminSection = () => {
                   r.status === "rejected" ? "bg-red-100 text-red-700" :
                   "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300"
                 }`}>
-                  {r.status === "pending" ? "En attente" : r.status === "approved" ? "Approuvé · attend paiement" : r.status === "paid" ? "Membre" : "Refusé"}
+                  {r.status === "pending" ? (r.paiement === "interac" ? "Virement Interac annoncé" : "En attente de paiement") : r.status === "approved" ? "Approuvé · attend paiement" : r.status === "paid" ? "Membre" : "Refusé"}
                 </span>
                 {r.status === "pending" && (
                   <>
+                    {(cls?.priceCents ?? 0) > 0 && (
+                      <button onClick={() => marquerPaye(viewing, r)} className="min-h-[36px] px-3 rounded-full border border-forest/30 text-forest text-xs uppercase tracking-widest hover:bg-forest hover:text-paper transition-colors" title="Le virement Interac est arrivé">
+                        Marquer payé
+                      </button>
+                    )}
                     <button onClick={() => approve(viewing, r)} className="p-2 rounded-full text-forest hover:bg-forest/15" aria-label="Approuver">
                       <CheckCircle size={16} />
                     </button>

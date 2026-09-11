@@ -59,12 +59,35 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
     .filter((e) => new Date(e.date) < now)
     .sort((a, b) => b.date.localeCompare(a.date));
 
+  const [interacPour, setInteracPour] = useState<string | null>(null);
+
+  // Virement Interac : la place est réservée en attente, Élise la marque payée quand le virement arrive.
+  const signUpInterac = (ev: AdminEvent) =>
+    requireAuth(user, async () => {
+      setSigningUp(ev.id);
+      try {
+        await setDoc(doc(db, `events/${ev.id}/registrations/${user!.uid}`), {
+          displayName: user!.displayName ?? "",
+          email: user!.email ?? "",
+          status: "pending",
+          paiement: "interac",
+          registeredAt: serverTimestamp(),
+        }, { merge: true });
+        setInteracPour(ev.id);
+      } catch (err) {
+        console.error("Inscription Interac :", err);
+        alert("La réservation n'a pas pu être enregistrée. Réessayez.");
+      } finally {
+        setSigningUp(null);
+      }
+    });
+
   const signUp = (ev: AdminEvent) =>
     requireAuth(user, async () => {
       setSigningUp(ev.id);
       try {
         if (ev.priceCents === 0) {
-          // Free event — write registration directly
+          // Free event : write registration directly
           await setDoc(doc(db, `events/${ev.id}/registrations/${user!.uid}`), {
             displayName: user!.displayName ?? "",
             email: user!.email ?? "",
@@ -73,7 +96,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
           });
           alert("Inscription confirmée !");
         } else {
-          // Paid event — Stripe Checkout
+          // Paid event : Stripe Checkout
           await startCheckout({
             purpose: "event",
             metadata: {
@@ -89,8 +112,8 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
                 image: ev.image,
               },
             ],
-            successPath: "/events?paid=1",
-            cancelPath: "/events",
+            successPath: "/evenements?paid=1",
+            cancelPath: "/evenements",
           });
         }
       } catch (err) {
@@ -101,15 +124,15 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
       }
     });
 
-  if (loading) return <p className="font-serif italic opacity-60 py-10 text-center">Chargement…</p>;
+  if (loading) return <p className="font-serif opacity-60 py-10 text-center">Chargement…</p>;
 
   const proposeBlock = (
-    <div className="border border-rose-300/40 dark:border-rose-400/20 bg-rose-50/40 dark:bg-rose-900/10 rounded-[30px] p-8 md:p-10 text-center space-y-4">
-      <MessageSquare className="mx-auto text-rose-700/70 dark:text-rose-300" size={26} aria-hidden="true" />
+    <div className="border border-ink/15 dark:border-white/15 bg-ink/[0.03] dark:bg-white/5 rounded-none p-8 md:p-10 text-center space-y-4">
+      <MessageSquare className="mx-auto text-rust dark:text-stone-300" size={26} aria-hidden="true" />
       <h3 className="text-xl md:text-2xl font-light leading-tight">
         Vous portez l'idée d'un événement ?
       </h3>
-      <p className="font-serif italic text-sm text-stone-600 dark:text-stone-300 max-w-md mx-auto leading-relaxed">
+      <p className="font-serif text-sm text-stone-600 dark:text-stone-300 max-w-md mx-auto leading-relaxed">
         Atelier, retraite, cérémonie, festival : proposez-moi votre vision et nous regarderons ensemble si c'est possible.
       </p>
       <button
@@ -127,7 +150,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
         {showRequest && (
           <InterventionRequestModal config={INTERVENTION_CONFIGS.events} onClose={() => setShowRequest(false)} />
         )}
-        <p className="font-serif italic opacity-60 py-8 text-center">
+        <p className="font-serif opacity-60 py-8 text-center">
           Aucun événement à venir pour l'instant.
         </p>
         {proposeBlock}
@@ -143,7 +166,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
       {upcoming.map((ev) => (
         <article
           key={ev.id}
-          className="flex flex-col md:flex-row gap-5 p-6 border border-stone-300 dark:border-stone-700 rounded-[30px] bg-white/40 dark:bg-white/5 group"
+          className="flex flex-col md:flex-row gap-5 p-6 border border-stone-300 dark:border-stone-700 rounded-none bg-white/40 dark:bg-white/5 group"
         >
           {ev.image && (
             <div className="w-full md:w-48 h-40 rounded-2xl overflow-hidden shrink-0 bg-stone-200">
@@ -161,20 +184,38 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
               </div>
             </div>
             {ev.description && (
-              <p className="text-sm font-serif italic text-stone-600 dark:text-stone-300 mb-4 leading-relaxed">
+              <p className="text-sm font-serif text-stone-600 dark:text-stone-300 mb-4 leading-relaxed">
                 {ev.description}
               </p>
             )}
-            <div className="mt-auto flex items-center justify-between gap-3 pt-2">
+            <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
               <span className="text-base font-sans text-rust dark:text-stone-300">{money(ev.priceCents)}</span>
-              <button
-                onClick={() => signUp(ev)}
-                disabled={signingUp === ev.id}
-                className="px-6 py-2 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-widest hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors disabled:opacity-50"
-              >
-                {signingUp === ev.id ? "…" : "S'inscrire"}
-              </button>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => signUp(ev)}
+                  disabled={signingUp === ev.id}
+                  className="min-h-[44px] px-6 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-widest hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors disabled:opacity-50"
+                >
+                  {signingUp === ev.id ? "…" : ev.priceCents > 0 ? "Payer par carte" : "S'inscrire"}
+                </button>
+                {ev.priceCents > 0 && (
+                  <button
+                    onClick={() => signUpInterac(ev)}
+                    disabled={signingUp === ev.id}
+                    className="min-h-[44px] px-5 border border-rust/40 text-rust rounded-full text-xs uppercase tracking-widest hover:bg-rust hover:text-paper transition-colors disabled:opacity-50"
+                  >
+                    Virement Interac
+                  </button>
+                )}
+              </div>
             </div>
+            {interacPour === ev.id && (
+              <p className="font-serif text-sm leading-relaxed opacity-80 pt-2">
+                Place réservée. Envoyez {money(ev.priceCents)} par virement Interac à{" "}
+                <a href="mailto:territoireincarne@gmail.com" className="text-rust underline">territoireincarne@gmail.com</a>, avec votre nom et
+                le titre de l'événement en message. Elise confirme votre place dès réception.
+              </p>
+            )}
           </div>
         </article>
       ))}

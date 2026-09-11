@@ -6,3 +6,4 @@ export { Mouvement, MouvementSidebarForm } from "./Mouvement";
 export { Ressources } from "./Ressources";
 export { Therapie } from "./Therapie";
 export { Writings } from "./Writings";
+export { RendezVous } from "./RendezVous";

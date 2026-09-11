@@ -6,7 +6,7 @@ const SIZE_CLASS: Record<FontSize, string> = {
   h1: "text-4xl md:text-5xl font-light leading-tight",
   h2: "text-3xl md:text-4xl font-light leading-tight",
   h3: "text-2xl md:text-3xl font-light leading-tight",
-  quote: "text-xl italic leading-relaxed border-l-2 border-rust pl-6",
+  quote: "text-xl leading-relaxed border-l-2 border-rust pl-6",
 };
 
 const parseRichText = (text: string): string => {

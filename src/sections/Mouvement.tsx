@@ -7,11 +7,13 @@ import { OrganicBullet } from "../components/decor/OrganicBullet";
 import { LazyMount } from "../components/common/LazyMount";
 import { InterventionRequestModal } from "../components/widgets/InterventionRequestModal";
 import { INTERVENTION_CONFIGS } from "../lib/interventionFields";
-import { ELISE_FIELD_IMG } from "../assets/images";
 import { requireAuth } from "../lib/requireAuth";
+import { startCheckout } from "../hooks/useCheckout";
 import type { Content } from "../i18n";
 import type { DanceClass } from "../components/admin/ClassesAdminSection";
 import { prochaineSeance, formatSeance } from "../lib/groupSchedule";
+
+const COURRIEL_INTERAC = "territoireincarne@gmail.com";
 
 const money = (cents: number) =>
   cents === 0 ? "Gratuit" : (cents / 100).toLocaleString("fr-CA", { style: "currency", currency: "CAD" });
@@ -49,43 +51,86 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
   const status = useUserRequest(cls.id, user?.uid);
   const [busy, setBusy] = useState(false);
 
-  const request = () =>
+  const [erreur, setErreur] = useState<string | null>(null);
+  const [interacAnnonce, setInteracAnnonce] = useState(false);
+
+  // Virement Interac : la place est réservée en attente, Élise la marque payée quand le virement arrive.
+  const inscrireInterac = () =>
     requireAuth(user, async () => {
       setBusy(true);
+      setErreur(null);
       try {
         await setDoc(doc(db, `classes/${cls.id}/requests/${user!.uid}`), {
           displayName: user!.displayName ?? "",
           email: user!.email ?? "",
           status: "pending",
+          paiement: "interac",
           requestedAt: serverTimestamp(),
-        });
+        }, { merge: true });
+        setInteracAnnonce(true);
+      } catch (err) {
+        console.error("Inscription Interac :", err);
+        setErreur("La réservation n'a pas pu être enregistrée. Réessayez.");
       } finally {
         setBusy(false);
       }
     });
 
+  // Inscription directe : un cours gratuit ouvre tout de suite; un cours payant passe par la
+  // caisse Stripe, et c'est le webhook qui marque la place payée.
+  const inscrire = () =>
+    requireAuth(user, async () => {
+      setBusy(true);
+      setErreur(null);
+      try {
+        const gratuit = cls.priceCents === 0;
+        await setDoc(doc(db, `classes/${cls.id}/requests/${user!.uid}`), {
+          displayName: user!.displayName ?? "",
+          email: user!.email ?? "",
+          status: gratuit ? "paid" : "pending",
+          requestedAt: serverTimestamp(),
+        }, { merge: true });
+        if (!gratuit) {
+          await startCheckout({
+            purpose: "class",
+            metadata: { classId: cls.id, displayName: user!.displayName ?? "" },
+            successPath: "/client?onglet=cours&paid=1",
+            cancelPath: "/mouvement",
+          });
+        }
+      } catch (err) {
+        console.error("Inscription au cours :", err);
+        const code = (err as { code?: string })?.code ?? "";
+        setErreur(
+          code.endsWith("resource-exhausted") ? "Ce cours est complet." :
+          code.endsWith("unauthenticated") ? "Connectez-vous pour vous inscrire." :
+          "Le paiement n'est pas encore ouvert. Écrivez à Elise pour réserver votre place.",
+        );
+      } finally {
+        setBusy(false);
+      }
+    });
+
+  const payant = cls.priceCents > 0;
   const label = (() => {
     if (busy) return "…";
-    if (!user) return "Demander à rejoindre";
-    if (!status) return "Demander à rejoindre";
-    if (status === "pending") return "✓ En attente d'approbation";
-    if (status === "approved") return "Approuvé · payer dans mon espace";
-    if (status === "paid") return "✓ Membre";
-    if (status === "rejected") return "Refusé";
-    return "Demander à rejoindre";
+    if (status === "paid") return "✓ Inscrit·e";
+    if (payant) return "Payer par carte";
+    return "S'inscrire";
   })();
 
-  const disabled = busy || (!!status && status !== "rejected");
+  const disabled = busy || status === "paid";
 
   return (
     <li className="flex flex-col md:flex-row md:items-center gap-4 py-4 border-b border-stone-200 dark:border-stone-700/50">
       <div className="flex-1">
         <p className="text-xl font-light text-ink dark:text-stone-100">{cls.title}</p>
         {cls.description && (
-          <p className="text-sm font-serif italic opacity-70 mt-1">{cls.description}</p>
+          <p className="text-sm font-serif opacity-70 mt-1">{cls.description}</p>
         )}
         <p className="text-xs opacity-60 mt-1">
           {money(cls.priceCents)}
+          {cls.capacity ? ` · ${cls.capacity} places` : ""}
           {" · "}
           {(cls.format ?? "video") === "audio" ? "en audio" : "en vidéo"}
           {prochaineSeance(cls.seances ?? []) && (
@@ -93,13 +138,34 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
           )}
         </p>
       </div>
-      <button
-        onClick={request}
-        disabled={disabled}
-        className="px-5 py-2 text-xs uppercase tracking-widest border border-stone-300 hover:bg-ink hover:text-white dark:border-stone-600 dark:hover:bg-white dark:hover:text-forest rounded-full transition-colors disabled:opacity-60 disabled:cursor-not-allowed shrink-0"
-      >
-        {label}
-      </button>
+      {erreur && <p className="font-sans text-xs text-rust w-full md:w-auto">{erreur}</p>}
+      <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={inscrire}
+            disabled={disabled}
+            className="min-h-[44px] px-5 text-xs uppercase tracking-widest border border-stone-300 hover:bg-ink hover:text-white dark:border-stone-600 dark:hover:bg-white dark:hover:text-forest rounded-full transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {label}
+          </button>
+          {payant && status !== "paid" && (
+            <button
+              onClick={inscrireInterac}
+              disabled={busy}
+              className="min-h-[44px] px-5 text-xs uppercase tracking-widest border border-rust/40 text-rust hover:bg-rust hover:text-paper rounded-full transition-colors disabled:opacity-60"
+            >
+              Virement Interac
+            </button>
+          )}
+        </div>
+        {(interacAnnonce || (status === "pending" && payant)) && status !== "paid" && (
+          <p className="font-serif text-sm leading-relaxed max-w-xs md:text-right opacity-80">
+            Place réservée. Envoyez {money(cls.priceCents)} par virement Interac à{" "}
+            <a href={`mailto:${COURRIEL_INTERAC}`} className="text-rust underline">{COURRIEL_INTERAC}</a>, avec votre nom et
+            le titre du cours en message. Elise confirme votre place dès réception.
+          </p>
+        )}
+      </div>
     </li>
   );
 };
@@ -131,24 +197,14 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
         </ul>
       )}
 
-      <div className="-mx-8 md:-mx-16 lg:-mx-24 mt-12 mb-12 overflow-hidden shadow-xl border-t border-stone-200 dark:border-stone-700">
-        <img
-          src={ELISE_FIELD_IMG}
-          className="w-full aspect-[16/9] object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-1000"
-          alt="Elise dans un champ"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
       <div>
         <h3 className="text-2xl font-light mb-2">Cours à venir</h3>
-        <p className="font-serif italic text-sm opacity-70 mb-4">
-          Demandez à rejoindre — Elise vous recontacte pour confirmer.
+        <p className="font-serif text-sm opacity-70 mb-4">
+          Inscrivez-vous en un geste, par carte ou par virement Interac.
         </p>
-        {loading && <p className="font-serif italic opacity-60 py-4">Chargement…</p>}
+        {loading && <p className="font-serif opacity-60 py-4">Chargement…</p>}
         {!loading && classes.length === 0 && (
-          <p className="font-serif italic opacity-60 py-4">Aucun cours actif pour l'instant.</p>
+          <p className="font-serif opacity-60 py-4">Aucun cours actif pour l'instant.</p>
         )}
         <ul>
           {classes.map((c) => (
@@ -157,13 +213,13 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
         </ul>
       </div>
 
-      <div className="border border-orange-300/40 dark:border-orange-400/20 bg-orange-50/40 dark:bg-orange-900/10 rounded-[30px] p-8 md:p-10 text-center space-y-4">
-        <MessageSquare className="mx-auto text-orange-700/70 dark:text-orange-300" size={26} aria-hidden="true" />
+      <div className="border border-ink/15 dark:border-white/15 bg-ink/[0.03] dark:bg-white/5 rounded-none p-8 md:p-10 text-center space-y-4">
+        <MessageSquare className="mx-auto text-rust dark:text-stone-300" size={26} aria-hidden="true" />
         <h3 className="text-xl md:text-2xl font-light leading-tight">
           Vous voulez organiser un cours dans votre région ?
         </h3>
-        <p className="font-serif italic text-sm text-stone-600 dark:text-stone-300 max-w-md mx-auto leading-relaxed">
-          Cours de groupe (10+ personnes) ou suivi privé en forfait — écrivez-moi vos détails.
+        <p className="font-serif text-sm text-stone-600 dark:text-stone-300 max-w-md mx-auto leading-relaxed">
+          Cours de groupe (10 personnes et plus) ou suivi privé en forfait : écrivez-moi vos détails.
         </p>
         <button
           onClick={() => setShowRequest(true)}
@@ -173,7 +229,7 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
         </button>
       </div>
 
-      <div className="bg-rust/5 dark:bg-white/5 p-8 border border-rust/20 dark:border-white/10 text-center space-y-6 rounded-[30px]">
+      <div className="bg-rust/5 dark:bg-white/5 p-8 border border-rust/20 dark:border-white/10 text-center space-y-6 rounded-none">
         <Sparkles className="mx-auto text-rust dark:text-stone-300 mb-2" aria-hidden="true" />
         <p className="text-sm font-sans tracking-widest uppercase opacity-60 text-ink dark:text-stone-300 mb-4">
           {content.extra}
@@ -199,17 +255,17 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
 };
 
 export const MouvementSidebarForm = ({ content }: { content: Content["sections"]["mouvement"] }) => (
-  <div className="relative z-20 w-full max-w-sm bg-white/60 dark:bg-black/30 backdrop-blur-sm p-8 rounded-[30px] shadow-xl border border-white/20 overflow-y-auto max-h-full text-center space-y-5">
+  <div className="relative z-20 w-full max-w-sm bg-white/60 dark:bg-black/30 backdrop-blur-sm p-8 rounded-none shadow-xl border border-white/20 overflow-y-auto max-h-full text-center space-y-5">
     <UserPlus className="mx-auto text-rust dark:text-stone-300 opacity-70" size={28} aria-hidden="true" />
     <h3 className="font-serif text-2xl text-ink dark:text-stone-100 leading-tight">
       Pour rejoindre un cours, créez votre espace
     </h3>
-    <p className="font-serif italic text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+    <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
       Connectez-vous, demandez votre place, et chattez avec votre groupe.
     </p>
     <a
       href="/client"
-      className="inline-flex items-center gap-2 px-8 py-3 bg-ink text-paper dark:bg-stone-100 dark:text-forest font-sans text-xs tracking-[0.25em] uppercase hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors rounded-[30px]"
+      className="inline-flex items-center gap-2 px-8 py-3 bg-ink text-paper dark:bg-stone-100 dark:text-forest font-sans text-xs tracking-[0.25em] uppercase hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors rounded-none"
     >
       Créer un compte
     </a>

@@ -46,11 +46,11 @@ export const Ressources = (_props: { content?: Content["sections"]["ressources"]
     return acc;
   }, {});
 
-  if (loading) return <p className="font-serif italic opacity-60 py-10 text-center">Chargement…</p>;
+  if (loading) return <p className="font-serif opacity-60 py-10 text-center">Chargement…</p>;
 
   if (items.length === 0) {
     return (
-      <p className="font-serif italic opacity-60 py-12 text-center">
+      <p className="font-serif opacity-60 py-12 text-center">
         Les ressources arrivent bientôt.
       </p>
     );

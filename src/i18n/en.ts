@@ -16,6 +16,17 @@ export const en: Content = {
     shippingCost: "$30",
     clientSpace: "Your client space",
     myClientSpace: "My space",
+    prendreRdv: "Book a session",
+    coursDanse: "Dance classes",
+    menu: "Menu",
+    fermerMenu: "Close menu",
+    accueil: "Home",
+    naviguer: "Navigate",
+    coordonnees: "Contact",
+    tableauDeBord: "Dashboard",
+    droits: "All rights reserved.",
+    sommaire: "Contents",
+    lireLaSuite: "Read more",
   },
   nav: {
     apropos: "About",
@@ -27,6 +38,7 @@ export const en: Content = {
     writings: "Writings",
     connecter: "Connect",
     ressources: "Resources",
+    rendezvous: "Appointments",
   },
   sections: {
     apropos: {
@@ -96,6 +108,17 @@ export const en: Content = {
     writings: {
       title: "Writings",
       intro: "Reflections on slowness, anatomy, and the living.",
+    },
+    rendezvous: {
+      title: "Book a session",
+      intro: "To book a session or check whether the approach suits you.",
+      etapes: [
+        { titre: "Choose a session", texte: "Individual session, online or in person." },
+        { titre: "Choose a time", texte: "Available times appear in your personal space." },
+        { titre: "Receive the confirmation", texte: "Elise confirms the appointment and you add it to your calendar." },
+      ],
+      ouvrirEspace: "Choose a time",
+      dejaUnCompte: "Google or email sign-in",
     },
     connecter: {
       title: "Connect",

@@ -14,6 +14,17 @@ export const fr = {
     shippingCost: "30$",
     clientSpace: "Votre espace client",
     myClientSpace: "Mon espace",
+    prendreRdv: "Prendre rendez-vous",
+    coursDanse: "Cours de danse",
+    menu: "Menu",
+    fermerMenu: "Fermer le menu",
+    accueil: "Accueil",
+    naviguer: "Naviguer",
+    coordonnees: "Coordonnées",
+    tableauDeBord: "Tableau de bord",
+    droits: "Tous droits réservés.",
+    sommaire: "Sommaire",
+    lireLaSuite: "Lire la suite",
   },
   nav: {
     apropos: "À propos",
@@ -25,6 +36,7 @@ export const fr = {
     writings: "Écrits",
     connecter: "Connecter",
     ressources: "Ressources",
+    rendezvous: "Rendez-vous",
   },
   sections: {
     apropos: {
@@ -94,6 +106,17 @@ export const fr = {
     writings: {
       title: "Écrits",
       intro: "Réflexions sur la lenteur, l'anatomie et le vivant.",
+    },
+    rendezvous: {
+      title: "Prendre rendez-vous",
+      intro: "Pour prendre rendez-vous ou valider si l'approche vous convient.",
+      etapes: [
+        { titre: "Choisir un soin", texte: "Soin individuel, en ligne ou en présentiel." },
+        { titre: "Choisir un moment", texte: "Les disponibilités s'affichent dans votre espace personnel." },
+        { titre: "Recevoir la confirmation", texte: "Elise confirme le rendez-vous et vous l'ajoutez à votre calendrier." },
+      ],
+      ouvrirEspace: "Choisir un moment",
+      dejaUnCompte: "Connexion Google ou courriel",
     },
     connecter: {
       title: "Connecter",

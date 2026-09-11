@@ -2,7 +2,7 @@ import { LazyMount } from "../common/LazyMount";
 
 export const CalWidget = () => (
   <LazyMount
-    className="w-full h-[600px] border border-stone-300 dark:border-stone-600 rounded-[30px] overflow-hidden bg-white dark:bg-stone-900"
+    className="w-full h-[600px] border border-stone-300 dark:border-stone-600 rounded-none overflow-hidden bg-white dark:bg-stone-900"
     placeholder={<div className="w-full h-full" aria-hidden="true" />}
   >
     <iframe

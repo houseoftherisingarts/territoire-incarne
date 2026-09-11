@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
-import { isAdmin } from "./admins";
+import { isAdminUser } from "./admins";
 import { useSiteOverrides } from "../hooks/useSiteOverrides";
 
 interface SiteEditContextShape {
@@ -27,7 +27,7 @@ export const SiteEditProvider = ({ children }: { children: ReactNode }) => {
   const [hasEditFlag, setHasEditFlag] = useState(false);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => setAdminAuthed(isAdmin(u?.uid)));
+    const unsub = onAuthStateChanged(auth, (u) => setAdminAuthed(isAdminUser(u)));
     return unsub;
   }, []);
 

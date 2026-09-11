@@ -83,12 +83,12 @@ export const Boutique = ({ t, cart, subtotal, onAdd, onRemove }: Props) => {
   };
 
   if (loading) {
-    return <p className="font-serif italic opacity-60 py-10 text-center">Chargement…</p>;
+    return <p className="font-serif opacity-60 py-10 text-center">Chargement…</p>;
   }
 
   if (products.length === 0) {
     return (
-      <p className="font-serif italic opacity-60 py-12 text-center">
+      <p className="font-serif opacity-60 py-12 text-center">
         La boutique est en préparation, revenez bientôt.
       </p>
     );
@@ -170,7 +170,7 @@ const ProductCard = ({ title, desc, price, image, stock, onAdd, addLabel }: Prod
         )}
       </div>
       <h4 className="font-serif text-lg leading-tight text-ink dark:text-stone-100 mb-1">{title}</h4>
-      <p className="text-sm font-serif italic text-stone-500 dark:text-stone-400 leading-relaxed mb-3 line-clamp-2 min-h-[2.5rem]">
+      <p className="text-sm font-serif text-stone-500 dark:text-stone-400 leading-relaxed mb-3 line-clamp-2 min-h-[2.5rem]">
         {desc}
       </p>
       <div className="mt-auto flex items-center justify-between gap-3 pt-2">

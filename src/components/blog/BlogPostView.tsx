@@ -46,12 +46,12 @@ export const BlogPostView = ({ slug, lang, onBack }: Props) => {
   }, [post, lang]);
 
   if (loading) {
-    return <p className="font-serif italic opacity-60 py-20 text-center">Chargement…</p>;
+    return <p className="font-serif opacity-60 py-20 text-center">Chargement…</p>;
   }
   if (notFound || !post) {
     return (
       <div className="text-center py-20 space-y-4">
-        <p className="font-serif italic opacity-60">Article introuvable.</p>
+        <p className="font-serif opacity-60">Article introuvable.</p>
         <button onClick={onBack} className="text-xs font-sans uppercase tracking-widest hover:text-rust">
           ← Retour aux écrits
         </button>
@@ -89,7 +89,7 @@ export const BlogPostView = ({ slug, lang, onBack }: Props) => {
       )}
 
       {content.excerpt && (
-        <p className="text-xl md:text-2xl font-serif italic font-light text-stone-600 dark:text-stone-300 leading-relaxed mb-12 border-l-2 border-rust/40 pl-6">
+        <p className="text-xl md:text-2xl font-serif font-light text-stone-600 dark:text-stone-300 leading-relaxed mb-12 border-l-2 border-rust/40 pl-6">
           {content.excerpt}
         </p>
       )}

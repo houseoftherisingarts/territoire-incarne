@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Plus, Trash2, Pencil, Upload, Eye, EyeOff, Users } from "lucide-react";
-import { collection, onSnapshot, orderBy, query, type Timestamp } from "firebase/firestore";
+import { collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc, type Timestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useFirestoreCollection } from "../../hooks/useFirestoreCollection";
 import { uploadMediaFile } from "../../lib/storage";
@@ -154,9 +154,20 @@ export const EventsAdminSection = () => {
                 <p className="font-serif">{r.displayName || r.email || r.id}</p>
                 <p className="text-xs opacity-60 font-mono">{r.email}</p>
               </div>
-              <span className="text-xs uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100">
-                {r.status ?? "ok"}
-              </span>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className={`text-xs uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full ${r.status === "pending" ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300" : "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100"}`}>
+                  {r.status === "pending" ? ((r as { paiement?: string }).paiement === "interac" ? "Virement Interac annoncé" : "En attente de paiement") : r.status === "paid" ? "Payé" : r.status === "confirmed" ? "Confirmé" : r.status ?? "ok"}
+                </span>
+                {r.status === "pending" && (
+                  <button
+                    onClick={() => setDoc(doc(db, `events/${viewingRegs}/registrations/${r.id}`), { status: "paid", paidAt: serverTimestamp() }, { merge: true })}
+                    className="min-h-[36px] px-3 rounded-full border border-forest/30 text-forest text-xs uppercase tracking-widest hover:bg-forest hover:text-paper transition-colors"
+                    title="Le virement Interac est arrivé"
+                  >
+                    Marquer payé
+                  </button>
+                )}
+              </div>
             </Card>
           ))}
         </div>

@@ -31,10 +31,9 @@ function useFoil() {
 
 /** Le collant foil « Site créé par Vexel Webstudio » du pied de page : liseré blanc découpé,
  *  reflet holographique irisé (visible même au repos), léger basculement 3D au pointeur, posé
- *  bien droit. Un clic ouvre une carte, dans les couleurs de Territoire Incarné (papier, encre,
- *  rouille), qui dit qui a bâti le site et mène à vexelwebstudio.com. Territoire Incarné n'est
- *  pas dans le programme partenaire de Vexel : aucun rabais ni commission n'est promis ici. */
-export const BadgeVexel = () => {
+ *  bien droit dans le pied de page (jamais flottant). Un clic ouvre une carte, dans les couleurs
+ *  de Territoire Incarné, qui dit qui a bâti le site et mène à vexelwebstudio.com. */
+export const BadgeVexel = ({ className = "" }: { className?: string }) => {
   const [ouvert, setOuvert] = useState(false);
   const foil = useFoil();
 
@@ -54,7 +53,7 @@ export const BadgeVexel = () => {
         onPointerMove={foil.suivre}
         onPointerLeave={foil.relacher}
         aria-label="Site créé par Vexel Webstudio : en savoir plus"
-        className="vx-foil fixed bottom-5 right-5 z-[110] flex select-none items-center gap-3 rounded-[15px] px-4 py-3"
+        className={`vx-foil relative inline-flex select-none items-center gap-3 rounded-[15px] px-4 py-3 ${className}`}
       >
         <span aria-hidden className="vx-foil-sheen" />
         <span aria-hidden className="vx-foil-grain" />
@@ -62,11 +61,13 @@ export const BadgeVexel = () => {
           src="/vexel-logo.png"
           alt=""
           aria-hidden="true"
+          width={329}
+          height={320}
           className="relative z-[1] h-10 w-auto drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
         />
         <span className="relative z-[1] flex flex-col text-left leading-tight">
           <span className="text-xs font-sans uppercase tracking-[0.2em] text-white/70">Site créé par</span>
-          <span className="mt-0.5 font-serif text-sm text-white">Vexel Webstudio</span>
+          <span className="mt-0.5 font-serif text-base text-white">Vexel Webstudio</span>
         </span>
       </button>
 
@@ -78,7 +79,7 @@ export const BadgeVexel = () => {
           aria-modal="true"
           aria-label="Un site bâti pour durer"
         >
-          <div className="w-full max-w-md bg-paper dark:bg-charcoal rounded-2xl overflow-hidden shadow-2xl p-8">
+          <div className="w-full max-w-md bg-paper dark:bg-charcoal text-ink dark:text-stone-100 rounded-2xl overflow-hidden shadow-2xl p-8">
             <div className="flex items-start justify-between gap-4">
               <img src="/vexel-logo.png" alt="Vexel Webstudio" className="h-14 w-auto object-contain" />
               <button type="button" onClick={() => setOuvert(false)} aria-label="Fermer" className="w-11 h-11 -mr-2 -mt-2 flex items-center justify-center text-stone-500 hover:text-ink dark:hover:text-white shrink-0">
@@ -86,7 +87,7 @@ export const BadgeVexel = () => {
               </button>
             </div>
             <h3 className="font-serif text-2xl mt-4">Un site bâti pour durer</h3>
-            <p className="font-serif text-sm opacity-70 leading-relaxed mt-3">
+            <p className="font-serif text-base opacity-80 leading-relaxed mt-3">
               Ce site a été conçu et bâti par Vexel Webstudio, un studio du Québec qui fait des sites sur
               mesure : le design, le code, l'espace client et l'administration que vous voyez ici.
             </p>

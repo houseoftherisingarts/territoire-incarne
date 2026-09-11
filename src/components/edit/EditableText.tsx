@@ -43,7 +43,7 @@ export const EditableText = ({
         }}
       >
         {content}
-        <span className="not-italic inline-flex items-center justify-center w-4 h-4 ml-1 align-middle bg-rust text-paper rounded-full">
+        <span className="not-inline-flex items-center justify-center w-4 h-4 ml-1 align-middle bg-rust text-paper rounded-full">
           <Pencil size={9} />
         </span>
       </Tag>
@@ -133,8 +133,8 @@ const EditPopover = ({ contentKey, defaultValue, currentValue, multiline, onClos
         )}
 
         {isOverridden && (
-          <p className="text-xs font-serif italic opacity-60">
-            Valeur d'origine : <span className="font-mono not-italic">{defaultValue}</span>
+          <p className="text-xs font-serif opacity-60">
+            Valeur d'origine : <span className="font-mono not-">{defaultValue}</span>
           </p>
         )}
 
