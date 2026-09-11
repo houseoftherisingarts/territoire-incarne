@@ -103,4 +103,57 @@ npm run build && npm test
 
 ## Project Notes
 
-Active project.
+Active project. Mis à jour le 11 septembre 2026 (passe de parité avec Xena Horizon).
+
+## Canon (mesuré dans le code, jamais à réinventer)
+
+- Couleurs : `paper #EAE8E3`, `ink #2B2926`, `clay #595045`, `moss #4A4F44`, `rust #8C5E45` (seul accent),
+  `charcoal #1F1E1D`, `forest #1F2520` (fond du thème sombre). Polices : Cormorant Garamond (`font-serif`),
+  Montserrat (`font-sans`). `text-xs` a été redéfini à `0.8125rem` (13px) dans `tailwind.config.ts` : plus
+  aucun texte sous 13px n'est permis, tout `text-[9px]` à `text-[12px]` doit devenir `text-xs`.
+- Détail complet, et le mode éditorial : `~/Documents/Onyx/30_library/territoire-incarne-design-system.md`.
+
+## Règles dures (posées par Alex, valables sur tout ce qui se construit ici)
+
+- Aucun italique, aucun tiret long (`—`), aucun texte sous 13px, un titre display ne dépasse jamais deux
+  lignes au rendu. Boutons d'icône : 44px minimum avec `aria-label`.
+- La copie d'Élise est sacrée : ses mots exacts, jamais de paraphrase ni de promesse inventée. Son nom :
+  « Élise .G Lortie » sur les documents, « Elise .G Lortie » sur le site (point avant le G).
+- Aucun mode de compression (caveman, ponytail) sur un texte d'interface ou destiné à un humain : phrases
+  entières, vouvoiement pour le public.
+- Cloisonnement : ce dépôt ne partage son code avec aucun autre projet d'Élise (le Collectif Sexe
+  Positif est un dépôt séparé, jamais touché depuis ici).
+
+## Architecture ajoutée le 11 septembre 2026 (parité Xena Horizon)
+
+- **Mon dossier** (espace client) : `src/components/client/DossierTab.tsx`, `src/lib/dossier.ts`,
+  `src/types/dossier.ts`. Les champs vivent sur `users/{uid}` (pas une collection séparée), les notes
+  privées d'Élise sur `users/{uid}/notes` (admin-only). Catalogue de pièces/étapes éditable dans
+  Paramètres, sauvegardé dans `settings/dossier`.
+- **Dossier (admin)** : nouvel onglet dans `ClientDetailView.tsx` → `DossierAdminTab.tsx` (valider/à
+  refaire une pièce, avancer l'étape, notes privées, export Markdown, impression). Export CSV de la
+  liste dans `ClientsSection.tsx`.
+- **Mode éditorial** : `src/hooks/useMode.ts`, bloc `[data-mode="editorial"]` dans
+  `src/styles/index.css`, bascule dans `src/components/admin/ApparenceSettings.tsx`. Défaut `actuel`.
+- **Journal des changements** : `src/lib/changelog.ts` (à tenir à la main, une entrée par journée de
+  travail, en tête de liste, en vouvoiement) + `src/components/admin/ChangelogSection.tsx`.
+- **Sécurité** : `storage.rules` créé (n'existait pas), `firestore.rules` étendu (bornes sur le dossier
+  client, `etape`/`revue` admin-only, `bugs`, `settings`), testé sur l'émulateur
+  (`tests/rules.test.mjs`, `npm run test:rules`). En-têtes `X-Frame-Options` et CSP dans `firebase.json`.
+- **Autres** : `public/llms.txt`, page 404 (`src/components/common/NotFound.tsx`), collant Vexel
+  (`src/components/common/BadgeVexel.tsx`), bouton Problème technique
+  (`src/components/client/ProblemeTechnique.tsx`, clé Vexel à brancher — voir `docs/BRANCHEMENTS.md`),
+  « mot de passe oublié » dans `useClientAuth.ts`/`ClientLogin.tsx`.
+- Détail des branchements en attente : `docs/BRANCHEMENTS.md`. Tableau de parité complet :
+  `~/Documents/Onyx/10_projects/territoire-incarne/parite-laurie-2026-09-11.md`.
+
+## Commandes utiles
+
+```bash
+npm run dev                 # http://localhost:3000 (utiliser --port 3110 si le 3000 sert un autre projet)
+npm run build                # tsc --noEmit && vite build
+npm run typecheck
+npm run test:rules           # règles Firestore + Storage sur l'émulateur (JAVA_HOME openjdk@21 requis)
+npm run deploy                # build + hosting
+firebase deploy --only hosting,firestore:rules,firestore:indexes,storage --project territoireincarne-80bb9
+```
