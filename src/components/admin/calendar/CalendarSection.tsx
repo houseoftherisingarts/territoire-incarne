@@ -150,7 +150,7 @@ export const AdminCalendarSection = () => {
           <span className="flex-1 font-serif">
             <strong>{requestsCount}</strong> nouvelle{requestsCount > 1 ? "s" : ""} demande{requestsCount > 1 ? "s" : ""} de RDV en attente
           </span>
-          <span className="text-[10px] uppercase tracking-widest font-bold text-amber-800 dark:text-amber-200">
+          <span className="text-xs uppercase tracking-widest font-bold text-amber-800 dark:text-amber-200">
             Voir →
           </span>
         </button>
@@ -173,7 +173,7 @@ export const AdminCalendarSection = () => {
           <button onClick={goNext} className="p-2 rounded-full hover:bg-rust/15 hover:text-rust">
             <ChevronRight size={18} />
           </button>
-          <button onClick={() => setDate(new Date())} className="ml-2 text-[10px] font-sans uppercase tracking-widest opacity-60 hover:opacity-100">
+          <button onClick={() => setDate(new Date())} className="ml-2 text-xs font-sans uppercase tracking-widest opacity-60 hover:opacity-100">
             Aujourd'hui
           </button>
           <span className="ml-3 hidden md:inline font-serif italic text-stone-500">{headerLabel}</span>
@@ -186,16 +186,16 @@ export const AdminCalendarSection = () => {
               <button
                 key={v}
                 onClick={() => setView(v)}
-                className={`px-3 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors ${view === v ? "bg-rust text-paper" : "opacity-60 hover:opacity-100"}`}
+                className={`px-3 py-1.5 rounded-full text-xs uppercase tracking-widest font-bold transition-colors ${view === v ? "bg-rust text-paper" : "opacity-60 hover:opacity-100"}`}
               >
                 {v === "month" ? "Mois" : v === "week" ? "Semaine" : "Jour"}
               </button>
             ))}
           </div>
-          <button onClick={exportIcal} title="Pour Apple Calendrier, Google Agenda, Outlook" className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-3 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors">
+          <button onClick={exportIcal} title="Pour Apple Calendrier, Google Agenda, Outlook" className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-3 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors">
             <Download size={11} /> Exporter mon agenda
           </button>
-          <button onClick={() => { setSeedTime(undefined); setCreating(true); }} className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors">
+          <button onClick={() => { setSeedTime(undefined); setCreating(true); }} className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors">
             <Plus size={12} /> Nouveau
           </button>
         </div>
@@ -214,7 +214,7 @@ export const AdminCalendarSection = () => {
           >
             <Icon size={12} /> {label}
             {badge > 0 && (
-              <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-amber-400 text-amber-950 text-[10px] font-bold leading-none animate-pulse">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-amber-400 text-amber-950 text-xs font-bold leading-none animate-pulse">
                 {badge}
               </span>
             )}
@@ -286,7 +286,7 @@ const RequestsList = ({ appointments, onOpen }: { appointments: Appointment[]; o
               </p>
               {a.notes && <p className="text-sm font-serif italic opacity-70 mt-1">{a.notes}</p>}
             </div>
-            <span className="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-800 dark:bg-amber-800/30 dark:text-amber-200">
+            <span className="text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-800 dark:bg-amber-800/30 dark:text-amber-200">
               En attente
             </span>
           </div>

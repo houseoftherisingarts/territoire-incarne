@@ -96,7 +96,7 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
       <button
         onClick={request}
         disabled={disabled}
-        className="px-5 py-2 text-[11px] uppercase tracking-widest border border-stone-300 hover:bg-ink hover:text-white dark:border-stone-600 dark:hover:bg-white dark:hover:text-forest rounded-full transition-colors disabled:opacity-60 disabled:cursor-not-allowed shrink-0"
+        className="px-5 py-2 text-xs uppercase tracking-widest border border-stone-300 hover:bg-ink hover:text-white dark:border-stone-600 dark:hover:bg-white dark:hover:text-forest rounded-full transition-colors disabled:opacity-60 disabled:cursor-not-allowed shrink-0"
       >
         {label}
       </button>
@@ -213,7 +213,7 @@ export const MouvementSidebarForm = ({ content }: { content: Content["sections"]
     >
       Créer un compte
     </a>
-    <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50">
+    <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">
       Connexion Google ou courriel
     </p>
     <div className="pt-6 border-t border-stone-300 dark:border-stone-600/30">

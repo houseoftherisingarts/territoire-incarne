@@ -50,7 +50,7 @@ export const Card = ({
 );
 
 const Kicker = ({ children }: { children: React.ReactNode }) => (
-  <span className="block text-[10px] font-sans uppercase tracking-[0.3em] text-rust font-bold">
+  <span className="block text-xs font-sans uppercase tracking-[0.3em] text-rust font-bold">
     {children}
   </span>
 );
@@ -106,7 +106,7 @@ export const DashboardSection = ({ data, onNavigate }: DashboardProps) => {
           </div>
           <button
             onClick={() => onNavigate("calendar")}
-            className="shrink-0 inline-flex items-center gap-2 bg-rust text-paper px-6 py-3 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:bg-paper hover:text-ink transition-colors"
+            className="shrink-0 inline-flex items-center gap-2 bg-rust text-paper px-6 py-3 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:bg-paper hover:text-ink transition-colors"
           >
             <CalendarIcon size={14} /> Ouvrir le calendrier
           </button>
@@ -118,7 +118,7 @@ export const DashboardSection = ({ data, onNavigate }: DashboardProps) => {
           <Card key={s.label} className="p-5 hover:shadow-md transition-shadow">
             <button onClick={() => onNavigate(s.section)} className="w-full text-left">
               <p className="text-3xl md:text-4xl font-light">{s.value}</p>
-              <p className="text-[10px] uppercase tracking-[0.25em] mt-2 font-sans opacity-60 font-bold">
+              <p className="text-xs uppercase tracking-[0.25em] mt-2 font-sans opacity-60 font-bold">
                 {s.label}
               </p>
             </button>
@@ -142,7 +142,7 @@ export const DashboardSection = ({ data, onNavigate }: DashboardProps) => {
                     </p>
                   </div>
                   <span
-                    className={`text-[10px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full ${
+                    className={`text-xs uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full ${
                       b.status === "confirmée"
                         ? "bg-forest/10 text-forest dark:bg-forest/30 dark:text-stone-100"
                         : b.status === "annulée"
@@ -172,7 +172,7 @@ export const DashboardSection = ({ data, onNavigate }: DashboardProps) => {
                       {fmtDate(e.date)} · {e.location}
                     </p>
                   </div>
-                  <span className="text-[10px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full bg-rust/10 text-rust">
+                  <span className="text-xs uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full bg-rust/10 text-rust">
                     {e.registered}/{e.capacity}
                   </span>
                 </li>
@@ -239,7 +239,7 @@ export const CalendarSection = ({ embedSrc, onSave }: CalendarProps) => {
           {embedSrc && !editing && (
             <button
               onClick={() => setEditing(true)}
-              className="shrink-0 inline-flex items-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-rust hover:text-paper transition-colors"
+              className="shrink-0 inline-flex items-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-rust hover:text-paper transition-colors"
             >
               <Pencil size={12} /> Modifier
             </button>
@@ -260,7 +260,7 @@ export const CalendarSection = ({ embedSrc, onSave }: CalendarProps) => {
             </div>
             <button
               type="submit"
-              className="bg-rust text-paper px-6 py-3 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+              className="bg-rust text-paper px-6 py-3 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:bg-ink transition-colors"
             >
               Connecter
             </button>
@@ -268,7 +268,7 @@ export const CalendarSection = ({ embedSrc, onSave }: CalendarProps) => {
               <button
                 type="button"
                 onClick={disconnect}
-                className="px-6 py-3 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans border border-ink/10 dark:border-white/10 hover:border-rust hover:text-rust transition-colors"
+                className="px-6 py-3 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans border border-ink/10 dark:border-white/10 hover:border-rust hover:text-rust transition-colors"
               >
                 Déconnecter
               </button>
@@ -391,14 +391,14 @@ export const FinancesSection = ({ transactions, onChange }: FinancesProps) => {
                     title={`Dépenses ${money(v.expense)}`}
                   />
                 </div>
-                <span className="text-[10px] font-sans uppercase tracking-widest opacity-60">
+                <span className="text-xs font-sans uppercase tracking-widest opacity-60">
                   {month.slice(5)}/{month.slice(2, 4)}
                 </span>
               </div>
             ))}
           </div>
         )}
-        <div className="mt-5 flex items-center gap-5 text-[10px] font-sans uppercase tracking-widest opacity-70">
+        <div className="mt-5 flex items-center gap-5 text-xs font-sans uppercase tracking-widest opacity-70">
           <span className="flex items-center gap-2"><span className="w-3 h-3 bg-forest/70" /> Revenus</span>
           <span className="flex items-center gap-2"><span className="w-3 h-3 bg-rust/70" /> Dépenses</span>
         </div>
@@ -462,7 +462,7 @@ export const FinancesSection = ({ transactions, onChange }: FinancesProps) => {
           </select>
           <button
             type="submit"
-            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             <Plus size={12} /> Ajouter
           </button>
@@ -480,7 +480,7 @@ export const FinancesSection = ({ transactions, onChange }: FinancesProps) => {
                 {["Date", "Description", "Catégorie", "Montant", ""].map((h) => (
                   <th
                     key={h}
-                    className="text-left py-3 px-6 text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 font-bold"
+                    className="text-left py-3 px-6 text-xs font-sans uppercase tracking-[0.25em] opacity-60 font-bold"
                   >
                     {h}
                   </th>
@@ -493,7 +493,7 @@ export const FinancesSection = ({ transactions, onChange }: FinancesProps) => {
                   <td className="py-3 px-6 font-mono text-xs opacity-70">{fmtDate(t.date)}</td>
                   <td className="py-3 px-6 font-serif">{t.label}</td>
                   <td className="py-3 px-6">
-                    <span className="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-ink/5 dark:bg-white/10">
+                    <span className="text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-ink/5 dark:bg-white/10">
                       {t.category}
                     </span>
                   </td>
@@ -555,7 +555,7 @@ export const BookingsSection = ({ bookings, onChange }: BookingsProps) => {
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <span
-                className={`text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full ${
+                className={`text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full ${
                   b.status === "confirmée"
                     ? "bg-forest/15 text-forest dark:bg-forest/40 dark:text-stone-100"
                     : b.status === "annulée"
@@ -642,7 +642,7 @@ export const MessagesSection = ({ messages, onChange }: MessagesProps) => {
                     <p className="text-sm opacity-80 font-serif italic truncate">{m.subject}</p>
                   </div>
                 </div>
-                <span className="text-[10px] uppercase tracking-widest opacity-50 font-sans shrink-0">
+                <span className="text-xs uppercase tracking-widest opacity-50 font-sans shrink-0">
                   {fmtDate(m.date)}
                 </span>
               </div>
@@ -653,19 +653,19 @@ export const MessagesSection = ({ messages, onChange }: MessagesProps) => {
                 <div className="mt-4 flex gap-2">
                   <a
                     href={`mailto:${m.email}?subject=Re: ${encodeURIComponent(m.subject)}`}
-                    className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-ink transition-colors"
+                    className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
                   >
                     <Mail size={12} /> Répondre
                   </a>
                   <button
                     onClick={() => toggleRead(m.id, !m.read)}
-                    className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+                    className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
                   >
                     {m.read ? <EyeOff size={12} /> : <Eye size={12} />} Marquer {m.read ? "non lu" : "lu"}
                   </button>
                   <button
                     onClick={() => remove(m.id)}
-                    className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-red-400 hover:text-red-400 transition-colors"
+                    className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-red-400 hover:text-red-400 transition-colors"
                   >
                     <Trash2 size={12} /> Supprimer
                   </button>
@@ -738,7 +738,7 @@ export const BoutiqueSection = ({ products, onChange }: BoutiqueProps) => {
           />
           <button
             type="submit"
-            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             <Plus size={12} /> Ajouter
           </button>
@@ -758,7 +758,7 @@ export const BoutiqueSection = ({ products, onChange }: BoutiqueProps) => {
               </div>
               <button
                 onClick={() => patch(p.id, { active: !p.active })}
-                className={`shrink-0 text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full transition-colors ${
+                className={`shrink-0 text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full transition-colors ${
                   p.active ? "bg-forest/15 text-forest dark:bg-forest/40 dark:text-stone-100" : "bg-ink/5 dark:bg-white/10 opacity-50"
                 }`}
               >
@@ -854,7 +854,7 @@ export const EventsSection = ({ events, onChange }: EventsProps) => {
           />
           <button
             type="submit"
-            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             <Plus size={12} /> Ajouter
           </button>
@@ -944,7 +944,7 @@ export const WritingsSection = ({ posts, onChange }: PostsProps) => {
           />
           <button
             type="submit"
-            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             <Plus size={12} /> Créer brouillon
           </button>
@@ -959,7 +959,7 @@ export const WritingsSection = ({ posts, onChange }: PostsProps) => {
                 <div className="flex items-center gap-3 mb-1">
                   <p className="text-xl font-light">{p.title}</p>
                   <span
-                    className={`text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${
+                    className={`text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${
                       p.published ? "bg-forest/15 text-forest dark:bg-forest/40 dark:text-stone-100" : "bg-ink/5 dark:bg-white/10 opacity-60"
                     }`}
                   >
@@ -972,7 +972,7 @@ export const WritingsSection = ({ posts, onChange }: PostsProps) => {
               <div className="flex gap-2 shrink-0">
                 <button
                   onClick={() => patch(p.id, { published: !p.published })}
-                  className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-3 py-1.5 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+                  className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-3 py-1.5 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
                 >
                   {p.published ? <EyeOff size={12} /> : <Eye size={12} />}
                   {p.published ? "Dépublier" : "Publier"}
@@ -1057,7 +1057,7 @@ export const NewsletterSection = ({ subscribers, onChange }: NewsletterProps) =>
           </div>
           <button
             onClick={exportCsv}
-            className="bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-ink transition-colors"
+            className="bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             CSV
           </button>
@@ -1084,7 +1084,7 @@ export const NewsletterSection = ({ subscribers, onChange }: NewsletterProps) =>
           />
           <button
             type="submit"
-            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             <Plus size={12} /> Ajouter
           </button>
@@ -1101,7 +1101,7 @@ export const NewsletterSection = ({ subscribers, onChange }: NewsletterProps) =>
               {["Courriel", "Nom", "Inscrit le", ""].map((h) => (
                 <th
                   key={h}
-                  className="text-left py-3 px-6 text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 font-bold"
+                  className="text-left py-3 px-6 text-xs font-sans uppercase tracking-[0.25em] opacity-60 font-bold"
                 >
                   {h}
                 </th>
@@ -1166,7 +1166,7 @@ export const SettingsSection = ({ onReset }: SettingsProps) => {
         {!confirming ? (
           <button
             onClick={() => setConfirming(true)}
-            className="inline-flex items-center gap-2 border border-rust/30 text-rust px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-rust hover:text-paper transition-colors"
+            className="inline-flex items-center gap-2 border border-rust/30 text-rust px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-rust hover:text-paper transition-colors"
           >
             <Trash2 size={12} /> Réinitialiser
           </button>
@@ -1177,13 +1177,13 @@ export const SettingsSection = ({ onReset }: SettingsProps) => {
                 onReset();
                 setConfirming(false);
               }}
-              className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+              className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
             >
               Confirmer
             </button>
             <button
               onClick={() => setConfirming(false)}
-              className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+              className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
             >
               Annuler
             </button>

@@ -58,7 +58,7 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
   return (
     <div className="space-y-8 animate-[fadeIn_0.6s_ease-out]">
       <div>
-        <span className="block text-[10px] font-sans uppercase tracking-[0.3em] text-rust dark:text-stone-400 mb-1">
+        <span className="block text-xs font-sans uppercase tracking-[0.3em] text-rust dark:text-stone-400 mb-1">
           Mon profil
         </span>
         <h2 className="text-3xl font-light">Bonjour{profile.displayName ? `, ${profile.displayName.split(" ")[0]}` : ""}</h2>
@@ -68,11 +68,11 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
       <div className={`flex items-center gap-3 px-5 py-4 rounded-2xl border ${bg} border-stone-200 dark:border-stone-700`}>
         <Icon size={20} className={color} />
         <div>
-          <p className="font-sans text-[10px] uppercase tracking-widest opacity-60 mb-0.5">Statut du dossier</p>
+          <p className="font-sans text-xs uppercase tracking-widest opacity-60 mb-0.5">Statut du dossier</p>
           <p className={`font-serif text-lg ${color}`}>{label}</p>
         </div>
         {profile.status === "pending" && (
-          <p className="ml-auto font-sans text-[10px] opacity-50 max-w-[180px] text-right leading-relaxed">
+          <p className="ml-auto font-sans text-xs opacity-50 max-w-[180px] text-right leading-relaxed">
             Élise examinera votre demande sous peu.
           </p>
         )}
@@ -83,7 +83,7 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
         <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border bg-rust/5 dark:bg-rust/10 border-stone-200 dark:border-stone-700">
           <CalendarHeart size={20} className="text-rust" />
           <div>
-            <p className="font-sans text-[10px] uppercase tracking-widest opacity-60 mb-0.5">Séances restantes</p>
+            <p className="font-sans text-xs uppercase tracking-widest opacity-60 mb-0.5">Séances restantes</p>
             <p className="font-serif text-lg">
               {profile.seancesRemaining ?? 0}
               {typeof profile.seancesTotal === "number" && (
@@ -115,14 +115,14 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
             {uploading === "avatar" && <span className="absolute inset-0 flex items-center justify-center bg-black/40 text-white"><Camera size={12} className="animate-pulse text-white" /></span>}
           </button>
           <div>
-            <p className="font-sans text-[10px] uppercase tracking-widest opacity-50 mb-1">Profil</p>
+            <p className="font-sans text-xs uppercase tracking-widest opacity-50 mb-1">Profil</p>
             <p className="font-serif text-xl">{profile.displayName || "—"}</p>
           </div>
         </div>
 
         {/* Name edit */}
         <div>
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 mb-2">Prénom et nom</p>
+          <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50 mb-2">Prénom et nom</p>
           {editingName ? (
             <div className="flex items-center gap-2">
               <input
@@ -153,13 +153,13 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
 
         {/* Email */}
         <div>
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 mb-1">Courriel</p>
+          <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50 mb-1">Courriel</p>
           <p className="font-serif text-lg">{profile.email}</p>
         </div>
 
         {/* Bio */}
         <div>
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 mb-2">Quelques mots sur toi</p>
+          <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50 mb-2">Quelques mots sur toi</p>
           <textarea
             rows={3}
             value={bio}
@@ -171,7 +171,7 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
 
         {/* Liens */}
         <div>
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 mb-2">Un lien (optionnel)</p>
+          <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50 mb-2">Un lien (optionnel)</p>
           <input
             type="url"
             value={liens}
@@ -184,7 +184,7 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
         <button
           onClick={saveBio}
           disabled={savingBio}
-          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
+          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
         >
           {savingBio ? "Enregistrement…" : "Enregistrer"}
         </button>

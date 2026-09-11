@@ -174,8 +174,8 @@ export const DayGrid = ({
               className={`absolute left-16 right-2 rounded-lg border px-3 py-1 text-left transition-all hover:shadow-md ${b.color} ${b.kind === "available" ? "pointer-events-auto" : ""}`}
               style={{ top: `${top}px`, height: `${height}px`, zIndex: z, marginLeft: widthOffset }}
             >
-              <div className="text-[11px] font-bold leading-tight truncate">{b.label}</div>
-              <div className="text-[10px] opacity-70 leading-tight">
+              <div className="text-xs font-bold leading-tight truncate">{b.label}</div>
+              <div className="text-xs opacity-70 leading-tight">
                 {fmtTime(b.start)}–{fmtTime(b.end)}
                 {b.sublabel ? ` · ${b.sublabel}` : ""}
               </div>

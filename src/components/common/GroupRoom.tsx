@@ -64,7 +64,7 @@ export const GroupRoom = ({ format, seances, roomUrl, roomName, isOwner = false 
           allowTranscript={false}
           endLabel="Quitter"
         />
-        <p className="text-[11px] font-sans uppercase tracking-[0.2em] opacity-50">
+        <p className="text-xs font-sans uppercase tracking-[0.2em] opacity-50">
           Rien n'est enregistré ni transcrit dans cette salle.
         </p>
       </div>
@@ -85,7 +85,7 @@ export const GroupRoom = ({ format, seances, roomUrl, roomName, isOwner = false 
         <div className="flex-1 min-w-[180px]">
           {enDirect ? (
             <>
-              <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-forest dark:text-stone-100 font-bold">
+              <p className="text-xs font-sans uppercase tracking-[0.3em] text-forest dark:text-stone-100 font-bold">
                 La rencontre est ouverte
               </p>
               <p className="font-serif italic opacity-70 text-sm mt-1">
@@ -96,7 +96,7 @@ export const GroupRoom = ({ format, seances, roomUrl, roomName, isOwner = false 
             </>
           ) : suivante ? (
             <>
-              <p className="text-[10px] font-sans uppercase tracking-[0.3em] opacity-60">Prochaine rencontre</p>
+              <p className="text-xs font-sans uppercase tracking-[0.3em] opacity-60">Prochaine rencontre</p>
               <p className="font-serif text-lg capitalize">{formatSeance(suivante.debut)}</p>
               <p className="text-xs opacity-60 mt-0.5">
                 {suivante.titre} · {suivante.duree} minutes · la porte s'ouvre 15 minutes avant
@@ -111,7 +111,7 @@ export const GroupRoom = ({ format, seances, roomUrl, roomName, isOwner = false 
           <button
             onClick={entrer}
             disabled={chargement}
-            className="shrink-0 inline-flex items-center gap-2 bg-rust text-paper px-5 py-2.5 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
+            className="shrink-0 inline-flex items-center gap-2 bg-rust text-paper px-5 py-2.5 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
           >
             {chargement ? <Loader2 size={13} className="animate-spin" /> : <Video size={13} />}
             Entrer dans la salle

@@ -51,11 +51,11 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onRe
       <div className="relative z-10 w-full max-w-md">
         {/* Header */}
         <div className="mb-10 text-center">
-          <span className="block text-[10px] font-sans uppercase tracking-[0.3em] text-rust dark:text-stone-400 mb-3">
+          <span className="block text-xs font-sans uppercase tracking-[0.3em] text-rust dark:text-stone-400 mb-3">
             Espace personnel
           </span>
           <h1 className="text-4xl font-light leading-none mb-2">Territoire Incarné</h1>
-          <p className="font-sans text-[11px] tracking-[0.2em] text-stone-500 dark:text-stone-400 uppercase">
+          <p className="font-sans text-xs tracking-[0.2em] text-stone-500 dark:text-stone-400 uppercase">
             {mode === "login" ? "Connexion" : "Créer un compte"}
           </p>
         </div>
@@ -79,14 +79,14 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onRe
 
         <div className="flex items-center gap-4 mb-6">
           <div className="flex-1 h-px bg-stone-200 dark:bg-stone-700" />
-          <span className="text-[10px] font-sans uppercase tracking-widest text-stone-400">ou</span>
+          <span className="text-xs font-sans uppercase tracking-widest text-stone-400">ou</span>
           <div className="flex-1 h-px bg-stone-200 dark:bg-stone-700" />
         </div>
 
         <form onSubmit={submit} className="space-y-5">
           {mode === "signup" && (
             <div>
-              <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
+              <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
                 Prénom et nom
               </label>
               <input
@@ -100,7 +100,7 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onRe
           )}
 
           <div>
-            <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
+            <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
               Courriel
             </label>
             <input
@@ -114,7 +114,7 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onRe
           </div>
 
           <div>
-            <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
+            <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
               Mot de passe
             </label>
             <input
@@ -133,19 +133,19 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onRe
               type="button"
               onClick={forgotPassword}
               disabled={busy || !email.trim()}
-              className="block font-sans text-[10px] uppercase tracking-[0.2em] opacity-50 hover:opacity-100 hover:text-rust transition-all disabled:opacity-30"
+              className="block font-sans text-xs uppercase tracking-[0.2em] opacity-50 hover:opacity-100 hover:text-rust transition-all disabled:opacity-30"
             >
               Mot de passe oublié
             </button>
           )}
           {resetSent && (
-            <p className="font-sans text-[11px] text-rust dark:text-stone-200">
+            <p className="font-sans text-xs text-rust dark:text-stone-200">
               Courriel de réinitialisation envoyé à {email}.
             </p>
           )}
 
           {error && (
-            <p className="font-sans text-[11px] uppercase tracking-widest text-rust dark:text-stone-200">
+            <p className="font-sans text-xs uppercase tracking-widest text-rust dark:text-stone-200">
               {error}
             </p>
           )}
@@ -160,7 +160,7 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onRe
               />
               <span className="font-serif">
                 Je préfère <strong>ne pas</strong> recevoir l'infolettre
-                <span className="block text-[10px] uppercase tracking-widest opacity-60 mt-0.5 font-sans">
+                <span className="block text-xs uppercase tracking-widest opacity-60 mt-0.5 font-sans">
                   Sinon, vous serez ajouté·e. Vous pouvez vous désabonner à tout moment.
                 </span>
               </span>
@@ -179,14 +179,14 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onRe
         <div className="mt-8 text-center space-y-3">
           <button
             onClick={() => setMode(mode === "login" ? "signup" : "login")}
-            className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 hover:opacity-100 transition-opacity"
+            className="font-sans text-xs uppercase tracking-[0.25em] opacity-50 hover:opacity-100 transition-opacity"
           >
             {mode === "login" ? "Pas encore de compte ? Créer un compte →" : "Déjà un compte ? Se connecter →"}
           </button>
           <br />
           <a
             href="/"
-            className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-40 hover:opacity-80 transition-opacity"
+            className="font-sans text-xs uppercase tracking-[0.25em] opacity-40 hover:opacity-80 transition-opacity"
           >
             ← Retour au site
           </a>

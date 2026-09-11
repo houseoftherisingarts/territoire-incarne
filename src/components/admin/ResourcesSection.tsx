@@ -105,7 +105,7 @@ export const ResourcesSection = () => {
         {!editorOpen && (
           <button
             onClick={startCreate}
-            className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+            className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             <Plus size={14} /> Nouvelle ressource
           </button>
@@ -116,7 +116,7 @@ export const ResourcesSection = () => {
         <Card className="p-6 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Étiquette</label>
+              <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Étiquette</label>
               <input
                 type="text"
                 value={form.label}
@@ -125,7 +125,7 @@ export const ResourcesSection = () => {
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Catégorie</label>
+              <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Catégorie</label>
               <input
                 type="text"
                 value={form.category}
@@ -135,7 +135,7 @@ export const ResourcesSection = () => {
               />
             </div>
             <div className="space-y-1 md:col-span-2">
-              <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Lien internet ou numéro de téléphone</label>
+              <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Lien internet ou numéro de téléphone</label>
               <input
                 type="text"
                 value={form.link}
@@ -145,7 +145,7 @@ export const ResourcesSection = () => {
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Icône</label>
+              <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Icône</label>
               <select
                 value={form.icon}
                 onChange={(e) => setForm({ ...form, icon: e.target.value as Resource["icon"] })}
@@ -157,13 +157,13 @@ export const ResourcesSection = () => {
               </select>
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Fichier téléchargeable (PDF, etc.)</label>
-              <label className="inline-flex items-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
+              <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Fichier téléchargeable (PDF, etc.)</label>
+              <label className="inline-flex items-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
                 <Upload size={12} /> {uploading ? "Téléversement…" : form.fileUrl ? "Remplacer" : "Téléverser"}
                 <input type="file" onChange={onFileChange} className="hidden" disabled={uploading} />
               </label>
               {form.fileUrl && (
-                <p className="text-[10px] opacity-50 truncate font-mono">{form.fileUrl}</p>
+                <p className="text-xs opacity-50 truncate font-mono">{form.fileUrl}</p>
               )}
             </div>
           </div>
@@ -188,20 +188,20 @@ export const ResourcesSection = () => {
               <span className="text-xs font-sans uppercase tracking-widest">Visible sur le site</span>
             </label>
           </div>
-          <p className="text-[10px] opacity-50 italic font-serif">
+          <p className="text-xs opacity-50 italic font-serif">
             "Réservé aux connecté·e·s" — la personne devra créer un compte et se connecter pour télécharger.
           </p>
 
           <div className="flex gap-3 pt-3">
             <button
               onClick={save}
-              className="bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+              className="bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:bg-ink transition-colors"
             >
               Enregistrer
             </button>
             <button
               onClick={cancel}
-              className="border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+              className="border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
             >
               Annuler
             </button>
@@ -222,11 +222,11 @@ export const ResourcesSection = () => {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 mb-1 flex-wrap">
                   <p className="font-serif text-lg">{r.label}</p>
-                  <span className="text-[10px] uppercase tracking-widest opacity-60">
+                  <span className="text-xs uppercase tracking-widest opacity-60">
                     {r.category}
                   </span>
                   {r.requiresAuth && (
-                    <span className="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+                    <span className="text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
                       Privé
                     </span>
                   )}
@@ -236,7 +236,7 @@ export const ResourcesSection = () => {
               <div className="flex gap-2 shrink-0">
                 <button
                   onClick={() => update(r.id, { active: !r.active })}
-                  className="inline-flex items-center gap-1.5 border border-ink/10 dark:border-white/10 px-3 py-1.5 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+                  className="inline-flex items-center gap-1.5 border border-ink/10 dark:border-white/10 px-3 py-1.5 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
                 >
                   {r.active ? <EyeOff size={11} /> : <Eye size={11} />}
                   {r.active ? "Cacher" : "Activer"}

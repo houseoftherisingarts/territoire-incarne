@@ -86,7 +86,7 @@ export const Home = ({ t, onOpen }: Props) => {
               onClick={handleNav(key, onOpen)}
               className="group relative text-left lg:text-right transition-all duration-700 hover:opacity-70 flex-shrink-0"
             >
-              <span className="ed-index absolute -left-6 top-2 text-[9px] font-serif text-rust dark:text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden lg:block">
+              <span className="ed-index absolute -left-6 top-2 text-xs font-serif text-rust dark:text-stone-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden lg:block">
                 0{i + 1}
               </span>
               <span className="text-xl md:text-2xl lg:text-3xl font-light text-ink dark:text-stone-100 opacity-90 group-hover:text-rust dark:group-hover:text-white transition-colors duration-500 block leading-tight">

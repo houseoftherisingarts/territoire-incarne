@@ -143,7 +143,7 @@ export const WeekGrid = ({
               onClick={() => onDayHeaderClick?.(d)}
               className={`flex-1 px-2 py-2 text-center hover:bg-stone-100 dark:hover:bg-white/5 transition-colors border-l border-stone-200/50 dark:border-white/5 ${isToday ? "bg-rust/5 dark:bg-rust/10" : ""}`}
             >
-              <div className="text-[10px] font-sans uppercase tracking-widest opacity-60">
+              <div className="text-xs font-sans uppercase tracking-widest opacity-60">
                 {DAY_LABELS[dayOfWeekMontreal(d)]}
               </div>
               <div className={`font-serif text-lg ${isToday ? "text-rust font-bold" : ""}`}>
@@ -164,7 +164,7 @@ export const WeekGrid = ({
               return (
                 <div
                   key={t}
-                  className={`px-2 text-[10px] font-mono ${isHour ? "opacity-70 border-t border-stone-300 dark:border-white/15" : "opacity-30 border-t border-stone-200/50 dark:border-white/5"}`}
+                  className={`px-2 text-xs font-mono ${isHour ? "opacity-70 border-t border-stone-300 dark:border-white/15" : "opacity-30 border-t border-stone-200/50 dark:border-white/5"}`}
                   style={{ height: `${SLOT_HEIGHT_PX}px` }}
                 >
                   {isHour ? t : ""}
@@ -203,7 +203,7 @@ export const WeekGrid = ({
                     <button
                       key={b.id}
                       onClick={() => onBlockClick?.(b)}
-                      className={`absolute left-0.5 right-0.5 rounded-md border px-1.5 py-0.5 text-left text-[10px] transition-all hover:shadow-md overflow-hidden ${b.color}`}
+                      className={`absolute left-0.5 right-0.5 rounded-md border px-1.5 py-0.5 text-left text-xs transition-all hover:shadow-md overflow-hidden ${b.color}`}
                       style={{ top: `${top}px`, height: `${height}px`, zIndex: z }}
                     >
                       <div className="font-bold leading-tight truncate">{b.label}</div>

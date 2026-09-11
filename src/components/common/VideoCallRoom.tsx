@@ -108,7 +108,7 @@ export const VideoCallRoom = ({
             <button
               onClick={transcribing ? stopTranscription : startTranscription}
               title={transcribing ? "Arrêter la transcription" : "Démarrer la transcription"}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-sans uppercase tracking-widest font-bold backdrop-blur-sm transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans uppercase tracking-widest font-bold backdrop-blur-sm transition-colors ${
                 transcribing
                   ? "bg-rust text-white hover:bg-red-700"
                   : "bg-black/60 text-white hover:bg-black/80"
@@ -121,7 +121,7 @@ export const VideoCallRoom = ({
 
           <button
             onClick={onEnd}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-600 text-white text-[10px] font-sans uppercase tracking-widest font-bold hover:bg-red-700 transition-colors backdrop-blur-sm"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-600 text-white text-xs font-sans uppercase tracking-widest font-bold hover:bg-red-700 transition-colors backdrop-blur-sm"
           >
             <X size={13} /> {endLabel}
           </button>

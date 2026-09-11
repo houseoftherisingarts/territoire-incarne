@@ -154,7 +154,7 @@ export const EventsAdminSection = () => {
                 <p className="font-serif">{r.displayName || r.email || r.id}</p>
                 <p className="text-xs opacity-60 font-mono">{r.email}</p>
               </div>
-              <span className="text-[10px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100">
+              <span className="text-xs uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100">
                 {r.status ?? "ok"}
               </span>
             </Card>
@@ -173,7 +173,7 @@ export const EventsAdminSection = () => {
         {!editorOpen && (
           <button
             onClick={() => { setCreating(true); setEditing(null); setForm(blank()); }}
-            className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+            className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             <Plus size={14} /> Nouvel événement
           </button>
@@ -213,7 +213,7 @@ export const EventsAdminSection = () => {
                   className="bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust"
                 />
                 <div>
-                  <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Prix (CAD, 0 = gratuit)</label>
+                  <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Prix (CAD, 0 = gratuit)</label>
                   <input
                     type="number"
                     step="0.01"
@@ -223,7 +223,7 @@ export const EventsAdminSection = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Capacité</label>
+                  <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Capacité</label>
                   <input
                     type="number"
                     value={form.capacity}
@@ -246,7 +246,7 @@ export const EventsAdminSection = () => {
               <div className="aspect-[4/3] rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 mb-2">
                 {form.image && <img src={form.image} alt="" className="w-full h-full object-cover" />}
               </div>
-              <label className="flex items-center justify-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
+              <label className="flex items-center justify-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
                 <Upload size={12} /> {uploading ? "Téléversement…" : form.image ? "Remplacer" : "Image"}
                 <input type="file" accept="image/*" onChange={onUpload} className="hidden" disabled={uploading} />
               </label>
@@ -254,8 +254,8 @@ export const EventsAdminSection = () => {
           </div>
 
           <div className="flex gap-3 pt-3 border-t border-ink/5 dark:border-white/5">
-            <button onClick={save} className="bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:bg-ink transition-colors">Enregistrer</button>
-            <button onClick={cancel} className="border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors">Annuler</button>
+            <button onClick={save} className="bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:bg-ink transition-colors">Enregistrer</button>
+            <button onClick={cancel} className="border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors">Annuler</button>
           </div>
         </Card>
       )}
@@ -277,7 +277,7 @@ export const EventsAdminSection = () => {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 mb-1 flex-wrap">
                   <p className="font-serif text-lg">{ev.title}</p>
-                  <span className={`text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${ev.published ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-ink/5 dark:bg-white/10 opacity-60"}`}>
+                  <span className={`text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${ev.published ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-ink/5 dark:bg-white/10 opacity-60"}`}>
                     {ev.published ? "Publié" : "Brouillon"}
                   </span>
                 </div>
@@ -286,7 +286,7 @@ export const EventsAdminSection = () => {
                 </p>
               </div>
               <div className="flex gap-2 shrink-0">
-                <button onClick={() => setViewingRegs(ev.id)} className="inline-flex items-center gap-1.5 border border-ink/10 dark:border-white/10 px-3 py-1.5 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors">
+                <button onClick={() => setViewingRegs(ev.id)} className="inline-flex items-center gap-1.5 border border-ink/10 dark:border-white/10 px-3 py-1.5 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors">
                   <Users size={11} /> Inscriptions
                 </button>
                 <button onClick={() => update(ev.id, { published: !ev.published })} className="p-2 rounded-full hover:bg-rust/15 hover:text-rust transition-colors" aria-label={ev.published ? "Cacher" : "Publier"}>

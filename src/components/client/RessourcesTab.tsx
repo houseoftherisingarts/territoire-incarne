@@ -35,7 +35,7 @@ export const RessourcesTab = ({ uid }: { uid: string }) => {
                 >
                   <Icon size={16} className="shrink-0 text-rust opacity-70" />
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-[10px] uppercase tracking-widest opacity-50">{r.category}</p>
+                    <p className="font-sans text-xs uppercase tracking-widest opacity-50">{r.category}</p>
                     <p className="font-serif text-base">{r.label}</p>
                   </div>
                   <ExternalLink size={13} className="shrink-0 opacity-40" />
@@ -60,11 +60,11 @@ export const RessourcesTab = ({ uid }: { uid: string }) => {
                   {d.description && <p className="font-serif text-sm opacity-70 mt-0.5">{d.description}</p>}
                   <div className="flex items-center gap-3 mt-1.5">
                     {d.url && (
-                      <a href={d.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-rust text-[11px] font-sans uppercase tracking-widest hover:underline">
+                      <a href={d.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-rust text-xs font-sans uppercase tracking-widest hover:underline">
                         <ExternalLink size={11} /> Ouvrir
                       </a>
                     )}
-                    <span className="text-[10px] opacity-40 font-sans">{fmtDate(d.addedAt)}</span>
+                    <span className="text-xs opacity-40 font-sans">{fmtDate(d.addedAt)}</span>
                   </div>
                 </div>
               </div>

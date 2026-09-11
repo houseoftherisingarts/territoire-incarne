@@ -67,14 +67,14 @@ export const DossierAdminTab = ({ client }: { client: ClientProfile }) => {
   return (
     <div className="space-y-6 print:space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3 print:hidden">
-        <p className="font-sans text-[11px] uppercase tracking-widest opacity-60">
+        <p className="font-sans text-xs uppercase tracking-widest opacity-60">
           {avancement(client.pieces, config.pieces)}% des pièces obligatoires reçues
         </p>
         <div className="flex gap-2">
-          <button onClick={exporterMarkdown} className="inline-flex items-center gap-1.5 px-3 py-2 border border-ink/10 dark:border-white/10 rounded-sm text-[10px] font-sans uppercase tracking-widest hover:border-rust hover:text-rust transition-colors">
+          <button onClick={exporterMarkdown} className="inline-flex items-center gap-1.5 px-3 py-2 border border-ink/10 dark:border-white/10 rounded-sm text-xs font-sans uppercase tracking-widest hover:border-rust hover:text-rust transition-colors">
             <Download size={12} /> Markdown
           </button>
-          <button onClick={() => window.print()} className="inline-flex items-center gap-1.5 px-3 py-2 border border-ink/10 dark:border-white/10 rounded-sm text-[10px] font-sans uppercase tracking-widest hover:border-rust hover:text-rust transition-colors">
+          <button onClick={() => window.print()} className="inline-flex items-center gap-1.5 px-3 py-2 border border-ink/10 dark:border-white/10 rounded-sm text-xs font-sans uppercase tracking-widest hover:border-rust hover:text-rust transition-colors">
             <Printer size={12} /> Imprimer
           </button>
         </div>
@@ -82,13 +82,13 @@ export const DossierAdminTab = ({ client }: { client: ClientProfile }) => {
 
       {/* Parcours */}
       <Card className="p-5 print:border-0 print:shadow-none">
-        <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 mb-3">Étape du parcours</p>
+        <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50 mb-3">Étape du parcours</p>
         <div className="flex flex-wrap gap-2">
           {config.etapes.map((e) => (
             <button
               key={e.id}
               onClick={() => changerEtape(e.id)}
-              className={`px-3 py-1.5 rounded-full text-[11px] font-sans uppercase tracking-widest border transition-colors ${
+              className={`px-3 py-1.5 rounded-full text-xs font-sans uppercase tracking-widest border transition-colors ${
                 client.etape === e.id ? "bg-rust text-paper border-rust" : "border-ink/10 dark:border-white/10 hover:border-rust hover:text-rust"
               }`}
             >
@@ -102,7 +102,7 @@ export const DossierAdminTab = ({ client }: { client: ClientProfile }) => {
       <div className="space-y-5">
         {piecesParCategorie(config.pieces).map(({ cat, pieces }) => (
           <div key={cat} className="space-y-3">
-            <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50">{cat}</p>
+            <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">{cat}</p>
             {pieces.map((p) => {
               const etat = etatPiece(client.pieces, client.revue, p.id);
               const deposee = client.pieces?.[p.id];
@@ -110,13 +110,13 @@ export const DossierAdminTab = ({ client }: { client: ClientProfile }) => {
                 <Card key={p.id} className="p-4 print:border-0 print:shadow-none">
                   <div className="flex items-start justify-between gap-3 flex-wrap">
                     <div className="min-w-0">
-                      <p className="font-serif text-base">{p.nom}{p.option && <span className="font-sans text-[10px] opacity-50 uppercase tracking-widest ml-2">optionnelle</span>}</p>
+                      <p className="font-serif text-base">{p.nom}{p.option && <span className="font-sans text-xs opacity-50 uppercase tracking-widest ml-2">optionnelle</span>}</p>
                       {deposee ? (
-                        <a href={deposee.url} target="_blank" rel="noopener noreferrer" className="font-sans text-[11px] text-rust hover:underline">
+                        <a href={deposee.url} target="_blank" rel="noopener noreferrer" className="font-sans text-xs text-rust hover:underline">
                           {deposee.nom} · {formatTaille(deposee.taille)} · déposée le {dateCourte(deposee.deposeLe)}
                         </a>
                       ) : (
-                        <p className="font-sans text-[11px] opacity-40">Pas encore déposée</p>
+                        <p className="font-sans text-xs opacity-40">Pas encore déposée</p>
                       )}
                       {etat === "a_refaire" && client.revue?.[p.id]?.note && (
                         <p className="font-serif text-sm mt-1 flex items-start gap-1.5"><FileWarning size={13} className="text-rust shrink-0 mt-0.5" /> {client.revue[p.id].note}</p>
@@ -124,7 +124,7 @@ export const DossierAdminTab = ({ client }: { client: ClientProfile }) => {
                     </div>
                     {deposee && (
                       <div className="flex items-center gap-2 shrink-0 print:hidden">
-                        <span className={`text-[10px] font-sans uppercase tracking-widest font-bold ${etat === "valide" ? "text-emerald-600" : etat === "a_refaire" ? "text-rust" : "opacity-60"}`}>
+                        <span className={`text-xs font-sans uppercase tracking-widest font-bold ${etat === "valide" ? "text-emerald-600" : etat === "a_refaire" ? "text-rust" : "opacity-60"}`}>
                           {etat === "valide" ? "Validée" : etat === "a_refaire" ? "À refaire" : etat === "redeposee" ? "Nouveau dépôt" : "En attente"}
                         </span>
                         {etat !== "valide" && (
@@ -146,7 +146,7 @@ export const DossierAdminTab = ({ client }: { client: ClientProfile }) => {
                         placeholder="Ce qui manque ou ce qu'il faut corriger"
                         className="flex-1 bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust"
                       />
-                      <button onClick={() => demanderRefaire(p.id)} className="px-3 py-2 bg-rust text-paper rounded-sm text-[11px] font-sans uppercase tracking-widest">Envoyer</button>
+                      <button onClick={() => demanderRefaire(p.id)} className="px-3 py-2 bg-rust text-paper rounded-sm text-xs font-sans uppercase tracking-widest">Envoyer</button>
                     </div>
                   )}
                 </Card>
@@ -158,7 +158,7 @@ export const DossierAdminTab = ({ client }: { client: ClientProfile }) => {
 
       {/* Notes privées */}
       <div className="space-y-3 print:hidden">
-        <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50">Notes privées (jamais visibles de la cliente)</p>
+        <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">Notes privées (jamais visibles de la cliente)</p>
         <form onSubmit={ajouterNote} className="flex gap-2">
           <input
             value={noteTexte}
@@ -166,14 +166,14 @@ export const DossierAdminTab = ({ client }: { client: ClientProfile }) => {
             placeholder="Une note pour toi"
             className="flex-1 bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust font-serif"
           />
-          <button type="submit" className="px-4 py-2 bg-rust text-paper rounded-sm text-[11px] font-sans uppercase tracking-widest">Ajouter</button>
+          <button type="submit" className="px-4 py-2 bg-rust text-paper rounded-sm text-xs font-sans uppercase tracking-widest">Ajouter</button>
         </form>
         <div className="space-y-2">
           {notes.map((n) => (
             <div key={n.id} className="flex items-start justify-between gap-3 p-3 border border-ink/10 dark:border-white/10 rounded-sm bg-white/40 dark:bg-white/5">
               <div>
                 <p className="font-serif text-sm">{n.texte}</p>
-                <p className="font-sans text-[10px] opacity-40 mt-0.5">{dateCourte(n.createdAt)}</p>
+                <p className="font-sans text-xs opacity-40 mt-0.5">{dateCourte(n.createdAt)}</p>
               </div>
               <button onClick={() => remove(n.id)} aria-label="Supprimer" className="p-1.5 rounded-full opacity-30 hover:opacity-100 hover:text-rust transition-all shrink-0">
                 <Trash2 size={13} />

@@ -124,10 +124,10 @@ export const ManualBookingModal = ({ initialDate, initialStart, onClose }: Props
 
         <div className="px-6 pt-4">
           <div className="flex bg-ink/5 dark:bg-white/10 rounded-full p-1 mb-4">
-            <button onClick={() => setMode("appointment")} className={`flex-1 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors ${mode === "appointment" ? "bg-rust text-paper" : "opacity-60"}`}>
+            <button onClick={() => setMode("appointment")} className={`flex-1 py-2 rounded-full text-xs uppercase tracking-widest font-bold transition-colors ${mode === "appointment" ? "bg-rust text-paper" : "opacity-60"}`}>
               <Users size={11} className="inline mr-1" /> Rendez-vous
             </button>
-            <button onClick={() => setMode("personal")} className={`flex-1 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors ${mode === "personal" ? "bg-rust text-paper" : "opacity-60"}`}>
+            <button onClick={() => setMode("personal")} className={`flex-1 py-2 rounded-full text-xs uppercase tracking-widest font-bold transition-colors ${mode === "personal" ? "bg-rust text-paper" : "opacity-60"}`}>
               <CalendarIcon size={11} className="inline mr-1" /> Événement perso
             </button>
           </div>
@@ -137,7 +137,7 @@ export const ManualBookingModal = ({ initialDate, initialStart, onClose }: Props
           {mode === "appointment" && (
             <>
               <div>
-                <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Client existant</label>
+                <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Client existant</label>
                 <select value={pickedUid} onChange={(e) => setPickedUid(e.target.value)}
                   className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust">
                   <option value="">— Aucun (entrer manuellement ci-dessous) —</option>
@@ -156,7 +156,7 @@ export const ManualBookingModal = ({ initialDate, initialStart, onClose }: Props
               )}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Type</label>
+                  <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Type</label>
                   <input type="text" value={type} onChange={(e) => setType(e.target.value)}
                     className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust" />
                 </div>
@@ -175,17 +175,17 @@ export const ManualBookingModal = ({ initialDate, initialStart, onClose }: Props
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Date</label>
+              <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Date</label>
               <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
                 className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust" />
             </div>
             <div>
-              <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Heure</label>
+              <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Heure</label>
               <input type="time" step={1800} value={startTime} onChange={(e) => setStartTime(e.target.value)}
                 className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust" />
             </div>
             <div>
-              <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Durée (min)</label>
+              <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Durée (min)</label>
               <select value={duration} onChange={(e) => setDuration(parseInt(e.target.value, 10))}
                 className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust">
                 {[30, 45, 60, 75, 90, 120].map((m) => (
@@ -196,7 +196,7 @@ export const ManualBookingModal = ({ initialDate, initialStart, onClose }: Props
           </div>
 
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">
               <FileText size={11} className="inline mr-1" /> Notes
             </label>
             <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3}
@@ -204,10 +204,10 @@ export const ManualBookingModal = ({ initialDate, initialStart, onClose }: Props
           </div>
 
           <div className="flex gap-3 pt-2 border-t border-ink/5 dark:border-white/5">
-            <button type="submit" disabled={busy} className="bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
+            <button type="submit" disabled={busy} className="bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
               {busy ? "…" : "Créer"}
             </button>
-            <button type="button" onClick={onClose} className="border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors">
+            <button type="button" onClick={onClose} className="border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors">
               Annuler
             </button>
           </div>

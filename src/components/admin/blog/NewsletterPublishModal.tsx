@@ -33,10 +33,10 @@ export const NewsletterPublishModal = ({ post, onCancel, onSkip, onSend }: Props
             (Le sender d'infolettre n'est pas encore branché — pour l'instant, ce bouton publie l'article et marque la notification comme à envoyer.)
           </p>
           <div className="flex gap-3 pt-2">
-            <button onClick={onSend} className="flex-1 bg-rust text-paper py-3 rounded-[30px] uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:bg-ink transition-colors">
+            <button onClick={onSend} className="flex-1 bg-rust text-paper py-3 rounded-[30px] uppercase tracking-[0.25em] text-xs font-bold font-sans hover:bg-ink transition-colors">
               Publier + Annoncer
             </button>
-            <button onClick={onSkip} className="flex-1 border border-ink/10 dark:border-white/10 py-3 rounded-[30px] uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors">
+            <button onClick={onSkip} className="flex-1 border border-ink/10 dark:border-white/10 py-3 rounded-[30px] uppercase tracking-[0.25em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors">
               Publier sans annoncer
             </button>
           </div>

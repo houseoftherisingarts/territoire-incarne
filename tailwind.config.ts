@@ -9,6 +9,12 @@ const config: Config = {
         serif: ['"Cormorant Garamond"', "serif"],
         sans: ['"Montserrat"', "sans-serif"],
       },
+      // Règle dure : aucun texte sous 13px. text-xs devient le plancher (au lieu des
+      // 12px par défaut de Tailwind) ; tout ce qui était text-[9px]..text-[12px] a été
+      // rebasculé sur text-xs (2026-09-11).
+      fontSize: {
+        xs: ["0.8125rem", { lineHeight: "1.3" }],
+      },
       colors: {
         paper: "#EAE8E3",
         ink: "#2B2926",

@@ -114,7 +114,7 @@ export const DossierTab = ({ uid, profile }: Props) => {
         <button
           onClick={saveProjet}
           disabled={savingProjet}
-          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
+          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
         >
           {savingProjet ? "Enregistrement…" : "Enregistrer"}
         </button>
@@ -124,7 +124,7 @@ export const DossierTab = ({ uid, profile }: Props) => {
       <div className="space-y-4">
         <div className="flex items-baseline justify-between">
           <h2 className="font-serif text-xl">Ton parcours</h2>
-          <span className="font-sans text-[11px] uppercase tracking-widest opacity-50">{pct}% des pièces reçues</span>
+          <span className="font-sans text-xs uppercase tracking-widest opacity-50">{pct}% des pièces reçues</span>
         </div>
         <ol className="space-y-0">
           {config.etapes.map((etape, i) => {
@@ -157,7 +157,7 @@ export const DossierTab = ({ uid, profile }: Props) => {
         <h2 className="font-serif text-xl">Tes pièces</h2>
         {piecesParCategorie(config.pieces).map(({ cat, pieces }) => (
           <div key={cat} className="space-y-3">
-            <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50">{cat}</p>
+            <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">{cat}</p>
             <div className="space-y-3">
               {pieces.map((p) => {
                 const etat = etatPiece(profile.pieces, profile.revue, p.id);
@@ -169,11 +169,11 @@ export const DossierTab = ({ uid, profile }: Props) => {
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <p className="font-serif text-base">
-                          {p.nom} {p.option && <span className="font-sans text-[10px] opacity-50 uppercase tracking-widest">(optionnel)</span>}
+                          {p.nom} {p.option && <span className="font-sans text-xs opacity-50 uppercase tracking-widest">(optionnel)</span>}
                         </p>
                         {p.aide && <p className="font-sans text-xs opacity-60 mt-0.5">{p.aide}</p>}
                         <p
-                          className={`font-sans text-[10px] uppercase tracking-widest mt-1.5 font-bold ${
+                          className={`font-sans text-xs uppercase tracking-widest mt-1.5 font-bold ${
                             etat === "valide" ? "text-emerald-600 dark:text-emerald-400" : etat === "a_refaire" ? "text-rust" : "opacity-50"
                           }`}
                         >
@@ -185,14 +185,14 @@ export const DossierTab = ({ uid, profile }: Props) => {
                           </p>
                         )}
                         {deposee && (
-                          <a href={deposee.url} target="_blank" rel="noopener noreferrer" className="inline-block font-sans text-[11px] text-rust hover:underline mt-1.5">
+                          <a href={deposee.url} target="_blank" rel="noopener noreferrer" className="inline-block font-sans text-xs text-rust hover:underline mt-1.5">
                             {deposee.nom} · {formatTaille(deposee.taille)}
                           </a>
                         )}
                       </div>
                       <div className="shrink-0 flex items-center gap-1.5">
                         {progres !== undefined ? (
-                          <span className="inline-flex items-center gap-1.5 text-[11px] font-sans opacity-60">
+                          <span className="inline-flex items-center gap-1.5 text-xs font-sans opacity-60">
                             <Loader2 size={14} className="animate-spin" /> {progres}%
                           </span>
                         ) : (

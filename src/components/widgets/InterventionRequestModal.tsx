@@ -99,7 +99,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
         ) : (
           <form onSubmit={submit} className="p-6 md:p-8 space-y-5">
             <div>
-              <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-rust dark:text-stone-400 mb-2">
+              <p className="text-xs font-sans uppercase tracking-[0.3em] text-rust dark:text-stone-400 mb-2">
                 {config.label}
               </p>
               <h2 className="font-serif text-2xl md:text-3xl mb-3 leading-tight">{config.modalTitle}</h2>
@@ -113,7 +113,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                 if (!isVisible(f, values)) return null;
                 return (
                   <div key={f.name} className="space-y-1">
-                    <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">
+                    <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-60">
                       {f.label}
                       {f.required && <span className="text-rust ml-1">*</span>}
                     </label>
@@ -149,7 +149,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                       />
                     )}
                     {f.helpText && (
-                      <p className="text-[10px] font-serif italic opacity-50">{f.helpText}</p>
+                      <p className="text-xs font-serif italic opacity-50">{f.helpText}</p>
                     )}
                   </div>
                 );

@@ -26,7 +26,7 @@ export const BadgeVexel = () => {
       >
         <img src="/vexel-logo.png" alt="" aria-hidden="true" className="h-7 w-7 object-contain rounded-full" />
         <span className="text-left leading-tight">
-          <span className="block text-[9px] font-sans uppercase tracking-[0.2em] opacity-50">Site créé par</span>
+          <span className="block text-xs font-sans uppercase tracking-[0.2em] opacity-50">Site créé par</span>
           <span className="block font-serif text-sm text-ink dark:text-stone-100">Vexel Webstudio</span>
         </span>
       </button>

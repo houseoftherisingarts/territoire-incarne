@@ -90,7 +90,7 @@ export const AvailabilityEditor = () => {
         <h4 className="font-sans text-xs uppercase tracking-[0.25em] opacity-60 mb-3">Heures récurrentes (chaque semaine)</h4>
         <form onSubmit={addRecurring} className="grid grid-cols-2 md:grid-cols-[140px_110px_110px_140px_auto] gap-3 items-end">
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Jour</label>
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Jour</label>
             <select
               value={form.dow}
               onChange={(e) => setForm({ ...form, dow: parseInt(e.target.value, 10) })}
@@ -102,17 +102,17 @@ export const AvailabilityEditor = () => {
             </select>
           </div>
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Début</label>
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Début</label>
             <input type="time" step={1800} value={form.start} onChange={(e) => setForm({ ...form, start: e.target.value })}
               className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust" />
           </div>
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Fin</label>
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Fin</label>
             <input type="time" step={1800} value={form.end} onChange={(e) => setForm({ ...form, end: e.target.value })}
               className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust" />
           </div>
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Pour</label>
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Pour</label>
             <select
               value={form.category}
               onChange={(e) => setForm({ ...form, category: e.target.value as AvailabilityCategory })}
@@ -122,7 +122,7 @@ export const AvailabilityEditor = () => {
               <option value="danse">Danse (orange)</option>
             </select>
           </div>
-          <button type="submit" className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors">
+          <button type="submit" className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors">
             <Plus size={12} /> Ajouter
           </button>
         </form>
@@ -132,22 +132,22 @@ export const AvailabilityEditor = () => {
         <h4 className="font-sans text-xs uppercase tracking-[0.25em] opacity-60 mb-3">Plage ponctuelle (date précise)</h4>
         <form onSubmit={addOneOff} className="grid grid-cols-2 md:grid-cols-[160px_110px_110px_140px_auto] gap-3 items-end">
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Date</label>
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Date</label>
             <input type="date" value={oneOff.date} onChange={(e) => setOneOff({ ...oneOff, date: e.target.value })}
               className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust" />
           </div>
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Début</label>
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Début</label>
             <input type="time" step={1800} value={oneOff.start} onChange={(e) => setOneOff({ ...oneOff, start: e.target.value })}
               className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust" />
           </div>
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Fin</label>
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Fin</label>
             <input type="time" step={1800} value={oneOff.end} onChange={(e) => setOneOff({ ...oneOff, end: e.target.value })}
               className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2 text-sm outline-none focus:border-rust" />
           </div>
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">Pour</label>
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">Pour</label>
             <select
               value={oneOff.category}
               onChange={(e) => setOneOff({ ...oneOff, category: e.target.value as AvailabilityCategory })}
@@ -157,7 +157,7 @@ export const AvailabilityEditor = () => {
               <option value="danse">Danse (orange)</option>
             </select>
           </div>
-          <button type="submit" className="inline-flex items-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-rust hover:text-paper transition-colors">
+          <button type="submit" className="inline-flex items-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-rust hover:text-paper transition-colors">
             <CalendarIcon size={12} /> Ponctuel
           </button>
         </form>
@@ -180,7 +180,7 @@ export const AvailabilityEditor = () => {
                 />
                 <span className="font-mono text-sm w-12 opacity-70">{DAYS[s.dayOfWeek ?? 0]}</span>
                 <span className="font-mono text-sm flex-1">{s.startTime} – {s.endTime}</span>
-                <button onClick={() => update(s.id, { active: !s.active })} className={`text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${s.active ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300"}`}>
+                <button onClick={() => update(s.id, { active: !s.active })} className={`text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${s.active ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300"}`}>
                   {s.active ? "Visible" : "Caché"}
                 </button>
                 <button onClick={() => remove(s.id)} className="p-1 opacity-40 hover:opacity-100 hover:text-rust">
@@ -206,7 +206,7 @@ export const AvailabilityEditor = () => {
                 title={`Couleur : ${CATEGORY_LABEL[cat]} — cliquer pour changer`}
               />
               <span className="font-mono text-sm flex-1">{s.date} · {s.startTime} – {s.endTime}</span>
-              <button onClick={() => update(s.id, { active: !s.active })} className={`text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${s.active ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300"}`}>
+              <button onClick={() => update(s.id, { active: !s.active })} className={`text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${s.active ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300"}`}>
                 {s.active ? "Visible" : "Caché"}
               </button>
               <button onClick={() => remove(s.id)} className="p-1 opacity-40 hover:opacity-100 hover:text-rust">

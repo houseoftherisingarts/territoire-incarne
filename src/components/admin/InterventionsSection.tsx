@@ -80,13 +80,13 @@ export const InterventionsSection = () => {
 
       <Card className="p-5 space-y-4">
         <div>
-          <p className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-2">Statut</p>
+          <p className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-2">Statut</p>
           <div className="flex gap-2 flex-wrap">
             {(["all", "new", "reviewing", "accepted", "declined", "completed"] as const).map((s) => (
               <button
                 key={s}
                 onClick={() => setFilter(s)}
-                className={`px-3 py-1 rounded-full text-[10px] font-sans uppercase tracking-widest font-bold transition-colors ${
+                className={`px-3 py-1 rounded-full text-xs font-sans uppercase tracking-widest font-bold transition-colors ${
                   filter === s
                     ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest"
                     : "bg-ink/5 dark:bg-white/10 hover:bg-rust/15"
@@ -99,13 +99,13 @@ export const InterventionsSection = () => {
           </div>
         </div>
         <div>
-          <p className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-2">Type</p>
+          <p className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-2">Type</p>
           <div className="flex gap-2 flex-wrap">
             {(["all", "danse", "education", "events", "therapie"] as const).map((c) => (
               <button
                 key={c}
                 onClick={() => setCatFilter(c)}
-                className={`px-3 py-1 rounded-full text-[10px] font-sans uppercase tracking-widest font-bold transition-colors flex items-center gap-1.5 ${
+                className={`px-3 py-1 rounded-full text-xs font-sans uppercase tracking-widest font-bold transition-colors flex items-center gap-1.5 ${
                   catFilter === c
                     ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest"
                     : "bg-ink/5 dark:bg-white/10 hover:bg-rust/15"
@@ -129,7 +129,7 @@ export const InterventionsSection = () => {
           <span className="flex-1 font-serif">
             <strong>{newCount}</strong> nouvelle{newCount > 1 ? "s" : ""} demande{newCount > 1 ? "s" : ""} non lue{newCount > 1 ? "s" : ""}
           </span>
-          <span className="text-[10px] uppercase tracking-widest font-bold text-amber-800 dark:text-amber-200">
+          <span className="text-xs uppercase tracking-widest font-bold text-amber-800 dark:text-amber-200">
             Voir →
           </span>
         </button>
@@ -158,10 +158,10 @@ export const InterventionsSection = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1 flex-wrap">
                     <span className={`w-2.5 h-2.5 rounded-full ${CATEGORY_DOT[req.category]}`} />
-                    <span className="text-[10px] uppercase tracking-widest opacity-70">
+                    <span className="text-xs uppercase tracking-widest opacity-70">
                       {INTERVENTION_CONFIGS[req.category]?.label ?? req.categoryLabel}
                     </span>
-                    <span className={`text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${STATUS_STYLE[req.status]}`}>
+                    <span className={`text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${STATUS_STYLE[req.status]}`}>
                       {STATUS_LABEL[req.status]}
                     </span>
                   </div>
@@ -184,7 +184,7 @@ export const InterventionsSection = () => {
                       .filter(([key]) => !["name", "email", "phone"].includes(key))
                       .map(([key, value]) => (
                         <div key={key}>
-                          <dt className="text-[10px] font-sans uppercase tracking-widest opacity-50">
+                          <dt className="text-xs font-sans uppercase tracking-widest opacity-50">
                             {labelFor(req.category, key)}
                           </dt>
                           <dd className="font-serif whitespace-pre-wrap">{value || "—"}</dd>
@@ -193,7 +193,7 @@ export const InterventionsSection = () => {
                   </dl>
 
                   <div className="pt-3 border-t border-ink/5 dark:border-white/5">
-                    <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">
+                    <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">
                       Notes internes
                     </label>
                     <textarea
@@ -210,14 +210,14 @@ export const InterventionsSection = () => {
                   <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-ink/5 dark:border-white/5">
                     <a
                       href={`mailto:${req.clientEmail}`}
-                      className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-ink transition-colors"
+                      className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
                     >
                       <Mail size={12} /> Répondre
                     </a>
                     {req.clientPhone && (
                       <a
                         href={`tel:${req.clientPhone}`}
-                        className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+                        className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
                       >
                         <Phone size={12} /> Appeler
                       </a>

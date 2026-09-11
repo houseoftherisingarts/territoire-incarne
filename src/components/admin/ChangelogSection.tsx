@@ -12,15 +12,15 @@ export const ChangelogSection = () => (
     <div className="grid grid-cols-3 gap-4">
       <Card className="p-4">
         <p className="text-2xl font-light">{JOURNAL.length}</p>
-        <p className="font-sans text-[10px] uppercase tracking-widest opacity-50 mt-1">Journées de travail</p>
+        <p className="font-sans text-xs uppercase tracking-widest opacity-50 mt-1">Journées de travail</p>
       </Card>
       <Card className="p-4">
         <p className="text-2xl font-light">{nombreEtapes()}</p>
-        <p className="font-sans text-[10px] uppercase tracking-widest opacity-50 mt-1">Choses livrées</p>
+        <p className="font-sans text-xs uppercase tracking-widest opacity-50 mt-1">Choses livrées</p>
       </Card>
       <Card className="p-4">
         <p className="text-2xl font-light">{enClair(JOURNAL[JOURNAL.length - 1].date)}</p>
-        <p className="font-sans text-[10px] uppercase tracking-widest opacity-50 mt-1">Depuis le</p>
+        <p className="font-sans text-xs uppercase tracking-widest opacity-50 mt-1">Depuis le</p>
       </Card>
     </div>
 
@@ -31,7 +31,7 @@ export const ChangelogSection = () => (
             className={`absolute -left-[27px] top-1.5 w-3 h-3 rounded-full ${i === 0 ? "bg-rust" : "bg-stone-300 dark:bg-stone-600"}`}
             aria-hidden="true"
           />
-          <p className="font-sans text-[10px] uppercase tracking-widest opacity-50">{enClair(entree.date)}</p>
+          <p className="font-sans text-xs uppercase tracking-widest opacity-50">{enClair(entree.date)}</p>
           <h3 className="font-serif text-xl mt-1">{entree.titre}</h3>
           <p className="font-serif text-sm opacity-70 mt-1.5 leading-relaxed">{entree.intro}</p>
           <ul className="mt-3 space-y-1.5">

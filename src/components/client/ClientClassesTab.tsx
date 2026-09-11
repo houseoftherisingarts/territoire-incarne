@@ -100,7 +100,7 @@ const ClassChatroom = ({ classId, uid, displayName }: { classId: string; uid: st
 
   return (
     <div className="border-t border-stone-200 dark:border-stone-700 pt-4 mt-4">
-      <p className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-3">
+      <p className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-3">
         <Music size={11} className="inline mr-1" /> Chatroom du groupe
       </p>
       <div className="bg-white/40 dark:bg-black/20 rounded-2xl p-4 max-h-72 overflow-y-auto space-y-2 mb-3">
@@ -109,7 +109,7 @@ const ClassChatroom = ({ classId, uid, displayName }: { classId: string; uid: st
         ) : (
           msgs.map((m) => (
             <div key={m.id} className={`text-sm ${m.uid === uid ? "text-right" : ""}`}>
-              <div className="text-[10px] uppercase tracking-widest opacity-50 mb-0.5">
+              <div className="text-xs uppercase tracking-widest opacity-50 mb-0.5">
                 {m.displayName} · {fmtTime(m.createdAt?.toDate())}
               </div>
               <div className={`inline-block px-3 py-1.5 rounded-2xl ${m.uid === uid ? "bg-rust text-paper" : "bg-stone-200 dark:bg-stone-700"}`}>
@@ -177,7 +177,7 @@ export const ClientClassesTab = ({ uid, displayName }: { uid: string; displayNam
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
               <p className="font-serif text-xl">{row.title}</p>
-              <span className={`text-[10px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full mt-1 inline-block ${
+              <span className={`text-xs uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full mt-1 inline-block ${
                 row.status === "paid" ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" :
                 row.status === "approved" ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300" :
                 row.status === "rejected" ? "bg-red-100 text-red-700" :

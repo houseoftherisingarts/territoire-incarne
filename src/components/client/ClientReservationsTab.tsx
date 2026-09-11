@@ -90,19 +90,19 @@ export const ClientReservationsTab = ({ uid, email, displayName, onOpenMessageri
       <div className="flex bg-ink/5 dark:bg-white/10 rounded-full p-1 gap-1 max-w-2xl">
         <button
           onClick={() => setTab("mine")}
-          className={`flex-1 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors ${tab === "mine" ? "bg-rust text-paper" : "opacity-60 hover:opacity-100"}`}
+          className={`flex-1 py-2 rounded-full text-xs uppercase tracking-widest font-bold transition-colors ${tab === "mine" ? "bg-rust text-paper" : "opacity-60 hover:opacity-100"}`}
         >
           Mes rendez-vous{upcoming.length > 0 ? ` (${upcoming.length})` : ""}
         </button>
         <button
           onClick={() => setTab("book")}
-          className={`flex-1 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors ${tab === "book" ? "bg-rust text-paper" : "opacity-60 hover:opacity-100"}`}
+          className={`flex-1 py-2 rounded-full text-xs uppercase tracking-widest font-bold transition-colors ${tab === "book" ? "bg-rust text-paper" : "opacity-60 hover:opacity-100"}`}
         >
           Demander un RDV
         </button>
         <button
           onClick={onOpenMessagerie}
-          className="flex-1 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors opacity-60 hover:opacity-100 inline-flex items-center justify-center gap-1.5"
+          className="flex-1 py-2 rounded-full text-xs uppercase tracking-widest font-bold transition-colors opacity-60 hover:opacity-100 inline-flex items-center justify-center gap-1.5"
         >
           <MessageSquare size={11} /> Envoyer un message
         </button>
@@ -180,9 +180,9 @@ const MyAppointments = ({
       {upcoming.length > 0 && (
         <div>
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-sans text-[10px] uppercase tracking-[0.3em] text-rust dark:text-stone-400">À venir</h3>
+            <h3 className="font-sans text-xs uppercase tracking-[0.3em] text-rust dark:text-stone-400">À venir</h3>
             {upcoming.length > 1 && (
-              <button onClick={exportAll} className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest opacity-60 hover:opacity-100">
+              <button onClick={exportAll} className="inline-flex items-center gap-1 text-xs font-sans uppercase tracking-widest opacity-60 hover:opacity-100">
                 <Download size={11} /> Tout ajouter à mon agenda
               </button>
             )}
@@ -197,7 +197,7 @@ const MyAppointments = ({
                 <div key={a.id} className={`border rounded-2xl p-5 ${isPending ? "border-amber-300 bg-amber-50/50 dark:bg-amber-900/10" : "border-stone-200 dark:border-stone-700 bg-white/40 dark:bg-white/5"}`}>
                   <div className="flex items-center justify-between gap-3 flex-wrap">
                     <div>
-                      <span className={`text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${isPending ? "bg-amber-200 text-amber-800 dark:bg-amber-700/30 dark:text-amber-200" : "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100"}`}>
+                      <span className={`text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${isPending ? "bg-amber-200 text-amber-800 dark:bg-amber-700/30 dark:text-amber-200" : "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100"}`}>
                         {isPending ? "En attente d'approbation" : "Confirmé"}
                       </span>
                       <p className="font-serif text-xl mt-2">{fmtDateLong(start)}</p>
@@ -211,12 +211,12 @@ const MyAppointments = ({
                         <button
                           onClick={() => setCallOpen(a)}
                           disabled={!isToday}
-                          className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold hover:bg-ink transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-full text-xs uppercase tracking-widest font-bold hover:bg-ink transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           <Video size={12} /> {isToday ? "Rejoindre la séance" : "Rejoindre (le jour J)"}
                         </button>
                       )}
-                      <button onClick={() => exportSingle(a)} className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold hover:border-rust hover:text-rust transition-colors">
+                      <button onClick={() => exportSingle(a)} className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-5 py-2 rounded-full text-xs uppercase tracking-widest font-bold hover:border-rust hover:text-rust transition-colors">
                         <Download size={12} /> Ajouter à mon agenda
                       </button>
                     </div>
@@ -230,7 +230,7 @@ const MyAppointments = ({
 
       {past.length > 0 && (
         <div className="pt-6 border-t border-stone-200 dark:border-stone-700">
-          <h3 className="font-sans text-[10px] uppercase tracking-[0.3em] opacity-60 mb-3">Passés</h3>
+          <h3 className="font-sans text-xs uppercase tracking-[0.3em] opacity-60 mb-3">Passés</h3>
           <div className="space-y-2">
             {past.slice(0, 8).map((a) => (
               <PastAppointmentRow key={a.id} a={a} />
@@ -238,7 +238,7 @@ const MyAppointments = ({
           </div>
         </div>
       )}
-      <p className="text-[10px] uppercase tracking-widest opacity-40 text-center pt-4">
+      <p className="text-xs uppercase tracking-widest opacity-40 text-center pt-4">
         Bienvenue, {displayName.split(" ")[0] || ""}.
       </p>
     </div>
@@ -358,7 +358,7 @@ const BookingFlow = ({
         <div className="border-2 border-amber-300 dark:border-amber-700/50 bg-amber-50/60 dark:bg-amber-900/20 rounded-2xl p-6 space-y-4">
           <div className="flex items-center gap-3">
             <Clock size={20} className="text-amber-600 dark:text-amber-400" />
-            <span className="font-sans uppercase tracking-widest text-[10px] font-bold text-amber-700 dark:text-amber-300">
+            <span className="font-sans uppercase tracking-widest text-xs font-bold text-amber-700 dark:text-amber-300">
               Demande en attente
             </span>
           </div>
@@ -413,7 +413,7 @@ const BookingFlow = ({
     <div className="space-y-6">
       {/* Consultation picker */}
       <div>
-        <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
+        <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
           Choisissez un soin
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -426,7 +426,7 @@ const BookingFlow = ({
                 className={`text-left p-4 rounded-2xl border transition-colors ${sel ? "border-rust bg-rust/5 dark:bg-rust/10" : "border-stone-200 dark:border-stone-700 hover:border-rust/50"}`}
               >
                 {c.shortTag && (
-                  <span className="block text-[10px] font-sans uppercase tracking-widest text-rust dark:text-stone-400 mb-1">
+                  <span className="block text-xs font-sans uppercase tracking-widest text-rust dark:text-stone-400 mb-1">
                     {c.shortTag}
                   </span>
                 )}
@@ -444,11 +444,11 @@ const BookingFlow = ({
       {/* Available slots */}
       <div className="pt-3 border-t border-stone-200 dark:border-stone-700">
         <div className="flex items-center justify-between mb-3">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-rust dark:text-stone-400">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-rust dark:text-stone-400">
             Prochaines plages disponibles
           </p>
           {allSlots.length > SLOTS_PER_PAGE && (
-            <p className="text-[10px] uppercase tracking-widest opacity-50 font-mono">
+            <p className="text-xs uppercase tracking-widest opacity-50 font-mono">
               {Math.min((page + 1) * SLOTS_PER_PAGE, allSlots.length)} / {allSlots.length}
             </p>
           )}
@@ -477,7 +477,7 @@ const BookingFlow = ({
                     <p className="font-mono text-sm opacity-70 mt-0.5">{fmtTime(s)} · {duration} min</p>
                   </div>
                   {selected && (
-                    <span className="text-[10px] uppercase tracking-widest font-bold text-rust">
+                    <span className="text-xs uppercase tracking-widest font-bold text-rust">
                       Sélectionné
                     </span>
                   )}
@@ -509,7 +509,7 @@ const BookingFlow = ({
 
       {picked && consultation && (
         <div className="border border-rust/30 bg-rust/5 dark:bg-white/5 rounded-2xl p-5">
-          <p className="text-[10px] font-sans uppercase tracking-widest text-rust dark:text-stone-400 mb-1">
+          <p className="text-xs font-sans uppercase tracking-widest text-rust dark:text-stone-400 mb-1">
             {consultation.shortTag || consultation.name}
           </p>
           <p className="font-serif text-lg mb-1">
@@ -565,13 +565,13 @@ const PastAppointmentRow = ({ a }: { a: Appointment }) => {
       <div className="flex items-center gap-3 px-4 py-2.5 text-sm">
         <span className="font-mono text-xs w-28 opacity-70">{fmtDateShort(a.start.toDate())}</span>
         <span className="font-serif italic opacity-80">{a.type ?? "Consultation"}</span>
-        <span className={`text-[10px] uppercase tracking-widest ${cancelled ? "text-rust" : "text-stone-500"}`}>
+        <span className={`text-xs uppercase tracking-widest ${cancelled ? "text-rust" : "text-stone-500"}`}>
           {cancelled ? "Annulé" : "Terminé"}
         </span>
         {!cancelled && (
           <button
             onClick={() => setOpen(!open)}
-            className="ml-auto inline-flex items-center gap-1.5 text-[10px] font-sans uppercase tracking-widest text-rust hover:text-ink dark:hover:text-stone-100 transition-colors"
+            className="ml-auto inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest text-rust hover:text-ink dark:hover:text-stone-100 transition-colors"
           >
             <MessageSquare size={11} />
             {hasFeedback ? "Ma rétroaction" : "Laisser une rétroaction"}
@@ -582,7 +582,7 @@ const PastAppointmentRow = ({ a }: { a: Appointment }) => {
       {open && !cancelled && (
         <div className="px-4 pb-4 pt-1 space-y-3 border-t border-stone-200/70 dark:border-stone-700/70">
           <div>
-            <label className="block text-[10px] font-sans uppercase tracking-[0.2em] text-forest dark:text-emerald-300 mb-1.5">
+            <label className="block text-xs font-sans uppercase tracking-[0.2em] text-forest dark:text-emerald-300 mb-1.5">
               Qu'est-ce que tu as aimé de cette rencontre ?
             </label>
             <textarea
@@ -594,7 +594,7 @@ const PastAppointmentRow = ({ a }: { a: Appointment }) => {
             />
           </div>
           <div>
-            <label className="block text-[10px] font-sans uppercase tracking-[0.2em] text-rust mb-1.5">
+            <label className="block text-xs font-sans uppercase tracking-[0.2em] text-rust mb-1.5">
               Qu'est-ce que tu as moins aimé ?
             </label>
             <textarea
@@ -609,12 +609,12 @@ const PastAppointmentRow = ({ a }: { a: Appointment }) => {
             <button
               onClick={save}
               disabled={saving}
-              className="bg-rust text-paper px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold hover:bg-ink transition-colors disabled:opacity-50"
+              className="bg-rust text-paper px-5 py-2 rounded-full text-xs uppercase tracking-widest font-bold hover:bg-ink transition-colors disabled:opacity-50"
             >
               {saving ? "Envoi…" : hasFeedback ? "Mettre à jour" : "Envoyer"}
             </button>
             {saved && (
-              <span className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest text-forest dark:text-emerald-300">
+              <span className="inline-flex items-center gap-1 text-xs font-sans uppercase tracking-widest text-forest dark:text-emerald-300">
                 <Sparkles size={11} /> Merci, envoyé.
               </span>
             )}

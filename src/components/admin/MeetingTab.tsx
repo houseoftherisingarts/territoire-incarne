@@ -70,7 +70,7 @@ export const MeetingTab = ({ clientUid }: Props) => {
         <p className="font-serif italic text-stone-500 dark:text-stone-400">
           La visioconférence n'est pas encore configurée.
         </p>
-        <p className="font-sans text-[11px] uppercase tracking-widest opacity-50">
+        <p className="font-sans text-xs uppercase tracking-widest opacity-50">
           Contactez votre développeuse — il manque une clé technique pour activer cette fonction.
         </p>
       </Card>
@@ -82,7 +82,7 @@ export const MeetingTab = ({ clientUid }: Props) => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <p className="font-serif text-lg">{activeMeeting.title}</p>
-          <span className="text-[10px] font-sans uppercase tracking-widest text-emerald-600 font-bold animate-pulse">
+          <span className="text-xs font-sans uppercase tracking-widest text-emerald-600 font-bold animate-pulse">
             En cours
           </span>
         </div>
@@ -96,7 +96,7 @@ export const MeetingTab = ({ clientUid }: Props) => {
 
         {activeMeeting.adminTranscript && (
           <Card className="p-4">
-            <p className="text-[10px] font-sans uppercase tracking-widest opacity-50 mb-2">Transcription en cours</p>
+            <p className="text-xs font-sans uppercase tracking-widest opacity-50 mb-2">Transcription en cours</p>
             <p className="font-serif text-sm leading-relaxed opacity-80 whitespace-pre-wrap">
               {activeMeeting.adminTranscript}
             </p>
@@ -111,7 +111,7 @@ export const MeetingTab = ({ clientUid }: Props) => {
       <div className="flex justify-end">
         <button
           onClick={() => setCreating(!creating)}
-          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
         >
           <Plus size={12} /> Nouvelle réunion
         </button>
@@ -129,7 +129,7 @@ export const MeetingTab = ({ clientUid }: Props) => {
             />
             <button
               type="submit"
-              className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+              className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
             >
               <Video size={12} /> Démarrer
             </button>
@@ -172,7 +172,7 @@ export const MeetingTab = ({ clientUid }: Props) => {
                   {m.status === "waiting" && (
                     <button
                       onClick={async () => { await start(m.id); setActiveMeetingId(m.id); }}
-                      className="inline-flex items-center gap-1.5 bg-emerald-600 text-white px-3 py-1.5 rounded-xl text-[10px] font-sans uppercase tracking-widest font-bold hover:bg-emerald-700 transition-colors"
+                      className="inline-flex items-center gap-1.5 bg-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-sans uppercase tracking-widest font-bold hover:bg-emerald-700 transition-colors"
                     >
                       <Video size={11} /> Rejoindre
                     </button>
@@ -180,25 +180,25 @@ export const MeetingTab = ({ clientUid }: Props) => {
                   {m.status === "active" && (
                     <button
                       onClick={() => setActiveMeetingId(m.id)}
-                      className="inline-flex items-center gap-1.5 bg-rust text-white px-3 py-1.5 rounded-xl text-[10px] font-sans uppercase tracking-widest font-bold hover:bg-red-700 transition-colors animate-pulse"
+                      className="inline-flex items-center gap-1.5 bg-rust text-white px-3 py-1.5 rounded-xl text-xs font-sans uppercase tracking-widest font-bold hover:bg-red-700 transition-colors animate-pulse"
                     >
                       <Video size={11} /> En cours
                     </button>
                   )}
                   {m.status === "ended" && m.transcriptStatus === "processing" && (
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-sans uppercase tracking-widest opacity-50">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest opacity-50">
                       <Loader2 size={11} className="animate-spin" /> Transcription…
                     </span>
                   )}
                   {m.status === "ended" && m.transcriptStatus === "error" && (
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-sans uppercase tracking-widest text-red-400">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest text-red-400">
                       <AlertCircle size={11} /> Erreur
                     </span>
                   )}
                   {m.status === "ended" && (m.transcriptStatus === "done" || m.adminTranscript) && (
                     <button
                       onClick={() => setExpandedTranscript(expanded ? null : m.id)}
-                      className="inline-flex items-center gap-1.5 border border-stone-200 dark:border-stone-700 px-3 py-1.5 rounded-xl text-[10px] font-sans uppercase tracking-widest hover:border-rust hover:text-rust transition-colors"
+                      className="inline-flex items-center gap-1.5 border border-stone-200 dark:border-stone-700 px-3 py-1.5 rounded-xl text-xs font-sans uppercase tracking-widest hover:border-rust hover:text-rust transition-colors"
                     >
                       {expanded ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
                       Transcription
@@ -211,11 +211,11 @@ export const MeetingTab = ({ clientUid }: Props) => {
               {m.status === "ended" && (expanded || !transcript) && (
                 <div className="border-t border-ink/5 dark:border-white/5 bg-stone-50/60 dark:bg-black/10 px-5 py-4">
                   <div className="flex items-center justify-between mb-3">
-                    <p className="font-sans text-[10px] uppercase tracking-widest opacity-50">Transcription</p>
+                    <p className="font-sans text-xs uppercase tracking-widest opacity-50">Transcription</p>
                     {!editing && (
                       <button
                         onClick={() => { setEditingTranscript(m.id); setEditText(m.adminTranscript); }}
-                        className="inline-flex items-center gap-1 text-[10px] font-sans uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-rust transition-all"
+                        className="inline-flex items-center gap-1 text-xs font-sans uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-rust transition-all"
                       >
                         <Pencil size={10} /> Modifier
                       </button>
@@ -233,13 +233,13 @@ export const MeetingTab = ({ clientUid }: Props) => {
                       <div className="flex gap-2">
                         <button
                           onClick={() => saveEdit(m.id)}
-                          className="inline-flex items-center gap-1.5 bg-rust text-paper px-4 py-2 rounded-sm text-[10px] font-sans uppercase tracking-widest font-bold hover:bg-ink transition-colors"
+                          className="inline-flex items-center gap-1.5 bg-rust text-paper px-4 py-2 rounded-sm text-xs font-sans uppercase tracking-widest font-bold hover:bg-ink transition-colors"
                         >
                           <Check size={11} /> Enregistrer
                         </button>
                         <button
                           onClick={() => setEditingTranscript(null)}
-                          className="px-4 py-2 border border-ink/10 dark:border-white/10 rounded-sm text-[10px] font-sans uppercase tracking-widest hover:border-rust hover:text-rust transition-colors"
+                          className="px-4 py-2 border border-ink/10 dark:border-white/10 rounded-sm text-xs font-sans uppercase tracking-widest hover:border-rust hover:text-rust transition-colors"
                         >
                           Annuler
                         </button>

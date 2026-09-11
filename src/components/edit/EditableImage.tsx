@@ -40,7 +40,7 @@ export const EditableImage = ({
       >
         {img}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center pointer-events-none">
-          <span className="opacity-0 group-hover:opacity-100 inline-flex items-center gap-2 bg-rust text-paper px-3 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold">
+          <span className="opacity-0 group-hover:opacity-100 inline-flex items-center gap-2 bg-rust text-paper px-3 py-1.5 rounded-full text-xs uppercase tracking-widest font-bold">
             <ImageIcon size={12} /> Changer
           </span>
         </div>
@@ -109,19 +109,19 @@ const ImagePopover = ({ contentKey, defaultUrl, currentUrl, onClose }: PopoverPr
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-rust">Modifier l'image</span>
+          <span className="text-xs font-sans uppercase tracking-[0.3em] text-rust">Modifier l'image</span>
           <button onClick={onClose} aria-label="Fermer" className="opacity-50 hover:opacity-100">
             <X size={16} />
           </button>
         </div>
 
-        <p className="text-[10px] font-mono opacity-50">{contentKey}</p>
+        <p className="text-xs font-mono opacity-50">{contentKey}</p>
 
         <div className="aspect-video rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800">
           <img src={currentUrl} alt="" className="w-full h-full object-cover" />
         </div>
 
-        <label className="flex items-center justify-center gap-2 bg-rust text-paper px-4 py-3 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans cursor-pointer hover:bg-ink transition-colors">
+        <label className="flex items-center justify-center gap-2 bg-rust text-paper px-4 py-3 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans cursor-pointer hover:bg-ink transition-colors">
           <Upload size={12} /> {uploading ? "Téléversement…" : "Choisir une nouvelle image"}
           <input type="file" accept="image/*" onChange={onUpload} className="hidden" disabled={uploading} />
         </label>
@@ -130,7 +130,7 @@ const ImagePopover = ({ contentKey, defaultUrl, currentUrl, onClose }: PopoverPr
           <button
             onClick={reset}
             disabled={busy}
-            className="w-full inline-flex items-center justify-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+            className="w-full inline-flex items-center justify-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
           >
             <RotateCcw size={11} /> Revenir à l'image d'origine
           </button>

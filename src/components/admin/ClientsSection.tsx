@@ -56,7 +56,7 @@ export const ClientsSection = () => {
             <p className="text-2xl font-light">
               {s === "all" ? clients.length : clients.filter((c) => c.status === s).length}
             </p>
-            <p className="font-sans text-[10px] uppercase tracking-widest opacity-50 mt-1">
+            <p className="font-sans text-xs uppercase tracking-widest opacity-50 mt-1">
               {s === "all" ? "Total" : s === "pending" ? "En attente" : "Acceptées"}
             </p>
           </button>
@@ -68,7 +68,7 @@ export const ClientsSection = () => {
           <button
             key={s}
             onClick={() => setFilter(s)}
-            className={`px-4 py-1.5 rounded-full font-sans text-[10px] uppercase tracking-widest border transition-all ${
+            className={`px-4 py-1.5 rounded-full font-sans text-xs uppercase tracking-widest border transition-all ${
               filter === s
                 ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest border-ink dark:border-stone-100"
                 : "border-stone-300 dark:border-stone-600 hover:border-stone-400 dark:hover:border-stone-400"
@@ -79,7 +79,7 @@ export const ClientsSection = () => {
         ))}
         <button
           onClick={exporterCsv}
-          className="ml-auto inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-sans text-[10px] uppercase tracking-widest border border-stone-300 dark:border-stone-600 hover:border-rust hover:text-rust transition-all"
+          className="ml-auto inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-sans text-xs uppercase tracking-widest border border-stone-300 dark:border-stone-600 hover:border-rust hover:text-rust transition-all"
         >
           <Download size={12} /> Exporter en CSV
         </button>
@@ -109,7 +109,7 @@ export const ClientsSection = () => {
                 <p className="font-sans text-xs opacity-50 truncate">{client.email}</p>
               </div>
               <div
-                className={`flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-widest shrink-0 ${statusColor(client.status)}`}
+                className={`flex items-center gap-1.5 font-sans text-xs uppercase tracking-widest shrink-0 ${statusColor(client.status)}`}
               >
                 {client.status === "accepted" && <CheckCircle size={13} />}
                 {client.status === "refused" && <XCircle size={13} />}

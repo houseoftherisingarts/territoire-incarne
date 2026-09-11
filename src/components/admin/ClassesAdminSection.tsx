@@ -232,7 +232,7 @@ export const ClassesAdminSection = () => {
                 <button
                   onClick={() => ouvrirSalle(cls)}
                   disabled={salleEnCours === cls.id}
-                  className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
+                  className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
                 >
                   {salleEnCours === cls.id ? <Loader2 size={13} className="animate-spin" /> : <Video size={13} />}
                   Créer la salle
@@ -266,7 +266,7 @@ export const ClassesAdminSection = () => {
                 <p className="text-xs opacity-60 font-mono">{r.email}</p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
-                <span className={`text-[10px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full ${
+                <span className={`text-xs uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full ${
                   r.status === "paid" ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" :
                   r.status === "approved" ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300" :
                   r.status === "rejected" ? "bg-red-100 text-red-700" :
@@ -301,7 +301,7 @@ export const ClassesAdminSection = () => {
         {!editorOpen && (
           <button
             onClick={() => { setCreating(true); setEditing(null); setForm(blank()); }}
-            className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+            className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             <Plus size={14} /> Nouveau cours
           </button>
@@ -326,7 +326,7 @@ export const ClassesAdminSection = () => {
           />
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Capacité</label>
+              <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Capacité</label>
               <input
                 type="number"
                 value={form.capacity}
@@ -335,7 +335,7 @@ export const ClassesAdminSection = () => {
               />
             </div>
             <div>
-              <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Prix par cours (CAD)</label>
+              <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Prix par cours (CAD)</label>
               <input
                 type="number"
                 step="0.01"
@@ -346,7 +346,7 @@ export const ClassesAdminSection = () => {
             </div>
           </div>
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Format des rencontres</label>
+            <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Format des rencontres</label>
             <select
               value={form.format ?? "video"}
               onChange={(e) => setForm({ ...form, format: e.target.value as "video" | "audio" })}
@@ -359,10 +359,10 @@ export const ClassesAdminSection = () => {
 
           <div className="pt-3 border-t border-ink/5 dark:border-white/5">
             <div className="flex items-center justify-between mb-3">
-              <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60">Les rencontres</label>
+              <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Les rencontres</label>
               <button
                 onClick={ajouterSeance}
-                className="inline-flex items-center gap-1.5 text-[11px] font-sans uppercase tracking-[0.2em] font-bold text-rust hover:text-ink transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-[0.2em] font-bold text-rust hover:text-ink transition-colors"
               >
                 <Plus size={12} /> Ajouter
               </button>
@@ -413,8 +413,8 @@ export const ClassesAdminSection = () => {
             <span className="text-xs font-sans uppercase tracking-widest">Visible sur le site</span>
           </label>
           <div className="flex gap-3 pt-3 border-t border-ink/5 dark:border-white/5">
-            <button onClick={save} className="bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:bg-ink transition-colors">Enregistrer</button>
-            <button onClick={cancel} className="border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors">Annuler</button>
+            <button onClick={save} className="bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:bg-ink transition-colors">Enregistrer</button>
+            <button onClick={cancel} className="border border-ink/10 dark:border-white/10 px-5 py-2 rounded-sm uppercase tracking-[0.25em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors">Annuler</button>
           </div>
         </Card>
       )}
@@ -431,7 +431,7 @@ export const ClassesAdminSection = () => {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 mb-1 flex-wrap">
                   <p className="font-serif text-lg">{c.title}</p>
-                  <span className={`text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${c.active ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-ink/5 dark:bg-white/10 opacity-60"}`}>
+                  <span className={`text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${c.active ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-ink/5 dark:bg-white/10 opacity-60"}`}>
                     {c.active ? "Visible" : "Caché"}
                   </span>
                 </div>
@@ -444,7 +444,7 @@ export const ClassesAdminSection = () => {
                 </p>
               </div>
               <div className="flex gap-2 shrink-0">
-                <button onClick={() => setViewing(c.id)} className="inline-flex items-center gap-1.5 border border-ink/10 dark:border-white/10 px-3 py-1.5 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors">
+                <button onClick={() => setViewing(c.id)} className="inline-flex items-center gap-1.5 border border-ink/10 dark:border-white/10 px-3 py-1.5 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors">
                   <Users size={11} /> Demandes
                 </button>
                 <button onClick={() => update(c.id, { active: !c.active })} className="p-2 rounded-full hover:bg-rust/15 hover:text-rust transition-colors" aria-label={c.active ? "Cacher" : "Activer"}>

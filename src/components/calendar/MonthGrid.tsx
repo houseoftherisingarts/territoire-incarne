@@ -109,7 +109,7 @@ export const MonthGrid = ({
       {/* Day-of-week header */}
       <div className="grid grid-cols-7 border-b border-stone-200 dark:border-white/10 bg-paper/95 dark:bg-stone-900/95">
         {DAY_LABELS.map((d, i) => (
-          <div key={i} className="text-center py-2 text-[10px] font-sans uppercase tracking-widest opacity-60 border-l first:border-l-0 border-stone-200/50 dark:border-white/5">
+          <div key={i} className="text-center py-2 text-xs font-sans uppercase tracking-widest opacity-60 border-l first:border-l-0 border-stone-200/50 dark:border-white/5">
             {d}
           </div>
         ))}
@@ -138,14 +138,14 @@ export const MonthGrid = ({
                 {visible.map((e) => (
                   <div
                     key={e.id}
-                    className={`px-1.5 py-0.5 rounded text-[10px] leading-tight truncate ${e.color}`}
+                    className={`px-1.5 py-0.5 rounded text-xs leading-tight truncate ${e.color}`}
                   >
                     {e.kind !== "available" && <span className="font-mono mr-1 opacity-70">{e.time}</span>}
                     {e.label}
                   </div>
                 ))}
                 {overflow > 0 && (
-                  <div className="px-1.5 text-[10px] opacity-60">+{overflow} de plus</div>
+                  <div className="px-1.5 text-xs opacity-60">+{overflow} de plus</div>
                 )}
               </div>
             </button>

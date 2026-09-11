@@ -88,7 +88,7 @@ export const Writings = ({ lang = "fr", onOpenPost }: Props) => {
               {c.excerpt && (
                 <p className="text-sm font-serif italic opacity-70 leading-relaxed flex-1">{c.excerpt}</p>
               )}
-              <span className="mt-4 self-start text-[10px] font-sans uppercase tracking-widest text-rust dark:text-stone-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+              <span className="mt-4 self-start text-xs font-sans uppercase tracking-widest text-rust dark:text-stone-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                 Lire l'article <ArrowUpRight size={11} />
               </span>
             </div>

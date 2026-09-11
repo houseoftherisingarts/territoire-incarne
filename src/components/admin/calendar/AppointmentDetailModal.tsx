@@ -85,7 +85,7 @@ export const AppointmentDetailModal = ({ appointment: a, onClose }: Props) => {
 
         <div className="p-6 space-y-4">
           <div>
-            <span className={`text-[10px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full inline-block mb-2 ${
+            <span className={`text-xs uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full inline-block mb-2 ${
               a.status === "confirmed" ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" :
               a.status === "requested" ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300" :
               a.status === "cancelled" ? "bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300 line-through" :
@@ -114,7 +114,7 @@ export const AppointmentDetailModal = ({ appointment: a, onClose }: Props) => {
           )}
 
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-widest opacity-60 block mb-1">
+            <label className="text-xs font-sans uppercase tracking-widest opacity-60 block mb-1">
               <FileText size={11} className="inline mr-1" /> Notes
             </label>
             <textarea value={notes} onChange={(e) => setNotes(e.target.value)} onBlur={saveNotes} rows={3}
@@ -123,18 +123,18 @@ export const AppointmentDetailModal = ({ appointment: a, onClose }: Props) => {
 
           {(a.feedbackLiked || a.feedbackLessLiked) && (
             <div className="space-y-2 rounded-2xl bg-ink/5 dark:bg-white/5 p-3">
-              <p className="text-[10px] font-sans uppercase tracking-widest text-rust flex items-center gap-1.5">
+              <p className="text-xs font-sans uppercase tracking-widest text-rust flex items-center gap-1.5">
                 <MessageSquare size={11} /> Rétroaction de la cliente
               </p>
               {a.feedbackLiked && (
                 <div>
-                  <p className="text-[10px] font-sans uppercase tracking-widest text-forest dark:text-emerald-300 mb-0.5">Aimé</p>
+                  <p className="text-xs font-sans uppercase tracking-widest text-forest dark:text-emerald-300 mb-0.5">Aimé</p>
                   <p className="text-sm font-serif italic">{a.feedbackLiked}</p>
                 </div>
               )}
               {a.feedbackLessLiked && (
                 <div>
-                  <p className="text-[10px] font-sans uppercase tracking-widest text-rust mb-0.5">Moins aimé</p>
+                  <p className="text-xs font-sans uppercase tracking-widest text-rust mb-0.5">Moins aimé</p>
                   <p className="text-sm font-serif italic">{a.feedbackLessLiked}</p>
                 </div>
               )}
@@ -143,21 +143,21 @@ export const AppointmentDetailModal = ({ appointment: a, onClose }: Props) => {
 
           <div className="flex flex-wrap gap-2 pt-3 border-t border-ink/5 dark:border-white/5">
             {a.status === "requested" && (
-              <button onClick={approve} disabled={busy} className="inline-flex items-center gap-2 bg-forest text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
+              <button onClick={approve} disabled={busy} className="inline-flex items-center gap-2 bg-forest text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
                 <Check size={12} /> Approuver
               </button>
             )}
             {a.status === "confirmed" && (
-              <button onClick={complete} disabled={busy} className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
+              <button onClick={complete} disabled={busy} className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
                 <Check size={12} /> Séance complétée
               </button>
             )}
             {a.status !== "cancelled" && (
-              <button onClick={reject} disabled={busy} className="inline-flex items-center gap-2 border border-rust/30 text-rust px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-rust hover:text-paper transition-colors disabled:opacity-50">
+              <button onClick={reject} disabled={busy} className="inline-flex items-center gap-2 border border-rust/30 text-rust px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-rust hover:text-paper transition-colors disabled:opacity-50">
                 <X size={12} /> Annuler
               </button>
             )}
-            <a href={`mailto:${a.clientEmail}`} className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors">
+            <a href={`mailto:${a.clientEmail}`} className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors">
               <Mail size={12} /> Écrire
             </a>
             <button onClick={remove} disabled={busy} className="ml-auto p-2 opacity-40 hover:opacity-100 hover:bg-rust/15 hover:text-rust rounded-full">

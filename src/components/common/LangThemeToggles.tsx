@@ -51,13 +51,13 @@ export const LangThemeToggles = ({
           {user?.photoURL ? (
             <img src={user.photoURL} alt="" className="w-5 h-5 rounded-full object-cover shrink-0" loading="lazy" decoding="async" />
           ) : user?.displayName ? (
-            <span className="w-5 h-5 rounded-full bg-stone-300 dark:bg-stone-600 flex items-center justify-center text-[10px] font-serif shrink-0">
+            <span className="w-5 h-5 rounded-full bg-stone-300 dark:bg-stone-600 flex items-center justify-center text-xs font-serif shrink-0">
               {user.displayName[0].toUpperCase()}
             </span>
           ) : (
             <LogIn size={12} className="shrink-0" />
           )}
-          <span className="hidden sm:inline text-[10px] font-sans uppercase tracking-widest">
+          <span className="hidden sm:inline text-xs font-sans uppercase tracking-widest">
             {user ? user.displayName?.split(" ")[0] || myClientSpaceLabel : clientSpaceLabel}
           </span>
         </button>

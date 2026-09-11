@@ -50,12 +50,12 @@ export const LeadsSection = () => {
     <div className="space-y-6">
       <Card className="p-5">
         <div className="flex items-center gap-3 flex-wrap">
-          <span className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mr-2">Filtrer</span>
+          <span className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 mr-2">Filtrer</span>
           {(["all", "hot", "warm", "cold"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setFilter(t)}
-              className={`px-3 py-1 rounded-full text-[10px] font-sans uppercase tracking-widest font-bold transition-colors ${
+              className={`px-3 py-1 rounded-full text-xs font-sans uppercase tracking-widest font-bold transition-colors ${
                 filter === t
                   ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest"
                   : "bg-ink/5 dark:bg-white/10 hover:bg-rust/15"
@@ -85,7 +85,7 @@ export const LeadsSection = () => {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-3 flex-wrap mb-1">
                   <p className="font-serif text-lg">{lead.name || lead.email}</p>
-                  <span className={`text-[10px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full ${TIER_STYLES[lead.tier]}`}>
+                  <span className={`text-xs uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full ${TIER_STYLES[lead.tier]}`}>
                     {TIER_LABEL[lead.tier]}
                   </span>
                 </div>

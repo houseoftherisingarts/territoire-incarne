@@ -99,7 +99,7 @@ const ChatTab = ({ clientUid }: { clientUid: string }) => {
                   {m.text}
                 </div>
                 <p
-                  className={`text-[10px] opacity-40 mt-1 font-sans ${
+                  className={`text-xs opacity-40 mt-1 font-sans ${
                     isAdmin ? "text-right" : "text-left"
                   }`}
                 >
@@ -123,7 +123,7 @@ const ChatTab = ({ clientUid }: { clientUid: string }) => {
         <button
           type="submit"
           disabled={!text.trim()}
-          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2.5 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-40"
+          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2.5 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-40"
         >
           <Send size={12} /> Envoyer
         </button>
@@ -157,7 +157,7 @@ const DocsTab = ({ clientUid }: { clientUid: string }) => {
       <div className="flex justify-end">
         <button
           onClick={() => setOpen(!open)}
-          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
         >
           <Plus size={12} /> Ajouter un document
         </button>
@@ -167,7 +167,7 @@ const DocsTab = ({ clientUid }: { clientUid: string }) => {
         <Card className="p-5">
           <form onSubmit={submit} className="space-y-3">
             <div>
-              <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
+              <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
                 Nom du document *
               </label>
               <input
@@ -179,7 +179,7 @@ const DocsTab = ({ clientUid }: { clientUid: string }) => {
               />
             </div>
             <div>
-              <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
+              <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
                 Lien (optionnel)
               </label>
               <input
@@ -191,7 +191,7 @@ const DocsTab = ({ clientUid }: { clientUid: string }) => {
               />
             </div>
             <div>
-              <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
+              <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
                 Description (optionnel)
               </label>
               <textarea
@@ -205,14 +205,14 @@ const DocsTab = ({ clientUid }: { clientUid: string }) => {
               <button
                 type="submit"
                 disabled={busy}
-                className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
+                className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
               >
                 <Plus size={12} /> Ajouter
               </button>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="px-5 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+                className="px-5 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
               >
                 Annuler
               </button>
@@ -243,12 +243,12 @@ const DocsTab = ({ clientUid }: { clientUid: string }) => {
                       href={d.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-rust text-[11px] font-sans uppercase tracking-widest hover:underline"
+                      className="inline-flex items-center gap-1 text-rust text-xs font-sans uppercase tracking-widest hover:underline"
                     >
                       <ExternalLink size={11} /> Ouvrir
                     </a>
                   )}
-                  <span className="text-[10px] opacity-40 font-sans">{fmtDate(d.addedAt)}</span>
+                  <span className="text-xs opacity-40 font-sans">{fmtDate(d.addedAt)}</span>
                 </div>
               </div>
               <button
@@ -310,7 +310,7 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
       <div className="flex justify-end">
         <button
           onClick={() => setOpen(!open)}
-          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors"
+          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
         >
           <Plus size={12} /> Nouveau rendez-vous
         </button>
@@ -320,7 +320,7 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
         <Card className="p-5">
           <form onSubmit={submit} className="space-y-3">
             <div>
-              <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
+              <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
                 Titre *
               </label>
               <input
@@ -334,7 +334,7 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
+                <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
                   Date *
                 </label>
                 <input
@@ -346,7 +346,7 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
+                <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
                   Heure
                 </label>
                 <input
@@ -358,7 +358,7 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
               </div>
             </div>
             <div>
-              <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
+              <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-50 mb-1.5">
                 Notes
               </label>
               <textarea
@@ -372,14 +372,14 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
               <button
                 type="submit"
                 disabled={busy}
-                className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
+                className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
               >
                 <CalendarDays size={12} /> Créer
               </button>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="px-5 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+                className="px-5 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
               >
                 Annuler
               </button>
@@ -412,7 +412,7 @@ const BookingsTab = ({ clientUid }: { clientUid: string }) => {
                 <select
                   value={b.status}
                   onChange={(e) => changeStatus(b, e.target.value as BookingStatus)}
-                  className={`text-[10px] font-sans uppercase tracking-widest font-bold px-3 py-1.5 rounded-full border-0 outline-none cursor-pointer ${STATUS_BOOKING_COLORS[b.status]}`}
+                  className={`text-xs font-sans uppercase tracking-widest font-bold px-3 py-1.5 rounded-full border-0 outline-none cursor-pointer ${STATUS_BOOKING_COLORS[b.status]}`}
                 >
                   {(["à venir", "confirmé", "annulé", "complété"] as BookingStatus[]).map((s) => (
                     <option key={s} value={s}>
@@ -463,7 +463,7 @@ const SeancesWidget = ({ client }: { client: ClientProfile }) => {
     <div className="mt-5 pt-5 border-t border-ink/10 dark:border-white/10 flex flex-col md:flex-row md:items-center gap-4">
       <div className="flex items-center gap-4">
         <div>
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 mb-1">Séances restantes</p>
+          <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50 mb-1">Séances restantes</p>
           <p className="font-serif text-3xl leading-none">
             {remaining}
             {hasForfait && (
@@ -504,7 +504,7 @@ const SeancesWidget = ({ client }: { client: ClientProfile }) => {
         <button
           type="submit"
           disabled={busy || forfaitVal === ""}
-          className="px-4 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors disabled:opacity-40"
+          className="px-4 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors disabled:opacity-40"
         >
           Définir le forfait
         </button>
@@ -545,7 +545,7 @@ export const ClientDetailView = ({ client, onBack, onUpdateStatus }: Props) => {
     <div className="space-y-6 animate-[fadeIn_0.4s_ease-out]">
       <button
         onClick={onBack}
-        className="inline-flex items-center gap-2 font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 hover:opacity-100 hover:text-rust transition-all"
+        className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-[0.25em] opacity-50 hover:opacity-100 hover:text-rust transition-all"
       >
         <ArrowLeft size={13} /> Retour aux clientes
       </button>
@@ -563,7 +563,7 @@ export const ClientDetailView = ({ client, onBack, onUpdateStatus }: Props) => {
           <div className="flex-1 min-w-0">
             <p className="font-serif text-2xl">{client.displayName || "—"}</p>
             <p className="font-mono text-xs opacity-50 truncate mt-0.5">{client.email}</p>
-            <div className={`flex items-center gap-1.5 mt-1.5 font-sans text-[10px] uppercase tracking-widest ${statusColor(client.status)}`}>
+            <div className={`flex items-center gap-1.5 mt-1.5 font-sans text-xs uppercase tracking-widest ${statusColor(client.status)}`}>
               {client.status === "accepted" && <CheckCircle size={12} />}
               {client.status === "refused" && <XCircle size={12} />}
               {client.status === "pending" && <Clock size={12} />}
@@ -575,21 +575,21 @@ export const ClientDetailView = ({ client, onBack, onUpdateStatus }: Props) => {
             <button
               disabled={busy || client.status === "accepted"}
               onClick={() => act("accepted")}
-              className="px-4 py-2 bg-emerald-600 text-white rounded-xl font-sans text-[10px] uppercase tracking-widest hover:bg-emerald-700 transition-colors disabled:opacity-40"
+              className="px-4 py-2 bg-emerald-600 text-white rounded-xl font-sans text-xs uppercase tracking-widest hover:bg-emerald-700 transition-colors disabled:opacity-40"
             >
               <CheckCircle size={11} className="inline mr-1.5" />Accepter
             </button>
             <button
               disabled={busy || client.status === "refused"}
               onClick={() => act("refused")}
-              className="px-4 py-2 bg-red-500 text-white rounded-xl font-sans text-[10px] uppercase tracking-widest hover:bg-red-600 transition-colors disabled:opacity-40"
+              className="px-4 py-2 bg-red-500 text-white rounded-xl font-sans text-xs uppercase tracking-widest hover:bg-red-600 transition-colors disabled:opacity-40"
             >
               <XCircle size={11} className="inline mr-1.5" />Refuser
             </button>
             <button
               disabled={busy || client.status === "pending"}
               onClick={() => act("pending")}
-              className="px-4 py-2 border border-stone-300 dark:border-stone-600 rounded-xl font-sans text-[10px] uppercase tracking-widest hover:border-stone-400 transition-colors disabled:opacity-40"
+              className="px-4 py-2 border border-stone-300 dark:border-stone-600 rounded-xl font-sans text-xs uppercase tracking-widest hover:border-stone-400 transition-colors disabled:opacity-40"
             >
               <Clock size={11} className="inline mr-1.5" />En attente
             </button>
@@ -604,7 +604,7 @@ export const ClientDetailView = ({ client, onBack, onUpdateStatus }: Props) => {
           <button
             key={id}
             onClick={() => setTab(id)}
-            className={`pb-3 font-sans text-[11px] uppercase tracking-[0.2em] font-bold transition-colors border-b-2 -mb-px ${
+            className={`pb-3 font-sans text-xs uppercase tracking-[0.2em] font-bold transition-colors border-b-2 -mb-px ${
               tab === id
                 ? "border-rust text-rust"
                 : "border-transparent opacity-50 hover:opacity-100"

@@ -51,7 +51,7 @@ export const CheckoutModal = ({ cart, subtotal, onClose, onConfirm, confirming, 
         >
           <CreditCard size={14} /> {confirming ? "Redirection…" : "Payer avec Stripe"}
         </button>
-        <p className="text-[10px] font-sans uppercase tracking-widest opacity-50 text-center mt-3">
+        <p className="text-xs font-sans uppercase tracking-widest opacity-50 text-center mt-3">
           Paiement sécurisé · CAD
         </p>
       </div>

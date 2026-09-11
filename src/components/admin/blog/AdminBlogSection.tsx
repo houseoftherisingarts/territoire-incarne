@@ -60,7 +60,7 @@ export const AdminBlogSection = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <p className="text-sm font-serif italic opacity-70">Vos écrits, brouillons et publications.</p>
-        <button onClick={startCreate} className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors">
+        <button onClick={startCreate} className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors">
           <Plus size={14} /> Nouvel écrit
         </button>
       </div>
@@ -82,11 +82,11 @@ export const AdminBlogSection = () => {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 mb-1 flex-wrap">
                   <p className="font-serif text-lg">{p.fr?.title || "(Sans titre)"}</p>
-                  <span className={`text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${p.published ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-ink/5 dark:bg-white/10 opacity-60"}`}>
+                  <span className={`text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${p.published ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100" : "bg-ink/5 dark:bg-white/10 opacity-60"}`}>
                     {p.published ? "Publié" : "Brouillon"}
                   </span>
                   {p.en?.title && (
-                    <span className="text-[10px] uppercase tracking-widest opacity-50">EN</span>
+                    <span className="text-xs uppercase tracking-widest opacity-50">EN</span>
                   )}
                 </div>
                 <p className="text-xs opacity-60">
@@ -275,14 +275,14 @@ const PostEditor = ({ existing, onClose }: EditorProps) => {
           <ArrowLeft size={14} /> Retour
         </button>
         <div className="flex items-center gap-3 flex-wrap">
-          <span className="text-[10px] font-sans uppercase tracking-widest opacity-60">
+          <span className="text-xs font-sans uppercase tracking-widest opacity-60">
             {savingState === "saving" ? "Enregistrement…" : savingState === "saved" ? "✓ Enregistré" : savingState === "error" ? "Erreur" : ""}
           </span>
-          <button onClick={togglePublish} className={`inline-flex items-center gap-2 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans transition-colors ${post.published ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100 hover:bg-forest/25" : "bg-ink/5 dark:bg-white/10 hover:bg-rust hover:text-paper"}`}>
+          <button onClick={togglePublish} className={`inline-flex items-center gap-2 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans transition-colors ${post.published ? "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100 hover:bg-forest/25" : "bg-ink/5 dark:bg-white/10 hover:bg-rust hover:text-paper"}`}>
             {post.published ? <Eye size={12} /> : <EyeOff size={12} />}
             {post.published ? "Publié" : "Brouillon"}
           </button>
-          <button onClick={() => save(false)} className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors">
+          <button onClick={() => save(false)} className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors">
             <Save size={12} /> Enregistrer
           </button>
         </div>
@@ -302,11 +302,11 @@ const PostEditor = ({ existing, onClose }: EditorProps) => {
         <Card className="p-6 space-y-6">
           {/* Hero */}
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Image principale (16:9 recommandé)</label>
+            <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Image principale (16:9 recommandé)</label>
             <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 mb-3">
               {post.heroImage && <img src={post.heroImage} alt="" className="w-full h-full object-cover" />}
             </div>
-            <label className="inline-flex items-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
+            <label className="inline-flex items-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
               <Upload size={12} /> {uploading ? "Téléversement…" : post.heroImage ? "Remplacer" : "Téléverser"}
               <input type="file" accept="image/*" onChange={onHeroUpload} className="hidden" disabled={uploading} />
             </label>
@@ -315,14 +315,14 @@ const PostEditor = ({ existing, onClose }: EditorProps) => {
           {/* Language toggle */}
           <div className="flex items-center gap-3 flex-wrap pt-3 border-t border-ink/5 dark:border-white/5">
             <Languages size={14} className="opacity-60" />
-            <button onClick={() => setEditLang("fr")} className={`px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold ${editLang === "fr" ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest" : "bg-ink/5 dark:bg-white/10"}`}>
+            <button onClick={() => setEditLang("fr")} className={`px-3 py-1 rounded-full text-xs uppercase tracking-widest font-bold ${editLang === "fr" ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest" : "bg-ink/5 dark:bg-white/10"}`}>
               FR (requis)
             </button>
-            <button onClick={() => { setEnabledEn(!enabledEn); setEditLang(enabledEn ? "fr" : "en"); }} className={`px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold ${enabledEn ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest" : "bg-ink/5 dark:bg-white/10 opacity-60"}`}>
+            <button onClick={() => { setEnabledEn(!enabledEn); setEditLang(enabledEn ? "fr" : "en"); }} className={`px-3 py-1 rounded-full text-xs uppercase tracking-widest font-bold ${enabledEn ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest" : "bg-ink/5 dark:bg-white/10 opacity-60"}`}>
               EN {enabledEn ? "✓" : "+"}
             </button>
             {enabledEn && (
-              <button onClick={() => setEditLang("en")} className={`px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold ${editLang === "en" ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest" : "bg-ink/5 dark:bg-white/10"}`}>
+              <button onClick={() => setEditLang("en")} className={`px-3 py-1 rounded-full text-xs uppercase tracking-widest font-bold ${editLang === "en" ? "bg-ink text-paper dark:bg-stone-100 dark:text-forest" : "bg-ink/5 dark:bg-white/10"}`}>
                 Éditer EN
               </button>
             )}
@@ -363,7 +363,7 @@ const PostEditor = ({ existing, onClose }: EditorProps) => {
           </p>
 
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Adresse de l'article</label>
+            <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Adresse de l'article</label>
             <div className="flex items-center gap-2 font-mono text-sm">
               <span className="opacity-50">territoireincarne.com/ecrits/</span>
               <input
@@ -380,7 +380,7 @@ const PostEditor = ({ existing, onClose }: EditorProps) => {
           </div>
 
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Titre affiché dans Google</label>
+            <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Titre affiché dans Google</label>
             <input
               type="text"
               value={post.seo?.metaTitle ?? ""}
@@ -394,7 +394,7 @@ const PostEditor = ({ existing, onClose }: EditorProps) => {
           </div>
 
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Petit aperçu sous le titre dans Google</label>
+            <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Petit aperçu sous le titre dans Google</label>
             <textarea
               value={post.seo?.metaDescription ?? ""}
               onChange={(e) => setPost({ ...post, seo: { ...post.seo, metaDescription: e.target.value } })}
@@ -408,7 +408,7 @@ const PostEditor = ({ existing, onClose }: EditorProps) => {
           </div>
 
           <div>
-            <label className="text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Image quand on partage sur les réseaux sociaux</label>
+            <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Image quand on partage sur les réseaux sociaux</label>
             <input
               type="text"
               value={post.seo?.ogImage ?? ""}

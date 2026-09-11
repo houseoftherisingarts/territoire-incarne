@@ -95,7 +95,7 @@ export const AdminShell = ({ section, onSectionChange, onLogout, children }: Pro
             <img src={ELISE_AVATAR_IMG} alt="Elise" className="w-full h-full object-cover grayscale-[20%]" />
           </div>
           <div className="min-w-0">
-            <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-rust">Territoire Incarné</p>
+            <p className="text-xs font-sans uppercase tracking-[0.3em] text-rust">Territoire Incarné</p>
             <p className="text-sm font-serif italic text-stone-100/80 mt-0.5 truncate">Elise .G Lortie</p>
           </div>
         </div>
@@ -117,7 +117,7 @@ export const AdminShell = ({ section, onSectionChange, onLogout, children }: Pro
                 }`}
               >
                 <Icon size={16} className="shrink-0" />
-                <span className="font-sans uppercase tracking-[0.2em] text-[11px] font-semibold">{label}</span>
+                <span className="font-sans uppercase tracking-[0.2em] text-xs font-semibold">{label}</span>
               </button>
             );
           })}
@@ -126,27 +126,27 @@ export const AdminShell = ({ section, onSectionChange, onLogout, children }: Pro
         <div className="px-6 py-4 border-t border-white/10 text-xs text-stone-100/60 space-y-3">
           <a
             href="/?edit=1"
-            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-[10px] text-rust hover:text-paper transition-colors"
+            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-xs text-rust hover:text-paper transition-colors"
           >
             <Pencil size={12} /> Modifier le site
           </a>
           <a
             href="/"
-            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-[10px] hover:text-rust transition-colors"
+            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-xs hover:text-rust transition-colors"
           >
             <ExternalLink size={12} /> Voir le site
           </a>
           <button
             onClick={toggleTheme}
             aria-label={theme === "light" ? "Passer au mode sombre" : "Passer au mode clair"}
-            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-[10px] text-stone-100/60 hover:text-rust transition-colors"
+            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-xs text-stone-100/60 hover:text-rust transition-colors"
           >
             {theme === "light" ? <Moon size={12} /> : <Sun size={12} />}
             {theme === "light" ? "Mode sombre" : "Mode clair"}
           </button>
           <button
             onClick={onLogout}
-            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-[10px] text-stone-100/60 hover:text-rust transition-colors"
+            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-xs text-stone-100/60 hover:text-rust transition-colors"
           >
             <LogOut size={12} /> Déconnexion
           </button>
@@ -167,7 +167,7 @@ export const AdminShell = ({ section, onSectionChange, onLogout, children }: Pro
             <Menu size={20} />
           </button>
           <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-sans uppercase tracking-[0.3em] opacity-50">Tableau de bord</p>
+            <p className="text-xs font-sans uppercase tracking-[0.3em] opacity-50">Tableau de bord</p>
             <h1 className="text-2xl md:text-3xl font-light leading-tight">{current?.label}</h1>
           </div>
         </header>

@@ -55,17 +55,17 @@ export const ApparenceSettings = () => {
             className={`p-4 rounded-2xl border text-left transition-all ${mode === "actuel" ? "border-rust bg-rust/5" : "border-stone-200 dark:border-stone-700 hover:border-stone-300"}`}
           >
             <p className="font-serif text-lg">Actuel</p>
-            <p className="font-sans text-[10px] uppercase tracking-widest opacity-50 mt-1">Le site tel qu'il est aujourd'hui</p>
+            <p className="font-sans text-xs uppercase tracking-widest opacity-50 mt-1">Le site tel qu'il est aujourd'hui</p>
           </button>
           <button
             onClick={() => setSiteMode("editorial")}
             className={`p-4 rounded-2xl border text-left transition-all ${mode === "editorial" ? "border-rust bg-rust/5" : "border-stone-200 dark:border-stone-700 hover:border-stone-300"}`}
           >
             <p className="font-serif text-lg">Éditorial</p>
-            <p className="font-sans text-[10px] uppercase tracking-widest opacity-50 mt-1">Une seconde peau, plus posée</p>
+            <p className="font-sans text-xs uppercase tracking-widest opacity-50 mt-1">Une seconde peau, plus posée</p>
           </button>
         </div>
-        <p className="font-sans text-[11px] opacity-50 mt-4">
+        <p className="font-sans text-xs opacity-50 mt-4">
           Pour voir le mode éditorial sans changer ce réglage, ajoutez <span className="font-mono">?mode=editorial</span> à l'adresse du site.
         </p>
       </Card>
@@ -77,13 +77,13 @@ export const ApparenceSettings = () => {
             <div key={piece.id} className="grid grid-cols-[1fr_1fr_auto_auto] gap-2 items-center">
               <input value={piece.cat} onChange={(ev) => majPiece(i, { cat: ev.target.value })} placeholder="Catégorie" className="bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-2 py-1.5 text-sm" />
               <input value={piece.nom} onChange={(ev) => majPiece(i, { nom: ev.target.value })} placeholder="Nom de la pièce" className="bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-2 py-1.5 text-sm" />
-              <label className="flex items-center gap-1.5 text-[10px] font-sans uppercase tracking-widest opacity-60">
+              <label className="flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest opacity-60">
                 <input type="checkbox" checked={!!piece.option} onChange={(ev) => majPiece(i, { option: ev.target.checked })} className="accent-rust" /> Optionnelle
               </label>
               <button onClick={() => retirerPiece(i)} aria-label="Retirer" className="p-1.5 rounded-full opacity-40 hover:opacity-100 hover:text-rust"><Trash2 size={14} /></button>
             </div>
           ))}
-          <button onClick={ajouterPiece} className="inline-flex items-center gap-1.5 text-[11px] font-sans uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-rust"><Plus size={13} /> Ajouter une pièce</button>
+          <button onClick={ajouterPiece} className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-rust"><Plus size={13} /> Ajouter une pièce</button>
         </div>
       </Card>
 
@@ -97,13 +97,13 @@ export const ApparenceSettings = () => {
               <button onClick={() => retirerEtape(i)} aria-label="Retirer" className="p-1.5 rounded-full opacity-40 hover:opacity-100 hover:text-rust"><Trash2 size={14} /></button>
             </div>
           ))}
-          <button onClick={ajouterEtape} className="inline-flex items-center gap-1.5 text-[11px] font-sans uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-rust"><Plus size={13} /> Ajouter une étape</button>
+          <button onClick={ajouterEtape} className="inline-flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-rust"><Plus size={13} /> Ajouter une étape</button>
         </div>
         <div className="flex gap-3 mt-5">
-          <button onClick={enregistrer} disabled={saving} className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
+          <button onClick={enregistrer} disabled={saving} className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50">
             {saving ? "Enregistrement…" : "Enregistrer le catalogue"}
           </button>
-          <button onClick={reinitialiser} className="px-5 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors">
+          <button onClick={reinitialiser} className="px-5 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors">
             Revenir aux valeurs de départ
           </button>
         </div>

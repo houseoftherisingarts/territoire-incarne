@@ -106,13 +106,13 @@ const EditPopover = ({ contentKey, defaultValue, currentValue, multiline, onClos
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-sans uppercase tracking-[0.3em] text-rust">Modifier le texte</span>
+          <span className="text-xs font-sans uppercase tracking-[0.3em] text-rust">Modifier le texte</span>
           <button onClick={onClose} aria-label="Fermer" className="opacity-50 hover:opacity-100">
             <X size={16} />
           </button>
         </div>
 
-        <p className="text-[10px] font-mono opacity-50">{contentKey}</p>
+        <p className="text-xs font-mono opacity-50">{contentKey}</p>
 
         {multiline ? (
           <textarea
@@ -133,7 +133,7 @@ const EditPopover = ({ contentKey, defaultValue, currentValue, multiline, onClos
         )}
 
         {isOverridden && (
-          <p className="text-[10px] font-serif italic opacity-60">
+          <p className="text-xs font-serif italic opacity-60">
             Valeur d'origine : <span className="font-mono not-italic">{defaultValue}</span>
           </p>
         )}
@@ -142,7 +142,7 @@ const EditPopover = ({ contentKey, defaultValue, currentValue, multiline, onClos
           <button
             onClick={save}
             disabled={busy}
-            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 bg-rust text-paper px-5 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
           >
             <Check size={12} /> {busy ? "…" : "Enregistrer"}
           </button>
@@ -150,14 +150,14 @@ const EditPopover = ({ contentKey, defaultValue, currentValue, multiline, onClos
             <button
               onClick={reset}
               disabled={busy}
-              className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+              className="inline-flex items-center gap-2 border border-ink/10 dark:border-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
             >
               <RotateCcw size={11} /> Revenir à l'original
             </button>
           )}
           <button
             onClick={onClose}
-            className="ml-auto px-4 py-2 text-[10px] font-sans uppercase tracking-widest opacity-60 hover:opacity-100"
+            className="ml-auto px-4 py-2 text-xs font-sans uppercase tracking-widest opacity-60 hover:opacity-100"
           >
             Annuler
           </button>

@@ -141,7 +141,7 @@ export const BlockEditor = ({ value, onChange }: Props) => {
                         <Type size={13} />
                       </button>
                       <button onClick={() => cycleSize(row.id, col.id, col.fontSize ?? "p")}
-                        className="p-1 px-2 rounded hover:text-rust opacity-60 text-[10px] uppercase font-bold tracking-widest">
+                        className="p-1 px-2 rounded hover:text-rust opacity-60 text-xs uppercase font-bold tracking-widest">
                         <Heading size={11} className="inline mr-1" />{col.fontSize ?? "p"}
                       </button>
                       <span className="w-px h-3 bg-stone-300 mx-1" />
@@ -177,7 +177,7 @@ export const BlockEditor = ({ value, onChange }: Props) => {
             <button onClick={() => moveRow(ri, "down")} className="p-1 bg-white dark:bg-stone-800 rounded-full hover:text-rust shadow-sm"><ArrowDown size={12} /></button>
           </div>
 
-          <div className="flex items-center gap-3 pt-3 mt-3 border-t border-stone-200 dark:border-white/10 text-[10px] font-sans uppercase tracking-widest opacity-60">
+          <div className="flex items-center gap-3 pt-3 mt-3 border-t border-stone-200 dark:border-white/10 text-xs font-sans uppercase tracking-widest opacity-60">
             <button onClick={() => addColumn(row.id, "text")} disabled={row.columns.length >= 3} className="flex items-center gap-1 hover:opacity-100 hover:text-rust disabled:opacity-30">
               <Type size={11} /> Texte
             </button>
@@ -223,7 +223,7 @@ const ImageBlock = ({ value, onChange }: { value: string; onChange: (url: string
           <ImageIcon size={32} className="opacity-30" />
         </div>
       )}
-      <label className="absolute bottom-3 right-3 inline-flex items-center gap-2 bg-black/60 text-white px-3 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold cursor-pointer hover:bg-rust transition-colors">
+      <label className="absolute bottom-3 right-3 inline-flex items-center gap-2 bg-black/60 text-white px-3 py-1.5 rounded-full text-xs uppercase tracking-widest font-bold cursor-pointer hover:bg-rust transition-colors">
         <Upload size={11} /> {uploading ? "…" : value ? "Remplacer" : "Téléverser"}
         <input type="file" accept="image/*" onChange={onFile} className="hidden" disabled={uploading} />
       </label>

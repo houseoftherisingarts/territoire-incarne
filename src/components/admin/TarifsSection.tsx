@@ -63,20 +63,20 @@ const TarifForm = ({ initial = EMPTY, onSave, onCancel }: FormProps) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="md:col-span-2 space-y-5">
           <div>
-            <label className="block text-[10px] font-sans uppercase tracking-widest opacity-60 mb-2">Petite étiquette au-dessus du titre</label>
+            <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Petite étiquette au-dessus du titre</label>
             <input
               value={form.shortTag ?? ""}
               onChange={(e) => set("shortTag", e.target.value)}
               placeholder="Ex. Soins · Accompagnement"
               className="w-full bg-transparent border-b border-stone-400/50 dark:border-stone-500/50 focus:border-rust outline-none py-2 font-sans uppercase tracking-widest text-xs transition-colors"
             />
-            <p className="text-[10px] opacity-50 italic font-serif mt-1">
+            <p className="text-xs opacity-50 italic font-serif mt-1">
               Apparaît en petit, juste au-dessus du nom — comme une catégorie. Optionnel.
             </p>
           </div>
 
           <div>
-            <label className="block text-[10px] font-sans uppercase tracking-widest opacity-60 mb-2">Nom (titre principal)</label>
+            <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Nom (titre principal)</label>
             <input
               value={form.name}
               onChange={(e) => set("name", e.target.value)}
@@ -87,7 +87,7 @@ const TarifForm = ({ initial = EMPTY, onSave, onCancel }: FormProps) => {
           </div>
 
           <div>
-            <label className="block text-[10px] font-sans uppercase tracking-widest opacity-60 mb-2">Description</label>
+            <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Description</label>
             <textarea
               value={form.description}
               onChange={(e) => set("description", e.target.value)}
@@ -98,25 +98,25 @@ const TarifForm = ({ initial = EMPTY, onSave, onCancel }: FormProps) => {
         </div>
 
         <div>
-          <label className="block text-[10px] font-sans uppercase tracking-widest opacity-60 mb-2">Image</label>
+          <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Image</label>
           <div className="aspect-[4/3] rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 mb-2">
             {form.image && <img src={form.image} alt="" className="w-full h-full object-cover" />}
           </div>
-          <label className="flex items-center justify-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
+          <label className="flex items-center justify-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
             <Upload size={12} /> {uploading ? "Téléversement…" : form.image ? "Remplacer" : "Téléverser"}
             <input type="file" accept="image/*" onChange={onUpload} className="hidden" disabled={uploading} />
           </label>
         </div>
 
         <div>
-          <label className="block text-[10px] font-sans uppercase tracking-widest opacity-60 mb-2">Type</label>
+          <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Type</label>
           <div className="flex gap-3">
             {(["one-time", "subscription"] as const).map((t) => (
               <button
                 type="button"
                 key={t}
                 onClick={() => set("type", t)}
-                className={`flex-1 py-2 rounded-xl border font-sans text-[11px] uppercase tracking-widest transition-all ${
+                className={`flex-1 py-2 rounded-xl border font-sans text-xs uppercase tracking-widest transition-all ${
                   form.type === t
                     ? "bg-ink text-paper dark:bg-stone-200 dark:text-forest border-ink dark:border-stone-200"
                     : "border-stone-300 dark:border-stone-600 hover:border-stone-400"
@@ -129,7 +129,7 @@ const TarifForm = ({ initial = EMPTY, onSave, onCancel }: FormProps) => {
         </div>
 
         <div>
-          <label className="block text-[10px] font-sans uppercase tracking-widest opacity-60 mb-2">Catégorie</label>
+          <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Catégorie</label>
           <select
             value={form.category}
             onChange={(e) => set("category", e.target.value as Tarif["category"])}
@@ -140,7 +140,7 @@ const TarifForm = ({ initial = EMPTY, onSave, onCancel }: FormProps) => {
         </div>
 
         <div>
-          <label className="block text-[10px] font-sans uppercase tracking-widest opacity-60 mb-2">Prix (CAD $)</label>
+          <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Prix (CAD $)</label>
           <input
             type="number"
             min={0}
@@ -154,7 +154,7 @@ const TarifForm = ({ initial = EMPTY, onSave, onCancel }: FormProps) => {
 
         {form.category === "consultation" && (
           <div>
-            <label className="block text-[10px] font-sans uppercase tracking-widest opacity-60 mb-2">Durée (min)</label>
+            <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Durée (min)</label>
             <select
               value={form.durationMin ?? 60}
               onChange={(e) => set("durationMin", parseInt(e.target.value, 10))}
@@ -167,7 +167,7 @@ const TarifForm = ({ initial = EMPTY, onSave, onCancel }: FormProps) => {
 
         {form.type === "subscription" && (
           <div>
-            <label className="block text-[10px] font-sans uppercase tracking-widest opacity-60 mb-2">Fréquence</label>
+            <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Fréquence</label>
             <select
               value={form.frequency ?? "monthly"}
               onChange={(e) => set("frequency", e.target.value as Tarif["frequency"])}
@@ -183,14 +183,14 @@ const TarifForm = ({ initial = EMPTY, onSave, onCancel }: FormProps) => {
         <button
           type="submit"
           disabled={busy}
-          className="px-6 py-2.5 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-xl font-sans text-[10px] uppercase tracking-widest hover:bg-rust transition-colors disabled:opacity-50 flex items-center gap-2"
+          className="px-6 py-2.5 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-xl font-sans text-xs uppercase tracking-widest hover:bg-rust transition-colors disabled:opacity-50 flex items-center gap-2"
         >
           <Check size={13} /> {busy ? "Enregistrement…" : "Enregistrer"}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="px-6 py-2.5 border border-stone-300 dark:border-stone-600 rounded-xl font-sans text-[10px] uppercase tracking-widest hover:border-stone-400 transition-colors flex items-center gap-2"
+          className="px-6 py-2.5 border border-stone-300 dark:border-stone-600 rounded-xl font-sans text-xs uppercase tracking-widest hover:border-stone-400 transition-colors flex items-center gap-2"
         >
           <X size={13} /> Annuler
         </button>
@@ -224,7 +224,7 @@ export const TarifsSection = () => {
         </p>
         <button
           onClick={() => setShowNew(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-xl font-sans text-[10px] uppercase tracking-widest hover:bg-rust transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-xl font-sans text-xs uppercase tracking-widest hover:bg-rust transition-colors"
         >
           <Plus size={13} /> Nouvelle consultation
         </button>
@@ -242,7 +242,7 @@ export const TarifsSection = () => {
           <p className="font-serif italic text-stone-400 mb-3">Aucune consultation créée pour l'instant.</p>
           <button
             onClick={() => setShowNew(true)}
-            className="font-sans text-[10px] uppercase tracking-widest text-rust hover:opacity-70 transition-opacity"
+            className="font-sans text-xs uppercase tracking-widest text-rust hover:opacity-70 transition-opacity"
           >
             Créer la première →
           </button>
@@ -271,17 +271,17 @@ export const TarifsSection = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
                     {t.shortTag && (
-                      <span className="font-sans text-[9px] uppercase tracking-widest text-rust opacity-80">{t.shortTag}</span>
+                      <span className="font-sans text-xs uppercase tracking-widest text-rust opacity-80">{t.shortTag}</span>
                     )}
                     <span className="font-serif text-lg">{t.name}</span>
-                    <span className="font-sans text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full border border-stone-300 dark:border-stone-600 opacity-60">
+                    <span className="font-sans text-xs uppercase tracking-widest px-2 py-0.5 rounded-full border border-stone-300 dark:border-stone-600 opacity-60">
                       {CATEGORIES.find((c) => c.value === t.category)?.label}
                     </span>
                     {t.category === "consultation" && t.durationMin && (
-                      <span className="font-sans text-[9px] uppercase tracking-widest opacity-50">{t.durationMin} min</span>
+                      <span className="font-sans text-xs uppercase tracking-widest opacity-50">{t.durationMin} min</span>
                     )}
                     {!t.active && (
-                      <span className="font-sans text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-900/20 text-red-500 border border-red-200 dark:border-red-800">
+                      <span className="font-sans text-xs uppercase tracking-widest px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-900/20 text-red-500 border border-red-200 dark:border-red-800">
                         Inactif
                       </span>
                     )}

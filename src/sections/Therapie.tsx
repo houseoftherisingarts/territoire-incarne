@@ -141,7 +141,7 @@ export const Therapie = ({ content }: { content: Content["sections"]["therapie"]
           >
             Créer un compte
           </button>
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">
             Connexion Google ou courriel
           </p>
         </div>

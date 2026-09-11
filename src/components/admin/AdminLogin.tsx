@@ -45,11 +45,11 @@ export const AdminLogin = ({ onLogin, onDevBypass }: Props) => {
           <h1 className="text-4xl md:text-5xl font-light leading-none mb-3">
             Territoire Incarné
           </h1>
-          <p className="font-sans text-[11px] tracking-[0.25em] opacity-50 uppercase mb-10 border-l border-stone-400 dark:border-stone-500 pl-4 py-1">
+          <p className="font-sans text-xs tracking-[0.25em] opacity-50 uppercase mb-10 border-l border-stone-400 dark:border-stone-500 pl-4 py-1">
             Tableau de bord · Elise .G Lortie
           </p>
 
-          <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
+          <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
             Courriel
           </label>
           <input
@@ -61,7 +61,7 @@ export const AdminLogin = ({ onLogin, onDevBypass }: Props) => {
             required
           />
 
-          <label className="block text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
+          <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-2">
             Mot de passe
           </label>
           <input
@@ -74,7 +74,7 @@ export const AdminLogin = ({ onLogin, onDevBypass }: Props) => {
           />
 
           {error && (
-            <p className="font-sans text-[11px] uppercase tracking-widest text-rust dark:text-stone-200 mb-4">
+            <p className="font-sans text-xs uppercase tracking-widest text-rust dark:text-stone-200 mb-4">
               Identifiants invalides.
             </p>
           )}
@@ -88,7 +88,7 @@ export const AdminLogin = ({ onLogin, onDevBypass }: Props) => {
 
           <a
             href="/"
-            className="block mt-8 font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 hover:opacity-100 transition-opacity"
+            className="block mt-8 font-sans text-xs uppercase tracking-[0.25em] opacity-50 hover:opacity-100 transition-opacity"
           >
             ← Retour au site
           </a>
@@ -97,7 +97,7 @@ export const AdminLogin = ({ onLogin, onDevBypass }: Props) => {
             <button
               type="button"
               onClick={onDevBypass}
-              className="mt-6 w-full border border-dashed border-rust/60 text-rust dark:text-stone-300 py-3 rounded-sm font-sans uppercase tracking-[0.25em] text-[10px] hover:bg-rust/5 transition-colors"
+              className="mt-6 w-full border border-dashed border-rust/60 text-rust dark:text-stone-300 py-3 rounded-sm font-sans uppercase tracking-[0.25em] text-xs hover:bg-rust/5 transition-colors"
               title="Contourne le login (lecture seule — Firestore refusera les écritures)"
             >
               Dev bypass · lecture seule

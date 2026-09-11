@@ -61,7 +61,7 @@ export const Assistant = ({ uid, profile }: { uid: string; profile: ClientProfil
           {reponse ? (
             <div>
               <p className="font-serif text-sm leading-relaxed mb-3">{reponse}</p>
-              <button onClick={() => setReponse(null)} className="font-sans text-[10px] uppercase tracking-widest text-rust hover:underline">
+              <button onClick={() => setReponse(null)} className="font-sans text-xs uppercase tracking-widest text-rust hover:underline">
                 ← Une autre question
               </button>
             </div>

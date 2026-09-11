@@ -178,7 +178,7 @@ const ProductCard = ({ title, desc, price, image, stock, onAdd, addLabel }: Prod
         <button
           onClick={onAdd}
           disabled={sold}
-          className="px-4 py-1.5 text-[10px] uppercase tracking-widest border border-stone-300 hover:bg-ink hover:text-white dark:border-stone-600 dark:hover:bg-white dark:hover:text-forest rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="px-4 py-1.5 text-xs uppercase tracking-widest border border-stone-300 hover:bg-ink hover:text-white dark:border-stone-600 dark:hover:bg-white dark:hover:text-forest rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {sold ? "Rupture" : addLabel}
         </button>

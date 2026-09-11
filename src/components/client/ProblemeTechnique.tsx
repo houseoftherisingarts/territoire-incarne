@@ -174,7 +174,7 @@ export const ProblemeTechnique = ({ uid, nom, courriel }: Props) => {
         type="button"
         data-bug-ignore
         onClick={() => setOuvert(true)}
-        className="fixed bottom-6 left-6 z-[120] flex items-center gap-2 rounded-full border border-ink/10 dark:border-white/15 bg-paper/90 dark:bg-charcoal/90 px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-rust shadow-xl backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-paper dark:hover:bg-charcoal"
+        className="fixed bottom-6 left-6 z-[120] flex items-center gap-2 rounded-full border border-ink/10 dark:border-white/15 bg-paper/90 dark:bg-charcoal/90 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-rust shadow-xl backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-paper dark:hover:bg-charcoal"
       >
         <AlertTriangle size={14} /> Problème technique
       </button>
@@ -219,7 +219,7 @@ export const ProblemeTechnique = ({ uid, nom, courriel }: Props) => {
                     type="button"
                     onClick={capturer}
                     disabled={enCapture}
-                    className="px-4 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors disabled:opacity-50"
+                    className="px-4 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors disabled:opacity-50"
                   >
                     {enCapture ? "Capture en cours…" : "Capturer l'écran"}
                   </button>
@@ -227,7 +227,7 @@ export const ProblemeTechnique = ({ uid, nom, courriel }: Props) => {
                   <button
                     type="button"
                     onClick={() => fichierRef.current?.click()}
-                    className="px-4 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
+                    className="px-4 py-2 border border-ink/10 dark:border-white/10 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:border-rust hover:text-rust transition-colors"
                   >
                     Téléverser une capture
                   </button>
@@ -247,7 +247,7 @@ export const ProblemeTechnique = ({ uid, nom, courriel }: Props) => {
                   </div>
                 )}
 
-                {erreur && <p className="font-sans text-[11px] uppercase tracking-widest text-rust">{erreur}</p>}
+                {erreur && <p className="font-sans text-xs uppercase tracking-widest text-rust">{erreur}</p>}
 
                 <button
                   type="button"

@@ -87,23 +87,23 @@ export const NewsletterAdminSection = () => {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="p-5">
-          <p className="block text-[10px] font-sans uppercase tracking-[0.3em] text-rust font-bold">Abonné·e·s</p>
+          <p className="block text-xs font-sans uppercase tracking-[0.3em] text-rust font-bold">Abonné·e·s</p>
           <p className="text-3xl font-light mt-3 flex items-center gap-2">
             <Mail size={20} className="text-rust opacity-60" /> {subscribers.length}
           </p>
         </Card>
         <Card className="p-5">
-          <p className="block text-[10px] font-sans uppercase tracking-[0.3em] text-rust font-bold">Désabonné·e·s</p>
+          <p className="block text-xs font-sans uppercase tracking-[0.3em] text-rust font-bold">Désabonné·e·s</p>
           <p className="text-3xl font-light mt-3">{optedOut}</p>
         </Card>
         <Card className="p-5 flex items-center justify-between">
           <div>
-            <p className="block text-[10px] font-sans uppercase tracking-[0.3em] text-rust font-bold">Export</p>
+            <p className="block text-xs font-sans uppercase tracking-[0.3em] text-rust font-bold">Export</p>
             <p className="text-xs opacity-70 mt-2 font-serif italic">Télécharger la liste</p>
           </div>
           <button
             onClick={exportCsv}
-            className="bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold font-sans hover:bg-ink transition-colors"
+            className="bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans hover:bg-ink transition-colors"
           >
             <Download size={11} className="inline mr-1" /> CSV
           </button>
@@ -129,7 +129,7 @@ export const NewsletterAdminSection = () => {
             <thead>
               <tr className="border-b border-ink/5 dark:border-white/5">
                 {["Courriel", "Nom", "Source", "Depuis"].map((h) => (
-                  <th key={h} className="text-left py-3 px-3 text-[10px] font-sans uppercase tracking-[0.25em] opacity-60 font-bold">
+                  <th key={h} className="text-left py-3 px-3 text-xs font-sans uppercase tracking-[0.25em] opacity-60 font-bold">
                     {h}
                   </th>
                 ))}
@@ -141,7 +141,7 @@ export const NewsletterAdminSection = () => {
                   <td className="py-2 px-3 font-mono text-xs">{s.email}</td>
                   <td className="py-2 px-3 font-serif">{s.name || <span className="opacity-40">—</span>}</td>
                   <td className="py-2 px-3">
-                    <span className="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-ink/5 dark:bg-white/10">
+                    <span className="text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-ink/5 dark:bg-white/10">
                       {s.source}
                     </span>
                   </td>
