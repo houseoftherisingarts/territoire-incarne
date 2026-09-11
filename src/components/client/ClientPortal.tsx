@@ -150,7 +150,7 @@ const DocumentsTab = ({ uid }: { uid: string }) => {
 };
 
 export const ClientPortal = () => {
-  const { user, profile, loading, error, signInWithGoogle, signInWithEmail, signUpWithEmail, updateDisplayName, setNewsletterOptIn, logout } = useClientAuth();
+  const { user, profile, loading, error, signInWithGoogle, signInWithEmail, signUpWithEmail, updateDisplayName, setNewsletterOptIn, resetPassword, logout } = useClientAuth();
   const { theme, toggle: toggleTheme } = useTheme();
   const [tab, setTab] = useState<TabId>("profil");
   const [mobileOpen, setMobileOpen] = useState(false);
