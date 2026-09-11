@@ -1,0 +1,63 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.uid in [
+        'yDsFujEL8lUkEzrtFXQvgFoseH22', // fruiterre@gmail.com (added 2026-05-01)
+        'BYR9pdEGCfYpU5kmbMoyRr9paRq1', // legacy — remove once new account is verified
+      ];
+    }
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function typeAccepte() {
+      return request.resource.contentType.matches('application/pdf')
+          || request.resource.contentType in ['image/jpeg', 'image/png', 'image/webp', 'image/heic']
+          || request.resource.contentType.matches('application/msword')
+          || request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.*')
+          || request.resource.contentType.matches('application/vnd.ms-excel')
+          || request.resource.contentType.matches('text/plain');
+    }
+
+    function estUneImage() {
+      return request.resource.contentType in ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
+    }
+
+    // ── Pièces du dossier client : chaque cliente écrit dans son propre dossier,
+    //    Élise lit et écrit partout (25 Mo, mêmes types que lib/dossier.ts TYPES_ACCEPTES).
+    match /dossiers/{uid}/{allPaths=**} {
+      allow read:   if isOwner(uid) || isAdmin();
+      allow write:  if (isOwner(uid) || isAdmin())
+                    && request.resource.size < 25 * 1024 * 1024
+                    && typeAccepte();
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    // ── Avatar et bannière d'une cliente (5 Mo, images seulement).
+    match /profils/{uid}/{file} {
+      allow read:   if isOwner(uid) || isAdmin();
+      allow write:  if (isOwner(uid) || isAdmin())
+                    && request.resource.size < 5 * 1024 * 1024
+                    && estUneImage();
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    // ── Captures d'écran du bouton Problème technique (10 Mo, images seulement).
+    match /bugs/{uid}/{file} {
+      allow read:  if isOwner(uid) || isAdmin();
+      allow write: if (isOwner(uid) || isAdmin())
+                   && request.resource.size < 10 * 1024 * 1024
+                   && estUneImage();
+    }
+
+    // ── Médiathèque du site (produits, écrits, événements, ressources, crayon) :
+    //    servie publiquement, Élise seule y écrit.
+    match /{folder}/{allPaths=**} {
+      allow read:  if folder in ['products', 'posts', 'events', 'resources', 'media'];
+      allow write: if folder in ['products', 'posts', 'events', 'resources', 'media'] && isAdmin();
+    }
+  }
+}
