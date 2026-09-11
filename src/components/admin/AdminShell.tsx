@@ -21,6 +21,7 @@ import {
   Pencil,
   Moon,
   Sun,
+  History,
 } from "lucide-react";
 import { ELISE_AVATAR_IMG } from "../../assets/images";
 import { useTheme } from "../../hooks/useTheme";
