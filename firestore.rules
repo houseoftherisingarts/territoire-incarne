@@ -231,5 +231,24 @@ service cloud.firestore {
     match /personalEvents/{evId} {
       allow read, write: if isAdmin();
     }
+
+    // ── Bug reports (bouton Problème technique de l'espace client) ───────
+    match /bugs/{bugId} {
+      allow read:   if isAdmin() || (request.auth != null && resource.data.uid == request.auth.uid);
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid
+                    && tailleOK(request.resource.data.texte, 4000)
+                    && request.resource.data.statut == 'nouveau';
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── Réglages du site (catalogue Mon dossier, mode d'apparence) ───────
+    // Lecture publique : le catalogue pilote la porte de connexion et l'attribut
+    // data-mode lu par tout visiteur; seule Élise écrit.
+    match /settings/{settingId} {
+      allow read:  if true;
+      allow write: if isAdmin();
+    }
   }
 }
