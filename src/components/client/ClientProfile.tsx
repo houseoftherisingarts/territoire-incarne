@@ -43,13 +43,13 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
     setSavingBio(false);
   };
 
-  const uploadPhoto = (field: "avatarUrl" | "bannerUrl", kind: "avatar" | "banner") => async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const uploadAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
-    setUploading(kind);
+    setUploading("avatar");
     const url = await uploadMediaFile(file, "media");
-    await updateDoc(doc(db, "users", profile.uid), { [field]: url });
+    await updateDoc(doc(db, "users", profile.uid), { avatarUrl: url });
     setUploading(null);
   };
 
