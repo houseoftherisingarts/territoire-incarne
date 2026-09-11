@@ -24,7 +24,7 @@ const readClientMode = () => typeof window !== "undefined" && window.location.pa
 export const App = () => {
   const { lang, toggle: toggleLang } = useLang();
   const { theme, toggle: toggleTheme } = useTheme();
-  const { view, postSlug, navigate, navigateToPost } = useRoute();
+  const { view, postSlug, notFound, navigate, navigateToPost } = useRoute();
   const { cart, subtotal, add: addToCart, removeAt: removeFromCart } = useCart();
   const [adminMode,  setAdminMode]  = useState(readAdminMode);
   const [clientMode, setClientMode] = useState(readClientMode);
