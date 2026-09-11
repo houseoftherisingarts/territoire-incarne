@@ -148,15 +148,15 @@ export const DetailView = ({
 
         <div className={`${fullWidth ? "p-8 md:p-16 lg:px-24 lg:pt-24 lg:pb-16 max-w-7xl" : "p-8 md:p-16 lg:p-24 max-w-3xl xl:max-w-4xl"} mx-auto min-h-full flex flex-col relative z-10`}>
           <div className="mb-12 pt-8 md:pt-0">
-            <span className="block text-xs font-sans tracking-widest opacity-60 dark:opacity-50 mb-4 uppercase border-b border-stone-300 dark:border-stone-500 inline-block pb-1 text-ink dark:text-stone-300">
+            <span className="ed-kicker ed-hairline block text-xs font-sans tracking-widest opacity-60 dark:opacity-50 mb-4 uppercase border-b border-stone-300 dark:border-stone-500 inline-block pb-1 text-ink dark:text-stone-300">
               {navTitle}
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light leading-none text-ink dark:text-stone-100">
+            <h2 className="ed-display text-4xl md:text-5xl lg:text-6xl font-light leading-none text-ink dark:text-stone-100">
               {sectionContent.title}
             </h2>
           </div>
 
-          <div className="mb-12 relative">
+          <Corps className="mb-12 relative">
             <LinenPattern className="w-full h-32 top-0" />
             {"intro" in sectionContent && sectionContent.intro && (
               <p className="text-xl md:text-2xl leading-relaxed font-light text-stone-600 dark:text-stone-200 font-serif">
@@ -166,7 +166,7 @@ export const DetailView = ({
             {id === "apropos" && (
               <Apropos content={t.sections.apropos} lang={lang} />
             )}
-          </div>
+          </Corps>
 
           {id === "therapie" && <Therapie content={t.sections.therapie} />}
           {id === "mouvement" && <Mouvement content={t.sections.mouvement} />}
