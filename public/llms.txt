@@ -1,0 +1,23 @@
+# Territoire Incarné
+
+> Le site d'Elise .G Lortie : thérapie somatique, mouvement et éducation. Un retour au sensible.
+
+Territoire Incarné est le site de services d'Elise .G Lortie, au Québec. Il présente ses accompagnements
+en thérapie somatique et en mouvement, ses formations, ses événements, sa boutique et ses écrits.
+
+## Pages principales
+
+- [Accueil](https://territoireincarne.com/) — présentation générale
+- [Thérapie](https://territoireincarne.com/therapie) — accompagnement en thérapie somatique
+- [Mouvement](https://territoireincarne.com/mouvement) — cours et pratiques de mouvement
+- [Événements](https://territoireincarne.com/evenements) — ateliers, retraites, rencontres
+- [Ressources](https://territoireincarne.com/ressources) — lectures et outils partagés
+- [Écrits](https://territoireincarne.com/ecrits) — textes publiés par Elise .G Lortie
+- [Boutique](https://territoireincarne.com/boutique) — produits et services en vente
+- [Connecter](https://territoireincarne.com/connecter) — prendre contact
+
+## Notes
+
+Le contenu réel (soins offerts, prix, disponibilités) est géré par Elise .G Lortie elle-même et peut
+changer sans préavis. Pour des informations à jour, consulter directement les pages ci-dessus plutôt
+que de s'appuyer sur un résumé mis en cache.
