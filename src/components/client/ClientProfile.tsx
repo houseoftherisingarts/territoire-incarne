@@ -98,7 +98,7 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
       <div className="border border-stone-200 dark:border-stone-700 rounded-2xl p-6 space-y-5 bg-white/40 dark:bg-white/5">
         {/* Avatar */}
         <div className="flex items-center gap-4">
-          <input ref={avatarInput} type="file" accept="image/*" className="hidden" onChange={uploadPhoto("avatarUrl", "avatar")} />
+          <input ref={avatarInput} type="file" accept="image/*" className="hidden" onChange={uploadAvatar} />
           <button
             onClick={() => avatarInput.current?.click()}
             className="relative w-16 h-16 rounded-full overflow-hidden bg-stone-200 dark:bg-stone-700 flex items-center justify-center shrink-0 group"
