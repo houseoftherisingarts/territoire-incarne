@@ -80,8 +80,11 @@ export const DetailView = ({
   const sidebar = sidebarFor(id);
   const sectionContent = t.sections[id];
   const fullWidth = id === "boutique" || (id === "writings" && !!postSlug);
-  const mode = useMode();
-  const Corps = mode === "editorial" ? Reveal : ("div" as unknown as typeof Reveal);
+  const editorial = useMode() === "editorial";
+  // En mode actuel, le contenu apparaît d'un bloc (aucun changement de comportement);
+  // en mode éditorial seulement, il se révèle au défilement.
+  const Corps = ({ children, className }: { children: React.ReactNode; className?: string }) =>
+    editorial ? <Reveal className={className}>{children}</Reveal> : <div className={className}>{children}</div>;
 
   return (
     <div className="fixed inset-0 z-50 bg-paper dark:bg-forest animate-[fadeIn_0.7s_ease-out] flex flex-col md:flex-row overflow-hidden text-ink dark:text-stone-100">
