@@ -515,7 +515,7 @@ const SeancesWidget = ({ client }: { client: ClientProfile }) => {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
-type Tab = "messagerie" | "documents" | "rendez-vous" | "réunion";
+type Tab = "dossier" | "messagerie" | "documents" | "rendez-vous" | "réunion";
 
 interface Props {
   client: ClientProfile;
