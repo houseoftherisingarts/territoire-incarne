@@ -1,6 +1,6 @@
 import { Download, ExternalLink, FolderOpen, Globe, Phone } from "lucide-react";
 import { useMemo } from "react";
-import { useFirestoreCollection } from "../../hooks/useFirestoreCollection";
+import { useFirestoreCollection, type CollectionOptions } from "../../hooks/useFirestoreCollection";
 import { useClientDocs } from "../../hooks/useClientDocs";
 import type { Resource } from "../admin/ResourcesSection";
 
