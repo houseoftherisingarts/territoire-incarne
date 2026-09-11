@@ -12,16 +12,19 @@
     "firebase:init:domain": "firebase hosting:sites:create territoireincarne",
     "deploy": "npm run build && firebase deploy --only hosting",
     "deploy:preview": "npm run build && firebase hosting:channel:deploy preview",
-    "optimize:images": "node scripts/optimize-images.mjs"
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "test:rules": "PATH=\"$(brew --prefix openjdk@21)/bin:$PATH\" npx firebase emulators:exec --only firestore,storage --project territoire-incarne-test \"node tests/rules.test.mjs\""
   },
   "dependencies": {
     "firebase": "^12.12.1",
     "framer-motion": "^12.42.2",
+    "html2canvas": "^1.4.1",
     "lucide-react": "^0.556.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
     "@types/node": "^22.14.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
