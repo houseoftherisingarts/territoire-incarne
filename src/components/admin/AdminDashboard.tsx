@@ -57,6 +57,7 @@ export const AdminDashboard = () => {
       {section === "ressources" && <ResourcesSection />}
       {section === "writings"   && <AdminBlogSection />}
       {section === "newsletter" && <NewsletterAdminSection />}
+      {section === "changelog"  && <ChangelogSection />}
       {section === "settings"   && <SettingsSection onReset={reset} />}
     </AdminShell>
   );
