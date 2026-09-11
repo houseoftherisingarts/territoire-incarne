@@ -616,6 +616,7 @@ export const ClientDetailView = ({ client, onBack, onUpdateStatus }: Props) => {
       </div>
 
       <div>
+        {tab === "dossier"     && <DossierAdminTab client={client} />}
         {tab === "messagerie"  && <ChatTab     clientUid={client.uid} />}
         {tab === "documents"   && <DocsTab     clientUid={client.uid} />}
         {tab === "rendez-vous" && <BookingsTab clientUid={client.uid} />}
