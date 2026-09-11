@@ -12,6 +12,15 @@ export async function uploadMediaFile(file: File, folder: MediaFolder = "media")
   return getDownloadURL(snapshot.ref);
 }
 
+/** Avatar ou bannière d'une cliente, dans son propre dossier Storage (profils/{uid}/…),
+ *  distinct du dossier `media/` partagé où écrivent les sections admin. */
+export async function uploadProfilPhoto(uid: string, file: File, kind: "avatar" | "banniere"): Promise<string> {
+  const ext = sanitize(file.name).split(".").pop() || "jpg";
+  const fileRef = ref(storage, `profils/${uid}/${kind}-${Date.now()}.${ext}`);
+  const snapshot = await uploadBytes(fileRef, file, { contentType: file.type });
+  return getDownloadURL(snapshot.ref);
+}
+
 export async function deleteMediaByUrl(url: string): Promise<void> {
   try {
     const fileRef = ref(storage, url);
