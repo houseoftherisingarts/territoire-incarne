@@ -56,8 +56,10 @@ for (const [w, h, tag] of [[1440, 900, '1440'], [390, 844, '390']]) {
   await p.goto(`${BASE}${route}`, { waitUntil: 'domcontentloaded' });
   await p.waitForTimeout(2200);
   if (clic) {
-    const cible = p.locator(`button:has-text("${clic}"), a:has-text("${clic}")`).first();
-    if (await cible.count()) { await cible.click({ timeout: 5000 }).catch(() => {}); await p.waitForTimeout(2000); }
+    for (const texte of clic.split(',')) {
+      const cible = p.locator(`button:has-text("${texte}"), a:has-text("${texte}")`).first();
+      if (await cible.count()) { await cible.click({ timeout: 5000 }).catch(() => {}); await p.waitForTimeout(2000); }
+    }
   }
   for (const s of scrolls) {
     await p.evaluate((f) => {
