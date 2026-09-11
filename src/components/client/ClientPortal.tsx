@@ -1,3 +1,4 @@
+import { ELISE_FIELD_IMG } from '../../assets/images';
 import { useEffect, useRef, useState } from "react";
 import { CalendarDays, MessageSquare, LogOut, Send, Video, Music, Moon, Sun, Camera, FolderHeart, Library, UserCircle2 } from "lucide-react";
 import { ClientLogin } from "./ClientLogin";
@@ -176,7 +177,8 @@ export const ClientPortal = () => {
           aria-label="Changer la bannière"
           className="relative w-full aspect-[3/1] md:aspect-[4/1] bg-stone-200 dark:bg-stone-800 overflow-hidden group block"
         >
-          {profile.bannerUrl && <img src={profile.bannerUrl} alt="" className="w-full h-full object-cover" />}
+          <img src={profile.bannerUrl || ELISE_FIELD_IMG} alt="" className="w-full h-full object-cover" />
+          <span className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/40 to-transparent pointer-events-none" aria-hidden="true" />
           <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors">
             <Camera size={18} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
           </span>
@@ -187,7 +189,7 @@ export const ClientPortal = () => {
           <div className="relative -mt-10 md:-mt-12 flex items-end gap-4 pb-6">
             <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-paper dark:border-forest bg-stone-300 dark:bg-stone-600 shrink-0 flex items-center justify-center shadow-lg">
               {profile.avatarUrl ? (
-                <img src={profile.avatarUrl} alt="" className="w-full h-full object-cover" />
+                <img src={profile.avatarUrl} alt="" className="w-full h-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
               ) : (
                 <span className="font-serif text-2xl">{(profile.displayName || profile.email)[0].toUpperCase()}</span>
               )}
