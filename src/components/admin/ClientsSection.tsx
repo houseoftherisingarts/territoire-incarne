@@ -63,7 +63,7 @@ export const ClientsSection = () => {
         ))}
       </div>
 
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap items-center">
         {(["all", "pending", "accepted", "refused"] as const).map((s) => (
           <button
             key={s}
@@ -77,10 +77,16 @@ export const ClientsSection = () => {
             {s === "all" ? "Toutes" : STATUS_LABEL[s]}
           </button>
         ))}
+        <button
+          onClick={exporterCsv}
+          className="ml-auto inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-sans text-[10px] uppercase tracking-widest border border-stone-300 dark:border-stone-600 hover:border-rust hover:text-rust transition-all"
+        >
+          <Download size={12} /> Exporter en CSV
+        </button>
       </div>
 
       {visible.length === 0 ? (
-        <p className="font-serif italic text-stone-400 py-8 text-center">
+        <p className="font-serif text-stone-400 py-8 text-center">
           Aucune cliente pour l'instant.
         </p>
       ) : (
