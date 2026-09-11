@@ -80,6 +80,10 @@ export const useClientAuth = () => {
             avatarUrl: firebaseUser.photoURL ?? "",
             status: "pending",
             newsletterOptIn: !_signupOptOut, // default opted IN unless user checked opt-out
+            etape: ETAPES_PAR_DEFAUT[0].id,
+            pieces: {},
+            nonLusAdmin: 0,
+            nonLusClient: 0,
             createdAt: serverTimestamp(),
           });
           _signupOptOut = false; // reset for next user
