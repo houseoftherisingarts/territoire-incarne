@@ -18,6 +18,7 @@ import { InterventionsSection } from "./InterventionsSection";
 import { AdminBlogSection } from "./blog/AdminBlogSection";
 import { AdminCalendarSection } from "./calendar/CalendarSection";
 import { ChangelogSection } from "./ChangelogSection";
+import { ApparenceSettings } from "./ApparenceSettings";
 import { useAdminAuth } from "../../hooks/useAdminAuth";
 import { useAdminStore } from "../../hooks/useAdminStore";
 import { ClientsSection } from "./ClientsSection";
