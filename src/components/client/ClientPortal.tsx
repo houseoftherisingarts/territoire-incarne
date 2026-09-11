@@ -12,7 +12,7 @@ import { ProblemeTechnique } from "./ProblemeTechnique";
 import { useClientAuth } from "../../hooks/useClientAuth";
 import { useTheme } from "../../hooks/useTheme";
 import { useChat } from "../../hooks/useChat";
-import { uploadMediaFile } from "../../lib/storage";
+import { uploadProfilPhoto } from "../../lib/storage";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { consumeReturnTo } from "../../lib/requireAuth";
