@@ -55,7 +55,7 @@ const Kicker = ({ children }: { children: React.ReactNode }) => (
   </span>
 );
 
-const SectionTitle = ({ children }: { children: React.ReactNode }) => (
+export const SectionTitle = ({ children }: { children: React.ReactNode }) => (
   <h3 className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 font-bold mb-4">
     {children}
   </h3>
