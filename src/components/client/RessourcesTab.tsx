@@ -9,7 +9,8 @@ const ICONS = { Download, Phone, Book: FolderOpen, Globe } as const;
 const fmtDate = (d: Date | null) => (d ? d.toLocaleDateString("fr-CA", { day: "2-digit", month: "short", year: "numeric" }) : "");
 
 export const RessourcesTab = ({ uid }: { uid: string }) => {
-  const { items, loading } = useFirestoreCollection<Resource>("resources", useMemo(() => ({ where: [["active", "==", true]] }), []));
+  const opts = useMemo<CollectionOptions>(() => ({ where: [["active", "==", true]] }), []);
+  const { items, loading } = useFirestoreCollection<Resource>("resources", opts);
   const { docs, loading: docsLoading } = useClientDocs(uid);
 
   if (loading || docsLoading) return <p className="font-sans text-sm opacity-50 py-10 text-center">Chargement…</p>;
