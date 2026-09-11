@@ -5,6 +5,7 @@ import { Home } from "./components/layout/Home";
 import { DetailView } from "./components/layout/DetailView";
 import { EditModeBar } from "./components/edit/EditModeBar";
 import { NotFound } from "./components/common/NotFound";
+import { BadgeVexel } from "./components/common/BadgeVexel";
 import { getContent } from "./i18n";
 
 const AdminDashboard = lazy(() =>
