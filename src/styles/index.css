@@ -75,7 +75,7 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.28em;
-  font-size: 0.7rem;
+  font-size: 0.8125rem; /* 13px : jamais moins, règle dure */
   color: #8c5e45;
 }
 

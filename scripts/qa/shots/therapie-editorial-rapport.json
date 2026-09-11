@@ -6,22 +6,22 @@
       "titre": "Territoire Incarné | Elise .G Lortie",
       "scrollWidth": 1440,
       "innerWidth": 1440,
-      "textesSous13px": 0,
-      "italiques": 0,
+      "textesSous13px": 2,
+      "italiques": 3,
       "titresTroisLignes": [],
-      "tiretsLongs": 0,
-      "modeAttribut": null
+      "tiretsLongs": 1,
+      "modeAttribut": "editorial"
     },
     {
       "tag": "390",
       "titre": "Territoire Incarné | Elise .G Lortie",
       "scrollWidth": 390,
       "innerWidth": 390,
-      "textesSous13px": 0,
-      "italiques": 0,
+      "textesSous13px": 2,
+      "italiques": 3,
       "titresTroisLignes": [],
-      "tiretsLongs": 0,
-      "modeAttribut": null
+      "tiretsLongs": 1,
+      "modeAttribut": "editorial"
     }
   ]
 }
