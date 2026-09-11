@@ -11,10 +11,8 @@ export const Assistant = ({ uid, profile }: { uid: string; profile: ClientProfil
   const [ouvert, setOuvert] = useState(false);
   const [reponse, setReponse] = useState<string | null>(null);
   const config = useDossierConfig();
-  const { items: rdv } = useFirestoreCollection<Appointment>(
-    "appointments",
-    useMemo(() => ({ where: [["clientUid", "==", uid]] as const, orderField: "start", orderDirection: "asc" as const }), [uid]),
-  );
+  const opts = useMemo<CollectionOptions>(() => ({ where: [["clientUid", "==", uid]], orderField: "start", orderDirection: "asc" }), [uid]);
+  const { items: rdv } = useFirestoreCollection<Appointment>("appointments", opts);
 
   const prochain = rdv.find((a) => a.status !== "annulé" && a.status !== "complété" && a.start.toDate() > new Date());
   const manquantes = piecesManquantes(profile.pieces, config.pieces);
