@@ -110,10 +110,7 @@ async function main() {
 
   // ── users/{uid}/notes : notes privées d'Élise ───────────────────────────
   await verifie('Élise ajoute une note privée sur A', assertSucceeds(addDoc(collection(dbAdmin, 'users', UID_A, 'notes'), { texte: 'Note', createdAt: serverTimestamp() })));
-  await verifie('la cliente NE PEUT PAS lire ses propres notes privées', assertFails(
-    // eslint-disable-next-line no-undef
-    (async () => { const { getDocs } = await import('firebase/firestore'); return getDocs(collection(dbA, 'users', UID_A, 'notes')); })(),
-  ));
+  await verifie('la cliente NE PEUT PAS lire ses propres notes privées', assertFails(getDocs(collection(dbA, 'users', UID_A, 'notes'))));
   await verifie('la cliente ne peut pas écrire dans ses propres notes', assertFails(addDoc(collection(dbA, 'users', UID_A, 'notes'), { texte: 'triche', createdAt: serverTimestamp() })));
 
   // ── bugs/{id} : bouton Problème technique ───────────────────────────────
