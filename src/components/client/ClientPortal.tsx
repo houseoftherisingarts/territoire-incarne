@@ -7,6 +7,8 @@ import { ClientClassesTab } from "./ClientClassesTab";
 import { ClientReservationsTab } from "./ClientReservationsTab";
 import { DossierTab } from "./DossierTab";
 import { RessourcesTab } from "./RessourcesTab";
+import { Assistant } from "./Assistant";
+import { ProblemeTechnique } from "./ProblemeTechnique";
 import { useClientAuth } from "../../hooks/useClientAuth";
 import { useTheme } from "../../hooks/useTheme";
 import { useChat } from "../../hooks/useChat";
