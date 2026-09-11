@@ -42,6 +42,7 @@ export type AdminSectionId =
   | "ressources"
   | "writings"
   | "newsletter"
+  | "changelog"
   | "settings";
 
 interface NavItem {
