@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CheckCircle2, Download, FileWarning, Printer, Trash2 } from "lucide-react";
-import { doc, updateDoc, deleteField, serverTimestamp } from "firebase/firestore";
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import type { ClientProfile } from "../../hooks/useClientAuth";
 import { useDossierNotes } from "../../hooks/useDossierNotes";
