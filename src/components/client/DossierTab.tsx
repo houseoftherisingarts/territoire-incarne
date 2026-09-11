@@ -201,7 +201,7 @@ export const DossierTab = ({ uid, profile }: Props) => {
                               ref={(el) => { fileRefs.current[p.id] = el; }}
                               type="file"
                               accept={TYPES_ACCEPTES.join(",")}
-                              onChange={deposer(p.id, p.nom)}
+                              onChange={deposer(p.id)}
                               className="hidden"
                             />
                             <button
