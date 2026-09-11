@@ -48,7 +48,7 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
     e.target.value = "";
     if (!file) return;
     setUploading("avatar");
-    const url = await uploadMediaFile(file, "media");
+    const url = await uploadProfilPhoto(profile.uid, file, "avatar");
     await updateDoc(doc(db, "users", profile.uid), { avatarUrl: url });
     setUploading(null);
   };
