@@ -1,6 +1,9 @@
-import { useState } from "react";
-import { User, CheckCircle, Clock, XCircle, Edit2, Check, X, Mail, CalendarHeart } from "lucide-react";
+import { useRef, useState } from "react";
+import { User, CheckCircle, Clock, XCircle, Edit2, Check, X, Mail, CalendarHeart, Camera } from "lucide-react";
 import type { ClientProfile as ClientProfileData } from "../../hooks/useClientAuth";
+import { uploadMediaFile } from "../../lib/storage";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const STATUS_CONFIG = {
   pending:  { label: "En attente",  Icon: Clock,         color: "text-amber-500 dark:text-amber-400",  bg: "bg-amber-50 dark:bg-amber-900/20"  },
@@ -18,6 +21,12 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
   const [editingName, setEditingName] = useState(false);
   const [nameVal, setNameVal] = useState(profile.displayName);
   const [saving, setSaving] = useState(false);
+  const [bio, setBio] = useState(profile.bio ?? "");
+  const [liens, setLiens] = useState(profile.liensUrl ?? "");
+  const [savingBio, setSavingBio] = useState(false);
+  const [uploading, setUploading] = useState<"avatar" | "banner" | null>(null);
+  const avatarInput = useRef<HTMLInputElement>(null);
+  const bannerInput = useRef<HTMLInputElement>(null);
 
   const saveName = async () => {
     if (!nameVal.trim()) return;
@@ -27,15 +36,31 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
     setEditingName(false);
   };
 
+  const saveBio = async () => {
+    setSavingBio(true);
+    await updateDoc(doc(db, "users", profile.uid), { bio: bio.trim(), liensUrl: liens.trim() });
+    setSavingBio(false);
+  };
+
+  const uploadPhoto = (field: "avatarUrl" | "bannerUrl", kind: "avatar" | "banner") => async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploading(kind);
+    const url = await uploadMediaFile(file, "media");
+    await updateDoc(doc(db, "users", profile.uid), { [field]: url });
+    setUploading(null);
+  };
+
   const { label, Icon, color, bg } = STATUS_CONFIG[profile.status];
 
   return (
     <div className="space-y-8 animate-[fadeIn_0.6s_ease-out]">
       <div>
         <span className="block text-[10px] font-sans uppercase tracking-[0.3em] text-rust dark:text-stone-400 mb-1">
-          Mon espace
+          Mon profil
         </span>
-        <h2 className="text-3xl font-light">Bonjour{profile.displayName ? `, ${profile.displayName.split(" ")[0]}` : ""} 🌿</h2>
+        <h2 className="text-3xl font-light">Bonjour{profile.displayName ? `, ${profile.displayName.split(" ")[0]}` : ""}</h2>
       </div>
 
       {/* Status card */}
@@ -68,17 +93,42 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
         </div>
       )}
 
+      {/* Bannière */}
+      <div className="relative">
+        <input ref={bannerInput} type="file" accept="image/*" className="hidden" onChange={uploadPhoto("bannerUrl", "banner")} />
+        <button
+          onClick={() => bannerInput.current?.click()}
+          className="relative w-full aspect-[3/1] rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-700 group"
+          aria-label="Changer la bannière"
+        >
+          {profile.bannerUrl && <img src={profile.bannerUrl} alt="" className="w-full h-full object-cover" />}
+          <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors">
+            <Camera size={20} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+          </span>
+          {uploading === "banner" && <span className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-xs font-sans">Envoi…</span>}
+        </button>
+      </div>
+
       {/* Profile card */}
       <div className="border border-stone-200 dark:border-stone-700 rounded-2xl p-6 space-y-5 bg-white/40 dark:bg-white/5">
         {/* Avatar */}
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full overflow-hidden bg-stone-200 dark:bg-stone-700 flex items-center justify-center shrink-0">
+          <input ref={avatarInput} type="file" accept="image/*" className="hidden" onChange={uploadPhoto("avatarUrl", "avatar")} />
+          <button
+            onClick={() => avatarInput.current?.click()}
+            className="relative w-16 h-16 rounded-full overflow-hidden bg-stone-200 dark:bg-stone-700 flex items-center justify-center shrink-0 group"
+            aria-label="Changer la photo"
+          >
             {profile.avatarUrl ? (
               <img src={profile.avatarUrl} alt={profile.displayName} className="w-full h-full object-cover" />
             ) : (
               <User size={28} className="text-stone-400" />
             )}
-          </div>
+            <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors">
+              <Camera size={14} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+            </span>
+            {uploading === "avatar" && <span className="absolute inset-0 flex items-center justify-center bg-black/40 text-white"><Camera size={12} className="animate-pulse text-white" /></span>}
+          </button>
           <div>
             <p className="font-sans text-[10px] uppercase tracking-widest opacity-50 mb-1">Profil</p>
             <p className="font-serif text-xl">{profile.displayName || "—"}</p>
@@ -122,6 +172,38 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
           <p className="font-serif text-lg">{profile.email}</p>
         </div>
 
+        {/* Bio */}
+        <div>
+          <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 mb-2">Quelques mots sur toi</p>
+          <textarea
+            rows={3}
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            placeholder="Ce que tu veux qu'Élise sache de toi, en dehors des séances."
+            className="w-full bg-paper dark:bg-black/30 border border-ink/10 dark:border-white/10 rounded-sm px-3 py-2.5 text-sm outline-none focus:border-rust font-serif resize-none"
+          />
+        </div>
+
+        {/* Liens */}
+        <div>
+          <p className="font-sans text-[10px] uppercase tracking-[0.25em] opacity-50 mb-2">Un lien (optionnel)</p>
+          <input
+            type="url"
+            value={liens}
+            onChange={(e) => setLiens(e.target.value)}
+            placeholder="https://…"
+            className="w-full bg-transparent border-b border-stone-400/50 dark:border-stone-500/50 focus:border-rust dark:focus:border-stone-100 outline-none py-2 font-serif text-sm transition-colors"
+          />
+        </div>
+
+        <button
+          onClick={saveBio}
+          disabled={savingBio}
+          className="inline-flex items-center gap-2 bg-rust text-paper px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-[11px] font-bold font-sans hover:bg-ink transition-colors disabled:opacity-50"
+        >
+          {savingBio ? "Enregistrement…" : "Enregistrer"}
+        </button>
+
         {/* Newsletter */}
         <div className="pt-4 border-t border-stone-200 dark:border-stone-700">
           <label className="flex items-center gap-3 cursor-pointer">
@@ -138,16 +220,6 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
           </label>
         </div>
       </div>
-
-      {/* Coming soon tabs hint */}
-      {profile.status === "accepted" && (
-        <div className="border border-stone-200 dark:border-stone-700 rounded-2xl p-5 bg-white/20 dark:bg-white/5">
-          <p className="font-sans text-[10px] uppercase tracking-widest opacity-50 mb-2">Prochainement disponible</p>
-          <p className="font-serif text-stone-600 dark:text-stone-300 italic text-sm leading-relaxed">
-            Messagerie, réservations et partage de documents seront bientôt accessibles depuis votre espace.
-          </p>
-        </div>
-      )}
     </div>
   );
 };
