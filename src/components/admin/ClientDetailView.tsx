@@ -534,6 +534,7 @@ export const ClientDetailView = ({ client, onBack, onUpdateStatus }: Props) => {
   };
 
   const TABS: { id: Tab; label: string; icon?: React.ReactNode }[] = [
+    { id: "dossier",     label: "Dossier" },
     { id: "messagerie",  label: "Messagerie" },
     { id: "documents",   label: "Documents" },
     { id: "rendez-vous", label: "Rendez-vous" },
