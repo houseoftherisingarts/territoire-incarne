@@ -94,22 +94,6 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
         </div>
       )}
 
-      {/* Bannière */}
-      <div className="relative">
-        <input ref={bannerInput} type="file" accept="image/*" className="hidden" onChange={uploadPhoto("bannerUrl", "banner")} />
-        <button
-          onClick={() => bannerInput.current?.click()}
-          className="relative w-full aspect-[3/1] rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-700 group"
-          aria-label="Changer la bannière"
-        >
-          {profile.bannerUrl && <img src={profile.bannerUrl} alt="" className="w-full h-full object-cover" />}
-          <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors">
-            <Camera size={20} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-          </span>
-          {uploading === "banner" && <span className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-xs font-sans">Envoi…</span>}
-        </button>
-      </div>
-
       {/* Profile card */}
       <div className="border border-stone-200 dark:border-stone-700 rounded-2xl p-6 space-y-5 bg-white/40 dark:bg-white/5">
         {/* Avatar */}
