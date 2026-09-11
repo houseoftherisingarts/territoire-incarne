@@ -11,6 +11,8 @@ import { LinenPattern } from "../decor/LinenPattern";
 import { SomaticCurves } from "../decor/SomaticCurves";
 import { GlossaryText } from "../common/GlossaryText";
 import { BlogPostView } from "../blog/BlogPostView";
+import { useMode } from "../../hooks/useMode";
+import { Reveal } from "../motion/Reveal";
 
 import {
   Apropos,
