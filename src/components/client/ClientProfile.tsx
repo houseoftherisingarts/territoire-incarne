@@ -26,9 +26,8 @@ export const ClientProfile = ({ profile, onUpdateName, onSetNewsletterOptIn }: P
   const [bio, setBio] = useState(profile.bio ?? "");
   const [liens, setLiens] = useState(profile.liensUrl ?? "");
   const [savingBio, setSavingBio] = useState(false);
-  const [uploading, setUploading] = useState<"avatar" | "banner" | null>(null);
+  const [uploading, setUploading] = useState<"avatar" | null>(null);
   const avatarInput = useRef<HTMLInputElement>(null);
-  const bannerInput = useRef<HTMLInputElement>(null);
 
   const saveName = async () => {
     if (!nameVal.trim()) return;
