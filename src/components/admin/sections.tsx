@@ -1149,6 +1149,8 @@ export const SettingsSection = ({ onReset }: SettingsProps) => {
   const [confirming, setConfirming] = useState(false);
   return (
     <div className="space-y-6">
+      <ApparenceSettings />
+
       <Card className="p-6">
         <SectionTitle>Accès</SectionTitle>
         <p className="text-sm font-serif opacity-80 leading-relaxed">
