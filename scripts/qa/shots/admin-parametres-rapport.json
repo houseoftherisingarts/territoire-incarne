@@ -1,0 +1,34 @@
+{
+  "erreurs": [
+    "1440: [2026-09-11T15:31:47.844Z]  @firebase/firestore: Firestore (12.12.0): FIRESTORE (12.12.0) INTERNAL ASSERTION FAILED: Unexpected state (ID: ca9) CONTEXT: {\"ve\":-1}",
+    "1440: [2026-09-11T15:31:47.845Z]  @firebase/firestore: Firestore (12.12.0): INTERNAL UNHANDLED ERROR:  Error: FIRESTORE (12.12.0) INTERNAL ASSERTION FAILED: Unexpected state (ID: ca9) CONTEXT: {\"ve\":-1}\n   ",
+    "1440 PAGEERROR: FIRESTORE (12.12.0) INTERNAL ASSERTION FAILED: Unexpected state (ID: ca9) CONTEXT: {\"ve\":-1}",
+    "1440 PAGEERROR: FIRESTORE (12.12.0) INTERNAL ASSERTION FAILED: Unexpected state (ID: ca9) CONTEXT: {\"ve\":-1}",
+    "1440: [2026-09-11T15:31:47.879Z]  @firebase/firestore: Firestore (12.12.0): FIRESTORE (12.12.0) INTERNAL ASSERTION FAILED: Unexpected state (ID: b815) CONTEXT: {\"Pc\":\"Error: FIRESTORE (12.12.0) INTERNAL ASS",
+    "1440 PAGEERROR: FIRESTORE (12.12.0) INTERNAL ASSERTION FAILED: Unexpected state (ID: b815) CONTEXT: {\"Pc\":\"Error: FIRESTORE (12.12.0) INTERNAL ASSERTION FAILED: Unexpected state (ID: ca9) CONTEXT: {\\\"ve\\\":-1}\\n    at"
+  ],
+  "mesures": [
+    {
+      "tag": "1440",
+      "titre": "Territoire Incarné | Elise .G Lortie",
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "textesSous13px": 0,
+      "italiques": 1,
+      "titresTroisLignes": [],
+      "tiretsLongs": 1,
+      "modeAttribut": "actuel"
+    },
+    {
+      "tag": "390",
+      "titre": "Territoire Incarné | Elise .G Lortie",
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "textesSous13px": 0,
+      "italiques": 4,
+      "titresTroisLignes": [],
+      "tiretsLongs": 0,
+      "modeAttribut": null
+    }
+  ]
+}
