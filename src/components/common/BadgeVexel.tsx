@@ -1,13 +1,42 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { X, ArrowRight } from "lucide-react";
 
 const VEXEL_URL = "https://vexelwebstudio.com/";
 
-/** Le collant « Site créé par Vexel Webstudio » du pied de page. Un clic ouvre une petite
- *  carte qui dit qui a bâti le site et mène à vexelwebstudio.com. Territoire Incarné n'est
+/** Le reflet holographique suit le pointeur (--mx, --my) et incline le collant (--rx, --ry).
+ *  Porté de xena-horizon-platform (components/BadgeVexel.tsx, hook useFoil). */
+function useFoil() {
+  const ref = useRef<HTMLButtonElement>(null);
+  const suivre = useCallback((e: React.PointerEvent<HTMLButtonElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
+    el.style.setProperty("--mx", `${(x * 100).toFixed(1)}%`);
+    el.style.setProperty("--my", `${(y * 100).toFixed(1)}%`);
+    el.style.setProperty("--rx", `${((0.5 - y) * 10).toFixed(2)}deg`);
+    el.style.setProperty("--ry", `${((x - 0.5) * 12).toFixed(2)}deg`);
+  }, []);
+  const relacher = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.setProperty("--mx", "30%");
+    el.style.setProperty("--my", "30%");
+    el.style.setProperty("--rx", "0deg");
+    el.style.setProperty("--ry", "0deg");
+  }, []);
+  return { ref, suivre, relacher };
+}
+
+/** Le collant foil « Site créé par Vexel Webstudio » du pied de page : liseré blanc découpé,
+ *  reflet holographique irisé (visible même au repos), léger basculement 3D au pointeur, posé
+ *  bien droit. Un clic ouvre une carte, dans les couleurs de Territoire Incarné (papier, encre,
+ *  rouille), qui dit qui a bâti le site et mène à vexelwebstudio.com. Territoire Incarné n'est
  *  pas dans le programme partenaire de Vexel : aucun rabais ni commission n'est promis ici. */
 export const BadgeVexel = () => {
   const [ouvert, setOuvert] = useState(false);
+  const foil = useFoil();
 
   useEffect(() => {
     if (!ouvert) return;
@@ -19,15 +48,25 @@ export const BadgeVexel = () => {
   return (
     <>
       <button
+        ref={foil.ref}
         type="button"
         onClick={() => setOuvert(true)}
+        onPointerMove={foil.suivre}
+        onPointerLeave={foil.relacher}
         aria-label="Site créé par Vexel Webstudio : en savoir plus"
-        className="fixed bottom-5 right-5 z-[110] flex items-center gap-2.5 rounded-full border border-ink/10 dark:border-white/15 bg-paper/90 dark:bg-charcoal/90 pl-2 pr-4 py-2 shadow-xl backdrop-blur-md transition-all hover:-translate-y-0.5 hover:shadow-2xl"
+        className="vx-foil fixed bottom-5 right-5 z-[110] flex select-none items-center gap-3 rounded-[15px] px-4 py-3"
       >
-        <img src="/vexel-logo.png" alt="" aria-hidden="true" className="h-7 w-7 object-contain rounded-full" />
-        <span className="text-left leading-tight">
-          <span className="block text-xs font-sans uppercase tracking-[0.2em] opacity-50">Site créé par</span>
-          <span className="block font-serif text-sm text-ink dark:text-stone-100">Vexel Webstudio</span>
+        <span aria-hidden className="vx-foil-sheen" />
+        <span aria-hidden className="vx-foil-grain" />
+        <img
+          src="/vexel-logo.png"
+          alt=""
+          aria-hidden="true"
+          className="relative z-[1] h-10 w-auto drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
+        />
+        <span className="relative z-[1] flex flex-col text-left leading-tight">
+          <span className="text-xs font-sans uppercase tracking-[0.2em] text-white/70">Site créé par</span>
+          <span className="mt-0.5 font-serif text-sm text-white">Vexel Webstudio</span>
         </span>
       </button>
 
@@ -41,7 +80,7 @@ export const BadgeVexel = () => {
         >
           <div className="w-full max-w-md bg-paper dark:bg-charcoal rounded-2xl overflow-hidden shadow-2xl p-8">
             <div className="flex items-start justify-between gap-4">
-              <img src="/vexel-logo.png" alt="Vexel Webstudio" className="h-14 w-14 object-contain rounded-full" />
+              <img src="/vexel-logo.png" alt="Vexel Webstudio" className="h-14 w-auto object-contain" />
               <button type="button" onClick={() => setOuvert(false)} aria-label="Fermer" className="w-11 h-11 -mr-2 -mt-2 flex items-center justify-center text-stone-500 hover:text-ink dark:hover:text-white shrink-0">
                 <X size={20} />
               </button>
