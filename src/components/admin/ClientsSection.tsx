@@ -20,8 +20,11 @@ const statusColor = (s: ClientProfile["status"]) =>
 
 export const ClientsSection = () => {
   const { clients, loading, updateStatus } = useFirestoreClients();
+  const config = useDossierConfig();
   const [filter, setFilter] = useState<ClientProfile["status"] | "all">("all");
   const [selected, setSelected] = useState<ClientProfile | null>(null);
+
+  const exporterCsv = () => telecharger("clientes-territoire-incarne.csv", clientesCsv(clients, config), "text/csv;charset=utf-8");
 
   const visible = filter === "all" ? clients : clients.filter((c) => c.status === filter);
 
