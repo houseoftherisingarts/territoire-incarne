@@ -109,7 +109,7 @@ export const DetailView = ({
             />
           </div>
         ) : sidebar.image ? (
-          <div className="relative z-20 w-full max-w-lg aspect-[3/4] shadow-2xl rotate-1 transition-transform duration-[2s] hover:rotate-0 rounded-[30px] overflow-hidden">
+          <div className="ed-photo relative z-20 w-full max-w-lg aspect-[3/4] shadow-2xl rotate-1 transition-transform duration-[2s] hover:rotate-0 rounded-[30px] overflow-hidden">
             <div className="w-full h-full overflow-hidden flex items-center justify-center">
               <img
                 src={sidebar.image}
