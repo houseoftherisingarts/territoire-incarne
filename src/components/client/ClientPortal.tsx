@@ -193,8 +193,8 @@ export const ClientPortal = () => {
               )}
             </div>
             <div className="min-w-0 pb-1">
-              <p className="text-[10px] font-sans uppercase tracking-[0.3em] text-rust">Espace personnel</p>
-              <h1 className="font-serif text-2xl md:text-3xl truncate">{profile.displayName || profile.email}</h1>
+              <p className="ed-kicker text-[10px] font-sans uppercase tracking-[0.3em] text-rust">Espace personnel</p>
+              <h1 className="ed-display font-serif text-2xl md:text-3xl truncate">{profile.displayName || profile.email}</h1>
             </div>
           </div>
         </div>
