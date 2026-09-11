@@ -63,13 +63,13 @@ export const Home = ({ t, onOpen }: Props) => {
               as="h1"
               contentKey="home.hero.title"
               defaultValue="Territoire Incarné"
-              className="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-ink dark:text-stone-100 mb-2 not-italic block"
+              className="ed-display text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-ink dark:text-stone-100 mb-2 not-italic block"
             />
             <EditableText
               as="p"
               contentKey="home.hero.subtitle"
               defaultValue="par Elise .G Lortie"
-              className="font-sans text-xs tracking-[0.25em] opacity-50 uppercase ml-1 border-l border-stone-400 dark:border-stone-500 pl-4 py-1 dark:text-stone-200 inline-block"
+              className="ed-kicker font-sans text-xs tracking-[0.25em] opacity-50 uppercase ml-1 border-l border-stone-400 dark:border-stone-500 pl-4 py-1 dark:text-stone-200 inline-block"
             />
           </div>
 
