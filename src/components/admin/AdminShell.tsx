@@ -67,6 +67,7 @@ const NAV: NavItem[] = [
   { id: "ressources", label: "Ressources",           Icon: Library },
   { id: "writings",   label: "Écrits",               Icon: PenLine },
   { id: "newsletter", label: "Infolettre",           Icon: Users },
+  { id: "changelog",  label: "Journal",              Icon: History },
   { id: "settings",   label: "Paramètres",           Icon: Settings },
 ];
 
