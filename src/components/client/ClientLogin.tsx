@@ -128,6 +128,22 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onRe
             />
           </div>
 
+          {mode === "login" && (
+            <button
+              type="button"
+              onClick={forgotPassword}
+              disabled={busy || !email.trim()}
+              className="block font-sans text-[10px] uppercase tracking-[0.2em] opacity-50 hover:opacity-100 hover:text-rust transition-all disabled:opacity-30"
+            >
+              Mot de passe oublié
+            </button>
+          )}
+          {resetSent && (
+            <p className="font-sans text-[11px] text-rust dark:text-stone-200">
+              Courriel de réinitialisation envoyé à {email}.
+            </p>
+          )}
+
           {error && (
             <p className="font-sans text-[11px] uppercase tracking-widest text-rust dark:text-stone-200">
               {error}
@@ -142,10 +158,10 @@ export const ClientLogin = ({ onSignInGoogle, onSignInEmail, onSignUpEmail, onRe
                 onChange={(e) => setOptOut(e.target.checked)}
                 className="accent-rust mt-1 shrink-0"
               />
-              <span className="font-serif italic">
-                Je préfère <strong className="not-italic">ne pas</strong> recevoir l'infolettre
-                <span className="block text-[10px] uppercase tracking-widest opacity-60 mt-0.5 not-italic font-sans">
-                  Sinon, vous serez ajouté·e — vous pouvez vous désabonner à tout moment.
+              <span className="font-serif">
+                Je préfère <strong>ne pas</strong> recevoir l'infolettre
+                <span className="block text-[10px] uppercase tracking-widest opacity-60 mt-0.5 font-sans">
+                  Sinon, vous serez ajouté·e. Vous pouvez vous désabonner à tout moment.
                 </span>
               </span>
             </label>
