@@ -20,6 +20,8 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { isAdmin } from "../lib/admins";
+import type { EtapeDef, PieceDeposee, ProjetDossier, RevuePiece } from "../types/dossier";
+import { ETAPES_PAR_DEFAUT } from "../lib/dossier";
 
 export interface ClientProfile {
   uid: string;
@@ -33,6 +35,18 @@ export interface ClientProfile {
   seancesTotal?: number;
   /** Séances restantes; décrémenté quand une rencontre est complétée. */
   seancesRemaining?: number;
+  /** Onglet Mon profil : bannière, bio et liens, en plus de l'avatar déjà en place. */
+  bannerUrl?: string;
+  bio?: string;
+  liensUrl?: string;
+  /** Onglet Mon dossier : motif de consultation, parcours, pièces (admin-only pour "revue"). */
+  projet?: ProjetDossier;
+  etape?: string;
+  pieces?: Record<string, PieceDeposee>;
+  revue?: Record<string, RevuePiece>;
+  nonLusAdmin?: number;
+  nonLusClient?: number;
+  derniereActiviteClient?: unknown;
 }
 
 let _signupOptOut = false;
