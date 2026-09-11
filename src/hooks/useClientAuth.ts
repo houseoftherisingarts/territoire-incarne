@@ -20,7 +20,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { isAdmin } from "../lib/admins";
-import type { EtapeDef, PieceDeposee, ProjetDossier, RevuePiece } from "../types/dossier";
+import type { PieceDeposee, ProjetDossier, RevuePiece } from "../types/dossier";
 import { ETAPES_PAR_DEFAUT } from "../lib/dossier";
 
 export interface ClientProfile {
