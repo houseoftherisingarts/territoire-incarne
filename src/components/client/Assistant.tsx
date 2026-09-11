@@ -14,7 +14,7 @@ export const Assistant = ({ uid, profile }: { uid: string; profile: ClientProfil
   const opts = useMemo<CollectionOptions>(() => ({ where: [["clientUid", "==", uid]], orderField: "start", orderDirection: "asc" }), [uid]);
   const { items: rdv } = useFirestoreCollection<Appointment>("appointments", opts);
 
-  const prochain = rdv.find((a) => a.status !== "annulé" && a.status !== "complété" && a.start.toDate() > new Date());
+  const prochain = rdv.find((a) => a.status !== "cancelled" && a.status !== "completed" && a.start.toDate() > new Date());
   const manquantes = piecesManquantes(profile.pieces, config.pieces);
 
   const questions: { q: string; reponse: () => string }[] = [
