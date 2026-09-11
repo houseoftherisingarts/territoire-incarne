@@ -7,10 +7,10 @@
       "scrollWidth": 1440,
       "innerWidth": 1440,
       "textesSous13px": 0,
-      "italiques": 3,
+      "italiques": 0,
       "titresTroisLignes": [],
-      "tiretsLongs": 1,
-      "modeAttribut": "editorial"
+      "tiretsLongs": 0,
+      "modeAttribut": null
     },
     {
       "tag": "390",
@@ -18,10 +18,10 @@
       "scrollWidth": 390,
       "innerWidth": 390,
       "textesSous13px": 0,
-      "italiques": 3,
+      "italiques": 0,
       "titresTroisLignes": [],
-      "tiretsLongs": 1,
-      "modeAttribut": "editorial"
+      "tiretsLongs": 0,
+      "modeAttribut": null
     }
   ]
 }

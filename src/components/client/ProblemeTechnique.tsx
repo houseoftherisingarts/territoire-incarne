@@ -174,9 +174,12 @@ export const ProblemeTechnique = ({ uid, nom, courriel }: Props) => {
         type="button"
         data-bug-ignore
         onClick={() => setOuvert(true)}
-        className="fixed bottom-6 left-6 z-[120] flex items-center gap-2 rounded-full border border-ink/10 dark:border-white/15 bg-paper/90 dark:bg-charcoal/90 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-rust shadow-xl backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-paper dark:hover:bg-charcoal"
+        aria-label="Problème technique"
+        className="fixed bottom-6 left-6 z-[120] flex items-center gap-2 rounded-full border border-ink/10 dark:border-white/15 bg-paper/90 dark:bg-charcoal/90 p-3 sm:px-4 sm:py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-rust shadow-xl backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-paper dark:hover:bg-charcoal"
       >
-        <AlertTriangle size={14} /> Problème technique
+        <AlertTriangle size={16} className="sm:hidden" aria-hidden="true" />
+        <AlertTriangle size={14} className="hidden sm:block" aria-hidden="true" />
+        <span className="hidden sm:inline">Problème technique</span>
       </button>
 
       {ouvert && (
