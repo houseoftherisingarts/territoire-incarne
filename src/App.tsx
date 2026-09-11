@@ -44,6 +44,7 @@ export const App = () => {
   // inside the portals too (explicit font-sans classes still win where set).
   if (clientMode) return <div className="font-serif"><Suspense fallback={null}><ClientPortal /></Suspense></div>;
   if (adminMode)  return <div className="font-serif"><Suspense fallback={null}><AdminDashboard /></Suspense></div>;
+  if (notFound)   return <NotFound onHome={() => navigate(null)} />;
 
   return (
     <div className="h-screen w-full font-serif selection:bg-stone-300 dark:selection:bg-stone-600 selection:text-ink overflow-hidden bg-paper dark:bg-forest text-ink dark:text-stone-100 relative transition-colors duration-500">
