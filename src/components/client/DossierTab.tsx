@@ -47,7 +47,7 @@ export const DossierTab = ({ uid, profile }: Props) => {
     setSavingProjet(false);
   };
 
-  const deposer = (pieceId: string, nom: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  const deposer = (pieceId: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
