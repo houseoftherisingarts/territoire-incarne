@@ -13,18 +13,45 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == uid;
     }
 
+    function tailleOK(v, max) {
+      return v is string && v.size() <= max;
+    }
+
+    // Bornes sur les champs du dossier client (Mon dossier) qu'une cliente peut écrire
+    // elle-même : `etape` et `revue` (le jugement d'Élise sur une pièce) restent hors de
+    // cette fonction et hors de sa portée, voir le hasAny() de la règle update ci-dessous.
+    function dossierClientOK(data) {
+      return (!('bio' in data) || tailleOK(data.bio, 2000))
+          && (!('liensUrl' in data) || tailleOK(data.liensUrl, 500))
+          && (!('pieces' in data) || data.pieces is map)
+          && (!('projet' in data) || (
+                data.projet is map
+                && (!('titre' in data.projet) || tailleOK(data.projet.titre, 200))
+                && (!('description' in data.projet) || tailleOK(data.projet.description, 4000))
+                && (!('objectif' in data.projet) || tailleOK(data.projet.objectif, 1000))
+             ));
+    }
+
     // ── Client profiles ─────────────────────────────────────────────────
     match /users/{userId} {
       allow read:   if isOwner(userId) || isAdmin();
       allow create: if isOwner(userId);
+      // `etape` (l'avancement du parcours) et `revue` (le jugement d'une pièce) sont
+      // exclus : seule Élise les change, jamais la cliente elle-même.
       allow update: if isAdmin()
                     || (isOwner(userId)
-                        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['status', 'seancesTotal', 'seancesRemaining', 'stripeCustomerId', 'email']));
+                        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['status', 'seancesTotal', 'seancesRemaining', 'stripeCustomerId', 'email', 'etape', 'revue'])
+                        && dossierClientOK(request.resource.data));
       allow delete: if isAdmin();
 
       match /docs/{docId} {
         allow read:  if isOwner(userId) || isAdmin();
         allow write: if isAdmin();
+      }
+
+      // Notes privées d'Élise sur cette cliente : jamais lisibles ni inscriptibles par elle.
+      match /notes/{noteId} {
+        allow read, write: if isAdmin();
       }
     }
 
