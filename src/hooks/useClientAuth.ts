@@ -140,7 +140,30 @@ export const useClientAuth = () => {
     await updateDoc(doc(db, "users", user.uid), { newsletterOptIn: value });
   };
 
+  const resetPassword = async (email: string) => {
+    setError(null);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      return true;
+    } catch {
+      setError("Impossible d'envoyer le courriel de réinitialisation. Vérifiez l'adresse.");
+      return false;
+    }
+  };
+
   const logout = () => firebaseSignOut(auth);
 
-  return { user, profile, loading, error, signInWithGoogle, signInWithEmail, signUpWithEmail, updateDisplayName, setNewsletterOptIn, logout };
+  return {
+    user,
+    profile,
+    loading,
+    error,
+    signInWithGoogle,
+    signInWithEmail,
+    signUpWithEmail,
+    updateDisplayName,
+    setNewsletterOptIn,
+    resetPassword,
+    logout,
+  };
 };
