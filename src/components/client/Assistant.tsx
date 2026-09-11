@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { MessageCircleQuestion, X } from "lucide-react";
 import type { ClientProfile } from "../../hooks/useClientAuth";
-import { useFirestoreCollection } from "../../hooks/useFirestoreCollection";
+import { useFirestoreCollection, type CollectionOptions } from "../../hooks/useFirestoreCollection";
 import type { Appointment } from "../../types/calendar";
 import { useDossierConfig, piecesManquantes, avancement, indexEtape } from "../../lib/dossier";
 
