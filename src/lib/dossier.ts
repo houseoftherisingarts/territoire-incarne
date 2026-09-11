@@ -11,8 +11,9 @@ import type { DossierConfig, EtapeDef, PieceDef, PieceDeposee, RevuePiece, Dossi
  * le lancement, comme pour Laurie chez Xena.
  */
 
+// Le motif de consultation est un champ écrit (voir ProjetDossier), pas une pièce à déposer :
+// les pièces ci-dessous sont uniquement des documents à téléverser.
 export const PIECES_PAR_DEFAUT: PieceDef[] = [
-  { id: "motif", cat: "Pour commencer", nom: "Le motif de ta consultation", aide: "Ce qui t'amène, avec tes mots. Quelques phrases suffisent." },
   { id: "historique", cat: "Pour commencer", nom: "Ton historique pertinent", aide: "Un diagnostic, un suivi antérieur, tout ce qui te semble utile qu'Élise connaisse avant la première séance.", option: true },
   { id: "consentement", cat: "Documents", nom: "Le consentement éclairé signé", aide: "Élise te l'envoie après le premier échange. Dépose-le ici une fois signé.", option: true },
   { id: "assurance", cat: "Documents", nom: "Une pièce pour ton assureur", aide: "Si ta compagnie d'assurance demande un document précis, dépose-le ici.", option: true },
