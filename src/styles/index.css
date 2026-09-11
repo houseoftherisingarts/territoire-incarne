@@ -94,10 +94,14 @@ body {
   line-height: 1.05;
 }
 
-[data-mode="editorial"] .ed-photo {
+[data-mode="editorial"] .ed-photo,
+[data-mode="editorial"] .ed-photo img {
   border-radius: 0 !important;
   transform: none !important;
   box-shadow: none !important;
+}
+[data-mode="editorial"] .ed-photo:hover {
+  transform: none !important;
 }
 
 [data-mode="editorial"] .ed-index {
