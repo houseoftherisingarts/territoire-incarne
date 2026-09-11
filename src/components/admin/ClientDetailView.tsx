@@ -17,6 +17,7 @@ import { doc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { setForfait, adjustSeances, completeSeance, uncompleteSeance } from "../../lib/seances";
 import { MeetingTab } from "./MeetingTab";
+import { DossierAdminTab } from "./DossierAdminTab";
 import { useChat } from "../../hooks/useChat";
 import { useClientDocs } from "../../hooks/useClientDocs";
 import { useClientBookings, type BookingStatus } from "../../hooks/useClientBookings";
