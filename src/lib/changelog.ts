@@ -1,0 +1,88 @@
+export interface EntreeJournal {
+  date: string; // AAAA-MM-JJ
+  titre: string;
+  intro: string;
+  etapes: string[];
+}
+
+/**
+ * Le journal des changements du site, lu par l'admin (page Journal). Il vit en code, pas
+ * dans Firestore, pour qu'il parte avec chaque déploiement et que rien dans l'admin ne
+ * puisse l'effacer. Règle de tenue : chaque journée de travail sur le site ajoute son
+ * entrée EN TÊTE de la liste, le jour même, avant de considérer la livraison terminée.
+ * Le texte s'adresse à Élise, en vouvoiement, dans ses propres mots : ce qui a changé
+ * pour elle, jamais un rapport technique. Une entrée déjà écrite ne se réécrit pas.
+ */
+export const JOURNAL: EntreeJournal[] = [
+  {
+    date: "2026-09-11",
+    titre: "L'espace client à parité avec Xena Horizon, et un mode éditorial en réserve",
+    intro:
+      "Votre espace client a reçu ce que le site de Laurie Belhumeur avait de plus : un onglet « Mon dossier » où déposer vos motifs et vos documents, un onglet « Ressources » et un profil plus complet. Le site a aussi gagné une seconde apparence, plus éditoriale, que vous pourrez activer vous-même quand vous serez prête à la voir.",
+    etapes: [
+      "L'espace client s'ouvre maintenant sur une bannière et une photo de profil, comme un vrai profil, avec les onglets Mon dossier, Rendez-vous, Mes cours, Messages, Ressources, Réunion et Mon profil.",
+      "Le nouvel onglet Mon dossier vous laisse déposer vos documents, voir où vous en êtes dans le parcours d'accompagnement, et écrire ce qui vous amène.",
+      "Depuis votre tableau de bord, chaque document déposé se valide ou se retourne avec une note, et une place pour vos propres notes privées a été ajoutée sur chaque fiche.",
+      "Un bouton « Mot de passe oublié » a été ajouté à la porte de connexion, et un bouton « Problème technique » permet à vos clientes de vous signaler un pépin directement.",
+      "Un mode éditorial, plus posé et plus proche d'un magazine, a été construit en parallèle du site actuel : vous pourrez comparer les deux et choisir depuis Paramètres quand vous serez prête.",
+      "Les règles de sécurité de Firestore et du stockage des fichiers ont été resserrées et testées, et ce journal des changements a été mis en place pour que vous suiviez ce qui bouge sur votre site.",
+    ],
+  },
+  {
+    date: "2026-09-03",
+    titre: "Les cours de groupe peuvent se donner en direct",
+    intro:
+      "Vos cours de mouvement peuvent maintenant se donner en direct, par audio ou par vidéo, avec un horaire et une salle partagée pour tout le groupe.",
+    etapes: [
+      "Un format audio ou vidéo s'ajoute à vos cours de danse, avec un horaire précis.",
+      "Une salle de rencontre partagée s'ouvre pour tout le groupe au moment du cours.",
+    ],
+  },
+  {
+    date: "2026-07-19",
+    titre: "Votre domaine territoireincarne.com est branché, et le site ne montre plus rien de test",
+    intro:
+      "Le vrai domaine du site est maintenant branché, et tout ce qui restait de contenu d'essai (services fictifs, rendez-vous de démonstration, clientes inventées) a été retiré pour de bon.",
+    etapes: [
+      "Le domaine territoireincarne.com a été relié à votre site, avec les adresses de secours mises à jour partout où elles apparaissaient (le plan du site, les liens de partage, les fiches de rendez-vous).",
+      "Les deux soins de démonstration et les rendez-vous factices ont été retirés de votre base de données.",
+      "Les faux clients et les faux revenus qui apparaissaient au premier survol du tableau de bord ont été enlevés, avec les anciens catalogues de textes qui ne servaient plus.",
+      "La section Éducation, qui n'était pas encore reliée à votre contenu réel, a été retirée en attendant d'être rebâtie avec de vrais textes.",
+    ],
+  },
+  {
+    date: "2026-07-18",
+    titre: "Le décompte de séances, et un tour de sécurité complet",
+    intro:
+      "Vos forfaits de séances se décomptent maintenant tout seuls, et une revue de sécurité a resserré plusieurs points sensibles du site, dont certains touchaient les données de vos clientes.",
+    etapes: [
+      "Chaque cliente voit désormais son solde de séances, et une séance marquée complétée le décompte automatiquement de son forfait.",
+      "Une cliente ne peut plus modifier elle-même son propre solde de séances ni certains champs sensibles de son compte.",
+      "La demande de transcription d'une rencontre exige maintenant d'être connectée et d'y avoir droit.",
+      "Le site s'affiche maintenant plus vite, la police de votre marque s'applique bien dans les espaces client et admin, et le thème (clair ou sombre) suit d'abord la préférence de l'appareil.",
+    ],
+  },
+  {
+    date: "2026-07-04",
+    titre: "Des images beaucoup plus légères, et un site plus accessible",
+    intro:
+      "Vos images se chargeaient très lentement à cause de fichiers bruts beaucoup trop lourds; elles sont maintenant redimensionnées automatiquement, et plusieurs détails d'accessibilité ont été corrigés.",
+    etapes: [
+      "Les photos de votre site, dont certaines dépassaient 35 mégaoctets, se chargent maintenant en quelques centaines de kilo-octets, sans perte visible.",
+      "Un lien d'évitement, un contour de focus visible et le respect du mouvement réduit ont été ajoutés pour les personnes qui naviguent au clavier ou qui sont sensibles aux animations.",
+      "Le site s'est doté de données structurées pour les moteurs de recherche et d'une image de partage sur les réseaux sociaux.",
+    ],
+  },
+  {
+    date: "2026-05-18",
+    titre: "La naissance du site",
+    intro:
+      "Territoire Incarné est né : la structure complète du site a été posée, avec ses sections Thérapie, Mouvement, Événements, Ressources, Connecter, Boutique et Écrits.",
+    etapes: [
+      "Le site a été bâti avec un portail client, un tableau de bord admin et la connexion à Firebase.",
+    ],
+  },
+];
+
+/** Nombre total de « choses livrées » toutes entrées confondues, pour la vignette de résumé. */
+export const nombreEtapes = (): number => JOURNAL.reduce((n, e) => n + e.etapes.length, 0);
