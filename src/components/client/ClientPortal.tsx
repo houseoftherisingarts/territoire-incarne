@@ -144,7 +144,7 @@ export const ClientPortal = () => {
     e.target.value = "";
     if (!file) return;
     setUploadingBanner(true);
-    const url = await uploadMediaFile(file, "media");
+    const url = await uploadProfilPhoto(user.uid, file, "banniere");
     await updateDoc(doc(db, "users", user.uid), { bannerUrl: url });
     setUploadingBanner(false);
   };
