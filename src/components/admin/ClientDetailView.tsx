@@ -524,7 +524,7 @@ interface Props {
 }
 
 export const ClientDetailView = ({ client, onBack, onUpdateStatus }: Props) => {
-  const [tab, setTab] = useState<Tab>("messagerie");
+  const [tab, setTab] = useState<Tab>("dossier");
   const [busy, setBusy] = useState(false);
 
   const act = async (status: ClientProfile["status"]) => {
