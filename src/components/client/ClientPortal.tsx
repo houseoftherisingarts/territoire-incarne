@@ -237,6 +237,9 @@ export const ClientPortal = () => {
         {tab === "réunion"    && <ClientMeetingTab clientUid={user.uid} />}
         {tab === "profil"     && <ClientProfile profile={profile} onUpdateName={updateDisplayName} onSetNewsletterOptIn={setNewsletterOptIn} />}
       </main>
+
+      <Assistant uid={user.uid} profile={profile} />
+      <ProblemeTechnique uid={user.uid} nom={profile.displayName || profile.email} courriel={profile.email} />
     </div>
   );
 };
