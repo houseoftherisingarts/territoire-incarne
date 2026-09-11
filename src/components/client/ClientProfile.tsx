@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import { User, CheckCircle, Clock, XCircle, Edit2, Check, X, Mail, CalendarHeart, Camera } from "lucide-react";
+// La bannière se change depuis l'en-tête de ClientPortal (visible sur tous les onglets);
+// cette page ne gère plus que l'avatar, le nom, la bio et les liens.
 import type { ClientProfile as ClientProfileData } from "../../hooks/useClientAuth";
 import { uploadMediaFile } from "../../lib/storage";
 import { doc, updateDoc } from "firebase/firestore";
