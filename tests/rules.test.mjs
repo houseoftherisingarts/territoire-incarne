@@ -60,12 +60,12 @@ async function main() {
     firestore: {
       rules: readFileSync('firestore.rules', 'utf8'),
       host: '127.0.0.1',
-      port: 8181,
+      port: 8182,
     },
     storage: {
       rules: readFileSync('storage.rules', 'utf8'),
       host: '127.0.0.1',
-      port: 9299,
+      port: 9298,
     },
   });
 
