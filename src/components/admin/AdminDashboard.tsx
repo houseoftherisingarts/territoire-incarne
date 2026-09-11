@@ -59,7 +59,12 @@ export const AdminDashboard = () => {
       {section === "writings"   && <AdminBlogSection />}
       {section === "newsletter" && <NewsletterAdminSection />}
       {section === "changelog"  && <ChangelogSection />}
-      {section === "settings"   && <SettingsSection onReset={reset} />}
+      {section === "settings"   && (
+        <div className="space-y-6">
+          <ApparenceSettings />
+          <SettingsSection onReset={reset} />
+        </div>
+      )}
     </AdminShell>
   );
 };
