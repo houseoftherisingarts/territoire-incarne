@@ -56,13 +56,13 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
 
         {!accueil && (
           <nav className="hidden lg:flex items-center gap-4 xl:gap-7 ml-4 xl:ml-6" aria-label="Sections">
-            {visibles.map((id) => (
+            {visibles.map((id, i) => (
               <a
                 key={id}
                 href={pathForSection(id)}
                 onClick={aller(id)}
                 aria-current={current === id ? "page" : undefined}
-                className={`font-sans text-xs uppercase tracking-[0.14em] xl:tracking-[0.22em] whitespace-nowrap py-2 border-b transition-colors ${current === id ? "border-rust text-rust" : "border-transparent text-ink/70 dark:text-stone-300 hover:text-ink dark:hover:text-white"}`}
+                className={`${i >= 6 ? "hidden 2xl:inline-block" : i >= 4 ? "hidden xl:inline-block" : ""} font-sans text-xs uppercase tracking-[0.16em] xl:tracking-[0.2em] whitespace-nowrap py-2 border-b transition-colors ${current === id ? "border-rust text-rust" : "border-transparent text-ink/70 dark:text-stone-300 hover:text-ink dark:hover:text-white"}`}
               >
                 {t.nav[id]}
               </a>
@@ -77,8 +77,7 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
               onClick={aller("rendezvous")}
               className="hidden sm:inline-flex whitespace-nowrap items-center bg-rust text-paper font-sans text-xs uppercase tracking-[0.18em] xl:tracking-[0.22em] font-semibold min-h-[44px] px-5 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
             >
-              <span className="2xl:hidden">{t.nav.rendezvous}</span>
-              <span className="hidden 2xl:inline">{t.general.prendreRdv}</span>
+              {t.general.prendreRdv}
             </a>
           )}
           <button
@@ -112,7 +111,7 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
             onClick={() => setOuvert(true)}
             aria-label={t.general.menu}
             aria-expanded={ouvert}
-            className={`min-w-[44px] min-h-[44px] flex items-center justify-center ${accueil ? "md:hidden" : "lg:hidden"}`}
+            className={`min-w-[44px] min-h-[44px] flex items-center justify-center ${accueil ? "md:hidden" : ""}`}
           >
             <Menu size={20} />
           </button>
