@@ -168,4 +168,14 @@ export const en: Content = {
       ],
     },
   },
+  notFound: {
+    kicker: "A path that loses itself",
+    title: "Page not found",
+    quote:
+      "This is not a correction of what is broken, but a revelation of what is already whole.",
+    line1:
+      "The link you followed doesn't match any page on this site, or it may have moved since your last visit.",
+    line2: "The path continues from home, where you'll find everything Elise offers here.",
+    cta: "Back to home",
+  },
 };

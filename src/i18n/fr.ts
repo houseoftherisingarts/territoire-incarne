@@ -166,6 +166,16 @@ export const fr = {
       ],
     },
   },
+  notFound: {
+    kicker: "Un chemin qui se perd",
+    title: "Page introuvable",
+    quote:
+      "Ce n'est pas une correction de ce qui est brisé, mais une révélation de ce qui est déjà entier.",
+    line1:
+      "Le lien que vous avez suivi ne correspond à aucune page de ce site, ou il a changé d'adresse depuis votre dernière visite.",
+    line2: "Le chemin continue depuis l'accueil, où vous retrouverez tout ce qu'Elise propose ici.",
+    cta: "Retour à l'accueil",
+  },
 };
 
 export type Content = typeof fr;

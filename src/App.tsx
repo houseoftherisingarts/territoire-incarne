@@ -52,7 +52,7 @@ export const App = () => {
   // inside the portals too (explicit font-sans classes still win where set).
   if (clientMode) return <div className="font-serif"><Suspense fallback={null}><ClientPortal /></Suspense></div>;
   if (adminMode)  return <div className="font-serif"><Suspense fallback={null}><AdminDashboard /></Suspense></div>;
-  if (introuvable) return <NotFound onHome={() => navigate(null)} />;
+  if (introuvable) return <NotFound t={t} onHome={() => navigate(null)} />;
 
   const index = view ? NAV_ORDER.indexOf(view) : -1;
 
