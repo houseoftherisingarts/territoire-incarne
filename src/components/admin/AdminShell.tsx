@@ -23,9 +23,12 @@ import {
   Sun,
   History,
   Handshake,
+  GraduationCap,
 } from "lucide-react";
 import { ELISE_AVATAR_IMG } from "../../assets/images";
 import { useTheme } from "../../hooks/useTheme";
+import VisiteGuidee, { useVisiteGuidee } from "./VisiteGuidee";
+import { ETAPES_VISITE, LIBELLES_VISITE } from "./visite-etapes";
 
 export type AdminSectionId =
   | "dashboard"
@@ -83,6 +86,8 @@ interface Props {
 
 export const AdminShell = ({ section, onSectionChange, onLogout, children }: Props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  // La visite guidée de bienvenue s'offre à la première entrée, puis se rouvre par le menu.
+  const visite = useVisiteGuidee(true);
   const { theme, toggle: toggleTheme } = useTheme();
   const current = NAV.find((n) => n.id === section);
 
@@ -109,6 +114,7 @@ export const AdminShell = ({ section, onSectionChange, onLogout, children }: Pro
             return (
               <button
                 key={id}
+                data-visite={id}
                 onClick={() => {
                   onSectionChange(id);
                   setMobileOpen(false);
@@ -127,6 +133,12 @@ export const AdminShell = ({ section, onSectionChange, onLogout, children }: Pro
         </nav>
 
         <div className="px-6 py-4 border-t border-white/10 text-xs text-stone-100/60 space-y-3">
+          <button
+            onClick={() => { setMobileOpen(false); visite.ouvrir(); }}
+            className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-xs hover:text-rust transition-colors"
+          >
+            <GraduationCap size={12} /> Visite guidée
+          </button>
           <a
             href="/?edit=1"
             className="flex items-center gap-2 font-sans uppercase tracking-[0.2em] text-xs text-rust hover:text-paper transition-colors"
@@ -177,6 +189,14 @@ export const AdminShell = ({ section, onSectionChange, onLogout, children }: Pro
 
         <div className="p-6 md:p-10 max-w-6xl mx-auto w-full">{children}</div>
       </main>
+
+      <VisiteGuidee
+        etapes={ETAPES_VISITE}
+        libelles={LIBELLES_VISITE}
+        ouvert={visite.ouvert}
+        onFermer={visite.fermer}
+        onAller={(id) => { if (NAV.some((n) => n.id === id)) onSectionChange(id as AdminSectionId); }}
+      />
     </div>
   );
 };
