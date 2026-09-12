@@ -90,5 +90,16 @@ la dette de sécurité numéro un du dépôt, notée depuis juillet.
 ## Bouton « Problème technique »
 
 Le bouton de l'espace client écrit dans `bugs/` et tente d'envoyer à Vexel par `VEXEL_PORTE`
-(`src/components/client/ProblemeTechnique.tsx`). La clé Vexel de ce client reste à poser dans la fiche
-de Territoire Incarné chez Vexel (panneau Branchements).
+(`src/components/client/ProblemeTechnique.tsx`). La fiche `clients/territoire-incarne` a été créée
+le 12 septembre 2026 dans `vexel-integrations` avec la clé `Jq0wB2iOGqBWljdRZqWG9dFm`, posée dans
+`VEXEL_CLE` : rien à brancher.
+
+## Programme partenaire Vexel
+
+Le panneau « Devenir partenaire Vexel » (onglet Partenaire Vexel de l'admin,
+`src/components/admin/PartenaireVexelSection.tsx`) et le collant du pied de page
+(`src/vexel/BadgeVexel.tsx`, dans le pied de page à côté du collant « Site créé par ») utilisent la
+même clé `Jq0wB2iOGqBWljdRZqWG9dFm` et le même slug `territoire-incarne`. Une fois le code reçu, le
+site écrit lui-même `settings/vexel.partenaire` dans sa propre base (règle déjà couverte par
+`match /settings/{settingId}` dans `firestore.rules`, lecture publique, écriture admin). Rien à
+brancher.
