@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Variables du module Vexel (panneau partenaire + badge), sur le canon du site. */
+:root {
+  --couleur-surface: #F3F1EB;
+  --couleur-texte: #2B2926;
+  --couleur-muted: #595045;
+  --couleur-bordure: rgba(43, 41, 38, 0.14);
+  --couleur-accent: #8C5E45;
+  --rayon-carte: 15px;
+  --police-corps: "Montserrat", sans-serif;
+  --police-titre: "Cormorant Garamond", serif;
+}
+.dark {
+  --couleur-surface: #1F1E1D;
+  --couleur-texte: #f2f0ec;
+  --couleur-muted: #a89e94;
+  --couleur-bordure: rgba(255, 255, 255, 0.14);
+  --couleur-accent: #b4805f;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
 }

@@ -24,6 +24,7 @@ import { useAdminAuth } from "../../hooks/useAdminAuth";
 import { useAdminStore } from "../../hooks/useAdminStore";
 import { ClientsSection } from "./ClientsSection";
 import { TarifsSection } from "./TarifsSection";
+import { PartenaireVexelSection } from "./PartenaireVexelSection";
 
 export const AdminDashboard = () => {
   const { authed, loading, notAdmin, user, error, login, loginGoogle, logout, enableDevBypass } = useAdminAuth();
@@ -72,6 +73,7 @@ export const AdminDashboard = () => {
       {section === "writings"   && <AdminBlogSection />}
       {section === "newsletter" && <NewsletterAdminSection />}
       {section === "changelog"  && <ChangelogSection />}
+      {section === "partenaire-vexel" && <PartenaireVexelSection />}
       {section === "settings"   && (
         <div className="space-y-6">
           <SectionsSettings />

@@ -7,6 +7,8 @@ import { useSections } from "../../hooks/useSections";
 import type { Content } from "../../i18n";
 import type { Lang, SectionId } from "../../types";
 import { BadgeVexel } from "../common/BadgeVexel";
+import { db } from "../../firebase";
+import { BadgeVexel as BadgePartenaireVexel } from "../../vexel/BadgeVexel";
 
 interface Props {
   t: Content;
@@ -84,6 +86,7 @@ export const Footer = ({ t, lang, onOpen, onToggleLang }: Props) => {
 
         <div className="md:col-span-3 flex flex-col items-start md:items-end gap-6">
           <BadgeVexel />
+          <BadgePartenaireVexel db={db} />
           <button
             type="button"
             onClick={onToggleLang}

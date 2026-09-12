@@ -22,6 +22,7 @@ import {
   Moon,
   Sun,
   History,
+  Handshake,
 } from "lucide-react";
 import { ELISE_AVATAR_IMG } from "../../assets/images";
 import { useTheme } from "../../hooks/useTheme";
@@ -43,6 +44,7 @@ export type AdminSectionId =
   | "writings"
   | "newsletter"
   | "changelog"
+  | "partenaire-vexel"
   | "settings";
 
 interface NavItem {
@@ -68,6 +70,7 @@ const NAV: NavItem[] = [
   { id: "writings",   label: "Écrits",               Icon: PenLine },
   { id: "newsletter", label: "Infolettre",           Icon: Users },
   { id: "changelog",  label: "Journal",              Icon: History },
+  { id: "partenaire-vexel", label: "Partenaire Vexel", Icon: Handshake },
   { id: "settings",   label: "Paramètres",           Icon: Settings },
 ];
 
