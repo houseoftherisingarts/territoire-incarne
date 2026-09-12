@@ -175,6 +175,7 @@ export const fr = {
       "Le lien que vous avez suivi ne correspond à aucune page de ce site, ou il a changé d'adresse depuis votre dernière visite.",
     line2: "Le chemin continue depuis l'accueil, où vous retrouverez tout ce qu'Elise propose ici.",
     cta: "Retour à l'accueil",
+    imageAlt: "Elise .G Lortie, un sentier qui se fraie dans un champ",
   },
 };
 

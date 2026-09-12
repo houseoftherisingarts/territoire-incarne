@@ -177,5 +177,6 @@ export const en: Content = {
       "The link you followed doesn't match any page on this site, or it may have moved since your last visit.",
     line2: "The path continues from home, where you'll find everything Elise offers here.",
     cta: "Back to home",
+    imageAlt: "Elise .G Lortie, a trail winding through a field",
   },
 };

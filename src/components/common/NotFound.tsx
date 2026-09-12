@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import type { Content } from "../../i18n";
+import { ELISE_FIELD_IMG } from "../../assets/images";
 import { LinenPattern } from "../decor/LinenPattern";
 import { SomaticCurves } from "../decor/SomaticCurves";
 import { OrganicBullet } from "../decor/OrganicBullet";
@@ -13,16 +14,17 @@ const EASE = [0.16, 0.8, 0.24, 1] as const;
 
 /** Page 404 : le chemin ne correspond à aucune section, aucun écrit, aucune vue admin ou client.
  *  Une scène dans l'univers d'Elise, celui du chemin qui se perd et qui revient : une phrase déjà
- *  sienne en repère, deux lignes sobres, une seule porte de retour. */
+ *  sienne en repère, deux lignes sobres, une seule porte de retour. Double page comme les sections
+ *  (photo collée en colonne), reprise à droite pour laisser le texte à sa place habituelle. */
 export const NotFound = ({ t, onHome }: Props) => {
   const nf = t.notFound;
   return (
-    <div className="relative min-h-[100dvh] w-full flex items-center overflow-hidden bg-paper dark:bg-forest text-ink dark:text-stone-100">
-      <SomaticCurves className="text-rust/40 dark:text-stone-300/20" />
-      <LinenPattern />
+    <div className="relative min-h-[100dvh] w-full grid grid-cols-1 lg:grid-cols-12 overflow-hidden bg-paper dark:bg-forest text-ink dark:text-stone-100">
+      <div className="relative lg:col-span-7 flex items-center overflow-hidden px-6 md:px-16 lg:px-20 py-20">
+        <SomaticCurves className="text-rust/40 dark:text-stone-300/20" />
+        <LinenPattern />
 
-      <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 py-20">
-        <div className="max-w-2xl">
+        <div className="relative z-10 max-w-2xl">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -75,6 +77,24 @@ export const NotFound = ({ t, onHome }: Props) => {
             </button>
           </motion.div>
         </div>
+      </div>
+
+      <div className="relative h-[42dvh] lg:h-auto lg:col-span-5 overflow-hidden bg-stone-200 dark:bg-stone-900/40 lg:border-l border-ink/10 dark:border-white/10">
+        <motion.div
+          initial={{ scale: 1.06, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.4, ease: EASE }}
+          className="absolute inset-0"
+        >
+          <img
+            src={ELISE_FIELD_IMG}
+            alt={nf.imageAlt}
+            className="w-full h-full object-cover grayscale-[10%]"
+            loading="eager"
+          />
+        </motion.div>
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-paper/70 dark:from-forest/70 to-transparent lg:hidden" />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-ink/10 dark:from-black/20 to-transparent" />
       </div>
     </div>
   );
