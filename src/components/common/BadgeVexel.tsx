@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { X, ArrowRight } from "lucide-react";
 
 const VEXEL_URL = "https://vexelwebstudio.com/";
+const SALON_URL = "https://lesalondesinconnus.com/";
 
 /** Le reflet holographique suit le pointeur (--mx, --my) et incline le collant (--rx, --ry).
  *  Porté de xena-horizon-platform (components/BadgeVexel.tsx, hook useFoil). */
@@ -73,31 +74,47 @@ export const BadgeVexel = ({ className = "" }: { className?: string }) => {
 
       {ouvert && (
         <div
-          className="fixed inset-0 z-[700] bg-ink/70 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[1300] bg-ink/70 flex items-center justify-center p-4"
           onClick={(e) => { if (e.target === e.currentTarget) setOuvert(false); }}
           role="dialog"
           aria-modal="true"
           aria-label="Un site bâti pour durer"
         >
-          <div className="w-full max-w-md bg-paper dark:bg-charcoal text-ink dark:text-stone-100 rounded-2xl overflow-hidden shadow-2xl p-8">
+          <div className="relative w-full max-w-md bg-paper dark:bg-charcoal text-ink dark:text-stone-100 rounded-2xl overflow-hidden shadow-2xl p-8 pb-24">
             <div className="flex items-start justify-between gap-4">
               <img src="/vexel-logo.png" alt="Vexel Webstudio" className="h-14 w-auto object-contain" />
               <button type="button" onClick={() => setOuvert(false)} aria-label="Fermer" className="w-11 h-11 -mr-2 -mt-2 flex items-center justify-center text-stone-500 hover:text-ink dark:hover:text-white shrink-0">
                 <X size={20} />
               </button>
             </div>
-            <h3 className="font-serif text-2xl mt-4">Un site bâti pour durer</h3>
+            <p className="text-[13px] text-stone-500 dark:text-stone-400 mt-2">un projet du Salon des Inconnus</p>
+            <h3 className="font-serif text-2xl mt-2">Un site bâti pour durer</h3>
             <p className="font-serif text-base opacity-80 leading-relaxed mt-3">
               Ce site a été conçu et bâti par Vexel Webstudio, un studio du Québec qui fait des sites sur
               mesure : le design, le code, l'espace client et l'administration que vous voyez ici.
             </p>
+            <div className="mt-6 flex flex-wrap gap-3 pr-20 sm:pr-24">
+              <a
+                href={VEXEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-ink dark:bg-stone-100 text-paper dark:text-forest font-sans text-xs font-bold uppercase tracking-[0.2em] min-h-[44px] px-6 rounded-full hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors"
+              >
+                Visiter Vexel Webstudio <ArrowRight size={14} />
+              </a>
+            </div>
             <a
-              href={VEXEL_URL}
+              href={SALON_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 bg-ink dark:bg-stone-100 text-paper dark:text-forest font-sans text-xs font-bold uppercase tracking-[0.2em] min-h-[44px] px-6 rounded-full hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors"
+              aria-label="Le Salon des Inconnus"
+              className="absolute bottom-5 right-5"
             >
-              Visiter Vexel Webstudio <ArrowRight size={14} />
+              <img
+                src="/salon-logo-or.png"
+                alt="Le Salon des Inconnus"
+                className="h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_6px_rgba(197,160,89,0.35)]"
+              />
             </a>
           </div>
         </div>

@@ -15,6 +15,16 @@ export interface EntreeJournal {
  */
 export const JOURNAL: EntreeJournal[] = [
   {
+    date: "2026-09-14",
+    titre: "Le collant Vexel dit maintenant d'où vient le studio",
+    intro:
+      "La carte qui s'ouvre depuis « Site créé par Vexel Webstudio », en bas de votre site, porte désormais le sigle du Salon des Inconnus et précise que le studio en est un projet.",
+    etapes: [
+      "Sous le nom de Vexel Webstudio, une ligne indique que le studio est un projet du Salon des Inconnus.",
+      "Le sigle doré du Salon des Inconnus apparaît en bas à droite de la carte, cliquable vers son site.",
+    ],
+  },
+  {
     date: "2026-09-11",
     titre: "L'espace client à parité avec Xena Horizon, et un mode éditorial en réserve",
     intro:
