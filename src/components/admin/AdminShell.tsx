@@ -48,6 +48,7 @@ export type AdminSectionId =
   | "cours"
   | "ressources"
   | "mediatheque"
+  | "multimedias"
   | "writings"
   | "newsletter"
   | "changelog"
