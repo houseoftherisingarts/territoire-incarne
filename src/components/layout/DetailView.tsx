@@ -122,7 +122,6 @@ export const DetailView = ({
             )}
             {id === "education" && (
               <ServicesParCategorie
-                intro={t.sections.education.intro}
                 categorie="sante-sexuelle"
                 cleTexte="education.texte"
                 texteParDefaut="Elise .G Lortie est éducatrice à la sexualité et thérapeute en intégration somatique. Elle reçoit en séance individuelle et anime des cercles et des formations, toujours dans un cadre sécuritaire, inclusif et non normatif."
