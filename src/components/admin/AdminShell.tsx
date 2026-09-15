@@ -26,6 +26,7 @@ import {
   Handshake,
   GraduationCap,
   Clapperboard,
+  Crop,
 } from "lucide-react";
 import { ELISE_AVATAR_IMG } from "../../assets/images";
 import { useTheme } from "../../hooks/useTheme";
@@ -48,6 +49,7 @@ export type AdminSectionId =
   | "cours"
   | "ressources"
   | "mediatheque"
+  | "recadrer"
   | "multimedias"
   | "writings"
   | "newsletter"
@@ -77,6 +79,7 @@ const NAV: NavItem[] = [
   { id: "cours",      label: "Cours de danse",       Icon: Music },
   { id: "ressources", label: "Ressources",           Icon: Library },
   { id: "mediatheque", label: "Médiathèque",        Icon: Images },
+  { id: "recadrer",   label: "Recadrer les photos", Icon: Crop },
   { id: "multimedias", label: "Multimédias",        Icon: Clapperboard },
   { id: "writings",   label: "Écrits",               Icon: PenLine },
   { id: "newsletter", label: "Infolettre",           Icon: Users },

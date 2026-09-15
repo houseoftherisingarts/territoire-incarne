@@ -4,6 +4,7 @@ import { X, Send, Sparkles } from "lucide-react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import type { CategoryConfig, FieldDef } from "../../lib/interventionFields";
+import { tx, useLangue } from "../../i18n/tx";
 
 interface Props {
   config: CategoryConfig;
@@ -14,6 +15,7 @@ const isVisible = (f: FieldDef, values: Record<string, string>): boolean =>
   f.showIf ? f.showIf(values) : true;
 
 export const InterventionRequestModal = ({ config, onClose }: Props) => {
+  const lang = useLangue();
   const [values, setValues] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -29,13 +31,13 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
     for (const f of config.fields) {
       if (!isVisible(f, values)) continue;
       if (f.required && !values[f.name]?.toString().trim()) {
-        setError(`Le champ "${f.label}" est requis.`);
+        setError(`${tx(lang, "Le champ")} "${tx(lang, f.label)}" ${tx(lang, "est requis.")}`);
         return;
       }
       if (f.type === "number" && f.min !== undefined && values[f.name]) {
         const n = parseInt(values[f.name], 10);
         if (Number.isNaN(n) || n < f.min) {
-          setError(`"${f.label}" doit être au moins ${f.min}.`);
+          setError(`"${tx(lang, f.label)}" ${tx(lang, "doit être au moins")} ${f.min}.`);
           return;
         }
       }
@@ -61,7 +63,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
       setSuccess(true);
     } catch (err) {
       console.error("Intervention request failed:", err);
-      setError("Impossible d'envoyer la demande. Réessayez plus tard.");
+      setError(tx(lang, "Impossible d'envoyer la demande. Réessayez plus tard."));
     } finally {
       setBusy(false);
     }
@@ -78,33 +80,33 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
         className="bg-paper dark:bg-stone-900 max-w-xl w-full rounded-none shadow-2xl relative animate-[fadeIn_0.3s_ease-out] max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <button onClick={onClose} aria-label="Fermer" className="absolute top-4 right-4 z-10 p-2 hover:opacity-60 bg-paper/80 dark:bg-stone-900/80 rounded-full">
+        <button onClick={onClose} aria-label={tx(lang, "Fermer")} className="absolute top-4 right-4 z-10 p-2 hover:opacity-60 bg-paper/80 dark:bg-stone-900/80 rounded-full">
           <X size={18} />
         </button>
 
         {success ? (
           <div className="p-10 text-center space-y-4">
             <Sparkles className="mx-auto text-rust" size={32} />
-            <h3 className="font-serif text-2xl">Merci : votre demande est partie.</h3>
+            <h3 className="font-serif text-2xl">{tx(lang, "Merci : votre demande est partie.")}</h3>
             <p className="font-serif text-stone-600 dark:text-stone-300 leading-relaxed">
-              Elise lit chaque demande personnellement et reviendra vers vous à l'adresse fournie.
+              {tx(lang, "Elise lit chaque demande personnellement et reviendra vers vous à l'adresse fournie.")}
             </p>
             <button
               onClick={onClose}
               className="mt-4 inline-flex items-center gap-2 px-6 py-2 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-widest font-bold hover:bg-rust transition-colors"
             >
-              Fermer
+              {tx(lang, "Fermer")}
             </button>
           </div>
         ) : (
           <form onSubmit={submit} className="p-6 md:p-8 space-y-5">
             <div>
               <p className="text-xs font-sans uppercase tracking-[0.3em] text-rust dark:text-stone-400 mb-2">
-                {config.label}
+                {tx(lang, config.label)}
               </p>
-              <h2 className="font-serif text-2xl md:text-3xl mb-3 leading-tight">{config.modalTitle}</h2>
+              <h2 className="font-serif text-2xl md:text-3xl mb-3 leading-tight">{tx(lang, config.modalTitle)}</h2>
               <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                {config.intro}
+                {tx(lang, config.intro)}
               </p>
             </div>
 
@@ -114,14 +116,14 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                 return (
                   <div key={f.name} className="space-y-1">
                     <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-60">
-                      {f.label}
+                      {tx(lang, f.label)}
                       {f.required && <span className="text-rust ml-1">*</span>}
                     </label>
                     {f.type === "textarea" ? (
                       <textarea
                         value={values[f.name] ?? ""}
                         onChange={(e) => set(f.name, e.target.value)}
-                        placeholder={f.placeholder}
+                        placeholder={f.placeholder ? tx(lang, f.placeholder) : undefined}
                         rows={3}
                         className="w-full bg-transparent border-b border-stone-400/50 dark:border-stone-500/50 focus:border-rust outline-none py-2 font-serif text-base resize-none transition-colors"
                       />
@@ -131,10 +133,10 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                         onChange={(e) => set(f.name, e.target.value)}
                         className="w-full bg-transparent border-b border-stone-400/50 dark:border-stone-500/50 focus:border-rust outline-none py-2 font-serif text-base transition-colors"
                       >
-                        <option value="">— Choisir —</option>
+                        <option value="">{tx(lang, "— Choisir —")}</option>
                         {f.options?.map((o) => (
                           <option key={o} value={o} className="bg-paper dark:bg-stone-800">
-                            {o}
+                            {tx(lang, o)}
                           </option>
                         ))}
                       </select>
@@ -143,13 +145,13 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                         type={f.type}
                         value={values[f.name] ?? ""}
                         onChange={(e) => set(f.name, e.target.value)}
-                        placeholder={f.placeholder}
+                        placeholder={f.placeholder ? tx(lang, f.placeholder) : undefined}
                         min={f.type === "number" ? f.min : undefined}
                         className="w-full bg-transparent border-b border-stone-400/50 dark:border-stone-500/50 focus:border-rust outline-none py-2 font-serif text-base transition-colors"
                       />
                     )}
                     {f.helpText && (
-                      <p className="text-xs font-serif opacity-50">{f.helpText}</p>
+                      <p className="text-xs font-serif opacity-50">{tx(lang, f.helpText)}</p>
                     )}
                   </div>
                 );
@@ -166,14 +168,14 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                 disabled={busy}
                 className="inline-flex items-center gap-2 bg-ink text-paper dark:bg-stone-100 dark:text-forest px-6 py-3 rounded-full text-xs uppercase tracking-[0.25em] font-bold font-sans hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors disabled:opacity-50"
               >
-                <Send size={12} /> {busy ? "Envoi…" : "Envoyer la demande"}
+                <Send size={12} /> {busy ? tx(lang, "Envoi…") : tx(lang, "Envoyer la demande")}
               </button>
               <button
                 type="button"
                 onClick={onClose}
                 className="px-6 py-3 border border-ink/10 dark:border-white/10 rounded-full text-xs uppercase tracking-[0.25em] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
               >
-                Annuler
+                {tx(lang, "Annuler")}
               </button>
             </div>
           </form>

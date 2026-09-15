@@ -4,6 +4,8 @@ import { useFirestoreCollection } from "../hooks/useFirestoreCollection";
 import type { Content } from "../i18n";
 import type { Multimedia } from "../components/admin/MultimediasAdminSection";
 import { Reveal } from "../components/motion/Reveal";
+import { locale, tx, useLangue } from "../i18n/tx";
+import type { Lang } from "../types";
 
 const YT_RE = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([A-Za-z0-9_-]{6,})/;
 const VIMEO_RE = /vimeo\.com\/(?:video\/)?(\d+)/;
@@ -40,16 +42,17 @@ const embedFor = (m: Multimedia): Embed => {
   return cadreSur(url, true);
 };
 
-const fmtDate = (iso: string) => {
+const fmtDate = (lang: Lang, iso: string) => {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString("fr-CA", { day: "numeric", month: "long", year: "numeric" });
+  return d.toLocaleDateString(locale(lang), { day: "numeric", month: "long", year: "numeric" });
 };
 
 /** La page Multimédias : les vidéos et les balados d'Élise, chacun avec son lecteur
  *  embarqué directement dans la page. L'intro se lit déjà dans l'en-tête commun
  *  (DetailView), donc elle ne se répète pas ici. */
 export const Multimedias = (_props: { content: Content["sections"]["multimedias"] }) => {
+  const lang = useLangue();
   // Pas d'orderBy dans la requête : combiné à where(), Firestore exigerait un index composite.
   // Le tri par « ordre » se fait donc côté client, comme pour les ateliers.
   const options = useMemo(() => ({ where: [["publie", "==", true] as [string, "==", true]] }), []);
@@ -59,12 +62,12 @@ export const Multimedias = (_props: { content: Content["sections"]["multimedias"
   return (
     <div className="w-full">
       {loading && (
-        <p className="font-serif text-lg text-ink/50 dark:text-stone-400">Chargement…</p>
+        <p className="font-serif text-lg text-ink/50 dark:text-stone-400">{tx(lang, "Chargement…")}</p>
       )}
 
       {!loading && tries.length === 0 && (
         <p className="font-serif text-lg text-ink/60 dark:text-stone-400 border-t border-ink/10 dark:border-white/10 pt-10">
-          Les premières vidéos arrivent.
+          {tx(lang, "Les premières vidéos arrivent.")}
         </p>
       )}
 
@@ -77,8 +80,8 @@ export const Multimedias = (_props: { content: Content["sections"]["multimedias"
                 <li className="border-t border-ink/10 dark:border-white/10 pt-6">
                   <div className="flex items-center gap-2 font-sans text-xs uppercase tracking-[0.18em] text-ink/50 dark:text-stone-400">
                     {m.type === "video" ? <Video size={14} aria-hidden="true" /> : <Podcast size={14} aria-hidden="true" />}
-                    <span>{m.type === "video" ? "Vidéo" : "Balado"}</span>
-                    {m.date && <span>· {fmtDate(m.date)}</span>}
+                    <span>{m.type === "video" ? tx(lang, "Vidéo") : tx(lang, "Balado")}</span>
+                    {m.date && <span>· {fmtDate(lang, m.date)}</span>}
                   </div>
 
                   <h3 className="mt-3 font-serif text-2xl md:text-3xl text-ink dark:text-stone-100">{m.titre}</h3>
@@ -92,7 +95,7 @@ export const Multimedias = (_props: { content: Content["sections"]["multimedias"
                   <div className="mt-5 w-full bg-ink/[0.03] dark:bg-white/[0.03]">
                     {embed.kind === "lien" && (
                       <a href={httpsSeulement(embed.src) ? embed.src : undefined} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-4 p-5 font-sans text-xs uppercase tracking-[0.18em] text-rust hover:bg-rust/5 transition-colors">
-                        <span>Ouvrir sur le site d'origine</span>
+                        <span>{tx(lang, "Ouvrir sur le site d'origine")}</span>
                         <span aria-hidden="true">→</span>
                       </a>
                     )}

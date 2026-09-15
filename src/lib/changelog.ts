@@ -16,6 +16,22 @@ export interface EntreeJournal {
 export const JOURNAL: EntreeJournal[] = [
   {
     date: "2026-09-15",
+    titre: "Une brise pour vrai sur la route, ton portrait à l'accueil, et le site au complet en anglais",
+    intro:
+      "La vidéo de l'accueil a été refaite : la caméra ne bouge plus d'un poil, seules les herbes frémissent, et la boucle se referme sans couture. Ton portrait ouvre maintenant l'accueil, la vidéo de l'éducation sexuelle se fige sur toi, et la bascule EN traduit tout, calendrier compris.",
+    etapes: [
+      "La barre du haut ne garde que deux portes, Me connecter et Prendre rendez-vous, avec la langue, le thème et le menu. Le menu s'ouvre pour vrai sur toute la page, sur téléphone comme sur ordinateur.",
+      "Un module Qui est Élise, juste sous la route : ta photo du 21 février en hauteur, ta phrase et un lien vers À propos. La même photo porte la page À propos.",
+      "Les photos des pages s'ouvrent d'un balayage qui part du centre vers les bords, avec un fondu, au lieu d'un simple fondu.",
+      "Massothérapie montre la photo Massage; Éducation sexuelle s'ouvre sur ta vidéo du 4 mars, qui joue trois secondes et se fige sur toi, puis ton texte apparaît une seconde plus tard.",
+      "La liste de lecture de la page Mouvement prend toute la largeur de la page, avec le lecteur Spotify au complet.",
+      "Toutes les photos du site sont maintenant dans ta médiathèque. Si tu retires une photo qui est posée sur une page, la page reprend sa photo d'origine d'elle-même, jamais un trou.",
+      "Nouveau dans le tableau de bord : Recadrer les photos. Chaque photo du site y est montrée dans le cadre exact de sa page; tu cliques pour choisir ce qui reste au centre, tu glisses le zoom, et tu peux prendre une autre photo de ta médiathèque.",
+      "Le pied de page porte un vrai bouton Administration, et la bascule EN traduit maintenant le calendrier, les formulaires, les cours, les événements et les textes que tu modifies sur la page (l'anglais se garde à part du français).",
+    ],
+  },
+  {
+    date: "2026-09-15",
     titre: "La route qui respire, une barre qui tient, et ton calendrier à ciel ouvert",
     intro:
       "L'accueil s'ouvre sur ta photo de la route, animée d'un souffle dans les herbes, avec le titre au centre. La barre du haut ne déborde plus, les pages intérieures ont pris de l'air, et la page Prendre rendez-vous montre ton calendrier comme le ferait Calendly.",

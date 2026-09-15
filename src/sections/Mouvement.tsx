@@ -10,13 +10,15 @@ import { INTERVENTION_CONFIGS } from "../lib/interventionFields";
 import { requireAuth } from "../lib/requireAuth";
 import { startCheckout } from "../hooks/useCheckout";
 import type { Content } from "../i18n";
+import { locale, tx, useLangue } from "../i18n/tx";
+import type { Lang } from "../types";
 import type { DanceClass } from "../components/admin/ClassesAdminSection";
 import { prochaineSeance, formatSeance } from "../lib/groupSchedule";
 
 const COURRIEL_INTERAC = "territoireincarne@gmail.com";
 
-const money = (cents: number) =>
-  cents === 0 ? "Gratuit" : (cents / 100).toLocaleString("fr-CA", { style: "currency", currency: "CAD" });
+const money = (lang: Lang, cents: number) =>
+  cents === 0 ? tx(lang, "Gratuit") : (cents / 100).toLocaleString(locale(lang), { style: "currency", currency: "CAD" });
 
 const useClasses = () => {
   const [items, setItems] = useState<DanceClass[]>([]);
@@ -48,6 +50,7 @@ const useUserRequest = (classId: string, uid: string | undefined) => {
 };
 
 const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
+  const lang = useLangue();
   const status = useUserRequest(cls.id, user?.uid);
   const [busy, setBusy] = useState(false);
 
@@ -70,7 +73,7 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
         setInteracAnnonce(true);
       } catch (err) {
         console.error("Inscription Interac :", err);
-        setErreur("La réservation n'a pas pu être enregistrée. Réessayez.");
+        setErreur(tx(lang, "La réservation n'a pas pu être enregistrée. Réessayez."));
       } finally {
         setBusy(false);
       }
@@ -102,9 +105,9 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
         console.error("Inscription au cours :", err);
         const code = (err as { code?: string })?.code ?? "";
         setErreur(
-          code.endsWith("resource-exhausted") ? "Ce cours est complet." :
-          code.endsWith("unauthenticated") ? "Connectez-vous pour vous inscrire." :
-          "Le paiement n'est pas encore ouvert. Écrivez à Elise pour réserver votre place.",
+          code.endsWith("resource-exhausted") ? tx(lang, "Ce cours est complet.") :
+          code.endsWith("unauthenticated") ? tx(lang, "Connectez-vous pour vous inscrire.") :
+          tx(lang, "Le paiement n'est pas encore ouvert. Écrivez à Elise pour réserver votre place."),
         );
       } finally {
         setBusy(false);
@@ -114,9 +117,9 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
   const payant = cls.priceCents > 0;
   const label = (() => {
     if (busy) return "…";
-    if (status === "paid") return "✓ Inscrit·e";
-    if (payant) return "Payer par carte";
-    return "S'inscrire";
+    if (status === "paid") return tx(lang, "✓ Inscrit·e");
+    if (payant) return tx(lang, "Payer par carte");
+    return tx(lang, "S'inscrire");
   })();
 
   const disabled = busy || status === "paid";
@@ -129,10 +132,10 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
           <p className="text-sm font-serif opacity-70 mt-1">{cls.description}</p>
         )}
         <p className="text-xs opacity-60 mt-1">
-          {money(cls.priceCents)}
-          {cls.capacity ? ` · ${cls.capacity} places` : ""}
+          {money(lang, cls.priceCents)}
+          {cls.capacity ? ` · ${cls.capacity} ${tx(lang, "places")}` : ""}
           {" · "}
-          {(cls.format ?? "video") === "audio" ? "en audio" : "en vidéo"}
+          {(cls.format ?? "video") === "audio" ? tx(lang, "en audio") : tx(lang, "en vidéo")}
           {prochaineSeance(cls.seances ?? []) && (
             <span className="capitalize"> · {formatSeance(prochaineSeance(cls.seances ?? [])!.debut)}</span>
           )}
@@ -154,15 +157,15 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
               disabled={busy}
               className="min-h-[44px] px-5 text-xs uppercase tracking-widest border border-rust/40 text-rust hover:bg-rust hover:text-paper rounded-full transition-colors disabled:opacity-60"
             >
-              Virement Interac
+              {tx(lang, "Virement Interac")}
             </button>
           )}
         </div>
         {(interacAnnonce || (status === "pending" && payant)) && status !== "paid" && (
           <p className="font-serif text-sm leading-relaxed max-w-xs md:text-right opacity-80">
-            Place réservée. Envoyez {money(cls.priceCents)} par virement Interac à{" "}
-            <a href={`mailto:${COURRIEL_INTERAC}`} className="text-rust underline">{COURRIEL_INTERAC}</a>, avec votre nom et
-            le titre du cours en message. Elise confirme votre place dès réception.
+            {tx(lang, "Place réservée. Envoyez")} {money(lang, cls.priceCents)} {tx(lang, "par virement Interac à")}{" "}
+            <a href={`mailto:${COURRIEL_INTERAC}`} className="text-rust underline">{COURRIEL_INTERAC}</a>
+            {tx(lang, ", avec votre nom et le titre du cours en message. Elise confirme votre place dès réception.")}
           </p>
         )}
       </div>
@@ -171,6 +174,7 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
 };
 
 export const Mouvement = ({ content }: { content: Content["sections"]["mouvement"] }) => {
+  const lang = useLangue();
   const { items: classes, loading } = useClasses();
   const [user, setUser] = useState<User | null>(null);
   const [showRequest, setShowRequest] = useState(false);
@@ -201,13 +205,13 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
         )}
 
         <div>
-          <h3 className="text-2xl font-light mb-2">Cours à venir</h3>
+          <h3 className="text-2xl font-light mb-2">{tx(lang, "Cours à venir")}</h3>
           <p className="font-serif text-sm opacity-70 mb-4">
-            Inscrivez-vous en un geste, par carte ou par virement Interac.
+            {tx(lang, "Inscrivez-vous en un geste, par carte ou par virement Interac.")}
           </p>
-          {loading && <p className="font-serif opacity-60 py-4">Chargement…</p>}
+          {loading && <p className="font-serif opacity-60 py-4">{tx(lang, "Chargement…")}</p>}
           {!loading && classes.length === 0 && (
-            <p className="font-serif opacity-60 py-4">Aucun cours actif pour l'instant.</p>
+            <p className="font-serif opacity-60 py-4">{tx(lang, "Aucun cours actif pour l'instant.")}</p>
           )}
           <ul>
             {classes.map((c) => (
@@ -220,32 +224,36 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
       <div className="border border-ink/15 dark:border-white/15 bg-ink/[0.03] dark:bg-white/5 rounded-none p-8 md:p-10 text-center space-y-4">
         <MessageSquare className="mx-auto text-rust dark:text-stone-300" size={26} aria-hidden="true" />
         <h3 className="text-xl md:text-2xl font-light leading-tight">
-          Vous voulez organiser un cours dans votre région ?
+          {tx(lang, "Vous voulez organiser un cours dans votre région ?")}
         </h3>
         <p className="font-serif text-sm text-stone-600 dark:text-stone-300 max-w-md mx-auto leading-relaxed">
-          Cours de groupe (10 personnes et plus) ou suivi privé en forfait : écrivez-moi vos détails.
+          {tx(lang, "Cours de groupe (10 personnes et plus) ou suivi privé en forfait : écrivez-moi vos détails.")}
         </p>
         <button
           onClick={() => setShowRequest(true)}
           className="inline-flex items-center gap-2 px-6 py-2.5 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-[0.25em] font-bold font-sans hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors"
         >
-          Demander un cours
+          {tx(lang, "Demander un cours")}
         </button>
       </div>
 
-      <div className="bg-rust/5 dark:bg-white/5 p-8 border border-rust/20 dark:border-white/10 text-center space-y-6 rounded-none">
-        <Sparkles className="mx-auto text-rust dark:text-stone-300 mb-2" aria-hidden="true" />
-        <p className="text-sm font-sans tracking-widest uppercase opacity-60 text-ink dark:text-stone-300 mb-4">
-          {content.extra}
-        </p>
-        <div className="w-full flex justify-center">
-          <LazyMount className="w-full max-w-[300px] h-[152px]" placeholder={<div className="w-full h-full" aria-hidden="true" />}>
+      {/* La liste de lecture : une double page à elle seule, le titre à gauche et le lecteur
+          Spotify au complet à droite, haut de 380 px, sur toute la largeur de la page. */}
+      <section className="border-t border-ink/10 dark:border-white/10 pt-12 md:pt-16 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-8 items-start" aria-label={content.extra}>
+        <div className="lg:col-span-4">
+          <p className="ed-kicker flex items-center gap-3">
+            <Sparkles size={16} className="text-rust" aria-hidden="true" /> {tx(lang, "Liste de lecture")}
+          </p>
+          <h3 className="ed-display mt-4 text-3xl md:text-4xl text-ink dark:text-stone-100 [text-wrap:balance]">{content.extra}</h3>
+        </div>
+        <div className="lg:col-span-8 w-full">
+          <LazyMount className="w-full h-[380px] md:h-[420px]" placeholder={<div className="w-full h-full bg-ink/[0.03] dark:bg-white/[0.04]" aria-hidden="true" />}>
             <iframe
               title="Spotify playlist"
               style={{ borderRadius: "12px" }}
               src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdbkmlag2h7b?utm_source=generator&theme=0"
               width="100%"
-              height="152"
+              height="100%"
               frameBorder="0"
               allowFullScreen
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
@@ -253,28 +261,30 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
             />
           </LazyMount>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
 
-export const MouvementSidebarForm = ({ content }: { content: Content["sections"]["mouvement"] }) => (
+export const MouvementSidebarForm = ({ content }: { content: Content["sections"]["mouvement"] }) => {
+  const lang = useLangue();
+  return (
   <div className="relative z-20 w-full max-w-sm bg-white/60 dark:bg-black/30 backdrop-blur-sm p-8 rounded-none shadow-xl border border-white/20 overflow-y-auto max-h-full text-center space-y-5">
     <UserPlus className="mx-auto text-rust dark:text-stone-300 opacity-70" size={28} aria-hidden="true" />
     <h3 className="font-serif text-2xl text-ink dark:text-stone-100 leading-tight">
-      Pour rejoindre un cours, créez votre espace
+      {tx(lang, "Pour rejoindre un cours, créez votre espace")}
     </h3>
     <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-      Connectez-vous, demandez votre place, et chattez avec votre groupe.
+      {tx(lang, "Connectez-vous, demandez votre place, et chattez avec votre groupe.")}
     </p>
     <a
       href="/client"
       className="inline-flex items-center gap-2 px-8 py-3 bg-ink text-paper dark:bg-stone-100 dark:text-forest font-sans text-xs tracking-[0.25em] uppercase hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors rounded-none"
     >
-      Créer un compte
+      {tx(lang, "Créer un compte")}
     </a>
     <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">
-      Connexion Google ou courriel
+      {tx(lang, "Connexion Google ou courriel")}
     </p>
     <div className="pt-6 border-t border-stone-300 dark:border-stone-600/30">
       <h4 className="font-serif text-base mb-1">{content.groupTitle}</h4>
@@ -287,4 +297,5 @@ export const MouvementSidebarForm = ({ content }: { content: Content["sections"]
       </a>
     </div>
   </div>
-);
+  );
+};

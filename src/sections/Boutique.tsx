@@ -9,6 +9,7 @@ import { startCheckout } from "../hooks/useCheckout";
 import type { Content } from "../i18n";
 import type { CartItem } from "../types";
 import type { Product } from "../components/admin/ProductsSection";
+import { tx, useLangue } from "../i18n/tx";
 
 interface Props {
   content: Content["sections"]["boutique"];
@@ -34,6 +35,7 @@ const useProducts = () => {
 };
 
 export const Boutique = ({ t, cart, subtotal, onAdd, onRemove }: Props) => {
+  const lang = useLangue();
   const { items: products, loading } = useProducts();
   const [user, setUser] = useState<User | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
@@ -43,7 +45,7 @@ export const Boutique = ({ t, cart, subtotal, onAdd, onRemove }: Props) => {
 
   // Group Firestore products by category
   const grouped = products.reduce<Record<string, Product[]>>((acc, p) => {
-    const cat = p.category || "Sans catégorie";
+    const cat = p.category || tx(lang, "Sans catégorie");
     (acc[cat] ??= []).push(p);
     return acc;
   }, {});
@@ -76,20 +78,20 @@ export const Boutique = ({ t, cart, subtotal, onAdd, onRemove }: Props) => {
         });
       } catch (err) {
         console.error("Checkout failed:", err);
-        alert("Le paiement n'est pas encore configuré. Réessayez plus tard.");
+        alert(tx(lang, "Le paiement n'est pas encore configuré. Réessayez plus tard."));
         setCheckingOut(false);
       }
     });
   };
 
   if (loading) {
-    return <p className="font-serif opacity-60 py-10 text-center">Chargement…</p>;
+    return <p className="font-serif opacity-60 py-10 text-center">{tx(lang, "Chargement…")}</p>;
   }
 
   if (products.length === 0) {
     return (
       <p className="font-serif text-lg opacity-60 border-t border-ink/10 dark:border-white/10 pt-10">
-        La boutique est en préparation, revenez bientôt.
+        {tx(lang, "La boutique est en préparation, revenez bientôt.")}
       </p>
     );
   }
@@ -113,6 +115,7 @@ export const Boutique = ({ t, cart, subtotal, onAdd, onRemove }: Props) => {
                       stock={p.stock}
                       onAdd={() => onAdd({ name: p.title, price: p.priceCents / 100 })}
                       addLabel={t.addToCart}
+                      soldLabel={tx(lang, "Rupture")}
                     />
                   ))}
                 </div>
@@ -152,9 +155,10 @@ interface ProductCardProps {
   stock: number;
   onAdd: () => void;
   addLabel: string;
+  soldLabel: string;
 }
 
-const ProductCard = ({ title, desc, price, image, stock, onAdd, addLabel }: ProductCardProps) => {
+const ProductCard = ({ title, desc, price, image, stock, onAdd, addLabel, soldLabel }: ProductCardProps) => {
   const sold = stock <= 0;
   return (
     <div className="relative group flex flex-col p-5 border border-stone-200 dark:border-stone-700 rounded-[20px] hover:border-rust dark:hover:border-stone-400 transition-colors bg-white/40 dark:bg-white/5">
@@ -180,7 +184,7 @@ const ProductCard = ({ title, desc, price, image, stock, onAdd, addLabel }: Prod
           disabled={sold}
           className="px-4 py-1.5 text-xs uppercase tracking-widest border border-stone-300 hover:bg-ink hover:text-white dark:border-stone-600 dark:hover:bg-white dark:hover:text-forest rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {sold ? "Rupture" : addLabel}
+          {sold ? soldLabel : addLabel}
         </button>
       </div>
     </div>

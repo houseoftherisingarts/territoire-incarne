@@ -6,6 +6,7 @@ import { pathForPost } from "../routes";
 import type { BlogPost } from "../types/blog";
 import type { Lang } from "../types";
 import type { Content } from "../i18n";
+import { locale, tx } from "../i18n/tx";
 
 interface Props {
   content?: Content["sections"]["writings"];
@@ -13,9 +14,9 @@ interface Props {
   onOpenPost?: (slug: string) => void;
 }
 
-const fmtDate = (ts: BlogPost["publishedAt"]) => {
+const fmtDate = (lang: Lang, ts: BlogPost["publishedAt"]) => {
   if (!ts) return "";
-  return ts.toDate().toLocaleDateString("fr-CA", { day: "2-digit", month: "long", year: "numeric" });
+  return ts.toDate().toLocaleDateString(locale(lang), { day: "2-digit", month: "long", year: "numeric" });
 };
 
 const usePosts = () => {
@@ -50,12 +51,12 @@ export const Writings = ({ lang = "fr", onOpenPost }: Props) => {
     }
   };
 
-  if (loading) return <p className="font-serif opacity-60 py-10 text-center">Chargement…</p>;
+  if (loading) return <p className="font-serif opacity-60 py-10 text-center">{tx(lang, "Chargement…")}</p>;
 
   if (posts.length === 0) {
     return (
       <p className="font-serif text-lg opacity-60 border-t border-ink/10 dark:border-white/10 pt-10">
-        Les premiers écrits arrivent bientôt.
+        {tx(lang, "Les premiers écrits arrivent bientôt.")}
       </p>
     );
   }
@@ -79,7 +80,7 @@ export const Writings = ({ lang = "fr", onOpenPost }: Props) => {
             <div className="p-6 flex-1 flex flex-col">
               {post.publishedAt && (
                 <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-rust dark:text-stone-400 mb-2">
-                  <Calendar size={11} /> {fmtDate(post.publishedAt)}
+                  <Calendar size={11} /> {fmtDate(lang, post.publishedAt)}
                 </div>
               )}
               <h3 className="font-serif text-xl md:text-2xl leading-tight text-ink dark:text-stone-100 group-hover:text-rust dark:group-hover:text-white transition-colors mb-3">
@@ -89,7 +90,7 @@ export const Writings = ({ lang = "fr", onOpenPost }: Props) => {
                 <p className="text-sm font-serif opacity-70 leading-relaxed flex-1">{c.excerpt}</p>
               )}
               <span className="mt-4 self-start text-xs font-sans uppercase tracking-widest text-rust dark:text-stone-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                Lire l'article <ArrowUpRight size={11} />
+                {tx(lang, "Lire l'article")} <ArrowUpRight size={11} />
               </span>
             </div>
           </a>

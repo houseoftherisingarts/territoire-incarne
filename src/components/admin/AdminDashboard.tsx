@@ -19,6 +19,7 @@ import { AdminBlogSection } from "./blog/AdminBlogSection";
 import { AdminCalendarSection } from "./calendar/CalendarSection";
 import { ChangelogSection } from "./ChangelogSection";
 import { MediathequeSection } from "./MediathequeSection";
+import { RecadrerSection } from "./RecadrerSection";
 import { AteliersAdminSection } from "./AteliersAdminSection";
 import { MultimediasAdminSection } from "./MultimediasAdminSection";
 import { ApparenceSettings } from "./ApparenceSettings";
@@ -32,7 +33,12 @@ import { PartenaireVexelSection } from "./PartenaireVexelSection";
 export const AdminDashboard = () => {
   const { authed, loading, notAdmin, user, error, login, loginGoogle, logout, enableDevBypass } = useAdminAuth();
   const { data, update, reset } = useAdminStore();
-  const [section, setSection] = useState<AdminSectionId>("dashboard");
+  // `/admin?section=recadrer` ouvre directement la section demandée (le crayon du site y renvoie).
+  const [section, setSection] = useState<AdminSectionId>(() => {
+    if (typeof window === "undefined") return "dashboard";
+    const voulue = new URLSearchParams(window.location.search).get("section");
+    return (voulue as AdminSectionId | null) ?? "dashboard";
+  });
 
   if (loading) return null;
   if (!authed) {
@@ -75,6 +81,7 @@ export const AdminDashboard = () => {
       {section === "cours"      && <ClassesAdminSection />}
       {section === "ressources" && <ResourcesSection />}
       {section === "mediatheque" && <MediathequeSection />}
+      {section === "recadrer"   && <RecadrerSection />}
       {section === "multimedias" && <MultimediasAdminSection />}
       {section === "writings"   && <AdminBlogSection />}
       {section === "newsletter" && <NewsletterAdminSection />}

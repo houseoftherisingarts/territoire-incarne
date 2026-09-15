@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { Upload, Trash2, Copy, Check, ImageOff, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { uploadMediaFile, listMediaFiles, deleteMediaByPath, type FichierMedia } from "../../lib/storage";
 import { Card } from "./sections";
+import { useSiteOverrides, clearOverride } from "../../hooks/useSiteOverrides";
 
 const poids = (o: number) => (o > 1024 * 1024 ? `${(o / 1024 / 1024).toFixed(1)} Mo` : `${Math.round(o / 1024)} Ko`);
 
@@ -26,6 +27,7 @@ const leCompte = (fichiers: FichierMedia[]) => {
 /** La médiathèque : Élise dépose ses photos ici, les retrouve toutes au même endroit,
  *  copie l'adresse de celle qu'elle veut poser sur une page, et retire ce qui ne sert plus. */
 export const MediathequeSection = () => {
+  const { overrides } = useSiteOverrides();
   const [fichiers, setFichiers] = useState<FichierMedia[]>([]);
   const [chargement, setChargement] = useState(true);
   const [envoi, setEnvoi] = useState(0);
@@ -88,6 +90,10 @@ export const MediathequeSection = () => {
     if (!window.confirm(`Retirer « ${f.nom} » de votre médiathèque ? Les pages qui l'affichent perdront ce fichier.`)) return;
     try {
       await deleteMediaByPath(f.chemin);
+      // Les pages qui montraient ce fichier reprennent leur photo d'origine, sans trou.
+      for (const [cle, valeur] of Object.entries(overrides)) {
+        if (valeur === f.url) await clearOverride(cle.replace(/__/g, "/"));
+      }
       await relire();
     } catch {
       setErreur("La photo n'a pas pu être retirée.");

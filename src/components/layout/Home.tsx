@@ -28,7 +28,7 @@ const handleNav =
 
 /** Les mots d'un titre montent un à un, comme une lettre qui se compose. */
 const MotsQuiMontent = ({ texte, delai = 0 }: { texte: string; delai?: number }) => (
-  <span className="inline-block">
+  <span className="inline-flex flex-wrap justify-center gap-x-[0.28em]">
     {texte.split(" ").map((mot, i) => (
       <span key={i} className="inline-block overflow-hidden pb-[0.08em] -mb-[0.08em] align-baseline">
         <motion.span
@@ -38,7 +38,6 @@ const MotsQuiMontent = ({ texte, delai = 0 }: { texte: string; delai?: number })
           transition={{ duration: 0.9, delay: delai + i * 0.12, ease: EASE }}
         >
           {mot}
-          {i < texte.split(" ").length - 1 ? " " : ""}
         </motion.span>
       </span>
     ))}

@@ -7,6 +7,7 @@ import type { Atelier } from "../components/admin/AteliersAdminSection";
 import { InterventionRequestModal } from "../components/widgets/InterventionRequestModal";
 import { INTERVENTION_CONFIGS } from "../lib/interventionFields";
 import { Reveal } from "../components/motion/Reveal";
+import { tx, useLangue } from "../i18n/tx";
 
 const useAteliers = () => {
   const [items, setItems] = useState<Atelier[]>([]);
@@ -29,6 +30,7 @@ const useAteliers = () => {
  *  Le formulaire est celui des interventions éducatives, déjà écrit dans ses mots.
  *  L'intro se lit déjà dans l'en-tête commun (DetailView), donc elle ne se répète pas ici. */
 export const Ateliers = (_props: { content: Content["sections"]["ateliers"] }) => {
+  const lang = useLangue();
   const { items, loading } = useAteliers();
   const [demande, setDemande] = useState(false);
   const config = INTERVENTION_CONFIGS.education;
@@ -40,11 +42,11 @@ export const Ateliers = (_props: { content: Content["sections"]["ateliers"] }) =
         onClick={() => setDemande(true)}
         className="inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
       >
-        {config.ctaLabel}
+        {tx(lang, config.ctaLabel)}
         <span className="w-9 h-9 rounded-full bg-paper/15 flex items-center justify-center"><ArrowUpRight size={16} /></span>
       </button>
       {config.ctaSubtitle && (
-        <p className="mt-3 font-sans text-xs uppercase tracking-[0.18em] text-ink/50 dark:text-stone-400">{config.ctaSubtitle}</p>
+        <p className="mt-3 font-sans text-xs uppercase tracking-[0.18em] text-ink/50 dark:text-stone-400">{tx(lang, config.ctaSubtitle)}</p>
       )}
 
       {!loading && items.length > 0 && (

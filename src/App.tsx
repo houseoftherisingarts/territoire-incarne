@@ -6,6 +6,7 @@ import { Footer } from "./components/layout/Footer";
 import { EditModeBar } from "./components/edit/EditModeBar";
 import { NotFound } from "./components/common/NotFound";
 import { getContent } from "./i18n";
+import { LangContext } from "./i18n/tx";
 import { NAV_ORDER } from "./types";
 
 const AdminDashboard = lazy(() =>
@@ -57,6 +58,7 @@ export const App = () => {
   const index = view ? NAV_ORDER.indexOf(view) : -1;
 
   return (
+    <LangContext.Provider value={lang}>
     <div className="min-h-[100dvh] w-full flex flex-col font-serif selection:bg-stone-300 dark:selection:bg-stone-600 selection:text-ink bg-paper dark:bg-forest text-ink dark:text-stone-100 relative transition-colors duration-500">
       <a href="#contenu" className="skip-link">{lang === "en" ? "Skip to content" : "Aller au contenu"}</a>
 
@@ -94,5 +96,6 @@ export const App = () => {
       <Footer t={t} lang={lang} onOpen={(id) => navigate(id)} onToggleLang={toggleLang} />
       <EditModeBar />
     </div>
+    </LangContext.Provider>
   );
 };

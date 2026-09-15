@@ -68,11 +68,11 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
           : "bg-paper/80 dark:bg-forest/80 backdrop-blur-xl border-ink/10 dark:border-white/10"
       }`}
     >
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 md:px-8 h-16 md:h-[4.5rem] flex items-center justify-between gap-3">
+      <div className="max-w-[1800px] mx-auto px-3 sm:px-6 md:px-8 h-16 md:h-[4.5rem] flex items-center justify-between gap-2 sm:gap-3 min-w-0">
         <a
           href="/"
           onClick={aller(null)}
-          className="flex-shrink-0 min-h-[44px] flex items-center font-serif font-semibold uppercase text-ink dark:text-stone-100 text-[0.95rem] leading-[1.05] tracking-[0.1em] sm:whitespace-nowrap sm:text-[1.25rem] sm:tracking-[0.12em] hover:text-rust transition-colors"
+          className="flex-shrink min-w-0 min-h-[44px] flex items-center font-serif font-semibold uppercase text-ink dark:text-stone-100 text-[0.85rem] leading-[1.05] tracking-[0.08em] sm:whitespace-nowrap sm:text-[1.25rem] sm:tracking-[0.12em] hover:text-rust transition-colors"
         >
           Territoire <br className="sm:hidden" />Incarné
         </a>
@@ -94,9 +94,10 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
             <a
               href={pathForSection("rendezvous")}
               onClick={aller("rendezvous")}
-              className="inline-flex whitespace-nowrap items-center bg-rust text-paper font-sans text-xs uppercase tracking-[0.14em] font-semibold min-h-[44px] px-3 sm:px-4 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
+              className="inline-flex whitespace-nowrap items-center bg-rust text-paper font-sans text-xs uppercase tracking-[0.1em] sm:tracking-[0.14em] font-semibold min-h-[44px] px-3 sm:px-4 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
             >
-              {t.general.prendreRdv}
+              <span className="sm:hidden">{t.nav.rendezvous}</span>
+              <span className="hidden sm:inline">{t.general.prendreRdv}</span>
             </a>
           )}
           <button

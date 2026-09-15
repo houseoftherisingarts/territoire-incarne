@@ -2,8 +2,10 @@ import { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
 import type { Content } from "../i18n";
+import { tx, useLangue } from "../i18n/tx";
 
 export const Connecter = ({ content }: { content: Content["sections"]["connecter"] }) => {
+  const lang = useLangue();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -50,10 +52,10 @@ export const Connecter = ({ content }: { content: Content["sections"]["connecter
           disabled={status === "sending" || status === "sent"}
           className="text-sm font-sans tracking-[0.3em] uppercase hover:text-rust dark:hover:text-white transition-colors border-b border-transparent hover:border-rust dark:hover:border-white pb-1 text-ink dark:text-stone-200 w-full text-left disabled:opacity-50"
         >
-          {status === "sending" ? "Envoi…" : status === "sent" ? "✓ Reçu, merci" : content.btn}
+          {status === "sending" ? tx(lang, "Envoi…") : status === "sent" ? tx(lang, "✓ Reçu, merci") : content.btn}
         </button>
         {status === "error" && (
-          <p className="font-sans text-xs text-rust">Un problème est survenu. Réessayez svp.</p>
+          <p className="font-sans text-xs text-rust">{tx(lang, "Un problème est survenu. Réessayez svp.")}</p>
         )}
       </form>
     </div>

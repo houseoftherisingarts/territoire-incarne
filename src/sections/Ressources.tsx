@@ -6,6 +6,7 @@ import { auth, db } from "../firebase";
 import { requireAuth } from "../lib/requireAuth";
 import type { Content } from "../i18n";
 import type { Resource } from "../components/admin/ResourcesSection";
+import { tx, useLangue } from "../i18n/tx";
 
 const iconFor = (name: string) => {
   switch (name) {
@@ -35,6 +36,7 @@ const useResources = () => {
 };
 
 export const Ressources = (_props: { content?: Content["sections"]["ressources"] }) => {
+  const lang = useLangue();
   const { items, loading } = useResources();
   const [user, setUser] = useState<User | null>(null);
 
@@ -46,12 +48,12 @@ export const Ressources = (_props: { content?: Content["sections"]["ressources"]
     return acc;
   }, {});
 
-  if (loading) return <p className="font-serif opacity-60 py-10 text-center">Chargement…</p>;
+  if (loading) return <p className="font-serif opacity-60 py-10 text-center">{tx(lang, "Chargement…")}</p>;
 
   if (items.length === 0) {
     return (
       <p className="font-serif text-lg opacity-60 border-t border-ink/10 dark:border-white/10 pt-10">
-        Les ressources arrivent bientôt.
+        {tx(lang, "Les ressources arrivent bientôt.")}
       </p>
     );
   }
@@ -91,7 +93,7 @@ export const Ressources = (_props: { content?: Content["sections"]["ressources"]
                     >
                       {r.label}
                       {r.requiresAuth && (
-                        <Lock size={11} className="opacity-40" aria-label="Connexion requise" />
+                        <Lock size={11} className="opacity-40" aria-label={tx(lang, "Connexion requise")} />
                       )}
                     </a>
                   </li>

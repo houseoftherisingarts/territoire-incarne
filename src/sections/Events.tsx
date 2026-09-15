@@ -16,18 +16,20 @@ import { auth, db } from "../firebase";
 import { requireAuth } from "../lib/requireAuth";
 import { startCheckout } from "../hooks/useCheckout";
 import type { Content } from "../i18n";
+import { locale, tx, useLangue } from "../i18n/tx";
+import type { Lang } from "../types";
 import type { AdminEvent } from "../components/admin/EventsAdminSection";
 
-const fmtDate = (iso: string) => {
+const fmtDate = (lang: Lang, iso: string) => {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString("fr-CA", { day: "2-digit", month: "long", year: "numeric" });
+  return d.toLocaleDateString(locale(lang), { day: "2-digit", month: "long", year: "numeric" });
 };
 
-const money = (cents: number) =>
+const money = (lang: Lang, cents: number) =>
   cents === 0
-    ? "Gratuit"
-    : (cents / 100).toLocaleString("fr-CA", { style: "currency", currency: "CAD" });
+    ? tx(lang, "Gratuit")
+    : (cents / 100).toLocaleString(locale(lang), { style: "currency", currency: "CAD" });
 
 const useEvents = () => {
   const [items, setItems] = useState<AdminEvent[]>([]);
@@ -44,6 +46,7 @@ const useEvents = () => {
 };
 
 export const Events = (_props: { content?: Content["sections"]["events"] }) => {
+  const lang = useLangue();
   const { items: events, loading } = useEvents();
   const [user, setUser] = useState<User | null>(null);
   const [signingUp, setSigningUp] = useState<string | null>(null);
@@ -76,7 +79,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
         setInteracPour(ev.id);
       } catch (err) {
         console.error("Inscription Interac :", err);
-        alert("La réservation n'a pas pu être enregistrée. Réessayez.");
+        alert(tx(lang, "La réservation n'a pas pu être enregistrée. Réessayez."));
       } finally {
         setSigningUp(null);
       }
@@ -94,7 +97,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
             status: "confirmed",
             registeredAt: serverTimestamp(),
           });
-          alert("Inscription confirmée !");
+          alert(tx(lang, "Inscription confirmée !"));
         } else {
           // Paid event : Stripe Checkout
           await startCheckout({
@@ -106,7 +109,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
             lineItems: [
               {
                 name: ev.title,
-                description: `${fmtDate(ev.date)} · ${ev.location}`,
+                description: `${fmtDate(lang, ev.date)} · ${ev.location}`,
                 amount: ev.priceCents,
                 quantity: 1,
                 image: ev.image,
@@ -118,28 +121,28 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
         }
       } catch (err) {
         console.error("Sign-up failed:", err);
-        alert("Le paiement n'est pas encore configuré. Réessayez plus tard.");
+        alert(tx(lang, "Le paiement n'est pas encore configuré. Réessayez plus tard."));
       } finally {
         setSigningUp(null);
       }
     });
 
-  if (loading) return <p className="font-serif opacity-60 py-10 text-center">Chargement…</p>;
+  if (loading) return <p className="font-serif opacity-60 py-10 text-center">{tx(lang, "Chargement…")}</p>;
 
   const proposeBlock = (
     <div className="border border-ink/15 dark:border-white/15 bg-ink/[0.03] dark:bg-white/5 rounded-none p-8 md:p-10 text-center space-y-4">
       <MessageSquare className="mx-auto text-rust dark:text-stone-300" size={26} aria-hidden="true" />
       <h3 className="text-xl md:text-2xl font-light leading-tight">
-        Vous portez l'idée d'un événement ?
+        {tx(lang, "Vous portez l'idée d'un événement ?")}
       </h3>
       <p className="font-serif text-sm text-stone-600 dark:text-stone-300 max-w-md mx-auto leading-relaxed">
-        Atelier, retraite, cérémonie, festival : proposez-moi votre vision et nous regarderons ensemble si c'est possible.
+        {tx(lang, "Atelier, retraite, cérémonie, festival : proposez-moi votre vision et nous regarderons ensemble si c'est possible.")}
       </p>
       <button
         onClick={() => setShowRequest(true)}
         className="inline-flex items-center gap-2 px-6 py-2.5 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-[0.25em] font-bold font-sans hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors"
       >
-        Proposer un événement
+        {tx(lang, "Proposer un événement")}
       </button>
     </div>
   );
@@ -151,7 +154,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
           <InterventionRequestModal config={INTERVENTION_CONFIGS.events} onClose={() => setShowRequest(false)} />
         )}
         <p className="font-serif opacity-60 py-8 text-center">
-          Aucun événement à venir pour l'instant.
+          {tx(lang, "Aucun événement à venir pour l'instant.")}
         </p>
         {proposeBlock}
       </div>
@@ -176,7 +179,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
           <div className="flex-1 min-w-0 flex flex-col">
             <div className="flex items-start gap-4 mb-2">
               <div>
-                <span className="block text-xs font-sans tracking-widest uppercase text-rust dark:text-stone-400">{fmtDate(ev.date)}</span>
+                <span className="block text-xs font-sans tracking-widest uppercase text-rust dark:text-stone-400">{fmtDate(lang, ev.date)}</span>
                 <h3 className="text-2xl font-serif text-ink dark:text-stone-100 mb-1">{ev.title}</h3>
                 <div className="flex items-center gap-2 text-sm opacity-70">
                   <MapPin size={12} /> {ev.location}
@@ -189,14 +192,14 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
               </p>
             )}
             <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
-              <span className="text-base font-sans text-rust dark:text-stone-300">{money(ev.priceCents)}</span>
+              <span className="text-base font-sans text-rust dark:text-stone-300">{money(lang, ev.priceCents)}</span>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => signUp(ev)}
                   disabled={signingUp === ev.id}
                   className="min-h-[44px] px-6 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-widest hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors disabled:opacity-50"
                 >
-                  {signingUp === ev.id ? "…" : ev.priceCents > 0 ? "Payer par carte" : "S'inscrire"}
+                  {signingUp === ev.id ? "…" : ev.priceCents > 0 ? tx(lang, "Payer par carte") : tx(lang, "S'inscrire")}
                 </button>
                 {ev.priceCents > 0 && (
                   <button
@@ -204,16 +207,16 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
                     disabled={signingUp === ev.id}
                     className="min-h-[44px] px-5 border border-rust/40 text-rust rounded-full text-xs uppercase tracking-widest hover:bg-rust hover:text-paper transition-colors disabled:opacity-50"
                   >
-                    Virement Interac
+                    {tx(lang, "Virement Interac")}
                   </button>
                 )}
               </div>
             </div>
             {interacPour === ev.id && (
               <p className="font-serif text-sm leading-relaxed opacity-80 pt-2">
-                Place réservée. Envoyez {money(ev.priceCents)} par virement Interac à{" "}
-                <a href="mailto:territoireincarne@gmail.com" className="text-rust underline">territoireincarne@gmail.com</a>, avec votre nom et
-                le titre de l'événement en message. Elise confirme votre place dès réception.
+                {tx(lang, "Place réservée. Envoyez")} {money(lang, ev.priceCents)} {tx(lang, "par virement Interac à")}{" "}
+                <a href="mailto:territoireincarne@gmail.com" className="text-rust underline">territoireincarne@gmail.com</a>
+                {tx(lang, ", avec votre nom et le titre de l'événement en message. Elise confirme votre place dès réception.")}
               </p>
             )}
           </div>
@@ -224,13 +227,13 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
         <div className="pt-12 border-t border-stone-300 dark:border-stone-700">
           <h3 className="text-2xl font-light mb-8 flex items-center gap-3 opacity-80">
             <History size={20} className="text-rust dark:text-stone-400" />
-            Événements passés
+            {tx(lang, "Événements passés")}
           </h3>
           <div className="space-y-4 opacity-60">
             {past.slice(0, 6).map((ev) => (
               <div key={ev.id} className="flex items-center gap-4 py-2">
                 <span className="text-xs font-sans tracking-widest uppercase w-32 text-right text-stone-500 dark:text-stone-400">
-                  {fmtDate(ev.date)}
+                  {fmtDate(lang, ev.date)}
                 </span>
                 <div className="w-px h-8 bg-stone-300 dark:bg-stone-600" />
                 <div>

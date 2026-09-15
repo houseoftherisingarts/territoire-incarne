@@ -6,6 +6,7 @@ import { INTERVENTION_CONFIGS } from "../lib/interventionFields";
 import { ApercuHoraire } from "../components/widgets/ApercuHoraire";
 import { useTarifs, type Tarif } from "../hooks/useTarifs";
 import type { Content } from "../i18n";
+import { tx, useLangue } from "../i18n/tx";
 
 interface ConsultationCard {
   title: string;
@@ -26,6 +27,7 @@ const tarifToCard = (t: Tarif): ConsultationCard => ({
 });
 
 export const Therapie = ({ content }: { content: Content["sections"]["therapie"] }) => {
+  const lang = useLangue();
   const { tarifs, loading } = useTarifs();
   const [selected, setSelected] = useState<ConsultationCard | null>(null);
   const [showGroupRequest, setShowGroupRequest] = useState(false);
@@ -46,12 +48,12 @@ export const Therapie = ({ content }: { content: Content["sections"]["therapie"]
   return (
     <div className="space-y-12 animate-[fadeIn_1s_ease-out]">
       <div className="space-y-6">
-        <h3 className="text-2xl font-light text-rust dark:text-stone-300">Soins offerts</h3>
+        <h3 className="text-2xl font-light text-rust dark:text-stone-300">{tx(lang, "Soins offerts")}</h3>
         {loading ? (
-          <p className="font-serif opacity-60">Chargement…</p>
+          <p className="font-serif opacity-60">{tx(lang, "Chargement…")}</p>
         ) : consultations.length === 0 ? (
           <p className="font-serif opacity-60 py-4">
-            Les soins seront bientôt accessibles.
+            {tx(lang, "Les soins seront bientôt accessibles.")}
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -103,7 +105,7 @@ export const Therapie = ({ content }: { content: Content["sections"]["therapie"]
         service={selected}
         onClose={() => setSelected(null)}
         onBook={goToClient}
-        bookLabel="Prendre Rendez-vous"
+        bookLabel={tx(lang, "Prendre Rendez-vous")}
       />
 
       {content.locations && content.locations.length > 0 && (
@@ -133,35 +135,35 @@ export const Therapie = ({ content }: { content: Content["sections"]["therapie"]
         <div className="bg-rust/5 dark:bg-white/5 border border-rust/20 dark:border-white/10 rounded-none p-6 md:p-8 text-center space-y-4">
           <UserPlus className="mx-auto text-rust dark:text-stone-300 opacity-70" size={26} aria-hidden="true" />
           <h3 className="text-xl md:text-2xl font-light leading-tight">
-            Soin individuel
+            {tx(lang, "Soin individuel")}
           </h3>
           <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-            Pour prendre rendez-vous, créez votre espace personnel.
+            {tx(lang, "Pour prendre rendez-vous, créez votre espace personnel.")}
           </p>
           <button
             onClick={goToClient}
             className="inline-flex items-center gap-2 px-6 py-2.5 bg-ink text-paper dark:bg-stone-100 dark:text-forest font-sans text-xs tracking-[0.25em] uppercase hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors rounded-full"
           >
-            Investir sur mon bien-être
+            {tx(lang, "Investir sur mon bien-être")}
           </button>
           <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">
-            Connexion Google ou courriel
+            {tx(lang, "Connexion Google ou courriel")}
           </p>
         </div>
 
         <div className="bg-stone-100/50 dark:bg-stone-800/30 border border-stone-300/40 dark:border-stone-600/40 rounded-none p-6 md:p-8 text-center space-y-4">
           <Users className="mx-auto text-stone-600 dark:text-stone-300 opacity-70" size={26} aria-hidden="true" />
           <h3 className="text-xl md:text-2xl font-light leading-tight">
-            Soin de groupe / corporatif
+            {tx(lang, "Soin de groupe / corporatif")}
           </h3>
           <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-            Entreprise, équipe, cercle thérapeutique : décrivez-moi votre intention.
+            {tx(lang, "Entreprise, équipe, cercle thérapeutique : décrivez-moi votre intention.")}
           </p>
           <button
             onClick={() => setShowGroupRequest(true)}
             className="inline-flex items-center gap-2 px-6 py-2.5 border border-ink/30 dark:border-stone-300/30 font-sans text-xs tracking-[0.25em] uppercase hover:bg-ink hover:text-paper dark:hover:bg-stone-100 dark:hover:text-forest transition-colors rounded-full"
           >
-            Demander pour un groupe
+            {tx(lang, "Demander pour un groupe")}
           </button>
         </div>
       </div>
