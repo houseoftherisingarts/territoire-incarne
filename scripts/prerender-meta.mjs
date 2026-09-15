@@ -20,7 +20,7 @@ const champ = (section, cle) => {
 };
 
 const PAGES = [
-  { id: null, slug: '', titre: 'Territoire Incarné | Elise .G Lortie', desc: 'Elise .G Lortie tisse des espaces où le corps redevient un territoire de vérité. Thérapie somatique, mouvement, éducation, retraites.', type: 'WebPage' },
+  { id: null, slug: '', titre: 'Territoire Incarné | Elise .G Lortie', desc: 'Elise .G Lortie, éducatrice à la sexualité et thérapeute en intégration somatique. Thérapie somatique, mouvement, éducation, retraites.', type: 'WebPage' },
   { id: 'therapie', slug: 'therapie', type: 'Service' },
   { id: 'rendezvous', slug: 'rendez-vous', type: 'WebPage' },
   { id: 'mouvement', slug: 'mouvement', type: 'Service' },
