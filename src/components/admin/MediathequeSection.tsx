@@ -130,7 +130,7 @@ export const MediathequeSection = () => {
                   <div className="relative aspect-[4/3] overflow-hidden bg-ink/5 dark:bg-black/30">
                     {estVideo(f) ? (
                       <>
-                        <video src={f.url} preload="metadata" muted playsInline controls className="w-full h-full object-cover" />
+                        <video src={`${f.url}#t=0.1`} preload="metadata" muted playsInline controls className="w-full h-full object-cover" />
                         <span className="pointer-events-none absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-ink/70 px-2 py-1 font-sans text-[10px] uppercase tracking-[0.18em] text-paper">
                           <Play size={11} /> Vidéo
                         </span>
