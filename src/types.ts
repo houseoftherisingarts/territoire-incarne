@@ -14,6 +14,7 @@ export type SectionId =
   | "apropos"
   | "boutique"
   | "writings"
+  | "multimedias"
   | "rendezvous";
 
 export interface GlossaryTerm {

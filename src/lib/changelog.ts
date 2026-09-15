@@ -16,6 +16,21 @@ export interface EntreeJournal {
 export const JOURNAL: EntreeJournal[] = [
   {
     date: "2026-09-15",
+    titre: "La route qui respire, une barre qui tient, et ton calendrier à ciel ouvert",
+    intro:
+      "L'accueil s'ouvre sur ta photo de la route, animée d'un souffle dans les herbes, avec le titre au centre. La barre du haut ne déborde plus, les pages intérieures ont pris de l'air, et la page Prendre rendez-vous montre ton calendrier comme le ferait Calendly.",
+    etapes: [
+      "Le hero est la photo de la route, recadrée au format cinéma et animée : la caméra ne bouge pas, seules les herbes frémissent. Le titre, ta phrase et les deux portes sont centrés dessus.",
+      "La barre du haut porte quatre portes (Pair-aidance, Massothérapie, Éducation sexuelle, Boutique) et range tout le reste dans le menu, si bien que rien ne sort plus du cadre, même sur un petit écran.",
+      "Les pages intérieures perdent la grande image collante de gauche : un titre en grand, ta phrase d'intro à côté, un bandeau photo court quand la section en a une, et beaucoup d'espace autour.",
+      "Prendre rendez-vous montre le mois, les jours où tu reçois et les heures ouvertes du jour choisi; une heure choisie arrive déjà sélectionnée dans l'espace de la personne.",
+      "Une nouvelle page, Consultante en consentement, avec son formulaire pour qu'un tournage, une équipe ou un lieu de vie te réserve.",
+      "Poppins remplace la police à empattements pour les titres et le corps; Montserrat reste pour les étiquettes.",
+      "La porte Google fonctionne de nouveau : elle passe par l'adresse que Google connaît, et une fenêtre refermée trop vite n'annule plus la connexion.",
+    ],
+  },
+  {
+    date: "2026-09-15",
     titre: "Neuf portes sur l'accueil, ton horaire à ciel ouvert, et la connexion Google réparée",
     intro:
       "L'accueil présente maintenant tes neuf domaines en tuiles de texte, deux nouvelles pages s'ajoutent, ton horaire s'affiche sur la page Pair-aidance, et la porte Google fonctionne de nouveau.",
