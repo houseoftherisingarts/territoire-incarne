@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import type { Theme } from "../types";
 
 const STORAGE_KEY = "ti-theme";
@@ -12,7 +12,11 @@ export const useTheme = () => {
     return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   });
 
-  useEffect(() => {
+  // useLayoutEffect, pas useEffect : la classe doit se poser AVANT que le navigateur peigne,
+  // sinon un visiteur en mode sombre voit une première image claire qui se fond vers le sombre
+  // (transition-colors duration-1000 sur les pages qui en portent une), avec un texte illisible
+  // pendant la seconde que dure le fondu.
+  useLayoutEffect(() => {
     const root = document.documentElement;
     if (theme === "dark") root.classList.add("dark");
     else root.classList.remove("dark");
