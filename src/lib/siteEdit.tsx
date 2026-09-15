@@ -7,6 +7,8 @@ import { useSiteOverrides } from "../hooks/useSiteOverrides";
 interface SiteEditContextShape {
   /** True when admin is logged in AND ?edit=1 is in the URL. */
   editing: boolean;
+  /** True as soon as an admin is logged in, edit mode on or off. */
+  admin: boolean;
   /** Map of all overrides (live). */
   overrides: Record<string, string>;
   /** Get value: override if present, otherwise the default. */
@@ -15,6 +17,7 @@ interface SiteEditContextShape {
 
 const ctx = createContext<SiteEditContextShape>({
   editing: false,
+  admin: false,
   overrides: {},
   read: (_, d) => d,
 });
@@ -46,7 +49,7 @@ export const SiteEditProvider = ({ children }: { children: ReactNode }) => {
   const read = (key: string, defaultValue: string): string =>
     overrides[normalizeKey(key)] ?? defaultValue;
 
-  return <ctx.Provider value={{ editing, overrides, read }}>{children}</ctx.Provider>;
+  return <ctx.Provider value={{ editing, admin: adminAuthed, overrides, read }}>{children}</ctx.Provider>;
 };
 
 const normalizeKey = (key: string): string => key.replace(/\//g, "__").replace(/\./g, "_");

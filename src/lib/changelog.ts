@@ -22,6 +22,7 @@ export const JOURNAL: EntreeJournal[] = [
     etapes: [
       "Sous le nom de Vexel Webstudio, une ligne indique que le studio est un projet du Salon des Inconnus.",
       "Le sigle doré du Salon des Inconnus apparaît en bas à droite de la carte, cliquable vers son site.",
+      "Une pastille avec un crayon vous attend maintenant en bas à droite de chaque page publique dès que vous êtes connectée, si bien que le mode de modification s'ouvre d'un seul clic au lieu de passer par votre tableau de bord ou par une adresse à retenir.",
     ],
   },
   {

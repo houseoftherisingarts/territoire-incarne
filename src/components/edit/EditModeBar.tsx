@@ -3,7 +3,30 @@ import { useSiteEdit } from "../../lib/siteEdit";
 
 /** Floating bar shown across the public site whenever Elise is in edit mode. */
 export const EditModeBar = () => {
-  const { editing } = useSiteEdit();
+  const { editing, admin } = useSiteEdit();
+
+  const enter = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("edit", "1");
+    window.history.replaceState({}, "", url.toString());
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  };
+
+  // Admin connectée, mode édition éteint : le crayon reste sous la main, sur toutes les pages.
+  if (admin && !editing) {
+    return (
+      <button
+        onClick={enter}
+        title="Modifier les textes de cette page"
+        aria-label="Modifier les textes de cette page"
+        className="fixed bottom-6 right-6 z-[250] inline-flex items-center gap-2 bg-rust text-paper rounded-full shadow-2xl px-4 py-3 text-xs font-sans uppercase tracking-widest font-bold hover:brightness-110 transition"
+      >
+        <Pencil size={14} />
+        <span className="hidden sm:inline">Modifier</span>
+      </button>
+    );
+  }
+
   if (!editing) return null;
 
   const exit = () => {
