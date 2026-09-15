@@ -25,6 +25,7 @@ import {
   History,
   Handshake,
   GraduationCap,
+  Clapperboard,
 } from "lucide-react";
 import { ELISE_AVATAR_IMG } from "../../assets/images";
 import { useTheme } from "../../hooks/useTheme";
