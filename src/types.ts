@@ -49,7 +49,7 @@ export const NAV_ORDER: SectionId[] = [
 
 /** Les sections qu'Élise peut éteindre depuis Paramètres › Sections du site. */
 export const SECTIONS_ETEIGNABLES: SectionId[] = [
-  "therapie", "massotherapie", "education", "consentement", "mouvement", "ateliers", "events", "apropos", "writings", "ressources", "boutique", "connecter", "rendezvous",
+  "therapie", "massotherapie", "education", "consentement", "mouvement", "ateliers", "events", "apropos", "writings", "multimedias", "ressources", "boutique", "connecter", "rendezvous",
 ];
 
 /** L'ordre des tuiles du sommaire de l'accueil, posé par Alex le 15 septembre 2026.
