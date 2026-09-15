@@ -1,0 +1,216 @@
+import { createContext, useContext } from "react";
+import type { Lang } from "../types";
+
+/** La langue courante du site public, posée une fois dans App et lue partout où un composant
+ *  n'a pas reçu `lang` en propriété (calendrier, formulaires, listes lues dans Firestore). */
+export const LangContext = createContext<Lang>("fr");
+export const useLangue = () => useContext(LangContext);
+
+/** La locale des dates et des prix. */
+export const locale = (lang: Lang) => (lang === "en" ? "en-CA" : "fr-CA");
+
+/** Les phrases écrites en dur dans les composants, avec leur version anglaise. Le français
+ *  reste la source dans le code : `tx(lang, "Chargement…")` rend « Loading… » en anglais et
+ *  la phrase telle quelle en français. Une phrase absente du dictionnaire reste en français,
+ *  jamais vide. */
+const EN: Record<string, string> = {
+  // Général
+  "Chargement…": "Loading…",
+  "Gratuit": "Free",
+  "Sur demande": "On request",
+  "Fermer": "Close",
+  "Annuler": "Cancel",
+  "Envoi…": "Sending…",
+  "✓ Reçu, merci": "✓ Received, thank you",
+  "Un problème est survenu. Réessayez svp.": "Something went wrong. Please try again.",
+  "Me connecter": "Sign in",
+  "Mon espace": "My space",
+  "Administration": "Admin",
+  "Qui est Élise": "Who is Elise",
+  "Lire son parcours": "Read her story",
+  "Modifier": "Edit",
+
+  // Accueil
+  "Thérapie somatique, mouvement, éducation, retraites.": "Somatic therapy, movement, education, retreats.",
+  "par Elise .G Lortie": "by Elise .G Lortie",
+
+  // Calendrier ouvert et aperçu de l'horaire
+  "Mois précédent": "Previous month",
+  "Mois suivant": "Next month",
+  "Heures ouvertes": "Open hours",
+  "Son horaire": "Her schedule",
+  "Les prochaines heures ouvertes": "The next open hours",
+  "Aucune plage n'est ouverte pour l'instant. Écrivez à Elise depuis votre espace et elle vous proposera un moment.":
+    "No time slot is open for now. Write to Elise from your space and she will suggest a moment.",
+  "L'heure choisie se confirme dans votre espace, une fois le compte ouvert.":
+    "The chosen time is confirmed in your space, once your account is open.",
+  "Vous choisissez l'heure qui vous convient une fois votre espace ouvert.":
+    "You choose the time that suits you once your space is open.",
+  "Investir sur mon bien-être": "Invest in my well-being",
+  "Prendre Rendez-vous": "Book a session",
+
+  // Rendez-vous
+  "Soins ouverts à la réservation": "Sessions open for booking",
+  "Le parcours": "How it works",
+  "Le paiement se fait par virement Interac à": "Payment is made by Interac e-Transfer to",
+  ", ou par carte quand la caisse en ligne est ouverte.": ", or by card when the online checkout is open.",
+
+  // Services par catégorie
+  "Le toucher est le premier langage que le corps comprend. Les séances se donnent en personne, et la durée se choisit selon ce que la semaine a laissé dans les épaules.":
+    "Touch is the first language the body understands. Sessions are given in person, and the length is chosen according to what the week has left in the shoulders.",
+  "Elise .G Lortie est éducatrice à la sexualité et thérapeute en intégration somatique. Elle reçoit en séance individuelle et anime des cercles et des formations, toujours dans un cadre sécuritaire, inclusif et non normatif.":
+    "Elise .G Lortie is a sex educator and somatic integration therapist. She offers individual sessions and leads circles and trainings, always in a safe, inclusive and non-normative setting.",
+  "Formée à la Roue du consentement de Betty Martin, Elise .G Lortie accompagne le consentement là où il se joue pour vrai : sur un plateau où des scènes d'intimité se tournent, dans une équipe, dans un lieu de vie. Elle prépare les personnes, tient le cadre pendant, et reste disponible après.":
+    "Trained in Betty Martin's Wheel of Consent, Elise .G Lortie supports consent where it really plays out: on a set where intimacy scenes are filmed, within a team, in a shared living space. She prepares people, holds the frame during, and stays available after.",
+
+  // Pair-aidance
+  "Soins offerts": "Sessions offered",
+  "Les soins seront bientôt accessibles.": "Sessions will be available soon.",
+  "Soin individuel": "Individual session",
+  "Pour prendre rendez-vous, créez votre espace personnel.": "To book a session, create your personal space.",
+  "Connexion Google ou courriel": "Google or email sign-in",
+  "Soin de groupe / corporatif": "Group / corporate session",
+  "Entreprise, équipe, cercle thérapeutique : décrivez-moi votre intention.": "Company, team, therapeutic circle: tell me your intention.",
+  "Demander pour un groupe": "Request for a group",
+
+  // Mouvement
+  "Cours à venir": "Upcoming classes",
+  "Inscrivez-vous en un geste, par carte ou par virement Interac.": "Sign up in one step, by card or by Interac e-Transfer.",
+  "Aucun cours actif pour l'instant.": "No active class for now.",
+  "Vous voulez organiser un cours dans votre région ?": "Want to organize a class in your area?",
+  "Cours de groupe (10 personnes et plus) ou suivi privé en forfait : écrivez-moi vos détails.": "Group class (10 people and more) or private package: send me your details.",
+  "Demander un cours": "Request a class",
+  "Payer par carte": "Pay by card",
+  "S'inscrire": "Sign up",
+  "✓ Inscrit·e": "✓ Registered",
+  "Virement Interac": "Interac e-Transfer",
+  "en audio": "audio",
+  "en vidéo": "video",
+  "places": "spots",
+  "Ce cours est complet.": "This class is full.",
+  "Connectez-vous pour vous inscrire.": "Sign in to register.",
+  "Le paiement n'est pas encore ouvert. Écrivez à Elise pour réserver votre place.": "Payment is not open yet. Write to Elise to reserve your spot.",
+  "La réservation n'a pas pu être enregistrée. Réessayez.": "The reservation could not be saved. Please try again.",
+  "Place réservée. Envoyez": "Spot reserved. Send",
+  "par virement Interac à": "by Interac e-Transfer to",
+  ", avec votre nom et le titre du cours en message. Elise confirme votre place dès réception.": ", with your name and the class title in the message. Elise confirms your spot on receipt.",
+  ", avec votre nom et le titre de l'événement en message. Elise confirme votre place dès réception.": ", with your name and the event title in the message. Elise confirms your spot on receipt.",
+  "Pour rejoindre un cours, créez votre espace": "To join a class, create your space",
+  "Connectez-vous, demandez votre place, et chattez avec votre groupe.": "Sign in, request your spot, and chat with your group.",
+  "Créer un compte": "Create an account",
+  "Liste de lecture": "Playlist",
+
+  // Événements
+  "Vous portez l'idée d'un événement ?": "Carrying the idea of an event?",
+  "Atelier, retraite, cérémonie, festival : proposez-moi votre vision et nous regarderons ensemble si c'est possible.": "Workshop, retreat, ceremony, festival: share your vision and we will look together at what is possible.",
+  "Proposer un événement": "Propose an event",
+  "Aucun événement à venir pour l'instant.": "No upcoming event for now.",
+  "Inscription confirmée !": "Registration confirmed!",
+  "Le paiement n'est pas encore configuré. Réessayez plus tard.": "Payment is not set up yet. Please try again later.",
+  "Événements passés": "Past events",
+
+  // Boutique, ressources, écrits, multimédias
+  "Sans catégorie": "Uncategorized",
+  "La boutique est en préparation, revenez bientôt.": "The shop is being prepared, come back soon.",
+  "Rupture": "Sold out",
+  "Les ressources arrivent bientôt.": "Resources are coming soon.",
+  "Connexion requise": "Sign-in required",
+  "Les premiers écrits arrivent bientôt.": "The first writings are coming soon.",
+  "Lire l'article": "Read the article",
+  "Les premières vidéos arrivent.": "The first videos are coming.",
+  "Vidéo": "Video",
+  "Balado": "Podcast",
+  "Ouvrir sur le site d'origine": "Open on the original site",
+
+  // Formulaires de demande
+  "Le champ": "The field",
+  "est requis.": "is required.",
+  "doit être au moins": "must be at least",
+  "Impossible d'envoyer la demande. Réessayez plus tard.": "The request could not be sent. Please try again later.",
+  "Merci : votre demande est partie.": "Thank you: your request is on its way.",
+  "Elise lit chaque demande personnellement et reviendra vers vous à l'adresse fournie.": "Elise reads every request personally and will get back to you at the address provided.",
+  "— Choisir —": "— Choose —",
+  "Envoyer la demande": "Send the request",
+  "Nom complet": "Full name",
+  "Courriel": "Email",
+  "Téléphone (facultatif)": "Phone (optional)",
+  "Organisation / lieu (facultatif)": "Organization / venue (optional)",
+  "Nom de votre école, festival, entreprise, studio, etc.": "Name of your school, festival, company, studio, etc.",
+  "Cours de danse": "Dance classes",
+  "Groupe ou privé": "Group or private",
+  "Demander un cours de danse": "Request a dance class",
+  "Que ce soit un groupe en région ou un suivi privé, écrivez-moi quelques détails et je reviendrai vers vous bientôt.": "Whether it is a group in your region or private coaching, send me a few details and I will get back to you soon.",
+  "Type de cours": "Type of class",
+  "Cours de groupe (minimum 10 personnes)": "Group class (minimum 10 people)",
+  "Privé · 1-on-1 — Forfait 4 cours (500 $)": "Private · 1-on-1 — 4-class package ($500)",
+  "Privé · 1-on-1 — Forfait 8 cours (800 $)": "Private · 1-on-1 — 8-class package ($800)",
+  "Ville / lieu prévu": "City / planned venue",
+  "Nombre de personnes prévu": "Expected number of people",
+  "Oui (nom et adresse) / Non, à organiser": "Yes (name and address) / No, to be arranged",
+  "Débutante": "Beginner",
+  "Intermédiaire": "Intermediate",
+  "Avancée": "Advanced",
+  "Mixte": "Mixed",
+  "Dates ou période souhaitée": "Preferred dates or period",
+  "Éducation / interventions": "Education / interventions",
+  "École, festival, conférence…": "School, festival, conference…",
+  "Demander une intervention éducative": "Request an educational intervention",
+  "Conférence, séminaire, formation pour un groupe — décrivez-moi le contexte et l'intention. Je vous propose une formule sur mesure.": "Conference, seminar, group training: describe the context and the intention. I will propose a tailored format.",
+  "École (primaire)": "School (elementary)",
+  "École (secondaire)": "School (high school)",
+  "École (collégial / cégep)": "School (college / cégep)",
+  "École (universitaire)": "School (university)",
+  "Conférence publique": "Public conference",
+  "Séminaire / formation": "Seminar / training",
+  "Cercle / groupe d'études": "Circle / study group",
+  "Sujet ou thème souhaité": "Desired subject or theme",
+  "Ex. somatique en milieu scolaire, écoute du corps, consentement, ancrage…": "E.g. somatics at school, listening to the body, consent, grounding…",
+  "Taille du public prévu": "Expected audience size",
+  "Ex. enseignants, jeunes 14-17 ans, professionnel·les de la santé…": "E.g. teachers, youth 14-17, health professionals…",
+  "Format souhaité": "Preferred format",
+  "Présentiel": "In person",
+  "En ligne": "Online",
+  "Hybride": "Hybrid",
+  "À discuter": "To be discussed",
+  "Durée prévue": "Planned duration",
+  "Ex. 90 min, demi-journée, 2 jours…": "E.g. 90 min, half-day, 2 days…",
+  "Date(s) souhaitée(s)": "Preferred date(s)",
+  "Budget envisagé (facultatif)": "Planned budget (optional)",
+  "Événements sur mesure": "Custom events",
+  "Atelier, retraite, cérémonie…": "Workshop, retreat, ceremony…",
+  "Vous avez une idée d'événement où vous souhaitez ma présence — atelier, retraite, cérémonie, festival ? Décrivez-moi votre vision.": "You have an event in mind where you would like my presence: workshop, retreat, ceremony, festival? Describe your vision.",
+  "Type d'événement": "Type of event",
+  "Atelier (1 séance)": "Workshop (1 session)",
+  "Série d'ateliers": "Workshop series",
+  "Cérémonie": "Ceremony",
+  "Conférence": "Conference",
+  "Événement corporatif": "Corporate event",
+  "Thème / intention de l'événement": "Theme / intention of the event",
+  "Quelle expérience souhaitez-vous offrir aux participants ?": "What experience do you want to offer participants?",
+  "Nombre de participants prévu": "Expected number of participants",
+  "Ex. femmes en transition, équipe de soignants, communauté locale…": "E.g. women in transition, care team, local community…",
+  "Lieu / région": "Venue / region",
+  "Ex. Outaouais, Estrie, en ligne, à déterminer ensemble": "E.g. Outaouais, Estrie, online, to be decided together",
+  "Hébergement, repas, espace — déjà organisé ?": "Lodging, meals, space: already arranged?",
+  "Décrivez ce qui est déjà en place ou à organiser": "Describe what is already in place or still to arrange",
+  "Entreprise, équipe, collectif": "Company, team, collective",
+  "Pour les soins individuels, créez votre espace client. Ce formulaire est pour les soins de groupe ou les contextes corporatifs / collectifs.": "For individual sessions, create your client space. This form is for group sessions or corporate / collective contexts.",
+  "Entreprise / équipe de travail": "Company / work team",
+  "Cercle thérapeutique": "Therapeutic circle",
+  "Qu'est-ce que vous cherchez à offrir au groupe ?": "What do you want to offer the group?",
+  "Réserver Elise": "Book Elise",
+  "Tournage, scène, équipe, lieu de vie": "Film set, stage, team, living space",
+  "Réserver une consultante en consentement": "Book a consent consultant",
+  "Décrivez-moi la situation : un tournage avec des scènes d'intimité, une équipe, un lieu où le consentement mérite d'être accompagné. Je vous propose une présence sur mesure.": "Describe the situation: a shoot with intimacy scenes, a team, a place where consent deserves support. I will propose a tailored presence.",
+  "Tournage (cinéma, télé, web)": "Film set (cinema, TV, web)",
+  "Théâtre ou scène": "Theatre or stage",
+  "Équipe de travail ou entreprise": "Work team or company",
+  "Lieu de vie ou communauté": "Living space or community",
+  "Ex. deux scènes d'intimité sur un tournage de trois semaines, une équipe de douze personnes…": "E.g. two intimacy scenes on a three-week shoot, a team of twelve…",
+  "Dates ou période": "Dates or period",
+  "Ex. du 3 au 21 novembre, ou à définir": "E.g. November 3 to 21, or to be defined",
+  "Nombre de personnes concernées": "Number of people involved",
+};
+
+/** Rend la phrase dans la langue demandée. Les phrases inconnues restent en français. */
+export const tx = (lang: Lang, fr: string): string => (lang === "en" ? EN[fr] ?? fr : fr);
