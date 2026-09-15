@@ -114,7 +114,6 @@ export const DetailView = ({
             {id === "mouvement" && <Mouvement content={t.sections.mouvement} />}
             {id === "massotherapie" && (
               <ServicesParCategorie
-                intro={t.sections.massotherapie.intro}
                 categorie="massotherapie"
                 cleTexte="massotherapie.texte"
                 texteParDefaut="Le toucher est le premier langage que le corps comprend. Les séances se donnent en personne, et la durée se choisit selon ce que la semaine a laissé dans les épaules."
