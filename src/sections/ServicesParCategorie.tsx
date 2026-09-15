@@ -20,9 +20,10 @@ interface Props {
   demande: InterventionCategory;
 }
 
-/** Une page de services : l'intro, le texte d'Élise, les offres de la catégorie
- *  telles qu'elle les tient dans son admin, et la porte pour la rejoindre. */
-export const ServicesParCategorie = ({ intro, categorie, cleTexte, texteParDefaut, demande }: Props) => {
+/** Une page de services : le texte d'Élise, les offres de la catégorie telles qu'elle les
+ *  tient dans son admin, et la porte pour la rejoindre. L'intro se lit déjà dans l'en-tête
+ *  commun (DetailView), donc elle ne se répète pas ici. */
+export const ServicesParCategorie = ({ categorie, cleTexte, texteParDefaut, demande }: Props) => {
   const { tarifs, loading } = useTarifs();
   const [ouvert, setOuvert] = useState(false);
   const config = INTERVENTION_CONFIGS[demande];
@@ -34,11 +35,7 @@ export const ServicesParCategorie = ({ intro, categorie, cleTexte, texteParDefau
 
   return (
     <div className="w-full">
-      <p className="max-w-3xl font-serif text-2xl md:text-3xl font-light leading-snug text-ink/85 dark:text-stone-200">
-        {intro}
-      </p>
-
-      <div className="mt-8 max-w-3xl font-serif text-xl leading-relaxed text-ink/75 dark:text-stone-300">
+      <div className="max-w-3xl font-serif text-xl leading-relaxed text-ink/75 dark:text-stone-300">
         <EditableText as="p" contentKey={cleTexte} defaultValue={texteParDefaut} />
       </div>
 
