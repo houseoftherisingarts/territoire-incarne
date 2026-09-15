@@ -4,6 +4,7 @@ export type Theme = "light" | "dark";
 export type SectionId =
   | "therapie"
   | "mouvement"
+  | "ateliers"
   | "events"
   | "ressources"
   | "connecter"
@@ -29,6 +30,7 @@ export interface CartItem {
 export const NAV_ORDER: SectionId[] = [
   "therapie",
   "mouvement",
+  "ateliers",
   "events",
   "apropos",
   "writings",
@@ -39,5 +41,5 @@ export const NAV_ORDER: SectionId[] = [
 
 /** Les sections qu'Élise peut éteindre depuis Paramètres › Sections du site. */
 export const SECTIONS_ETEIGNABLES: SectionId[] = [
-  "therapie", "mouvement", "events", "apropos", "writings", "ressources", "boutique", "connecter", "rendezvous",
+  "therapie", "mouvement", "ateliers", "events", "apropos", "writings", "ressources", "boutique", "connecter", "rendezvous",
 ];

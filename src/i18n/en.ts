@@ -33,7 +33,8 @@ export const en: Content = {
     mouvement: "Movement",
     therapie: "Therapy",
     education: "Education",
-    events: "Events",
+    ateliers: "Workshops",
+    events: "Upcoming workshops & retreats",
     boutique: "Shop",
     writings: "Writings",
     connecter: "Connect",
@@ -97,8 +98,12 @@ export const en: Content = {
       title: "Education",
       intro: "A hub of resources to undo taboo and cultivate consent.",
     },
+    ateliers: {
+      title: "Workshops",
+      intro: "The repertoire of workshops Elise facilitates, and how to invite her to your place.",
+    },
     events: {
-      title: "Events",
+      title: "Upcoming workshops & retreats",
       intro: "Immersive retreats and practice circles to dive into matter.",
     },
     boutique: {

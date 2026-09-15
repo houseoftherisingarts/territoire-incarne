@@ -31,7 +31,8 @@ export const fr = {
     mouvement: "Mouvement",
     therapie: "Thérapie",
     education: "Éducation",
-    events: "Événements",
+    ateliers: "Ateliers",
+    events: "Ateliers & retraites à venir",
     boutique: "Boutique",
     writings: "Écrits",
     connecter: "Connecter",
@@ -95,8 +96,12 @@ export const fr = {
       title: "Éducation",
       intro: "Un hub de ressources pour déconstruire les tabous et cultiver le consentement.",
     },
+    ateliers: {
+      title: "Ateliers",
+      intro: "Le répertoire des ateliers qu'Elise anime, et la marche à suivre pour l'inviter chez vous.",
+    },
     events: {
-      title: "Événements",
+      title: "Ateliers & retraites à venir",
       intro: "Retraites immersives et cercles de pratique pour plonger dans la matière.",
     },
     boutique: {
