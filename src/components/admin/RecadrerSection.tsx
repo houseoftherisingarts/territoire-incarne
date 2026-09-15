@@ -5,6 +5,7 @@ import { PHOTOS_DU_SITE, type PhotoDuSite } from "../../assets/images";
 import { useSiteOverrides, saveOverride, clearOverride } from "../../hooks/useSiteOverrides";
 import { listMediaFiles, type FichierMedia } from "../../lib/storage";
 import { CADRE_PAR_DEFAUT, ecrireCadre, lireCadre, styleCadre, type Cadre } from "../edit/EditableImage";
+import { usePhotoPortrait } from "../../hooks/usePhotoPortrait";
 
 const cleCadre = (cle: string) => `${cle}.cadre`;
 const encode = (key: string) => key.replace(/\//g, "__").replace(/\./g, "_");
@@ -20,6 +21,9 @@ const CartePhoto = ({ photo, overrides, fichiers }: { photo: PhotoDuSite; overri
   const [choix, setChoix] = useState(false);
   const [etat, setEtat] = useState<"" | "envoi" | "fait" | "erreur">("");
   const cadreRef = useRef<HTMLDivElement>(null);
+  // Une photo en hauteur met la page en double page (cadre 3:4); en largeur, elle fait un bandeau.
+  const enHauteur = usePhotoPortrait(url);
+  const ratio = photo.ratio < 1 ? photo.ratio : enHauteur ? 3 / 4 : photo.ratio;
 
   useEffect(() => { setUrl(urlEnLigne); }, [urlEnLigne]);
   useEffect(() => { setCadre(cadreEnLigne); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [overrides[encode(cleCadre(photo.cle))]]);
@@ -64,7 +68,7 @@ const CartePhoto = ({ photo, overrides, fichiers }: { photo: PhotoDuSite; overri
           </a>
         </div>
         <span className="font-sans text-xs uppercase tracking-[0.18em] text-ink/40 dark:text-stone-500">
-          {photo.ratio >= 2 ? "Bandeau 21:9" : photo.ratio >= 1 ? "Paysage" : "Portrait 3:4"}
+          {ratio >= 2 ? "Bandeau 21:9" : ratio >= 1 ? "Paysage" : "Portrait 3:4"}
         </span>
       </div>
 
@@ -75,7 +79,7 @@ const CartePhoto = ({ photo, overrides, fichiers }: { photo: PhotoDuSite; overri
         tabIndex={0}
         aria-label="Cliquez pour poser le point d'attention"
         className="mt-4 relative w-full overflow-hidden bg-ink/5 dark:bg-black/30 cursor-crosshair ring-1 ring-ink/10 dark:ring-white/10"
-        style={{ aspectRatio: String(photo.ratio) }}
+        style={{ aspectRatio: String(ratio) }}
       >
         <img src={url} alt="" className="w-full h-full object-cover" style={styleCadre(cadre)} draggable={false} />
         <span

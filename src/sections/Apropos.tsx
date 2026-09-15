@@ -9,7 +9,7 @@ export const Apropos = ({
   content: Content["sections"]["apropos"];
   lang: Lang;
 }) => (
-  <p className="mt-8 text-base md:text-lg leading-loose font-light text-stone-500 dark:text-stone-300 font-serif max-w-2xl">
+  <p className="text-lg md:text-xl leading-relaxed font-light text-ink/75 dark:text-stone-300 font-serif max-w-2xl">
     <GlossaryText content={content.longText} lang={lang} />
   </p>
 );

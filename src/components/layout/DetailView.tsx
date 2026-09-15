@@ -14,6 +14,8 @@ import { BlogPostView } from "../blog/BlogPostView";
 import { Reveal, RevealPhoto } from "../motion/Reveal";
 import { EditableImage } from "../edit/EditableImage";
 import { EditableText } from "../edit/EditableText";
+import { useSiteEdit } from "../../lib/siteEdit";
+import { usePhotoPortrait } from "../../hooks/usePhotoPortrait";
 
 import {
   Apropos,
@@ -117,6 +119,49 @@ const OuvertureEducation = ({ intro, lang }: { intro: string; lang: Lang }) => {
   );
 };
 
+/** La photo d'une section, mise en page selon son orientation. En largeur : un bandeau 21:9 sous
+ *  l'ouverture. En hauteur : une double page, la photo dans une colonne (à gauche sur les sections
+ *  paires, à droite sur les impaires) et le texte d'ouverture posé à côté, sur la même ligne de base.
+ *  L'orientation se lit sur la photo qu'Élise a réellement choisie (crayon ou Recadrer les photos),
+ *  donc changer de photo change la page. */
+const PhotoDeSection = ({ id, index, photo, navTitle, intro, lang, texte, portrait }: {
+  id: SectionId; index: number; photo: string; navTitle: string; intro?: string; lang: Lang; texte?: React.ReactNode; portrait: boolean | null;
+}) => {
+  if (portrait === null) return <div className="w-full min-h-[40vh]" aria-hidden="true" />;
+
+  if (!portrait) {
+    return (
+      <>
+        <RevealPhoto className="w-full px-5 md:px-12 lg:px-16 mb-16 md:mb-24">
+          <div className="w-full overflow-hidden aspect-[21/9] max-h-[46vh]">
+            <EditableImage contentKey={`section.${id}.photo`} defaultUrl={photo} alt={navTitle} className="w-full h-full object-cover" loading="eager" />
+          </div>
+        </RevealPhoto>
+        {texte && <div className="w-full px-5 md:px-12 lg:px-16 mb-14 md:mb-20">{texte}</div>}
+      </>
+    );
+  }
+
+  const aDroite = index % 2 === 1;
+  return (
+    <div className="w-full px-5 md:px-12 lg:px-16 mb-16 md:mb-24 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 items-end">
+      <RevealPhoto className={`lg:col-span-5 w-full aspect-[3/4] max-h-[78vh] overflow-hidden bg-ink/5 dark:bg-white/5 ${aDroite ? "lg:order-2" : ""}`}>
+        <EditableImage contentKey={`section.${id}.photo`} defaultUrl={photo} alt={navTitle} className="w-full h-full object-cover object-[50%_20%]" loading="eager" />
+      </RevealPhoto>
+      <div className={`lg:col-span-7 lg:pb-4 ${aDroite ? "lg:order-1 lg:pr-8" : "lg:pl-8"}`}>
+        {intro && (
+          <Reveal>
+            <p className="max-w-xl font-serif text-xl md:text-2xl font-light leading-snug text-ink/70 dark:text-stone-300">
+              <GlossaryText content={intro} lang={lang} />
+            </p>
+          </Reveal>
+        )}
+        {texte && <Reveal delay={0.1}><div className={intro ? "mt-8" : ""}>{texte}</div></Reveal>}
+      </div>
+    </div>
+  );
+};
+
 /** Une page de section : une ouverture éditoriale (kicker, titre en grand, intro), un bandeau
  *  photo qui s'ouvre du centre vers les bords, puis le contenu de la section. La boutique et
  *  un écrit ouvert prennent toute la largeur. */
@@ -138,7 +183,12 @@ export const DetailView = ({
   const fullWidth = id === "boutique" || id === "mouvement" || (id === "writings" && !!postSlug);
   const numero = index >= 0 ? String(index + 1).padStart(2, "0") : "";
   const ouvertureVideo = id === "education";
-  const portrait = id === "apropos";
+  const { read } = useSiteEdit();
+  const aPhoto = !!photo && !ouvertureVideo && id !== "rendezvous";
+  /** L'orientation de la photo réellement choisie décide de la page : en hauteur, elle prend une
+   *  colonne et l'intro vient à côté; en largeur, l'intro reste dans l'en-tête et la photo fait un bandeau. */
+  const portrait = usePhotoPortrait(aPhoto ? read(`section.${id}.photo`, photo!) : "");
+  const introDansEntete = !ouvertureVideo && !(aPhoto && portrait !== false);
 
   return (
     <main id="contenu" className="w-full">
@@ -158,7 +208,7 @@ export const DetailView = ({
               {sectionContent.title}
             </h1>
           </div>
-          {sectionContent.intro && !ouvertureVideo && (
+          {sectionContent.intro && introDansEntete && (
             <p className="lg:col-span-5 lg:pb-3 max-w-xl font-serif text-xl md:text-2xl font-light leading-snug text-ink/70 dark:text-stone-300">
               <GlossaryText content={sectionContent.intro} lang={lang} />
             </p>
@@ -167,26 +217,20 @@ export const DetailView = ({
 
         {ouvertureVideo && <OuvertureEducation intro={sectionContent.intro ?? ""} lang={lang} />}
 
-        {photo && !ouvertureVideo && id !== "rendezvous" && (
-          <RevealPhoto className="w-full px-5 md:px-12 lg:px-16 mb-16 md:mb-24">
-            <div className={`w-full overflow-hidden ${portrait ? "aspect-[21/9] max-h-[60vh]" : "aspect-[21/9] max-h-[46vh]"}`}>
-              <EditableImage
-                contentKey={`section.${id}.photo`}
-                defaultUrl={photo}
-                alt={navTitle}
-                className={`w-full h-full object-cover ${portrait ? "object-[50%_18%]" : ""}`}
-                loading="eager"
-              />
-            </div>
-          </RevealPhoto>
+        {aPhoto && photo && (
+          <PhotoDeSection
+            id={id}
+            index={index}
+            photo={photo}
+            navTitle={navTitle}
+            intro={sectionContent.intro}
+            lang={lang}
+            portrait={portrait}
+            texte={id === "apropos" ? <Apropos content={t.sections.apropos} lang={lang} /> : undefined}
+          />
         )}
 
         <div className="w-full px-5 md:px-12 lg:px-16 pb-28 md:pb-40">
-          {id === "apropos" && (
-            <Reveal className="mb-14 md:mb-20">
-              <Apropos content={t.sections.apropos} lang={lang} />
-            </Reveal>
-          )}
 
           <div className={fullWidth ? "" : "max-w-4xl"}>
             {id === "therapie" && <Therapie content={t.sections.therapie} />}

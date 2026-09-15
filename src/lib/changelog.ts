@@ -28,6 +28,9 @@ export const JOURNAL: EntreeJournal[] = [
       "Toutes les photos du site sont maintenant dans ta médiathèque. Si tu retires une photo qui est posée sur une page, la page reprend sa photo d'origine d'elle-même, jamais un trou.",
       "Nouveau dans le tableau de bord : Recadrer les photos. Chaque photo du site y est montrée dans le cadre exact de sa page; tu cliques pour choisir ce qui reste au centre, tu glisses le zoom, et tu peux prendre une autre photo de ta médiathèque.",
       "Le pied de page porte un vrai bouton Administration, et la bascule EN traduit maintenant le calendrier, les formulaires, les cours, les événements et les textes que tu modifies sur la page (l'anglais se garde à part du français).",
+      "Chaque page se met en page selon la photo que tu lui donnes : une photo en hauteur prend une colonne, avec ton texte à côté (à gauche ou à droite, une page sur deux), et une photo en largeur fait un bandeau. Changer la photo, par le crayon ou par Recadrer les photos, change la page.",
+      "La vidéo de l'éducation sexuelle ralentit doucement avant de se figer, au lieu d'un arrêt sec.",
+      "La page À propos et le module Qui est Élise reprennent tes mots tels qu'ils paraissent sur le site du Collectif; le paragraphe qui avait été écrit à ta place a disparu.",
     ],
   },
   {

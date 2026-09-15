@@ -5,7 +5,7 @@ import { pathForSection } from "../routes";
 
 const ORIGINE = "https://territoireincarne.com";
 const DESCRIPTION_ACCUEIL =
-  "Elise .G Lortie tisse des espaces où le corps redevient un territoire de vérité. Thérapie somatique, mouvement, éducation, retraites.";
+  "Elise .G Lortie, éducatrice à la sexualité et thérapeute en intégration somatique. Thérapie somatique, mouvement, éducation, retraites.";
 
 const poserMeta = (selecteur: string, valeur: string) => {
   const el = document.head.querySelector<HTMLMetaElement>(selecteur);
