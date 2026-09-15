@@ -28,7 +28,9 @@ type SubTab = "book" | "mine";
 const SLOTS_PER_PAGE = 3;
 const HORIZON_DAYS = 60;
 
-const useMyAppointments = (uid: string) => {
+/** Exportée pour que le mot d'accueil du portail (ClientPortal) affiche le
+ *  prochain rendez-vous sans redemander la même requête Firestore. */
+export const useMyAppointments = (uid: string) => {
   const [items, setItems] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
