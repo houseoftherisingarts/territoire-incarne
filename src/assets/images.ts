@@ -32,8 +32,9 @@ export const ELISE_PORTRAIT = "/media/elise-portrait-2026.webp";
 export const ELISE_PORTRAIT_1200 = "/media/elise-portrait-2026-1200.webp";
 /** La photo de la massothérapie (Massage.png, 15 septembre 2026). */
 export const IMG_MASSAGE = "/media/massage-1920.webp";
-/** Éducation sexuelle : la vidéo d'Élise du 4 mars 2026, coupée à trois secondes, qui se fige
- *  sur sa dernière image; l'affiche est cette image-là. */
+/** Éducation sexuelle : la vidéo d'Élise du 4 mars 2026, coupée à trois secondes, avec un ralenti
+ *  progressif sur les huit derniers dixièmes (ffmpeg setpts + minterpolate), qui se fige sur sa
+ *  dernière image; l'affiche est cette image-là. */
 export const EDUCATION_VIDEO = "/media/education-elise-3s.mp4";
 export const EDUCATION_VIDEO_WEBM = "/media/education-elise-3s.webm";
 export const EDUCATION_VIDEO_MOBILE = "/media/education-elise-3s-mobile.mp4";

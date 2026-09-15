@@ -52,8 +52,9 @@ const EASE = [0.16, 0.8, 0.24, 1] as const;
 const TEXTE_EDUCATION =
   "Elise .G Lortie est éducatrice à la sexualité et thérapeute en intégration somatique. Elle reçoit en séance individuelle et anime des cercles et des formations, toujours dans un cadre sécuritaire, inclusif et non normatif.";
 
-/** L'ouverture de la page Éducation sexuelle : la vidéo d'Élise joue trois secondes, puis se
- *  fige sur sa dernière image, et son texte apparaît une seconde après l'arrêt. En format
+/** L'ouverture de la page Éducation sexuelle : la vidéo d'Élise joue trois secondes, ralentit
+ *  progressivement sur la fin (le ralenti est dans le fichier, pas dans le code), se fige sur sa
+ *  dernière image, et son texte apparaît une seconde après l'arrêt. En format
  *  portrait (la vidéo vient d'un téléphone), elle tient la colonne de gauche et le texte
  *  vient se poser à droite, sur la même ligne de base. Sans mouvement demandé, l'affiche
  *  et le texte s'affichent tout de suite. */
@@ -66,7 +67,7 @@ const OuvertureEducation = ({ intro, lang }: { intro: string; lang: Lang }) => {
     setGrandEcran(window.matchMedia("(min-width: 768px)").matches);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setMontre(true); return; }
     // Filet de sécurité : si la lecture automatique est refusée, le texte vient quand même.
-    const secours = window.setTimeout(() => setMontre(true), 4500);
+    const secours = window.setTimeout(() => setMontre(true), 6000);
     return () => { window.clearTimeout(secours); if (minuterie.current) window.clearTimeout(minuterie.current); };
   }, []);
 
@@ -88,7 +89,7 @@ const OuvertureEducation = ({ intro, lang }: { intro: string; lang: Lang }) => {
             playsInline
             preload="auto"
             onEnded={figee}
-            onTimeUpdate={(e) => { if (e.currentTarget.currentTime >= 2.97) figee(); }}
+            onTimeUpdate={(e) => { const v = e.currentTarget; if (Number.isFinite(v.duration) && v.currentTime >= v.duration - 0.05) figee(); }}
             aria-hidden="true"
           >
             {grandEcran && <source src={EDUCATION_VIDEO_WEBM} type="video/webm" />}

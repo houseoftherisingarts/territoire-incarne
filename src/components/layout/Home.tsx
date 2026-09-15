@@ -190,8 +190,8 @@ export const Home = ({ t, onOpen }: Props) => {
                 <EditableText
                   as="span"
                   contentKey="home.elise.lede"
-                  defaultValue={CONTENT.fr.sections.apropos.intro}
-                  defaultValueEn={CONTENT.en.sections.apropos.intro}
+                  defaultValue={CONTENT.fr.sections.apropos.longText.split(". ")[0] + "."}
+                  defaultValueEn={CONTENT.en.sections.apropos.longText.split(". ")[0] + "."}
                 />
               </p>
             </Reveal>
@@ -201,8 +201,8 @@ export const Home = ({ t, onOpen }: Props) => {
                   as="span"
                   contentKey="home.elise.texte"
                   multiline
-                  defaultValue={CONTENT.fr.sections.apropos.longText.split(". ").slice(0, 2).join(". ") + "."}
-                  defaultValueEn={CONTENT.en.sections.apropos.longText.split(". ").slice(0, 2).join(". ") + "."}
+                  defaultValue={CONTENT.fr.sections.apropos.longText.split(". ").slice(1).join(". ")}
+                  defaultValueEn={CONTENT.en.sections.apropos.longText.split(". ").slice(1).join(". ")}
                 />
               </p>
             </Reveal>
