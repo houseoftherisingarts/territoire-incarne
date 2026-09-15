@@ -5,6 +5,7 @@ import { uploadMediaFile } from "../../lib/storage";
 
 const CATEGORIES: { value: Tarif["category"]; label: string }[] = [
   { value: "consultation",   label: "Consultation" },
+  { value: "massotherapie",  label: "Massothérapie" },
   { value: "livre",          label: "Livre" },
   { value: "sante-sexuelle", label: "Santé sexuelle" },
   { value: "evenement",      label: "Événement" },

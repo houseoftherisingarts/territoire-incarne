@@ -43,6 +43,7 @@ export type AdminSectionId =
   | "messages"
   | "boutique"
   | "events"
+  | "ateliers"
   | "cours"
   | "ressources"
   | "mediatheque"
@@ -70,6 +71,7 @@ const NAV: NavItem[] = [
   { id: "messages",   label: "Messages",             Icon: Mail },
   { id: "boutique",   label: "Boutique",             Icon: ShoppingBag },
   { id: "events",     label: "Événements",           Icon: Sparkles },
+  { id: "ateliers",   label: "Ateliers",             Icon: GraduationCap },
   { id: "cours",      label: "Cours de danse",       Icon: Music },
   { id: "ressources", label: "Ressources",           Icon: Library },
   { id: "mediatheque", label: "Médiathèque",        Icon: Images },

@@ -12,7 +12,7 @@ export interface Tarif {
   type: "subscription" | "one-time";
   price: number;
   frequency?: "monthly" | "quarterly" | "yearly";
-  category: "consultation" | "livre" | "sante-sexuelle" | "evenement" | "autre";
+  category: "consultation" | "massotherapie" | "livre" | "sante-sexuelle" | "evenement" | "autre";
   active: boolean;
   /** Short tag shown above the title on public cards (e.g. "Soins", "Accompagnement"). */
   shortTag?: string;

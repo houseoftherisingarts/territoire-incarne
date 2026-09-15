@@ -11,6 +11,7 @@ import {
   Apropos,
   Boutique,
   Connecter,
+  Ateliers,
   Events,
   Mouvement,
   RendezVous,
@@ -110,6 +111,7 @@ export const DetailView = ({
             {id === "therapie" && <Therapie content={t.sections.therapie} />}
             {id === "rendezvous" && <RendezVous content={t.sections.rendezvous} general={t.general} />}
             {id === "mouvement" && <Mouvement content={t.sections.mouvement} />}
+            {id === "ateliers" && <Ateliers content={t.sections.ateliers} />}
             {id === "events" && <Events content={t.sections.events} />}
             {id === "ressources" && <Ressources content={t.sections.ressources} />}
             {id === "writings" && !postSlug && (

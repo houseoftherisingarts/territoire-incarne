@@ -19,6 +19,7 @@ import { AdminBlogSection } from "./blog/AdminBlogSection";
 import { AdminCalendarSection } from "./calendar/CalendarSection";
 import { ChangelogSection } from "./ChangelogSection";
 import { MediathequeSection } from "./MediathequeSection";
+import { AteliersAdminSection } from "./AteliersAdminSection";
 import { ApparenceSettings } from "./ApparenceSettings";
 import { SectionsSettings } from "./SectionsSettings";
 import { useAdminAuth } from "../../hooks/useAdminAuth";
@@ -69,6 +70,7 @@ export const AdminDashboard = () => {
       )}
       {section === "boutique"   && <ProductsSection />}
       {section === "events"     && <EventsAdminSection />}
+      {section === "ateliers"   && <AteliersAdminSection />}
       {section === "cours"      && <ClassesAdminSection />}
       {section === "ressources" && <ResourcesSection />}
       {section === "mediatheque" && <MediathequeSection />}

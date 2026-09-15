@@ -143,6 +143,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // ── Ateliers : le répertoire de ce qu'Élise anime, lu par tout le monde ──
+    match /ateliers/{atelierId} {
+      allow read:  if true;
+      allow write: if isAdmin();
+    }
+
     // ── Events ───────────────────────────────────────────────────────────
     match /events/{eventId} {
       allow read:  if true;

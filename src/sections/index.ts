@@ -1,4 +1,5 @@
 export { Apropos } from "./Apropos";
+export { Ateliers } from "./Ateliers";
 export { Boutique } from "./Boutique";
 export { Connecter } from "./Connecter";
 export { Events } from "./Events";
