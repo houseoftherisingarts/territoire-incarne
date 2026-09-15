@@ -20,6 +20,7 @@ import { AdminCalendarSection } from "./calendar/CalendarSection";
 import { ChangelogSection } from "./ChangelogSection";
 import { MediathequeSection } from "./MediathequeSection";
 import { AteliersAdminSection } from "./AteliersAdminSection";
+import { MultimediasAdminSection } from "./MultimediasAdminSection";
 import { ApparenceSettings } from "./ApparenceSettings";
 import { SectionsSettings } from "./SectionsSettings";
 import { useAdminAuth } from "../../hooks/useAdminAuth";
