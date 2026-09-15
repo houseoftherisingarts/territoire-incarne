@@ -113,6 +113,83 @@ const MessagerieTab = ({ uid }: { uid: string }) => {
   );
 };
 
+/** Premier mot du nom affiché, ou ce qui précède le @ à défaut. */
+const firstName = (displayName: string, email: string) =>
+  (displayName.trim() || email.split("@")[0]).split(" ")[0];
+
+/** Le geste le plus utile en un coup d'œil : le prochain rendez-vous s'il y en
+ *  a un, sinon l'invitation à en prendre un. Réutilise la même requête que
+ *  l'onglet Rendez-vous (useMyAppointments), jamais une deuxième lecture. */
+const ProchainRendezVous = ({ uid, onVoir, onReserver }: { uid: string; onVoir: () => void; onReserver: () => void }) => {
+  const { items, loading } = useMyAppointments(uid);
+  const prochain = useMemo(
+    () => items.find((a) => a.end.toDate() >= new Date() && a.status !== "cancelled") ?? null,
+    [items],
+  );
+
+  return (
+    <div className="border border-stone-200 dark:border-stone-700 rounded-2xl bg-white/40 dark:bg-white/5 p-6 flex flex-col gap-4">
+      <div className="flex items-center gap-2">
+        <CalendarDays size={14} className="text-rust opacity-70 shrink-0" />
+        <h2 className="font-sans text-xs uppercase tracking-[0.25em] opacity-60">Votre prochain rendez-vous</h2>
+      </div>
+
+      {loading ? (
+        <p className="font-serif italic opacity-50 text-sm">Chargement…</p>
+      ) : prochain ? (
+        <>
+          <div>
+            <span className={`inline-block text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded-full ${
+              prochain.status === "requested"
+                ? "bg-amber-200 text-amber-800 dark:bg-amber-700/30 dark:text-amber-200"
+                : "bg-forest/15 text-forest dark:bg-forest/30 dark:text-stone-100"
+            }`}>
+              {prochain.status === "requested" ? "En attente d'approbation" : "Confirmé"}
+            </span>
+            <p className="font-serif text-xl mt-2">{fmtDateLong(prochain.start.toDate())}</p>
+            <p className="font-mono text-sm opacity-70 mt-1">
+              {fmtHeureRdv(prochain.start.toDate())} – {fmtHeureRdv(prochain.end.toDate())} · {prochain.type ?? "Consultation"}
+            </p>
+          </div>
+          <button
+            onClick={onVoir}
+            className="self-start inline-flex items-center gap-2 text-xs font-sans uppercase tracking-widest font-bold text-rust hover:text-ink dark:hover:text-stone-100 transition-colors"
+          >
+            Voir mes rendez-vous <ArrowRight size={13} />
+          </button>
+        </>
+      ) : (
+        <>
+          <p className="font-serif opacity-70 text-sm">Aucun rendez-vous à l'agenda pour l'instant.</p>
+          <button
+            onClick={onReserver}
+            className="self-start inline-flex items-center gap-2 bg-rust text-paper px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold hover:bg-ink transition-colors"
+          >
+            Prendre rendez-vous <ArrowRight size={13} />
+          </button>
+        </>
+      )}
+    </div>
+  );
+};
+
+/** Le geste jumeau du rendez-vous : écrire à Élise, sans quitter l'accueil pour le trouver. */
+const EcrireAElise = ({ onEcrire }: { onEcrire: () => void }) => (
+  <div className="border border-stone-200 dark:border-stone-700 rounded-2xl bg-white/40 dark:bg-white/5 p-6 flex flex-col gap-4">
+    <div className="flex items-center gap-2">
+      <MessageSquare size={14} className="text-rust opacity-70 shrink-0" />
+      <h2 className="font-sans text-xs uppercase tracking-[0.25em] opacity-60">Une question, un mot</h2>
+    </div>
+    <p className="font-serif opacity-70 text-sm">Élise vous répondra directement dans vos messages.</p>
+    <button
+      onClick={onEcrire}
+      className="self-start inline-flex items-center gap-2 border border-ink/15 dark:border-white/15 px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold hover:border-rust hover:text-rust transition-colors"
+    >
+      Écrire à Élise <ArrowRight size={13} />
+    </button>
+  </div>
+);
+
 export const ClientPortal = () => {
   const { user, profile, loading, error, signInWithGoogle, signInWithEmail, signUpWithEmail, updateDisplayName, setNewsletterOptIn, resetPassword, logout } = useClientAuth();
   const { theme, toggle: toggleTheme } = useTheme();
