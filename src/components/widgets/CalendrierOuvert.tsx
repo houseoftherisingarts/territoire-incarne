@@ -3,19 +3,17 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useFirestoreCollection } from "../../hooks/useFirestoreCollection";
 import type { AvailabilitySlot } from "../../types/calendar";
 import { addDays, combineMontrealDateTime, dayOfWeekMontreal, fmtTime, halfHourSlots, isoDate } from "../../lib/datetime";
+import { locale, tx, useLangue } from "../../i18n/tx";
 
 const HORIZON_JOURS = 60;
 const DUREE = 60;
-const JOURS = ["D", "L", "M", "M", "J", "V", "S"];
+const JOURS = { fr: ["D", "L", "M", "M", "J", "V", "S"], en: ["S", "M", "T", "W", "T", "F", "S"] };
 
 const addMin = (hhmm: string, min: number) => {
   const [h, m] = hhmm.split(":").map(Number);
   const total = h * 60 + m + min;
   return `${String(Math.floor(total / 60) % 24).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
 };
-
-const moisLong = new Intl.DateTimeFormat("fr-CA", { month: "long", year: "numeric", timeZone: "America/Montreal" });
-const jourLong = new Intl.DateTimeFormat("fr-CA", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Montreal" });
 
 /** Les heures ouvertes d'un jour donné, d'après les plages qu'Élise tient dans son calendrier. */
 const heuresDuJour = (plages: AvailabilitySlot[], jour: Date, maintenant: Date): Date[] => {
@@ -49,11 +47,13 @@ interface Props {
  *  marqués d'un point, et à droite les heures du jour choisi. Choisir une heure ouvre l'espace
  *  personnel, où le rendez-vous se confirme une fois le compte créé. */
 export const CalendrierOuvert = ({ cible, libelleBouton }: Props) => {
+  const lang = useLangue();
   const { items: plages, loading } = useFirestoreCollection<AvailabilitySlot>("availability");
   const [decalageMois, setDecalageMois] = useState(0);
   const [jourChoisi, setJourChoisi] = useState<string | null>(null);
-
   const maintenant = useMemo(() => new Date(), []);
+  const moisLong = useMemo(() => new Intl.DateTimeFormat(locale(lang), { month: "long", year: "numeric", timeZone: "America/Montreal" }), [lang]);
+  const jourLong = useMemo(() => new Intl.DateTimeFormat(locale(lang), { weekday: "long", day: "numeric", month: "long", timeZone: "America/Montreal" }), [lang]);
 
   /** Les jours ouverts sur l'horizon, indexés par leur clé ISO. */
   const ouverts = useMemo(() => {
@@ -83,13 +83,14 @@ export const CalendrierOuvert = ({ cible, libelleBouton }: Props) => {
       cases.push({ cle, numero: Number(cle.slice(8, 10)), dansLeMois: cle.slice(0, 7) === `${y}-${String(m).padStart(2, "0")}` });
     }
     return { titre: moisLong.format(ancre), cases };
-  }, [maintenant, decalageMois]);
+  }, [maintenant, decalageMois, moisLong]);
 
   if (loading) return null;
+
   if (ouverts.size === 0) {
     return (
       <p className="font-serif text-lg text-ink/60 dark:text-stone-400">
-        Aucune plage n'est ouverte pour l'instant. Écrivez à Elise depuis votre espace et elle vous proposera un moment.
+        {tx(lang, "Aucune plage n'est ouverte pour l'instant. Écrivez à Elise depuis votre espace et elle vous proposera un moment.")}
       </p>
     );
   }
@@ -104,16 +105,16 @@ export const CalendrierOuvert = ({ cible, libelleBouton }: Props) => {
         <div className="flex items-center justify-between mb-6">
           <p className="font-serif text-2xl text-ink dark:text-stone-100 first-letter:uppercase">{mois.titre}</p>
           <div className="flex items-center gap-1">
-            <button type="button" aria-label="Mois précédent" disabled={decalageMois === 0} onClick={() => setDecalageMois((d) => Math.max(0, d - 1))} className="w-11 h-11 flex items-center justify-center rounded-full border border-ink/15 dark:border-white/15 disabled:opacity-30 hover:border-rust hover:text-rust transition-colors">
+            <button type="button" aria-label={tx(lang, "Mois précédent")} disabled={decalageMois === 0} onClick={() => setDecalageMois((d) => Math.max(0, d - 1))} className="w-11 h-11 flex items-center justify-center rounded-full border border-ink/15 dark:border-white/15 disabled:opacity-30 hover:border-rust hover:text-rust transition-colors">
               <ChevronLeft size={18} />
             </button>
-            <button type="button" aria-label="Mois suivant" disabled={decalageMois >= 1} onClick={() => setDecalageMois((d) => Math.min(1, d + 1))} className="w-11 h-11 flex items-center justify-center rounded-full border border-ink/15 dark:border-white/15 disabled:opacity-30 hover:border-rust hover:text-rust transition-colors">
+            <button type="button" aria-label={tx(lang, "Mois suivant")} disabled={decalageMois >= 1} onClick={() => setDecalageMois((d) => Math.min(1, d + 1))} className="w-11 h-11 flex items-center justify-center rounded-full border border-ink/15 dark:border-white/15 disabled:opacity-30 hover:border-rust hover:text-rust transition-colors">
               <ChevronRight size={18} />
             </button>
           </div>
         </div>
         <div className="grid grid-cols-7 gap-y-2 text-center">
-          {JOURS.map((j, i) => (
+          {JOURS[lang].map((j, i) => (
             <span key={i} className="font-sans text-xs uppercase tracking-[0.18em] text-ink/45 dark:text-stone-500 pb-2">{j}</span>
           ))}
           {mois.cases.map((c) => {
@@ -140,7 +141,7 @@ export const CalendrierOuvert = ({ cible, libelleBouton }: Props) => {
 
       {/* Les heures du jour choisi */}
       <div className="lg:col-span-6 lg:border-l lg:pl-16 border-ink/10 dark:border-white/10">
-        <p className="ed-kicker mb-2">Heures ouvertes</p>
+        <p className="ed-kicker mb-2">{tx(lang, "Heures ouvertes")}</p>
         <p className="font-serif text-2xl text-ink dark:text-stone-100 first-letter:uppercase mb-6">
           {jourActif ? jourLong.format(jourActif) : ""}
         </p>
@@ -163,11 +164,11 @@ export const CalendrierOuvert = ({ cible, libelleBouton }: Props) => {
           href={cible}
           className="mt-10 inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
         >
-          {libelleBouton}
+          {tx(lang, libelleBouton)}
           <span className="w-9 h-9 rounded-full bg-paper/15 flex items-center justify-center"><ArrowUpRight size={16} /></span>
         </a>
         <p className="mt-3 font-serif text-base text-ink/55 dark:text-stone-400">
-          L'heure choisie se confirme dans votre espace, une fois le compte ouvert.
+          {tx(lang, "L'heure choisie se confirme dans votre espace, une fois le compte ouvert.")}
         </p>
       </div>
     </div>
