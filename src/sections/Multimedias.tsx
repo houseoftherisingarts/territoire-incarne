@@ -47,8 +47,9 @@ const fmtDate = (iso: string) => {
 };
 
 /** La page Multimédias : les vidéos et les balados d'Élise, chacun avec son lecteur
- *  embarqué directement dans la page. */
-export const Multimedias = ({ content }: { content: Content["sections"]["multimedias"] }) => {
+ *  embarqué directement dans la page. L'intro se lit déjà dans l'en-tête commun
+ *  (DetailView), donc elle ne se répète pas ici. */
+export const Multimedias = (_props: { content: Content["sections"]["multimedias"] }) => {
   // Pas d'orderBy dans la requête : combiné à where(), Firestore exigerait un index composite.
   // Le tri par « ordre » se fait donc côté client, comme pour les ateliers.
   const options = useMemo(() => ({ where: [["publie", "==", true] as [string, "==", true]] }), []);
@@ -57,22 +58,18 @@ export const Multimedias = ({ content }: { content: Content["sections"]["multime
 
   return (
     <div className="w-full">
-      <p className="max-w-3xl font-serif text-2xl md:text-3xl font-light leading-snug text-ink/85 dark:text-stone-200">
-        {content.intro}
-      </p>
-
       {loading && (
-        <p className="mt-14 font-serif text-lg text-ink/50 dark:text-stone-400">Chargement…</p>
+        <p className="font-serif text-lg text-ink/50 dark:text-stone-400">Chargement…</p>
       )}
 
       {!loading && tries.length === 0 && (
-        <p className="mt-14 font-serif text-lg text-ink/60 dark:text-stone-400 border-t border-ink/10 dark:border-white/10 pt-10">
+        <p className="font-serif text-lg text-ink/60 dark:text-stone-400 border-t border-ink/10 dark:border-white/10 pt-10">
           Les premières vidéos arrivent.
         </p>
       )}
 
       {!loading && tries.length > 0 && (
-        <ul className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-14">
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-14">
           {tries.map((m, i) => {
             const embed = embedFor(m);
             return (
