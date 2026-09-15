@@ -20,6 +20,7 @@ import {
   Ressources,
   Therapie,
   Writings,
+  Multimedias,
 } from "../../sections";
 
 const photoPour = photoPourSection;
