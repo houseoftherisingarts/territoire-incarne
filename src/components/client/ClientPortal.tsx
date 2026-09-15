@@ -273,7 +273,7 @@ export const ClientPortal = () => {
           className="relative w-full aspect-[3/1] md:aspect-[4/1] bg-stone-200 dark:bg-stone-800 overflow-hidden group block"
         >
           <img src={profile.bannerUrl || ELISE_FIELD_IMG} alt="" className="w-full h-full object-cover" />
-          <span className="ed-voile absolute inset-0 pointer-events-none" aria-hidden="true" />
+          <span className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/40 to-transparent pointer-events-none" aria-hidden="true" />
           <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors">
             <Camera size={18} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
           </span>
