@@ -57,8 +57,8 @@ export const useMyAppointments = (uid: string) => {
   return { items, loading };
 };
 
-export const ClientReservationsTab = ({ uid, email, displayName, onOpenMessagerie }: Props) => {
-  const [tab, setTab] = useState<SubTab>("mine");
+export const ClientReservationsTab = ({ uid, email, displayName, onOpenMessagerie, initialSubTab = "mine" }: Props) => {
+  const [tab, setTab] = useState<SubTab>(initialSubTab);
   const { items: mine, loading } = useMyAppointments(uid);
   const { items: availability } = useFirestoreCollection<AvailabilitySlot>("availability");
   // Le miroir public des créneaux pris (rendez-vous des autres clientes, agenda Google d'Élise) :
