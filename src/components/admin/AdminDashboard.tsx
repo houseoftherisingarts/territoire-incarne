@@ -75,6 +75,7 @@ export const AdminDashboard = () => {
       {section === "cours"      && <ClassesAdminSection />}
       {section === "ressources" && <ResourcesSection />}
       {section === "mediatheque" && <MediathequeSection />}
+      {section === "multimedias" && <MultimediasAdminSection />}
       {section === "writings"   && <AdminBlogSection />}
       {section === "newsletter" && <NewsletterAdminSection />}
       {section === "changelog"  && <ChangelogSection />}
