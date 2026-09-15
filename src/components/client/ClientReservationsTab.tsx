@@ -16,14 +16,17 @@ import { buildIcs, downloadIcs } from "../../lib/ical";
 import { useTarifs, type Tarif } from "../../hooks/useTarifs";
 import type { Appointment, AvailabilitySlot } from "../../types/calendar";
 
+type SubTab = "book" | "mine";
+
 interface Props {
   uid: string;
   email: string;
   displayName: string;
   onOpenMessagerie: () => void;
+  /** Onglet ouvert au montage. Le mot d'accueil du portail y arrive directement
+   *  sur "book" depuis son geste "Prendre rendez-vous". Défaut : "mine". */
+  initialSubTab?: SubTab;
 }
-
-type SubTab = "book" | "mine";
 
 const SLOTS_PER_PAGE = 3;
 const HORIZON_DAYS = 60;
