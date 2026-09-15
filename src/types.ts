@@ -41,6 +41,7 @@ export const NAV_ORDER: SectionId[] = [
   "events",
   "apropos",
   "writings",
+  "multimedias",
   "ressources",
   "boutique",
   "connecter",
