@@ -117,7 +117,7 @@ const ImagePopover = ({ contentKey, defaultUrl, currentUrl, onClose }: PopoverPr
 
         <p className="text-xs font-mono opacity-50">{contentKey}</p>
 
-        <div className="aspect-video rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800">
+        <div className="aspect-video overflow-hidden bg-stone-200 dark:bg-stone-800">
           <img src={currentUrl} alt="" className="w-full h-full object-cover" />
         </div>
 

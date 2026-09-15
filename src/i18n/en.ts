@@ -31,12 +31,13 @@ export const en: Content = {
   nav: {
     apropos: "About",
     mouvement: "Movement",
-    therapie: "Therapy",
-    education: "Education",
-    ateliers: "Workshops",
-    events: "Upcoming workshops & retreats",
+    therapie: "Peer support",
+    massotherapie: "Massage therapy",
+    education: "Sex education (3 hands)",
+    ateliers: "À la carte classes",
+    events: "Upcoming trainings",
     boutique: "Shop",
-    writings: "Writings",
+    writings: "Blog",
     connecter: "Connect",
     ressources: "Resources",
     rendezvous: "Appointments",
@@ -94,16 +95,20 @@ export const en: Content = {
       formMsg: "Message (optional)",
       formBtn: "Send request",
     },
+    massotherapie: {
+      title: "Massage therapy",
+      intro: "Hands-on work, where her path began in 2005, before yoga and end-of-life care.",
+    },
     education: {
-      title: "Education",
-      intro: "A hub of resources to undo taboo and cultivate consent.",
+      title: "Sex education (3 hands)",
+      intro: "Sex education in a safe, inclusive and non-normative setting.",
     },
     ateliers: {
-      title: "Workshops",
+      title: "À la carte classes",
       intro: "The repertoire of workshops Elise facilitates, and how to invite her to your place.",
     },
     events: {
-      title: "Upcoming workshops & retreats",
+      title: "Upcoming trainings",
       intro: "Immersive retreats and practice circles to dive into matter.",
     },
     boutique: {

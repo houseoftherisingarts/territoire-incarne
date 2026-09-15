@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { ELISE_FIELD_HERO } from "../../assets/images";
-import type { SectionId } from "../../types";
+import { SOMMAIRE_ORDER, type SectionId } from "../../types";
 import { pathForSection } from "../../routes";
 import { useSections } from "../../hooks/useSections";
 import type { Content } from "../../i18n";
@@ -48,6 +48,7 @@ const MotsQuiMontent = ({ texte, delai = 0 }: { texte: string; delai?: number })
  *  thérapie et les cours de danse). Rien n'est centré, tout tient sur des filets. */
 export const Home = ({ t, onOpen }: Props) => {
   const { visibles, estVisible } = useSections();
+  const tuiles = SOMMAIRE_ORDER.filter((id) => visibles.includes(id));
   const ledeApropos = t.sections.apropos.intro.split(". ")[0] + ".";
 
   return (
@@ -151,7 +152,7 @@ export const Home = ({ t, onOpen }: Props) => {
           <p className="ed-kicker mb-10">{t.general.sommaire}</p>
         </Reveal>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10 dark:bg-white/10">
-          {visibles.map((id, i) => {
+          {tuiles.map((id, i) => {
             const section = t.sections[id] as { title: string; intro?: string };
             return (
               <Reveal key={id} delay={i * 0.04}>

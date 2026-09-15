@@ -169,7 +169,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
           className="flex flex-col md:flex-row gap-5 p-6 border border-stone-300 dark:border-stone-700 rounded-none bg-white/40 dark:bg-white/5 group"
         >
           {ev.image && (
-            <div className="w-full md:w-48 h-40 rounded-2xl overflow-hidden shrink-0 bg-stone-200">
+            <div className="w-full md:w-48 h-40 overflow-hidden shrink-0 bg-stone-200">
               <img src={ev.image} alt={ev.title} className="w-full h-full object-cover" loading="lazy" />
             </div>
           )}

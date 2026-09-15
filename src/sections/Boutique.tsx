@@ -158,7 +158,7 @@ const ProductCard = ({ title, desc, price, image, stock, onAdd, addLabel }: Prod
   const sold = stock <= 0;
   return (
     <div className="relative group flex flex-col p-5 border border-stone-200 dark:border-stone-700 rounded-[20px] hover:border-rust dark:hover:border-stone-400 transition-colors bg-white/40 dark:bg-white/5">
-      <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-stone-200 dark:bg-stone-800">
+      <div className="w-full aspect-[4/3] overflow-hidden mb-4 bg-stone-200 dark:bg-stone-800">
         {image && (
           <img
             src={image}

@@ -3,6 +3,8 @@ import type { SectionId } from "./types";
 export const SECTION_TO_PATH: Record<SectionId, string> = {
   apropos: "/a-propos",
   therapie: "/therapie",
+  massotherapie: "/massotherapie",
+  education: "/education-sexuelle",
   mouvement: "/mouvement",
   ateliers: "/ateliers",
   events: "/evenements",

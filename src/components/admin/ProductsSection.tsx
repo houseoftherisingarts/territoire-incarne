@@ -187,7 +187,7 @@ export const ProductsSection = () => {
 
             <div className="space-y-1">
               <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60">Image</label>
-              <div className="aspect-[4/3] rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 mb-2">
+              <div className="aspect-[4/3] overflow-hidden bg-stone-200 dark:bg-stone-800 mb-2">
                 {form.image && (
                   <img src={form.image} alt="" className="w-full h-full object-cover" />
                 )}
@@ -226,7 +226,7 @@ export const ProductsSection = () => {
           <Card key={p.id} className="p-5">
             <div className="flex gap-4">
               {p.image && (
-                <div className="w-20 h-20 rounded-xl overflow-hidden bg-stone-200 shrink-0">
+                <div className="w-20 h-20 overflow-hidden bg-stone-200 shrink-0">
                   <img src={p.image} alt="" className="w-full h-full object-cover" loading="lazy" />
                 </div>
               )}

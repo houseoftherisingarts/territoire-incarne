@@ -217,9 +217,9 @@ const ImageBlock = ({ value, onChange }: { value: string; onChange: (url: string
   return (
     <div className="relative">
       {value ? (
-        <img src={value} alt="" className="w-full rounded-xl object-cover max-h-96" />
+        <img src={value} alt="" className="w-full object-cover max-h-96" />
       ) : (
-        <div className="aspect-[4/3] bg-stone-200 dark:bg-stone-800 rounded-xl flex items-center justify-center">
+        <div className="aspect-[4/3] bg-stone-200 dark:bg-stone-800 flex items-center justify-center">
           <ImageIcon size={32} className="opacity-30" />
         </div>
       )}

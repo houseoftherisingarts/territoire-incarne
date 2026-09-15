@@ -72,7 +72,7 @@ export const BlogPostView = ({ slug, lang, onBack }: Props) => {
         <img
           src={post.heroImage}
           alt={content.title}
-          className="w-full aspect-[16/9] object-cover rounded-2xl shadow-xl mb-8"
+          className="w-full aspect-[16/9] object-cover shadow-xl mb-8"
           loading="eager"
           decoding="async"
         />

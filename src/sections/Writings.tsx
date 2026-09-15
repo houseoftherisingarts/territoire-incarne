@@ -69,7 +69,7 @@ export const Writings = ({ lang = "fr", onOpenPost }: Props) => {
             key={post.id}
             href={pathForPost(post.slug)}
             onClick={handleClick(post.slug)}
-            className="group flex flex-col bg-white/40 dark:bg-white/5 border border-stone-200 dark:border-stone-700 rounded-2xl overflow-hidden hover:border-rust dark:hover:border-stone-400 transition-colors"
+            className="group flex flex-col bg-white/40 dark:bg-white/5 border border-stone-200 dark:border-stone-700 overflow-hidden hover:border-rust dark:hover:border-stone-400 transition-colors"
           >
             {post.heroImage && (
               <div className="aspect-[16/9] overflow-hidden bg-stone-200">

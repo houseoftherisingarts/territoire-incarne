@@ -100,7 +100,7 @@ const TarifForm = ({ initial = EMPTY, onSave, onCancel }: FormProps) => {
 
         <div>
           <label className="block text-xs font-sans uppercase tracking-widest opacity-60 mb-2">Image</label>
-          <div className="aspect-[4/3] rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 mb-2">
+          <div className="aspect-[4/3] overflow-hidden bg-stone-200 dark:bg-stone-800 mb-2">
             {form.image && <img src={form.image} alt="" className="w-full h-full object-cover" />}
           </div>
           <label className="flex items-center justify-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
@@ -265,7 +265,7 @@ export const TarifsSection = () => {
             ) : (
               <div key={t.id} className="flex items-start gap-4 border border-stone-200 dark:border-stone-700 rounded-2xl p-5 bg-white/40 dark:bg-white/5">
                 {t.image && (
-                  <div className="w-20 h-20 rounded-xl overflow-hidden bg-stone-200 shrink-0">
+                  <div className="w-20 h-20 overflow-hidden bg-stone-200 shrink-0">
                     <img src={t.image} alt="" className="w-full h-full object-cover" loading="lazy" />
                   </div>
                 )}

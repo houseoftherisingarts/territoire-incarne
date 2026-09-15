@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { Upload, Trash2, Copy, Check, ImageOff, Play } from "lucide-react";
+import { createPortal } from "react-dom";
+import { Upload, Trash2, Copy, Check, ImageOff, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { uploadMediaFile, listMediaFiles, deleteMediaByPath, type FichierMedia } from "../../lib/storage";
 import { Card } from "./sections";
 
@@ -30,6 +31,8 @@ export const MediathequeSection = () => {
   const [envoi, setEnvoi] = useState(0);
   const [erreur, setErreur] = useState("");
   const [copie, setCopie] = useState("");
+  /** L'index du fichier ouvert en grand, ou null quand la visionneuse est fermée. */
+  const [agrandi, setAgrandi] = useState<number | null>(null);
 
   const relire = useCallback(async () => {
     setChargement(true);
@@ -44,6 +47,17 @@ export const MediathequeSection = () => {
   }, []);
 
   useEffect(() => { void relire(); }, [relire]);
+
+  useEffect(() => {
+    if (agrandi === null) return;
+    const touche = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setAgrandi(null);
+      if (e.key === "ArrowRight") setAgrandi((i) => (i === null ? null : (i + 1) % fichiers.length));
+      if (e.key === "ArrowLeft") setAgrandi((i) => (i === null ? null : (i - 1 + fichiers.length) % fichiers.length));
+    };
+    window.addEventListener("keydown", touche);
+    return () => window.removeEventListener("keydown", touche);
+  }, [agrandi, fichiers.length]);
 
   const deposer = async (liste: FileList | null) => {
     if (!liste || liste.length === 0) return;
@@ -126,8 +140,13 @@ export const MediathequeSection = () => {
             <p className="ed-kicker mb-5">{leCompte(fichiers)}</p>
             <ul className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
               {fichiers.map((f) => (
-                <li key={f.chemin} className="group rounded-[15px] overflow-hidden ring-1 ring-ink/10 dark:ring-white/10 bg-ink/[0.03] dark:bg-white/[0.04]">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-ink/5 dark:bg-black/30">
+                <li key={f.chemin} className="group overflow-hidden ring-1 ring-ink/10 dark:ring-white/10 bg-ink/[0.03] dark:bg-white/[0.04]">
+                  <button
+                    type="button"
+                    onClick={() => setAgrandi(fichiers.indexOf(f))}
+                    aria-label={`Agrandir ${f.nom}`}
+                    className="relative block w-full aspect-[4/3] overflow-hidden bg-ink/5 dark:bg-black/30"
+                  >
                     {estVideo(f) ? (
                       <>
                         <video src={`${f.url}#t=0.1`} preload="metadata" muted playsInline controls className="w-full h-full object-cover" />
@@ -138,7 +157,7 @@ export const MediathequeSection = () => {
                     ) : (
                       <img src={f.url} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                     )}
-                  </div>
+                  </button>
                   <div className="p-3">
                     <p className="font-serif text-base leading-snug text-ink dark:text-stone-100 truncate" title={f.nom}>{f.nom}</p>
                     <p className="font-sans text-xs text-ink/50 dark:text-stone-400 mt-1">
@@ -169,6 +188,57 @@ export const MediathequeSection = () => {
           </>
         )}
       </Card>
+
+      {agrandi !== null && fichiers[agrandi] && createPortal(
+        <div
+          className="fixed inset-0 z-[200] bg-ink/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-10"
+          role="dialog"
+          aria-modal="true"
+          aria-label={fichiers[agrandi].nom}
+          onClick={() => setAgrandi(null)}
+        >
+          <div className="max-w-[92vw] max-h-[86vh]" onClick={(e) => e.stopPropagation()}>
+            {estVideo(fichiers[agrandi]) ? (
+              <video src={fichiers[agrandi].url} controls autoPlay className="max-w-[92vw] max-h-[86vh]" />
+            ) : (
+              <img src={fichiers[agrandi].url} alt={fichiers[agrandi].nom} className="max-w-[92vw] max-h-[86vh] object-contain" />
+            )}
+            <p className="mt-3 text-center font-sans text-xs uppercase tracking-[0.18em] text-paper/80">
+              {fichiers[agrandi].nom}
+            </p>
+          </div>
+
+          <button
+            type="button"
+            aria-label="Fermer"
+            onClick={() => setAgrandi(null)}
+            className="absolute top-5 right-5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-paper/15 text-paper hover:bg-paper/25 transition-colors"
+          >
+            <X size={20} />
+          </button>
+          {fichiers.length > 1 && (
+            <>
+              <button
+                type="button"
+                aria-label="Précédent"
+                onClick={(e) => { e.stopPropagation(); setAgrandi((i) => (i === null ? null : (i - 1 + fichiers.length) % fichiers.length)); }}
+                className="absolute left-3 md:left-6 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-paper/15 text-paper hover:bg-paper/25 transition-colors"
+              >
+                <ChevronLeft size={22} />
+              </button>
+              <button
+                type="button"
+                aria-label="Suivant"
+                onClick={(e) => { e.stopPropagation(); setAgrandi((i) => (i === null ? null : (i + 1) % fichiers.length)); }}
+                className="absolute right-3 md:right-6 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-paper/15 text-paper hover:bg-paper/25 transition-colors"
+              >
+                <ChevronRight size={22} />
+              </button>
+            </>
+          )}
+        </div>,
+        document.body,
+      )}
     </div>
   );
 };

@@ -12,6 +12,7 @@ import {
   Boutique,
   Connecter,
   Ateliers,
+  ServicesParCategorie,
   Events,
   Mouvement,
   RendezVous,
@@ -111,6 +112,24 @@ export const DetailView = ({
             {id === "therapie" && <Therapie content={t.sections.therapie} />}
             {id === "rendezvous" && <RendezVous content={t.sections.rendezvous} general={t.general} />}
             {id === "mouvement" && <Mouvement content={t.sections.mouvement} />}
+            {id === "massotherapie" && (
+              <ServicesParCategorie
+                intro={t.sections.massotherapie.intro}
+                categorie="massotherapie"
+                cleTexte="massotherapie.texte"
+                texteParDefaut="Le toucher est le premier langage que le corps comprend. Les séances se donnent en personne, et la durée se choisit selon ce que la semaine a laissé dans les épaules."
+                demande="therapie"
+              />
+            )}
+            {id === "education" && (
+              <ServicesParCategorie
+                intro={t.sections.education.intro}
+                categorie="sante-sexuelle"
+                cleTexte="education.texte"
+                texteParDefaut="Elise .G Lortie est éducatrice à la sexualité et thérapeute en intégration somatique. Elle reçoit en séance individuelle et anime des cercles et des formations, toujours dans un cadre sécuritaire, inclusif et non normatif."
+                demande="education"
+              />
+            )}
             {id === "ateliers" && <Ateliers content={t.sections.ateliers} />}
             {id === "events" && <Events content={t.sections.events} />}
             {id === "ressources" && <Ressources content={t.sections.ressources} />}

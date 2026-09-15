@@ -75,7 +75,7 @@ export const AdminBlogSection = () => {
           <Card key={p.id} className="p-5">
             <div className="flex items-center gap-4">
               {p.heroImage && (
-                <div className="w-20 h-20 rounded-xl overflow-hidden bg-stone-200 shrink-0">
+                <div className="w-20 h-20 overflow-hidden bg-stone-200 shrink-0">
                   <img src={p.heroImage} alt="" className="w-full h-full object-cover" loading="lazy" />
                 </div>
               )}
@@ -303,7 +303,7 @@ const PostEditor = ({ existing, onClose }: EditorProps) => {
           {/* Hero */}
           <div>
             <label className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 block mb-2">Image principale (16:9 recommandé)</label>
-            <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 mb-3">
+            <div className="aspect-[16/9] overflow-hidden bg-stone-200 dark:bg-stone-800 mb-3">
               {post.heroImage && <img src={post.heroImage} alt="" className="w-full h-full object-cover" />}
             </div>
             <label className="inline-flex items-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">

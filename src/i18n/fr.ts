@@ -29,12 +29,13 @@ export const fr = {
   nav: {
     apropos: "À propos",
     mouvement: "Mouvement",
-    therapie: "Thérapie",
-    education: "Éducation",
-    ateliers: "Ateliers",
-    events: "Ateliers & retraites à venir",
+    therapie: "Pair-aidance",
+    massotherapie: "Massothérapie",
+    education: "Éducation sexuelle (3 mains)",
+    ateliers: "Cours à la carte",
+    events: "Formations à venir",
     boutique: "Boutique",
-    writings: "Écrits",
+    writings: "Blog",
     connecter: "Connecter",
     ressources: "Ressources",
     rendezvous: "Rendez-vous",
@@ -92,16 +93,20 @@ export const fr = {
       formMsg: "Message (Optionnel)",
       formBtn: "Envoyer la demande",
     },
+    massotherapie: {
+      title: "Massothérapie",
+      intro: "Le travail par le toucher, là où son parcours a commencé en 2005, avant le yoga et l'accompagnement de fin de vie.",
+    },
     education: {
-      title: "Éducation",
-      intro: "Un hub de ressources pour déconstruire les tabous et cultiver le consentement.",
+      title: "Éducation sexuelle (3 mains)",
+      intro: "L'éducation à la sexualité dans un cadre sécuritaire, inclusif et non normatif.",
     },
     ateliers: {
-      title: "Ateliers",
+      title: "Cours à la carte",
       intro: "Le répertoire des ateliers qu'Elise anime, et la marche à suivre pour l'inviter chez vous.",
     },
     events: {
-      title: "Ateliers & retraites à venir",
+      title: "Formations à venir",
       intro: "Retraites immersives et cercles de pratique pour plonger dans la matière.",
     },
     boutique: {

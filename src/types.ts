@@ -3,6 +3,8 @@ export type Theme = "light" | "dark";
 
 export type SectionId =
   | "therapie"
+  | "massotherapie"
+  | "education"
   | "mouvement"
   | "ateliers"
   | "events"
@@ -29,6 +31,8 @@ export interface CartItem {
  *  la prise de rendez-vous vit en bouton d'appel plutôt que dans cette liste. */
 export const NAV_ORDER: SectionId[] = [
   "therapie",
+  "massotherapie",
+  "education",
   "mouvement",
   "ateliers",
   "events",
@@ -41,5 +45,20 @@ export const NAV_ORDER: SectionId[] = [
 
 /** Les sections qu'Élise peut éteindre depuis Paramètres › Sections du site. */
 export const SECTIONS_ETEIGNABLES: SectionId[] = [
-  "therapie", "mouvement", "ateliers", "events", "apropos", "writings", "ressources", "boutique", "connecter", "rendezvous",
+  "therapie", "massotherapie", "education", "mouvement", "ateliers", "events", "apropos", "writings", "ressources", "boutique", "connecter", "rendezvous",
+];
+
+/** L'ordre des tuiles du sommaire de l'accueil, posé par Alex le 15 septembre 2026.
+ *  Il diffère du menu : « À propos » et « Connecter » vivent dans l'en-tête et le pied de
+ *  page, jamais dans la grille. */
+export const SOMMAIRE_ORDER: SectionId[] = [
+  "therapie",
+  "massotherapie",
+  "education",
+  "events",
+  "ateliers",
+  "boutique",
+  "writings",
+  "ressources",
+  "mouvement",
 ];

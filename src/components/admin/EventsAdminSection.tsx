@@ -254,7 +254,7 @@ export const EventsAdminSection = () => {
               </label>
             </div>
             <div className="space-y-1">
-              <div className="aspect-[4/3] rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-800 mb-2">
+              <div className="aspect-[4/3] overflow-hidden bg-stone-200 dark:bg-stone-800 mb-2">
                 {form.image && <img src={form.image} alt="" className="w-full h-full object-cover" />}
               </div>
               <label className="flex items-center justify-center gap-2 bg-ink/5 dark:bg-white/10 px-4 py-2 rounded-sm uppercase tracking-[0.2em] text-xs font-bold font-sans cursor-pointer hover:bg-rust hover:text-paper transition-colors">
@@ -281,7 +281,7 @@ export const EventsAdminSection = () => {
           <Card key={ev.id} className="p-5">
             <div className="flex flex-col md:flex-row md:items-center gap-4">
               {ev.image && (
-                <div className="w-20 h-20 rounded-xl overflow-hidden bg-stone-200 shrink-0">
+                <div className="w-20 h-20 overflow-hidden bg-stone-200 shrink-0">
                   <img src={ev.image} alt="" className="w-full h-full object-cover" loading="lazy" />
                 </div>
               )}

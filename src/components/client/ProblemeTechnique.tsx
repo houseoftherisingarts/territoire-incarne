@@ -238,7 +238,7 @@ export const ProblemeTechnique = ({ uid, nom, courriel }: Props) => {
 
                 {apercu && (
                   <div className="relative inline-block">
-                    <img src={apercu} alt="" className="max-h-40 rounded-lg border border-ink/10 dark:border-white/10" />
+                    <img src={apercu} alt="" className="max-h-40 border border-ink/10 dark:border-white/10" />
                     <button
                       type="button"
                       onClick={() => setImage(null)}

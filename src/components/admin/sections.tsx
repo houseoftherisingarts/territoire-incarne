@@ -96,12 +96,12 @@ export const DashboardSection = ({ data, onNavigate }: DashboardProps) => {
       <Card className="p-6 md:p-8 bg-gradient-to-br from-ink to-charcoal text-stone-100 border-rust/20">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
           <div>
-            <Kicker>Bienvenue</Kicker>
+            <Kicker>Bonjour Élise</Kicker>
             <h2 className="text-2xl md:text-3xl font-light mt-3 mb-1">
-              Votre territoire, en un regard.
+              Ton tableau de bord.
             </h2>
-            <p className="text-sm text-stone-100/70 max-w-xl font-serif italic">
-              Un lieu intime pour tenir votre pratique, vos échanges, votre économie et vos écrits.
+            <p className="text-sm text-stone-100/70 max-w-xl font-serif">
+              Tes rendez-vous, tes échanges, tes chiffres et tes écrits, tout est là.
             </p>
           </div>
           <button
