@@ -1,13 +1,7 @@
 import { motion } from "framer-motion";
 import type { Content } from "../../i18n";
 import type { CartItem, Lang, SectionId } from "../../types";
-import {
-  ELISE_MAIN_IMG,
-  ELISE_FIELD_IMG,
-  IMG_THERAPIE,
-  IMG_WRITINGS,
-  IMG_ZEN_STONE,
-} from "../../assets/images";
+import { photoPourSection } from "../../assets/images";
 import { GlossaryText } from "../common/GlossaryText";
 import { BlogPostView } from "../blog/BlogPostView";
 import { Reveal } from "../motion/Reveal";
@@ -25,19 +19,7 @@ import {
   Writings,
 } from "../../sections";
 
-const photoPour = (id: SectionId): string | null => {
-  switch (id) {
-    case "apropos": return ELISE_MAIN_IMG;
-    case "therapie": return IMG_THERAPIE;
-    case "rendezvous": return IMG_THERAPIE;
-    case "mouvement": return ELISE_FIELD_IMG;
-    case "writings": return IMG_WRITINGS;
-    case "events": return IMG_ZEN_STONE;
-    case "ressources": return IMG_ZEN_STONE;
-    case "connecter": return IMG_ZEN_STONE;
-    default: return null;
-  }
-};
+const photoPour = photoPourSection;
 
 interface Props {
   id: SectionId;

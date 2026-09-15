@@ -16,14 +16,14 @@ export interface EntreeJournal {
 export const JOURNAL: EntreeJournal[] = [
   {
     date: "2026-09-14",
-    titre: "Votre photo d'accueil prend toute la page",
+    titre: "Une nouvelle page d'accueil, et le sommaire en tuiles",
     intro:
-      "L'accueil ne coupe plus votre photo dans une bande étroite à droite. Elle occupe maintenant tout l'écran, et le titre se pose à côté d'elle sur un voile couleur papier qui s'éteint en douceur, à la manière des cartes du kit de presse.",
+      "L'accueil s'ouvre maintenant sur votre photo posée au centre de la page, à sa taille d'origine, et le sommaire qui suit présente chaque section comme une tuile qui porte sa propre image.",
     etapes: [
-      "La photo tient toute la largeur de l'écran, sans bande ni cadre, et rien ne vient la trancher.",
-      "Le titre, votre phrase d'ouverture et les deux boutons vivent dans un voile de papier qui se fond dans l'image au lieu de la couper net.",
-      "Sur téléphone, la photo occupe le haut de l'écran et le texte se pose juste en dessous, au calme.",
-      "La version agrandie par ordinateur a été retirée, si bien que vous retrouvez la photo telle qu'elle était au départ, le temps qu'une version en haute résolution la remplace.",
+      "Votre photo est revenue à sa version d'origine, sans l'agrandissement par ordinateur qui la rendait pâteuse, et elle est montrée en petit format au milieu de la page pour rester nette.",
+      "Le titre et votre phrase d'ouverture encadrent la photo, séparés par un filet couleur terre.",
+      "Le sommaire n'est plus une liste de lignes : chaque section devient une tuile dont le nom, le numéro et la phrase se lisent sur un verre dépoli, au bas de l'image.",
+      "Trois sections montraient jusqu'ici la même photo, et elles en ont maintenant chacune une, dont deux qui dormaient dans vos dossiers : vous qui dansez en forêt, et la plante posée sur la tablette.",
     ],
   },
   {

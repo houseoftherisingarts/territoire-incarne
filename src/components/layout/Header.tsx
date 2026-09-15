@@ -49,7 +49,7 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
 
   return (
     <header className={`relative z-40 w-full ${accueil ? "" : "sticky top-0 bg-paper/90 dark:bg-forest/90 backdrop-blur-md border-b border-ink/10 dark:border-white/10"}`}>
-      <div className={`px-5 md:px-12 lg:px-16 h-16 md:h-20 flex items-center gap-6 ${accueil ? "text-paper lg:text-ink dark:lg:text-stone-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)] lg:drop-shadow-none" : ""}`}>
+      <div className={`px-5 md:px-12 lg:px-16 h-16 md:h-20 flex items-center gap-6 `}>
         <a href="/" onClick={aller(null)} className={`font-serif text-xl md:text-2xl leading-none whitespace-nowrap ${accueil ? "opacity-0 pointer-events-none" : ""}`} aria-hidden={accueil}>
           Territoire Incarné
         </a>

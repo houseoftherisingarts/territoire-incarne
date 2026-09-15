@@ -1,3 +1,5 @@
+import type { SectionId } from "../types";
+
 const BASE = "https://storage.googleapis.com/salondesinconnus/territoireincarne";
 
 // The source PNGs on GCS are raw exports (one is 37.5 MB) served into slots as
@@ -18,3 +20,23 @@ export const IMG_THERAPIE = px(`${BASE}/Gemini_Generated_Image_3kge2o3kge2o3kge.
 export const IMG_BOUTIQUE = px(`${BASE}/Gemini_Generated_Image_jm4kgyjm4kgyjm4k.png`, 1200);
 export const IMG_WRITINGS = px(`${BASE}/Gemini_Generated_Image_1lmib01lmib01lmi.png`, 1200);
 export const IMG_ZEN_STONE = px(`${BASE}/transparent%20rock.png`, 1000);
+// Deux photos qui dormaient sur le bucket, réveillées pour que le sommaire ne montre
+// jamais deux fois la même image : Élise qui danse en forêt, et la tablette à la plante.
+export const IMG_DANSE_FORET = px(`${BASE}/Gemini_Generated_Image_hc3xiuhc3xiuhc3x.png`, 1200);
+export const IMG_TABLETTE = px(`${BASE}/Gemini_Generated_Image_7xqaqz7xqaqz7xqa.png`, 1200);
+
+/** La photo qui porte une section, lue par la vue détaillée et par le sommaire de l'accueil. */
+export const photoPourSection = (id: SectionId): string | null => {
+  switch (id) {
+    case "apropos": return ELISE_MAIN_IMG;
+    case "therapie": return IMG_THERAPIE;
+    case "rendezvous": return IMG_THERAPIE;
+    case "mouvement": return ELISE_FIELD_IMG;
+    case "writings": return IMG_WRITINGS;
+    case "events": return IMG_DANSE_FORET;
+    case "ressources": return IMG_ZEN_STONE;
+    case "connecter": return IMG_BOUTIQUE;
+    case "boutique": return IMG_TABLETTE;
+    default: return null;
+  }
+};
