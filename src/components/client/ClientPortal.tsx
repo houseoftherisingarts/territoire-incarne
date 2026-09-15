@@ -200,6 +200,8 @@ export const ClientPortal = () => {
   const [uploadingBanner, setUploadingBanner] = useState(false);
   /** Le compte vient d'être créé : on la remercie une fois, puis le mot s'efface. */
   const [bienvenue, setBienvenue] = useState(false);
+  /** Onglet ouvert quand le mot d'accueil envoie vers Rendez-vous : direct sur "book" en un clic. */
+  const [reservationsSubTab, setReservationsSubTab] = useState<"mine" | "book">("mine");
   const bannerInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
