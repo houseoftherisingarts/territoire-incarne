@@ -1,15 +1,16 @@
 import { ELISE_FIELD_IMG } from '../../assets/images';
-import { useEffect, useRef, useState } from "react";
-import { CalendarDays, MessageSquare, LogOut, Send, Video, Music, Moon, Sun, Camera, FolderHeart, Library, UserCircle2 } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { CalendarDays, MessageSquare, LogOut, Send, Video, Music, Moon, Sun, Camera, FolderHeart, Library, UserCircle2, ArrowRight } from "lucide-react";
 import { ClientLogin } from "./ClientLogin";
 import { ClientProfile } from "./ClientProfile";
 import { ClientMeetingTab } from "./ClientMeetingTab";
 import { ClientClassesTab } from "./ClientClassesTab";
-import { ClientReservationsTab } from "./ClientReservationsTab";
+import { ClientReservationsTab, useMyAppointments } from "./ClientReservationsTab";
 import { DossierTab } from "./DossierTab";
 import { RessourcesTab } from "./RessourcesTab";
 import { Assistant } from "./Assistant";
 import { ProblemeTechnique } from "./ProblemeTechnique";
+import { Reveal } from "../motion/Reveal";
 import { useClientAuth } from "../../hooks/useClientAuth";
 import { useTheme } from "../../hooks/useTheme";
 import { useChat } from "../../hooks/useChat";
@@ -18,6 +19,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { consumeReturnTo } from "../../lib/requireAuth";
 import { isAdminUser } from "../../lib/admins";
+import { fmtDateLong, fmtTime } from "../../lib/datetime";
 
 type TabId = "dossier" | "reservations" | "cours" | "messagerie" | "ressources" | "réunion" | "profil";
 
