@@ -16,6 +16,18 @@ export interface EntreeJournal {
 export const JOURNAL: EntreeJournal[] = [
   {
     date: "2026-09-14",
+    titre: "Votre photo d'accueil prend toute la page",
+    intro:
+      "L'accueil ne coupe plus votre photo dans une bande étroite à droite. Elle occupe maintenant tout l'écran, et le titre se pose à côté d'elle sur un voile couleur papier qui s'éteint en douceur, à la manière des cartes du kit de presse.",
+    etapes: [
+      "La photo tient toute la largeur de l'écran, sans bande ni cadre, et rien ne vient la trancher.",
+      "Le titre, votre phrase d'ouverture et les deux boutons vivent dans un voile de papier qui se fond dans l'image au lieu de la couper net.",
+      "Sur téléphone, la photo occupe le haut de l'écran et le texte se pose juste en dessous, au calme.",
+      "La version agrandie par ordinateur a été retirée, si bien que vous retrouvez la photo telle qu'elle était au départ, le temps qu'une version en haute résolution la remplace.",
+    ],
+  },
+  {
+    date: "2026-09-14",
     titre: "Le collant Vexel dit maintenant d'où vient le studio",
     intro:
       "La carte qui s'ouvre depuis « Site créé par Vexel Webstudio », en bas de votre site, porte désormais le sigle du Salon des Inconnus et précise que le studio en est un projet.",
