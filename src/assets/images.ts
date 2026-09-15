@@ -15,6 +15,13 @@ export const ELISE_FIELD_IMG = px(`${BASE}/Elise%20field.png`, 1200);
 /** La même photo en taille hero : elle tient toute la largeur de l'écran, et elle vient
  *  du fichier d'origine de 36 Mo, jamais d'un agrandissement. */
 export const ELISE_FIELD_HERO = "/media/elise-champ-2400.webp";
+/** Le hero : la route, recadrée en 2.35:1 depuis la photo d'origine, et sa version animée
+ *  (caméra fixe, un souffle dans les herbes) rendue par Higgsfield le 15 septembre 2026. */
+export const HERO_POSTER = "/media/elise-route-235.jpg";
+export const HERO_VIDEO = "/media/elise-route-235.mp4";
+export const HERO_VIDEO_WEBM = "/media/elise-route-235.webm";
+/** La même boucle en 960 px pour les téléphones, cinq fois plus légère. */
+export const HERO_VIDEO_MOBILE = "/media/elise-route-235-mobile.mp4";
 // Global atmospheric texture (path through a field) + home feature background
 // (Élise in nature, AI-upscaled). Served locally from public/media, so no proxy.
 export const IMG_GLOBAL_BG = "/media/elise-road.webp";

@@ -1,12 +1,12 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { ELISE_FIELD_HERO } from "../../assets/images";
+import { HERO_VIDEO, HERO_VIDEO_WEBM, HERO_VIDEO_MOBILE, HERO_POSTER } from "../../assets/images";
 import { SOMMAIRE_ORDER, type SectionId } from "../../types";
 import { pathForSection } from "../../routes";
 import { useSections } from "../../hooks/useSections";
 import type { Content } from "../../i18n";
 import { EditableText } from "../edit/EditableText";
-import { EditableImage } from "../edit/EditableImage";
 import { Reveal } from "../motion/Reveal";
 
 interface Props {
@@ -50,56 +50,71 @@ export const Home = ({ t, onOpen }: Props) => {
   const { visibles, estVisible } = useSections();
   const tuiles = SOMMAIRE_ORDER.filter((id) => visibles.includes(id));
   const ledeApropos = t.sections.apropos.intro.split(". ")[0] + ".";
+  /** La boucle vidéo se choisit une fois, selon la largeur : la version 960 px sur téléphone. */
+  const [grandEcran, setGrandEcran] = useState<boolean | null>(null);
+  useEffect(() => { setGrandEcran(window.matchMedia("(min-width: 768px)").matches); }, []);
 
   return (
     <main id="contenu" className="w-full">
-      {/* ── Hero : la photo tient tout le cadre, le texte se pose à côté ───── */}
-      <section className="relative w-full min-h-[100dvh] overflow-hidden bg-paper dark:bg-forest">
+      {/* ── Hero : la route, en 2.35:1, animée d'un souffle dans les herbes ─────
+          Caméra verrouillée, aucun mouvement : seule l'herbe bouge. La vidéo est
+          silencieuse et boucle; l'image fixe la remplace tant qu'elle charge, ou
+          quand la personne a demandé moins de mouvement. Le titre est centré. */}
+      <section className="relative w-full min-h-[100dvh] lg:min-h-0 lg:mt-[4.5rem] lg:aspect-[2.35/1] overflow-hidden bg-charcoal text-paper">
         <motion.div
-          initial={{ scale: 1.06, opacity: 0 }}
+          initial={{ scale: 1.04, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.8, ease: EASE }}
-          className="absolute inset-x-0 top-0 h-[54dvh] lg:inset-0 lg:h-full overflow-hidden"
+          transition={{ duration: 2, ease: EASE }}
+          className="absolute inset-0"
         >
-          <EditableImage
-            contentKey="home.hero.photo"
-            defaultUrl={ELISE_FIELD_HERO}
-            alt="Elise .G Lortie, dans un champ en hiver"
-            className="w-full h-full object-cover object-[46%_center] lg:object-[100%_center]"
-            loading="eager"
-          />
-          {/* Le voile de papier, qui s'éteint en courbe douce sur la photo :
-              il monte du bas sur téléphone, il vient de la droite sur grand écran. */}
-          <div className="ed-voile" aria-hidden="true" />
+          {grandEcran !== null && (
+            <video
+              key={grandEcran ? "grand" : "petit"}
+              className="w-full h-full object-cover object-[50%_60%] motion-reduce:hidden"
+              poster={HERO_POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-hidden="true"
+            >
+              {grandEcran && <source src={HERO_VIDEO_WEBM} type="video/webm" />}
+              <source src={grandEcran ? HERO_VIDEO : HERO_VIDEO_MOBILE} type="video/mp4" />
+            </video>
+          )}
+          <img src={HERO_POSTER} alt="" className="hidden motion-reduce:block w-full h-full object-cover object-[50%_60%]" />
+          {/* Une vignette douce, pour que le titre reste lisible sans écraser l'image. */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.05)_0%,rgba(0,0,0,0.42)_100%)]" aria-hidden="true" />
         </motion.div>
 
-        <div className="relative min-h-[100dvh] flex flex-col justify-end lg:justify-center lg:ml-auto lg:w-[66%] px-5 pt-[46dvh] pb-14 md:px-12 md:pb-16 lg:pt-28 lg:pb-24 lg:pl-[24%] lg:pr-[6%]">
+        <div className="relative min-h-[100dvh] lg:min-h-0 lg:absolute lg:inset-0 flex flex-col items-center justify-center text-center px-6 pt-28 pb-16 lg:py-0">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="ed-kicker"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="ed-kicker !text-paper/85"
           >
             <EditableText as="span" contentKey="home.hero.kicker" defaultValue="Thérapie somatique, mouvement, éducation, retraites." />
           </motion.p>
 
-          <h1 className="ed-display mt-6 text-[clamp(2.9rem,5.6vw,6rem)] text-ink dark:text-stone-100 leading-[0.98] tracking-[-0.02em]">
-            <MotsQuiMontent texte="Territoire Incarné" delai={0.35} />
+          <h1 className="ed-display mt-6 text-[clamp(3rem,7.5vw,8rem)] text-paper leading-[0.98] tracking-[-0.02em] drop-shadow-[0_2px_18px_rgba(0,0,0,0.35)]">
+            <MotsQuiMontent texte="Territoire Incarné" delai={0.4} />
           </h1>
 
           <motion.span
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.7, delay: 0.95, ease: EASE }}
-            className="block origin-left w-[74px] h-[2px] bg-rust/80 mt-8 mb-7"
+            transition={{ duration: 0.7, delay: 1, ease: EASE }}
+            className="block w-[74px] h-[2px] bg-paper/80 mt-8 mb-7"
             aria-hidden="true"
           />
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.05, ease: EASE }}
-            className="max-w-xl font-serif text-2xl md:text-3xl font-light leading-snug text-ink/85 dark:text-stone-200"
+            transition={{ duration: 0.9, delay: 1.1, ease: EASE }}
+            className="max-w-2xl font-serif text-xl md:text-2xl font-light leading-snug text-paper/90"
           >
             <EditableText as="span" contentKey="home.hero.lede" defaultValue={ledeApropos} />
           </motion.p>
@@ -107,8 +122,8 @@ export const Home = ({ t, onOpen }: Props) => {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.15, ease: EASE }}
-            className="ed-kicker mt-8"
+            transition={{ duration: 0.8, delay: 1.2, ease: EASE }}
+            className="ed-kicker !text-paper/70 mt-7"
           >
             <EditableText as="span" contentKey="home.hero.subtitle" defaultValue="par Elise .G Lortie" />
           </motion.p>
@@ -116,24 +131,24 @@ export const Home = ({ t, onOpen }: Props) => {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.3, ease: EASE }}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            transition={{ duration: 0.9, delay: 1.35, ease: EASE }}
+            className="mt-10 flex flex-wrap items-center justify-center gap-4"
           >
             {estVisible("rendezvous") && (
               <a
                 href={pathForSection("rendezvous")}
                 onClick={handleNav("rendezvous", onOpen)}
-                className="inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
+                className="inline-flex items-center gap-3 bg-paper text-ink font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-rust hover:text-paper transition-colors"
               >
                 {t.general.prendreRdv}
-                <span className="w-9 h-9 rounded-full bg-paper/15 flex items-center justify-center"><ArrowUpRight size={16} /></span>
+                <span className="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center"><ArrowUpRight size={16} /></span>
               </a>
             )}
             {estVisible("mouvement") && (
               <a
                 href={pathForSection("mouvement")}
                 onClick={handleNav("mouvement", onOpen)}
-                className="inline-flex items-center gap-3 border border-ink/30 dark:border-stone-300/40 font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] px-7 rounded-full hover:bg-ink hover:text-paper dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
+                className="inline-flex items-center gap-3 border border-paper/50 text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] px-7 rounded-full hover:bg-paper hover:text-ink transition-colors"
               >
                 {t.general.coursDanse}
               </a>
