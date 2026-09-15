@@ -11,8 +11,6 @@ const prix = (n: number) =>
   n === 0 ? "Sur demande" : n.toLocaleString("fr-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 });
 
 interface Props {
-  /** L'intro de la section, telle qu'elle vit dans les traductions. */
-  intro: string;
   /** La catégorie de tarifs affichée, gérée depuis Consultations dans l'admin. */
   categorie: Tarif["category"];
   /** La clé du texte long, pour qu'Élise le récrive en ligne. */
