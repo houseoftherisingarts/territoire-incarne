@@ -139,6 +139,7 @@ export const DetailView = ({
             {id === "writings" && postSlug && (
               <BlogPostView slug={postSlug} lang={lang} onBack={() => onOpenPost && history.back()} />
             )}
+            {id === "multimedias" && <Multimedias content={t.sections.multimedias} />}
             {id === "connecter" && <Connecter content={t.sections.connecter} />}
             {id === "consentement" && <Consentement content={t.sections.consentement} />}
             {id === "boutique" && (
