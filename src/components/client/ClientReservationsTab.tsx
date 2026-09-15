@@ -321,6 +321,22 @@ const BookingFlow = ({
     return out.sort((a, b) => a.getTime() - b.getTime());
   }, [availability, consultation, duration, taken]);
 
+  // L'heure choisie sur le calendrier public arrive dans l'adresse (?jour=&heure=) : on la
+  // présélectionne une seule fois, dès que les plages sont calculées.
+  const [prechoisi, setPrechoisi] = useState(false);
+  useEffect(() => {
+    if (prechoisi || allSlots.length === 0 || typeof window === "undefined") return;
+    const q = new URLSearchParams(window.location.search);
+    const jour = q.get("jour"), heure = q.get("heure");
+    if (!jour || !heure) { setPrechoisi(true); return; }
+    const cible = allSlots.find((d) => isoDate(d) === jour && fmtTime(d) === heure);
+    if (cible) {
+      setPicked(cible);
+      setPage(Math.floor(allSlots.indexOf(cible) / SLOTS_PER_PAGE));
+    }
+    setPrechoisi(true);
+  }, [allSlots, prechoisi]);
+
   const visibleSlots = allSlots.slice(page * SLOTS_PER_PAGE, (page + 1) * SLOTS_PER_PAGE);
   const hasNext = (page + 1) * SLOTS_PER_PAGE < allSlots.length;
   const hasPrev = page > 0;

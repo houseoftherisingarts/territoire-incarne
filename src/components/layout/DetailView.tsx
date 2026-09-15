@@ -11,6 +11,7 @@ import {
   Apropos,
   Boutique,
   Connecter,
+  Consentement,
   Ateliers,
   ServicesParCategorie,
   Events,
@@ -67,48 +68,46 @@ export const DetailView = ({
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: EASE }}
-        className={`w-full ${fullWidth ? "" : "grid grid-cols-1 lg:grid-cols-12"}`}
+        className="w-full"
       >
-        {!fullWidth && (
-          <aside className="lg:col-span-5 relative h-[44dvh] lg:sticky lg:top-20 lg:self-start lg:h-[calc(100dvh-5rem)] overflow-hidden bg-stone-200 dark:bg-stone-900/40 lg:border-r border-ink/10 dark:border-white/10">
-            {photo ? (
-              <motion.div
-                initial={{ scale: 1.06 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 1.4, ease: EASE }}
-                className="absolute inset-0"
-              >
-                <EditableImage
-                  contentKey={`section.${id}.photo`}
-                  defaultUrl={photo}
-                  alt={navTitle}
-                  className={`w-full h-full object-cover ${id === "connecter" || id === "events" || id === "ressources" ? "opacity-80 mix-blend-multiply dark:mix-blend-overlay" : "grayscale-[10%]"}`}
-                  loading="eager"
-                />
-              </motion.div>
-            ) : null}
-            <p className="hidden lg:block absolute left-8 bottom-8 ed-kicker text-paper drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">{numero ? `${numero} · ` : ""}{navTitle}</p>
-          </aside>
-        )}
-
-        <div className={`${fullWidth ? "w-full px-5 md:px-12 lg:px-16 pt-10 md:pt-16 pb-24" : "lg:col-span-7 px-5 md:px-12 lg:px-16 pt-10 md:pt-16 lg:pt-24 pb-24"}`}>
-          <header className="mb-12 md:mb-16">
-            <p className="ed-kicker ed-hairline inline-block border-b pb-1 mb-5">{numero ? `${numero} · ` : ""}{navTitle}</p>
-            <h1 className="ed-display text-[clamp(2.6rem,6vw,5.5rem)] text-ink dark:text-stone-100">
+        {/* L'ouverture : un kicker, le titre en grand, la phrase d'intro à droite, et de l'air
+            partout. La barre est fixe, d'où le grand dégagement du haut. */}
+        <header className="w-full px-5 md:px-12 lg:px-16 pt-32 md:pt-44 pb-16 md:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 items-end">
+          <div className="lg:col-span-7">
+            <p className="ed-kicker mb-8">{numero ? `${numero} · ` : ""}{navTitle}</p>
+            <h1 className="ed-display [text-wrap:balance] text-[clamp(2.6rem,5.6vw,5.4rem)] text-ink dark:text-stone-100">
               {sectionContent.title}
             </h1>
-          </header>
+          </div>
+          {sectionContent.intro && (
+            <p className="lg:col-span-5 lg:pb-3 max-w-xl font-serif text-xl md:text-2xl font-light leading-snug text-ink/70 dark:text-stone-300">
+              <GlossaryText content={sectionContent.intro} lang={lang} />
+            </p>
+          )}
+        </header>
 
-          <Reveal className="mb-14 md:mb-20">
-            {sectionContent.intro && (
-              <p className="max-w-2xl font-serif text-2xl md:text-3xl font-light leading-snug text-ink/80 dark:text-stone-200">
-                <GlossaryText content={sectionContent.intro} lang={lang} />
-              </p>
-            )}
-            {id === "apropos" && <Apropos content={t.sections.apropos} lang={lang} />}
+        {photo && id !== "rendezvous" && (
+          <Reveal className="w-full px-5 md:px-12 lg:px-16 mb-16 md:mb-24">
+            <div className="w-full aspect-[21/9] max-h-[46vh] overflow-hidden">
+              <EditableImage
+                contentKey={`section.${id}.photo`}
+                defaultUrl={photo}
+                alt={navTitle}
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
+            </div>
           </Reveal>
+        )}
 
-          <div className={fullWidth ? "" : "max-w-3xl"}>
+        <div className={`w-full px-5 md:px-12 lg:px-16 pb-28 md:pb-40 ${fullWidth ? "" : ""}`}>
+          {id === "apropos" && (
+            <Reveal className="mb-14 md:mb-20">
+              <Apropos content={t.sections.apropos} lang={lang} />
+            </Reveal>
+          )}
+
+          <div className={fullWidth ? "" : "max-w-4xl"}>
             {id === "therapie" && <Therapie content={t.sections.therapie} />}
             {id === "rendezvous" && <RendezVous content={t.sections.rendezvous} general={t.general} />}
             {id === "mouvement" && <Mouvement content={t.sections.mouvement} />}
@@ -140,6 +139,7 @@ export const DetailView = ({
               <BlogPostView slug={postSlug} lang={lang} onBack={() => onOpenPost && history.back()} />
             )}
             {id === "connecter" && <Connecter content={t.sections.connecter} />}
+            {id === "consentement" && <Consentement content={t.sections.consentement} />}
             {id === "boutique" && (
               <Boutique
                 content={t.sections.boutique}

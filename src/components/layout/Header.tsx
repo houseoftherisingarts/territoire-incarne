@@ -78,7 +78,7 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
           Territoire <br className="sm:hidden" />Incarné
         </a>
 
-        <nav className="hidden xl:flex items-center gap-8" aria-label="Sections">
+        <nav className="hidden xl:flex items-center gap-5 2xl:gap-8" aria-label="Sections">
           {portes.map((id) => {
             const actif = current === id;
             return (
@@ -87,12 +87,12 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
                 href={pathForSection(id)}
                 onClick={aller(id)}
                 aria-current={actif ? "page" : undefined}
-                className={`group relative inline-flex items-center whitespace-nowrap px-3 py-2 font-sans text-xs uppercase tracking-[0.18em] transition-colors ${
+                className={`group relative inline-flex items-center whitespace-nowrap px-2 py-2 font-sans text-xs uppercase tracking-[0.14em] 2xl:tracking-[0.18em] transition-colors ${
                   actif ? "text-rust" : "text-ink/75 dark:text-stone-300 hover:text-rust"
                 }`}
               >
                 {t.nav[id]}
-                <span className={`pointer-events-none absolute left-3 right-3 -bottom-[3px] h-px bg-rust transition-[transform] origin-left duration-300 ${actif ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+                <span className={`pointer-events-none absolute left-2 right-2 -bottom-[3px] h-px bg-rust transition-[transform] origin-left duration-300 ${actif ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
               </a>
             );
           })}
@@ -103,7 +103,7 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
             <a
               href={pathForSection("rendezvous")}
               onClick={aller("rendezvous")}
-              className="hidden md:inline-flex whitespace-nowrap items-center bg-rust text-paper font-sans text-xs uppercase tracking-[0.18em] font-semibold min-h-[44px] px-5 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
+              className="hidden md:inline-flex whitespace-nowrap items-center bg-rust text-paper font-sans text-xs uppercase tracking-[0.14em] font-semibold min-h-[44px] px-4 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
             >
               {t.general.prendreRdv}
             </a>

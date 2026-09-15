@@ -3,6 +3,7 @@ export { Ateliers } from "./Ateliers";
 export { ServicesParCategorie } from "./ServicesParCategorie";
 export { Boutique } from "./Boutique";
 export { Connecter } from "./Connecter";
+export { Consentement } from "./Consentement";
 export { Events } from "./Events";
 export { Mouvement, MouvementSidebarForm } from "./Mouvement";
 export { Ressources } from "./Ressources";

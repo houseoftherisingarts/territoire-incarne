@@ -73,7 +73,7 @@ export const Home = ({ t, onOpen }: Props) => {
           <div className="ed-voile" aria-hidden="true" />
         </motion.div>
 
-        <div className="relative min-h-[100dvh] flex flex-col justify-end lg:justify-center lg:ml-auto lg:w-[66%] px-5 pt-[46dvh] pb-14 md:px-12 md:pb-16 lg:pt-24 lg:pb-24 lg:pl-[24%] lg:pr-[6%]">
+        <div className="relative min-h-[100dvh] flex flex-col justify-end lg:justify-center lg:ml-auto lg:w-[66%] px-5 pt-[46dvh] pb-14 md:px-12 md:pb-16 lg:pt-28 lg:pb-24 lg:pl-[24%] lg:pr-[6%]">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -155,17 +155,17 @@ export const Home = ({ t, onOpen }: Props) => {
           {tuiles.map((id, i) => {
             const section = t.sections[id] as { title: string; intro?: string };
             return (
-              <Reveal key={id} delay={i * 0.04}>
+              <Reveal key={id} delay={i * 0.04} className={i === tuiles.length - 1 && tuiles.length % 3 === 1 ? "lg:col-span-3" : ""}>
                 <a
                   href={pathForSection(id)}
                   onClick={handleNav(id, onOpen)}
-                  className="group relative flex h-full min-h-[15rem] md:min-h-[17rem] flex-col justify-between overflow-hidden ring-1 ring-ink/10 dark:ring-white/10 bg-white/60 dark:bg-white/[0.05] p-6 md:p-8 hover:bg-white dark:hover:bg-white/[0.09] transition-colors"
+                  className="group relative flex h-full min-h-[15rem] md:min-h-[17rem] flex-col justify-between text-center bg-white/60 dark:bg-white/[0.05] p-6 md:p-8 hover:bg-white dark:hover:bg-white/[0.09] transition-colors"
                 >
                   <h3 className="ed-display text-[clamp(1.9rem,2.6vw,2.9rem)] text-ink dark:text-stone-100 group-hover:text-rust dark:group-hover:text-white transition-colors">
                     {t.nav[id]}
                   </h3>
                   {section.intro && (
-                    <p className="mt-6 max-w-md font-serif text-base md:text-lg leading-snug text-ink/65 dark:text-stone-300">
+                    <p className="mt-6 max-w-md mx-auto font-serif text-base md:text-lg leading-snug text-ink/65 dark:text-stone-300">
                       {section.intro}
                     </p>
                   )}

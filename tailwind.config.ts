@@ -6,7 +6,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['"Cormorant Garamond"', "serif"],
+        serif: ['"Poppins"', "sans-serif"],
         sans: ['"Montserrat"', "sans-serif"],
       },
       // Règle dure : aucun texte sous 13px. text-xs devient le plancher (au lieu des

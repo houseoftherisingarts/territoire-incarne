@@ -34,6 +34,7 @@ export const en: Content = {
     therapie: "Peer support",
     massotherapie: "Massage therapy",
     education: "Sex education",
+    consentement: "Consent consultant",
     ateliers: "À la carte classes",
     events: "Upcoming trainings",
     boutique: "Shop",
@@ -98,6 +99,15 @@ export const en: Content = {
     massotherapie: {
       title: "Massage therapy",
       intro: "Hands-on work, where her path began in 2005, before yoga and end-of-life care.",
+    },
+    consentement: {
+      title: "Consent consultant",
+      intro: "A presence so that consent holds, on a film set, within a team or in a place where people live together.",
+      contextes: [
+        { titre: "Film set", texte: "Intimacy scenes, nudity, contact: preparing people, holding the frame on set, following up after." },
+        { titre: "Team", texte: "A working group that wants to name its limits and agreements before a situation forces them." },
+        { titre: "Community", texte: "A gathering, a festival, a shared home where a culture of consent is built together." },
+      ],
     },
     education: {
       title: "Sex education",

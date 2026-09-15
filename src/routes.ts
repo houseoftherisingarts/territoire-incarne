@@ -5,6 +5,7 @@ export const SECTION_TO_PATH: Record<SectionId, string> = {
   therapie: "/therapie",
   massotherapie: "/massotherapie",
   education: "/education-sexuelle",
+  consentement: "/consentement",
   mouvement: "/mouvement",
   ateliers: "/ateliers",
   events: "/evenements",

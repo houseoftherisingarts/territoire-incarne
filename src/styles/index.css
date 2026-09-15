@@ -11,7 +11,7 @@
   --couleur-accent: #8C5E45;
   --rayon-carte: 15px;
   --police-corps: "Montserrat", sans-serif;
-  --police-titre: "Cormorant Garamond", serif;
+  --police-titre: "Poppins", sans-serif;
 }
 .dark {
   --couleur-surface: #1F1E1D;
@@ -102,10 +102,10 @@ body {
   border-color: rgba(255, 255, 255, 0.15);
 }
 .ed-display {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
-  letter-spacing: -0.015em;
-  line-height: 1.02;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
 }
 /* Un élément marqué hidden reste caché, même sous display:flex. */
 [hidden] {

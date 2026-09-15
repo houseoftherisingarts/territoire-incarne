@@ -32,6 +32,7 @@ export const fr = {
     therapie: "Pair-aidance",
     massotherapie: "Massothérapie",
     education: "Éducation sexuelle",
+    consentement: "Consultante en consentement",
     ateliers: "Cours à la carte",
     events: "Formations à venir",
     boutique: "Boutique",
@@ -96,6 +97,15 @@ export const fr = {
     massotherapie: {
       title: "Massothérapie",
       intro: "Le travail par le toucher, là où son parcours a commencé en 2005, avant le yoga et l'accompagnement de fin de vie.",
+    },
+    consentement: {
+      title: "Consultante en consentement",
+      intro: "Une présence pour que le consentement tienne, sur un plateau, dans une équipe ou dans un lieu de vie.",
+      contextes: [
+        { titre: "Tournage", texte: "Scènes d'intimité, nudité, contact : la préparation des personnes, le cadre sur le plateau, le suivi après." },
+        { titre: "Équipe", texte: "Un groupe de travail qui veut nommer ses limites et ses accords, avant qu'une situation ne les force." },
+        { titre: "Lieu de vie", texte: "Une communauté, un rassemblement, un festival où la culture du consentement se construit ensemble." },
+      ],
     },
     education: {
       title: "Éducation sexuelle",

@@ -37,6 +37,7 @@ export const photoPourSection = (id: SectionId): string | null => {
     case "therapie": return IMG_THERAPIE;
     case "massotherapie": return IMG_THERAPIE;
     case "education": return IMG_BOUTIQUE;
+    case "consentement": return IMG_DANSE_FORET;
     case "rendezvous": return IMG_THERAPIE;
     case "mouvement": return ELISE_FIELD_IMG;
     case "writings": return IMG_WRITINGS;

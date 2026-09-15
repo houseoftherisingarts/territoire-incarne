@@ -48,7 +48,7 @@ export const App = () => {
   const introuvable = notFound || eteinte;
   useSeo(introuvable ? null : view, t, introuvable);
 
-  // font-serif so the "Territoire Incarné" brand title keeps Cormorant Garamond
+  // font-serif so the "Territoire Incarné" brand title keeps Poppins
   // inside the portals too (explicit font-sans classes still win where set).
   if (clientMode) return <div className="font-serif"><Suspense fallback={null}><ClientPortal /></Suspense></div>;
   if (adminMode)  return <div className="font-serif"><Suspense fallback={null}><AdminDashboard /></Suspense></div>;
