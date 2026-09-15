@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { Lock } from "lucide-react";
 import { onAuthStateChanged, type User } from "firebase/auth";
 import { auth } from "../../firebase";
 import { isAdminUser } from "../../lib/admins";
 import { pathForSection } from "../../routes";
 import { useSections } from "../../hooks/useSections";
+import { tx } from "../../i18n/tx";
 import type { Content } from "../../i18n";
 import type { Lang, SectionId } from "../../types";
 import { BadgeVexel } from "../common/BadgeVexel";
@@ -20,7 +22,7 @@ interface Props {
 export const COURRIEL = "territoireincarne@gmail.com";
 
 /** Le pied de page du site : pleine largeur, jamais enfermé dans une colonne. Il porte le
- *  sommaire, les coordonnées, l'espace client, la porte de l'admin (Google) et le collant foil. */
+ *  sommaire, les coordonnées, l'espace client, le bouton de l'admin et le collant foil. */
 export const Footer = ({ t, lang, onOpen, onToggleLang }: Props) => {
   const { visibles, estVisible } = useSections();
   const [user, setUser] = useState<User | null>(null);
@@ -38,7 +40,7 @@ export const Footer = ({ t, lang, onOpen, onToggleLang }: Props) => {
       <div className="px-5 md:px-12 lg:px-16 pt-16 pb-12 grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-12">
         <div className="md:col-span-4">
           <a href="/" onClick={aller(null)} className="font-serif text-3xl leading-none">Territoire Incarné</a>
-          <p className="ed-kicker mt-3 text-paper/60">par Elise .G Lortie</p>
+          <p className="ed-kicker mt-3 text-paper/60">{tx(lang, "par Elise .G Lortie")}</p>
           <p className="mt-6 font-serif text-lg leading-relaxed text-paper/80 max-w-sm">
             {t.sections.apropos.intro.split(". ")[0]}.
           </p>
@@ -70,15 +72,19 @@ export const Footer = ({ t, lang, onOpen, onToggleLang }: Props) => {
             {COURRIEL}
           </a>
           <p className="mt-2 font-serif text-lg text-paper/60">Québec</p>
-          <ul className="mt-6 space-y-2">
+          <ul className="mt-6 space-y-3">
             <li>
               <a href="/client" className="font-serif text-lg text-paper/85 hover:text-paper transition-colors">
                 {user ? t.general.myClientSpace : t.general.clientSpace}
               </a>
             </li>
             <li>
-              <a href="/admin" className="font-sans text-xs uppercase tracking-[0.2em] text-paper/45 hover:text-paper transition-colors">
-                {admin ? t.general.tableauDeBord : "Admin"}
+              <a
+                href="/admin"
+                className="inline-flex items-center gap-2 min-h-[44px] px-5 rounded-full border border-paper/30 font-sans text-xs uppercase tracking-[0.2em] font-semibold text-paper/85 hover:bg-paper hover:text-ink transition-colors"
+              >
+                <Lock size={13} strokeWidth={1.75} />
+                {admin ? t.general.tableauDeBord : tx(lang, "Administration")}
               </a>
             </li>
           </ul>
