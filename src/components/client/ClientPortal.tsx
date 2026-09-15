@@ -273,7 +273,7 @@ export const ClientPortal = () => {
           className="relative w-full aspect-[3/1] md:aspect-[4/1] bg-stone-200 dark:bg-stone-800 overflow-hidden group block"
         >
           <img src={profile.bannerUrl || ELISE_FIELD_IMG} alt="" className="w-full h-full object-cover" />
-          <span className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/40 to-transparent pointer-events-none" aria-hidden="true" />
+          <span className="ed-voile absolute inset-0 pointer-events-none" aria-hidden="true" />
           <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors">
             <Camera size={18} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
           </span>
@@ -290,14 +290,32 @@ export const ClientPortal = () => {
               )}
             </div>
             <div className="min-w-0 pb-1">
-              <p className="ed-kicker text-xs font-sans uppercase tracking-[0.3em] text-rust">
-                {bienvenue ? "Merci de prendre soin de toi" : "Espace personnel"}
-              </p>
+              <p className="ed-kicker text-xs font-sans uppercase tracking-[0.3em] text-rust">Espace personnel</p>
               <h1 className="ed-display font-serif text-2xl md:text-3xl truncate">{profile.displayName || profile.email}</h1>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Le mot d'accueil, pleine largeur : le prénom d'abord, puis le geste
+          le plus utile — un rendez-vous ou une question pour Élise — avant
+          même d'ouvrir un onglet. */}
+      <Reveal className="px-6 md:px-10 py-8 md:py-10 border-b border-ink/10 dark:border-white/10">
+        <p className="ed-kicker text-xs font-sans uppercase tracking-[0.3em] text-rust mb-2">
+          {bienvenue ? "Bienvenue" : "Votre espace"}
+        </p>
+        <h2 className="ed-display font-serif text-3xl md:text-4xl max-w-2xl">
+          {bienvenue ? "Merci de prendre soin de toi." : `Bonjour, ${firstName(profile.displayName, profile.email)}.`}
+        </h2>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-3xl">
+          <ProchainRendezVous
+            uid={user.uid}
+            onVoir={() => { setReservationsSubTab("mine"); setTab("reservations"); }}
+            onReserver={() => { setReservationsSubTab("book"); setTab("reservations"); }}
+          />
+          <EcrireAElise onEcrire={() => setTab("messagerie")} />
+        </div>
+      </Reveal>
 
       {/* Onglets pleine largeur */}
       <nav className="border-b border-ink/10 dark:border-white/10 px-6 md:px-10 overflow-x-auto">
