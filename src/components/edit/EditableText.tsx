@@ -3,12 +3,15 @@ import { createPortal } from "react-dom";
 import { Pencil, X, Check, RotateCcw } from "lucide-react";
 import { useSiteEdit } from "../../lib/siteEdit";
 import { saveOverride, clearOverride } from "../../hooks/useSiteOverrides";
+import { tx, useLangue } from "../../i18n/tx";
 
 interface Props {
   /** Stable identifier — e.g. "home.hero.title". Used as the Firestore doc ID. */
   contentKey: string;
-  /** Original copy from the codebase. Shown when no override exists. */
+  /** Original copy from the codebase, in French. Shown when no override exists. */
   defaultValue: string;
+  /** The English original. When absent, the French default is looked up in the dictionary. */
+  defaultValueEn?: string;
   /** Render tag (h1, h2, p, span, button…). Default: span. */
   as?: ElementType;
   /** Pass through className to the rendered element. */
@@ -19,12 +22,18 @@ interface Props {
   children?: (text: string) => ReactNode;
 }
 
+/** Un texte du site qu'Élise récrit en ligne. Chaque langue a sa propre clé : le texte
+ *  anglais se range sous `<contentKey>.en`, si bien que la bascule EN ne montre jamais un
+ *  texte français enregistré par-dessus l'anglais d'origine. */
 export const EditableText = ({
-  contentKey, defaultValue, as: Tag = "span", className, multiline, children,
+  contentKey, defaultValue, defaultValueEn, as: Tag = "span", className, multiline, children,
 }: Props) => {
   const { editing, read } = useSiteEdit();
+  const lang = useLangue();
   const [open, setOpen] = useState(false);
-  const text = read(contentKey, defaultValue);
+  const cle = lang === "en" ? `${contentKey}.en` : contentKey;
+  const defaut = lang === "en" ? defaultValueEn ?? tx("en", defaultValue) : defaultValue;
+  const text = read(cle, defaut);
 
   const content = children ? children(text) : text;
 
@@ -49,8 +58,8 @@ export const EditableText = ({
       </Tag>
       {open && (
         <EditPopover
-          contentKey={contentKey}
-          defaultValue={defaultValue}
+          contentKey={cle}
+          defaultValue={defaut}
           currentValue={text}
           multiline={!!multiline}
           onClose={() => setOpen(false)}
@@ -106,7 +115,9 @@ const EditPopover = ({ contentKey, defaultValue, currentValue, multiline, onClos
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <span className="text-xs font-sans uppercase tracking-[0.3em] text-rust">Modifier le texte</span>
+          <span className="text-xs font-sans uppercase tracking-[0.3em] text-rust">
+            {contentKey.endsWith(".en") ? "Modifier le texte anglais" : "Modifier le texte"}
+          </span>
           <button onClick={onClose} aria-label="Fermer" className="opacity-50 hover:opacity-100">
             <X size={16} />
           </button>
