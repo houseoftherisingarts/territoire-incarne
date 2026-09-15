@@ -43,9 +43,15 @@ const fmtDate = (iso: string) => {
 /** La page Multimédias : les vidéos et les balados d'Élise, chacun avec son lecteur
  *  embarqué directement dans la page. */
 export const Multimedias = ({ content }: { content: Content["sections"]["multimedias"] }) => {
-  const query = useMemo(() => ({ where: [["publie", "==", true] as [string, "==", true]] }), []);
-  const { items, loading } = useFirestoreCollection<Multimedia>("multimedias", query);
-  const tries = [...items].sort((a, b) => (a.ordre ?? 0) - (b.ordre ?? 0));
+  const options = useMemo(
+    () => ({
+      where: [["publie", "==", true] as [string, "==", true]],
+      orderField: "ordre" as const,
+      orderDirection: "asc" as const,
+    }),
+    [],
+  );
+  const { items: tries, loading } = useFirestoreCollection<Multimedia>("multimedias", options);
 
   return (
     <div className="w-full">
