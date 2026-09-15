@@ -10,6 +10,7 @@ import {
   halfHourSlots,
   isoDate,
 } from "../../lib/datetime";
+import { locale, tx, useLangue } from "../../i18n/tx";
 
 const JOURS_MONTRES = 14;
 const DUREE_PAR_DEFAUT = 60;
@@ -19,13 +20,6 @@ const addMin = (hhmm: string, min: number) => {
   const total = h * 60 + m + min;
   return `${String(Math.floor(total / 60) % 24).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
 };
-
-const jourLong = new Intl.DateTimeFormat("fr-CA", {
-  weekday: "long",
-  day: "numeric",
-  month: "long",
-  timeZone: "America/Montreal",
-});
 
 interface Jour {
   cle: string;
@@ -37,9 +31,11 @@ interface Jour {
  *  calendrier, jour par jour, sans rien demander à personne. La réservation elle-même
  *  se fait dans l'espace client, une fois le compte créé. */
 export const ApercuHoraire = ({ onAller, libelleBouton }: { onAller: () => void; libelleBouton: string }) => {
+  const lang = useLangue();
   const { items: plages, loading } = useFirestoreCollection<AvailabilitySlot>("availability");
 
   const jours = useMemo<Jour[]>(() => {
+    const jourLong = new Intl.DateTimeFormat(locale(lang), { weekday: "long", day: "numeric", month: "long", timeZone: "America/Montreal" });
     const maintenant = new Date();
     const out: Jour[] = [];
     for (let i = 0; i < JOURS_MONTRES; i += 1) {
@@ -73,17 +69,16 @@ export const ApercuHoraire = ({ onAller, libelleBouton }: { onAller: () => void;
       }
     }
     return out.slice(0, 5);
-  }, [plages]);
+  }, [plages, lang]);
 
   if (loading || jours.length === 0) return null;
 
   return (
-    <section className="mt-16 border-t border-ink/10 dark:border-white/10 pt-10" aria-label="Horaire">
-      <p className="ed-kicker">Son horaire</p>
+    <section className="mt-16 border-t border-ink/10 dark:border-white/10 pt-10" aria-label={tx(lang, "Son horaire")}>
+      <p className="ed-kicker">{tx(lang, "Son horaire")}</p>
       <h3 className="ed-display mt-3 text-3xl md:text-4xl text-ink dark:text-stone-100">
-        Les prochaines heures ouvertes
+        {tx(lang, "Les prochaines heures ouvertes")}
       </h3>
-
       <ul className="mt-8 divide-y divide-ink/10 dark:divide-white/10 border-y border-ink/10 dark:border-white/10">
         {jours.map((j) => (
           <li key={j.cle} className="py-5 grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-3 items-baseline">
@@ -103,17 +98,16 @@ export const ApercuHoraire = ({ onAller, libelleBouton }: { onAller: () => void;
           </li>
         ))}
       </ul>
-
       <button
         type="button"
         onClick={onAller}
         className="mt-10 inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
       >
-        {libelleBouton}
+        {tx(lang, libelleBouton)}
         <span className="w-9 h-9 rounded-full bg-paper/15 flex items-center justify-center"><ArrowUpRight size={16} /></span>
       </button>
       <p className="mt-3 font-serif text-base text-ink/55 dark:text-stone-400">
-        Vous choisissez l'heure qui vous convient une fois votre espace ouvert.
+        {tx(lang, "Vous choisissez l'heure qui vous convient une fois votre espace ouvert.")}
       </p>
     </section>
   );
