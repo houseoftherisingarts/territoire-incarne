@@ -3,6 +3,7 @@ import { ArrowUpRight, MapPin, UserPlus, Users } from "lucide-react";
 import { ServiceModal } from "../components/widgets/ServiceModal";
 import { InterventionRequestModal } from "../components/widgets/InterventionRequestModal";
 import { INTERVENTION_CONFIGS } from "../lib/interventionFields";
+import { ApercuHoraire } from "../components/widgets/ApercuHoraire";
 import { useTarifs, type Tarif } from "../hooks/useTarifs";
 import type { Content } from "../i18n";
 
@@ -126,6 +127,8 @@ export const Therapie = ({ content }: { content: Content["sections"]["therapie"]
         />
       )}
 
+      <ApercuHoraire onAller={goToClient} libelleBouton="Investir sur mon bien-être" />
+
       <div className="pt-12 border-t border-stone-300 dark:border-stone-600 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-rust/5 dark:bg-white/5 border border-rust/20 dark:border-white/10 rounded-none p-6 md:p-8 text-center space-y-4">
           <UserPlus className="mx-auto text-rust dark:text-stone-300 opacity-70" size={26} aria-hidden="true" />
@@ -139,7 +142,7 @@ export const Therapie = ({ content }: { content: Content["sections"]["therapie"]
             onClick={goToClient}
             className="inline-flex items-center gap-2 px-6 py-2.5 bg-ink text-paper dark:bg-stone-100 dark:text-forest font-sans text-xs tracking-[0.25em] uppercase hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors rounded-full"
           >
-            Créer un compte
+            Investir sur mon bien-être
           </button>
           <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">
             Connexion Google ou courriel

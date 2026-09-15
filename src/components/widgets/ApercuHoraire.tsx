@@ -9,7 +9,6 @@ import {
   fmtTime,
   halfHourSlots,
   isoDate,
-  dayOfWeekMontreal as dow,
 } from "../../lib/datetime";
 
 const JOURS_MONTRES = 14;
@@ -119,5 +118,3 @@ export const ApercuHoraire = ({ onAller, libelleBouton }: { onAller: () => void;
     </section>
   );
 };
-
-export { dow };

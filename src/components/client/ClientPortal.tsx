@@ -119,12 +119,23 @@ export const ClientPortal = () => {
     return voulu && TABS.some((t) => t.id === voulu) ? (voulu as TabId) : "dossier";
   });
   const [uploadingBanner, setUploadingBanner] = useState(false);
+  /** Le compte vient d'être créé : on la remercie une fois, puis le mot s'efface. */
+  const [bienvenue, setBienvenue] = useState(false);
   const bannerInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!user) return;
     const target = consumeReturnTo();
     if (target) window.location.replace(target);
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+    const cree = user.metadata.creationTime ? new Date(user.metadata.creationTime).getTime() : 0;
+    if (cree && Date.now() - cree < 5 * 60_000 && !sessionStorage.getItem("ti-merci")) {
+      sessionStorage.setItem("ti-merci", "1");
+      setBienvenue(true);
+    }
   }, [user]);
 
   if (loading) return null;
@@ -198,7 +209,9 @@ export const ClientPortal = () => {
               )}
             </div>
             <div className="min-w-0 pb-1">
-              <p className="ed-kicker text-xs font-sans uppercase tracking-[0.3em] text-rust">Espace personnel</p>
+              <p className="ed-kicker text-xs font-sans uppercase tracking-[0.3em] text-rust">
+                {bienvenue ? "Merci de prendre soin de toi" : "Espace personnel"}
+              </p>
               <h1 className="ed-display font-serif text-2xl md:text-3xl truncate">{profile.displayName || profile.email}</h1>
             </div>
           </div>
