@@ -149,6 +149,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // ── Multimédias : vidéos et balados d'Élise, lus par tout le monde ─────
+    match /multimedias/{multimediaId} {
+      allow read:  if true;
+      allow write: if isAdmin();
+    }
+
     // ── Events ───────────────────────────────────────────────────────────
     match /events/{eventId} {
       allow read:  if true;
