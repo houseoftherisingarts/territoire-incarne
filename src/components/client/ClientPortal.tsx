@@ -19,7 +19,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { consumeReturnTo } from "../../lib/requireAuth";
 import { isAdminUser } from "../../lib/admins";
-import { fmtDateLong, fmtTime } from "../../lib/datetime";
+import { fmtDateLong, fmtTime as fmtHeureRdv } from "../../lib/datetime";
 
 type TabId = "dossier" | "reservations" | "cours" | "messagerie" | "ressources" | "réunion" | "profil";
 
