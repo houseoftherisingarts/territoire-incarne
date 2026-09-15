@@ -10,13 +10,12 @@ import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDrVnqTfn1MdyOkSZufODMqbCQRADzUqZ4",
-  // L'authentification passe par le domaine du site lui-même quand il est servi depuis
-  // territoireincarne.com : sinon la fenêtre Google s'ouvre sur un domaine tiers, Chrome
-  // coupe les témoins, et la porte se referme sans connecter personne.
-  authDomain:
-    typeof window !== "undefined" && window.location.hostname.endsWith("territoireincarne.com")
-      ? window.location.hostname
-      : "territoireincarne-80bb9.firebaseapp.com",
+  // Le domaine Firebase, pas celui du site : le client OAuth que Firebase a créé n'accepte
+  // que https://territoireincarne-80bb9.firebaseapp.com/__/auth/handler comme adresse de
+  // retour, et signInWithPopup marche partout avec lui. Passer au domaine du site donnerait
+  // « Error 400: redirect_uri_mismatch » (vu le 15 septembre 2026) tant que cette adresse
+  // n'est pas ajoutée au client dans Google Cloud, un geste de console qu'aucune API ne fait.
+  authDomain: "territoireincarne-80bb9.firebaseapp.com",
   projectId: "territoireincarne-80bb9",
   storageBucket: "territoireincarne-80bb9.firebasestorage.app",
   messagingSenderId: "526716569625",

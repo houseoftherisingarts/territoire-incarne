@@ -41,6 +41,7 @@ const CATEGORY_DOT: Record<InterventionCategory, string> = {
   education: "bg-sky-400",
   events: "bg-rose-400",
   therapie: "bg-stone-500",
+  consentement: "bg-emerald-500",
 };
 
 const fmtDate = (ts: Timestamp | null | undefined) => {
@@ -101,7 +102,7 @@ export const InterventionsSection = () => {
         <div>
           <p className="text-xs font-sans uppercase tracking-[0.25em] opacity-60 mb-2">Type</p>
           <div className="flex gap-2 flex-wrap">
-            {(["all", "danse", "education", "events", "therapie"] as const).map((c) => (
+            {(["all", "danse", "education", "events", "therapie", "consentement"] as const).map((c) => (
               <button
                 key={c}
                 onClick={() => setCatFilter(c)}

@@ -1,6 +1,7 @@
 import {
   GoogleAuthProvider,
   getRedirectResult,
+  onAuthStateChanged,
   signInWithPopup,
   signInWithRedirect,
   type Auth,
@@ -11,12 +12,23 @@ import {
  *  redirection, qui garde tout au premier niveau. */
 const CODES_REDIRECTION = new Set([
   "auth/popup-blocked",
-  "auth/popup-closed-by-user",
-  "auth/cancelled-popup-request",
-  "auth/missing-initial-state",
   "auth/web-storage-unsupported",
   "auth/operation-not-supported-in-this-environment",
+  "auth/internal-error",
 ]);
+
+/** Chrome dit parfois « fenêtre fermée » (faux signal COOP) alors que la session arrive
+ *  quand même une seconde plus tard : on l'attend un peu avant de conclure. */
+const CODES_ATTENTE = new Set(["auth/popup-closed-by-user", "auth/cancelled-popup-request"]);
+
+const attendreSession = (auth: Auth, ms = 4000): Promise<boolean> =>
+  new Promise((resolve) => {
+    if (auth.currentUser) { resolve(true); return; }
+    const fin = window.setTimeout(() => { stop(); resolve(false); }, ms);
+    const stop = onAuthStateChanged(auth, (u) => {
+      if (u) { window.clearTimeout(fin); stop(); resolve(true); }
+    });
+  });
 
 const fournisseur = () => {
   const p = new GoogleAuthProvider();
@@ -35,6 +47,7 @@ export const connexionGoogle = async (auth: Auth): Promise<void> => {
       await signInWithRedirect(auth, fournisseur());
       return;
     }
+    if (CODES_ATTENTE.has(code) && (await attendreSession(auth))) return;
     throw err;
   }
 };

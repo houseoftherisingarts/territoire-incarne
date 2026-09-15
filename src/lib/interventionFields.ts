@@ -2,7 +2,7 @@
  *  Each category renders a different form; data is stored as a flexible
  *  `details: Record<string, string>` on the interventionRequests doc. */
 
-export type InterventionCategory = "danse" | "education" | "events" | "therapie";
+export type InterventionCategory = "danse" | "education" | "events" | "therapie" | "consentement";
 
 export type FieldType = "text" | "email" | "tel" | "textarea" | "select" | "number";
 
@@ -334,9 +334,72 @@ const THERAPIE: CategoryConfig = {
   ],
 };
 
+
+// ─── Consultante en consentement ─────────────────────────────────────────
+// Un tournage, une scène d'intimité, une équipe, un lieu de vie : Élise se
+// réserve pour accompagner le consentement là où il se joue.
+
+const CONSENTEMENT: CategoryConfig = {
+  id: "consentement",
+  label: "Consultante en consentement",
+  ctaLabel: "Réserver Elise",
+  ctaSubtitle: "Tournage, scène, équipe, lieu de vie",
+  modalTitle: "Réserver une consultante en consentement",
+  intro:
+    "Décrivez-moi la situation : un tournage avec des scènes d'intimité, une équipe, un lieu où le consentement mérite d'être accompagné. Je vous propose une présence sur mesure.",
+  fields: [
+    ...IDENTITY_FIELDS,
+    {
+      name: "contexte",
+      label: "Contexte",
+      type: "select",
+      required: true,
+      options: [
+        "Tournage (cinéma, télé, web)",
+        "Théâtre ou scène",
+        "Équipe de travail ou entreprise",
+        "Festival ou rassemblement",
+        "Lieu de vie ou communauté",
+        "Autre",
+      ],
+    },
+    {
+      name: "situation",
+      label: "La situation, dans vos mots",
+      type: "textarea",
+      required: true,
+      placeholder: "Ex. deux scènes d'intimité sur un tournage de trois semaines, une équipe de douze personnes…",
+    },
+    {
+      name: "dates",
+      label: "Dates ou période",
+      type: "text",
+      placeholder: "Ex. du 3 au 21 novembre, ou à définir",
+    },
+    {
+      name: "lieu",
+      label: "Lieu",
+      type: "text",
+      placeholder: "Ville, plateau, salle…",
+    },
+    {
+      name: "nombre",
+      label: "Nombre de personnes concernées",
+      type: "number",
+      placeholder: "Ex. 12",
+    },
+    {
+      name: "notes",
+      label: "Notes, questions",
+      type: "textarea",
+    },
+  ],
+};
+
 export const INTERVENTION_CONFIGS: Record<InterventionCategory, CategoryConfig> = {
   danse: DANSE,
   education: EDUCATION,
   events: EVENTS,
   therapie: THERAPIE,
+  consentement: CONSENTEMENT,
 };
