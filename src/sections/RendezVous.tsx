@@ -3,6 +3,7 @@ import { useTarifs } from "../hooks/useTarifs";
 import type { Content } from "../i18n";
 import { CalendrierOuvert } from "../components/widgets/CalendrierOuvert";
 import { Reveal } from "../components/motion/Reveal";
+import { tx, useLangue } from "../i18n/tx";
 
 const CIBLE = "/client?onglet=reservations";
 
@@ -10,6 +11,7 @@ const CIBLE = "/client?onglet=reservations";
  *  vient chercher, puis les soins ouverts à la réservation, puis les trois temps du parcours,
  *  chacun dans beaucoup d'air. Aucune image : la page est un carnet, pas une affiche. */
 export const RendezVous = ({ content }: { content: Content["sections"]["rendezvous"]; general: Content["general"] }) => {
+  const lang = useLangue();
   const { tarifs, loading } = useTarifs();
   const consultations = useMemo(() => tarifs.filter((t) => t.active && t.category === "consultation"), [tarifs]);
 
@@ -21,8 +23,8 @@ export const RendezVous = ({ content }: { content: Content["sections"]["rendezvo
 
       {!loading && consultations.length > 0 && (
         <Reveal>
-          <section aria-label="Soins ouverts à la réservation">
-            <p className="ed-kicker mb-8">Soins ouverts à la réservation</p>
+          <section aria-label={tx(lang, "Soins ouverts à la réservation")}>
+            <p className="ed-kicker mb-8">{tx(lang, "Soins ouverts à la réservation")}</p>
             <ul className="border-t border-ink/10 dark:border-white/10">
               {consultations.map((c) => (
                 <li key={c.id} className="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-2 py-7 border-b border-ink/10 dark:border-white/10 items-baseline">
@@ -40,8 +42,8 @@ export const RendezVous = ({ content }: { content: Content["sections"]["rendezvo
       )}
 
       <Reveal>
-        <section aria-label="Le parcours">
-          <p className="ed-kicker mb-8">Le parcours</p>
+        <section aria-label={tx(lang, "Le parcours")}>
+          <p className="ed-kicker mb-8">{tx(lang, "Le parcours")}</p>
           <ol className="border-t border-ink/10 dark:border-white/10">
             {content.etapes.map((e, i) => (
               <li key={i} className="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-2 py-7 border-b border-ink/10 dark:border-white/10">
@@ -51,9 +53,9 @@ export const RendezVous = ({ content }: { content: Content["sections"]["rendezvo
             ))}
           </ol>
           <p className="mt-10 max-w-2xl font-serif text-lg leading-relaxed text-ink/65 dark:text-stone-300">
-            Le paiement se fait par virement Interac à{" "}
-            <a href="mailto:territoireincarne@gmail.com" className="text-rust underline underline-offset-4">territoireincarne@gmail.com</a>,
-            ou par carte quand la caisse en ligne est ouverte.
+            {tx(lang, "Le paiement se fait par virement Interac à")}{" "}
+            <a href="mailto:territoireincarne@gmail.com" className="text-rust underline underline-offset-4">territoireincarne@gmail.com</a>
+            {tx(lang, ", ou par carte quand la caisse en ligne est ouverte.")}
           </p>
         </section>
       </Reveal>
