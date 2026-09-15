@@ -16,14 +16,14 @@ export interface EntreeJournal {
 export const JOURNAL: EntreeJournal[] = [
   {
     date: "2026-09-14",
-    titre: "Une nouvelle page d'accueil, et le sommaire en tuiles",
+    titre: "Nouvelle page d'accueil, sommaire en tuiles, et votre médiathèque",
     intro:
-      "L'accueil s'ouvre maintenant sur votre photo posée au centre de la page, à sa taille d'origine, et le sommaire qui suit présente chaque section comme une tuile qui porte sa propre image.",
+      "L'accueil s'ouvre sur votre photo du champ en pleine page, avec le titre posé à côté sur un voile de papier, le sommaire présente vos sections en tuiles de texte, et un nouvel espace vous attend dans votre tableau de bord pour y déposer vos photos.",
     etapes: [
-      "Votre photo est revenue à sa version d'origine, sans l'agrandissement par ordinateur qui la rendait pâteuse, et elle est montrée en petit format au milieu de la page pour rester nette.",
-      "Le titre et votre phrase d'ouverture encadrent la photo, séparés par un filet couleur terre.",
-      "Le sommaire n'est plus une liste de lignes : chaque section devient une tuile dont le nom, le numéro et la phrase se lisent sur un verre dépoli, au bas de l'image.",
-      "Trois sections montraient jusqu'ici la même photo, et elles en ont maintenant chacune une, dont deux qui dormaient dans vos dossiers : vous qui dansez en forêt, et la plante posée sur la tablette.",
+      "La photo du champ tient maintenant tout l'écran, servie depuis votre fichier d'origine de 36 Mo, et le voile de papier qui porte le titre s'éteint en douceur sur elle sans jamais la couper net.",
+      "La photo de vous assise sous l'arbre a quitté la page d'accueil : elle n'existe qu'en 547 pixels de large, ce qui est trop petit pour une pleine page, et toute version agrandie donnait ce rendu pâteux que vous avez vu.",
+      "Le sommaire n'est plus une liste de lignes : chaque section devient une tuile avec son numéro, son nom en grand et sa phrase, sans photo, dans une grille dont les rangées se remplissent toujours.",
+      "Votre tableau de bord porte une nouvelle entrée, Médiathèque, où vous déposez vos photos en une fois, les retrouvez toutes ensemble, copiez l'adresse de celle que vous voulez poser sur une page, et retirez celles qui ne servent plus.",
     ],
   },
   {

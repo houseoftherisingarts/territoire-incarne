@@ -16,6 +16,7 @@ import {
   Tags,
   Music,
   Library,
+  Images,
   UserPlus,
   Inbox,
   Pencil,
@@ -44,6 +45,7 @@ export type AdminSectionId =
   | "events"
   | "cours"
   | "ressources"
+  | "mediatheque"
   | "writings"
   | "newsletter"
   | "changelog"
@@ -70,6 +72,7 @@ const NAV: NavItem[] = [
   { id: "events",     label: "Événements",           Icon: Sparkles },
   { id: "cours",      label: "Cours de danse",       Icon: Music },
   { id: "ressources", label: "Ressources",           Icon: Library },
+  { id: "mediatheque", label: "Médiathèque",        Icon: Images },
   { id: "writings",   label: "Écrits",               Icon: PenLine },
   { id: "newsletter", label: "Infolettre",           Icon: Users },
   { id: "changelog",  label: "Journal",              Icon: History },

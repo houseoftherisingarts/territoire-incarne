@@ -35,6 +35,8 @@ export interface FichierMedia {
   url: string;
   chemin: string;
   taille: number;
+  /** Type MIME tel que Storage le garde, pour distinguer une vidéo d'une photo. */
+  type: string;
   /** Date de dépôt en ISO, telle que Storage la donne. */
   depose: string;
 }
@@ -50,6 +52,7 @@ export async function listMediaFiles(folder: MediaFolder = "media"): Promise<Fic
         url,
         chemin: item.fullPath,
         taille: meta.size ?? 0,
+        type: meta.contentType ?? "",
         depose: meta.timeCreated ?? "",
       };
     }),

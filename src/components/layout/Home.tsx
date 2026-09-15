@@ -184,7 +184,7 @@ export const Home = ({ t, onOpen }: Props) => {
                 <a
                   href={pathForSection(id)}
                   onClick={handleNav(id, onOpen)}
-                  className="group relative flex h-full min-h-[15rem] md:min-h-[17rem] flex-col justify-between overflow-hidden rounded-[15px] ring-1 ring-ink/10 dark:ring-white/10 bg-clay/[0.06] dark:bg-white/[0.04] p-6 md:p-8 hover:bg-clay/[0.11] dark:hover:bg-white/[0.07] transition-colors"
+                  className="group relative flex h-full min-h-[15rem] md:min-h-[17rem] flex-col justify-between overflow-hidden rounded-[15px] ring-1 ring-ink/10 dark:ring-white/10 bg-white/60 dark:bg-white/[0.05] p-6 md:p-8 hover:bg-white dark:hover:bg-white/[0.09] transition-colors"
                 >
                   <p className="ed-kicker">0{i + 1}</p>
                   <div className="mt-8">

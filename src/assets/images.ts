@@ -14,7 +14,7 @@ export const ELISE_AVATAR_IMG = px(`${BASE}/elise%20main.png`, 128);
 export const ELISE_FIELD_IMG = px(`${BASE}/Elise%20field.png`, 1200);
 /** La même photo en taille hero : elle tient toute la largeur de l'écran, et elle vient
  *  du fichier d'origine de 36 Mo, jamais d'un agrandissement. */
-export const ELISE_FIELD_HERO = px(`${BASE}/Elise%20field.png`, 2400);
+export const ELISE_FIELD_HERO = "/media/elise-champ-2400.webp";
 // Global atmospheric texture (path through a field) + home feature background
 // (Élise in nature, AI-upscaled). Served locally from public/media, so no proxy.
 export const IMG_GLOBAL_BG = "/media/elise-road.webp";

@@ -18,6 +18,7 @@ import { InterventionsSection } from "./InterventionsSection";
 import { AdminBlogSection } from "./blog/AdminBlogSection";
 import { AdminCalendarSection } from "./calendar/CalendarSection";
 import { ChangelogSection } from "./ChangelogSection";
+import { MediathequeSection } from "./MediathequeSection";
 import { ApparenceSettings } from "./ApparenceSettings";
 import { SectionsSettings } from "./SectionsSettings";
 import { useAdminAuth } from "../../hooks/useAdminAuth";
@@ -70,6 +71,7 @@ export const AdminDashboard = () => {
       {section === "events"     && <EventsAdminSection />}
       {section === "cours"      && <ClassesAdminSection />}
       {section === "ressources" && <ResourcesSection />}
+      {section === "mediatheque" && <MediathequeSection />}
       {section === "writings"   && <AdminBlogSection />}
       {section === "newsletter" && <NewsletterAdminSection />}
       {section === "changelog"  && <ChangelogSection />}
