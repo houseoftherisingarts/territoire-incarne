@@ -346,6 +346,7 @@ export const ClientPortal = () => {
             email={user.email ?? ""}
             displayName={profile.displayName || user.email || ""}
             onOpenMessagerie={() => setTab("messagerie")}
+            initialSubTab={reservationsSubTab}
           />
         )}
         {tab === "cours"      && <ClientClassesTab uid={user.uid} displayName={profile.displayName || user.email || ""} />}
