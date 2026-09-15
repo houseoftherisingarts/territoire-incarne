@@ -77,6 +77,7 @@ const NAV: NavItem[] = [
   { id: "cours",      label: "Cours de danse",       Icon: Music },
   { id: "ressources", label: "Ressources",           Icon: Library },
   { id: "mediatheque", label: "Médiathèque",        Icon: Images },
+  { id: "multimedias", label: "Multimédias",        Icon: Clapperboard },
   { id: "writings",   label: "Écrits",               Icon: PenLine },
   { id: "newsletter", label: "Infolettre",           Icon: Users },
   { id: "changelog",  label: "Journal",              Icon: History },
