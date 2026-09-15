@@ -50,7 +50,7 @@ export const Ressources = (_props: { content?: Content["sections"]["ressources"]
 
   if (items.length === 0) {
     return (
-      <p className="font-serif opacity-60 py-12 text-center">
+      <p className="font-serif text-lg opacity-60 border-t border-ink/10 dark:border-white/10 pt-10">
         Les ressources arrivent bientôt.
       </p>
     );
