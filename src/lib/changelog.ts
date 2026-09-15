@@ -15,6 +15,21 @@ export interface EntreeJournal {
  */
 export const JOURNAL: EntreeJournal[] = [
   {
+    date: "2026-09-15",
+    titre: "Neuf portes sur l'accueil, ton horaire à ciel ouvert, et la connexion Google réparée",
+    intro:
+      "L'accueil présente maintenant tes neuf domaines en tuiles de texte, deux nouvelles pages s'ajoutent, ton horaire s'affiche sur la page Pair-aidance, et la porte Google fonctionne de nouveau.",
+    etapes: [
+      "Le sommaire montre Pair-aidance, Massothérapie, Éducation sexuelle (3 mains), Formations à venir, Cours à la carte, Boutique, Blog, Ressources et Mouvement, chacun dans sa case, sans photo ni coin arrondi.",
+      "Massothérapie et Éducation sexuelle ont leur page : elles affichent les offres que tu ranges dans Consultations, sous la catégorie du même nom, et le texte de présentation se modifie directement sur la page.",
+      "Cours à la carte porte le répertoire de ce que tu peux animer. Tu remplis la liste depuis Ateliers, dans ton tableau de bord, et une école ou un festival t'écrit d'un clic.",
+      "Sur Pair-aidance, tes prochaines heures ouvertes s'affichent comme un calendrier, et le bouton « Investir sur mon bien-être » mène à la création du compte. La personne est accueillie par « Merci de prendre soin de toi ».",
+      "La connexion Google repassait par un domaine étranger, ce qui refermait la fenêtre sans connecter personne. Elle passe maintenant par ton propre domaine.",
+      "Les aperçus de ta médiathèque restaient noirs parce que le site refusait les fichiers venant de ton espace de stockage. Ils s'affichent, et un clic les ouvre en grand.",
+      "Plus aucune photo n'a les coins arrondis, ni sur le site ni dans ton tableau de bord.",
+    ],
+  },
+  {
     date: "2026-09-14",
     titre: "Nouvelle page d'accueil, sommaire en tuiles, et votre médiathèque",
     intro:
