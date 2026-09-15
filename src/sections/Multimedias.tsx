@@ -43,15 +43,11 @@ const fmtDate = (iso: string) => {
 /** La page Multimédias : les vidéos et les balados d'Élise, chacun avec son lecteur
  *  embarqué directement dans la page. */
 export const Multimedias = ({ content }: { content: Content["sections"]["multimedias"] }) => {
-  const options = useMemo(
-    () => ({
-      where: [["publie", "==", true] as [string, "==", true]],
-      orderField: "ordre" as const,
-      orderDirection: "asc" as const,
-    }),
-    [],
-  );
-  const { items: tries, loading } = useFirestoreCollection<Multimedia>("multimedias", options);
+  // Pas d'orderBy dans la requête : combiné à where(), Firestore exigerait un index composite.
+  // Le tri par « ordre » se fait donc côté client, comme pour les ateliers.
+  const options = useMemo(() => ({ where: [["publie", "==", true] as [string, "==", true]] }), []);
+  const { items, loading } = useFirestoreCollection<Multimedia>("multimedias", options);
+  const tries = [...items].sort((a, b) => (a.ordre ?? 0) - (b.ordre ?? 0));
 
   return (
     <div className="w-full">
