@@ -128,6 +128,10 @@ export const fr = {
       title: "Écrits",
       intro: "Réflexions sur la lenteur, l'anatomie et le vivant.",
     },
+    multimedias: {
+      title: "Multimédias",
+      intro: "Les vidéos et les balados d'Elise, à regarder et à écouter ici.",
+    },
     rendezvous: {
       title: "Prendre rendez-vous",
       intro: "Pour prendre rendez-vous ou valider si l'approche vous convient.",
