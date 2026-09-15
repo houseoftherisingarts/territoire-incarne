@@ -24,23 +24,26 @@ export const Reveal = ({ children, delay = 0, className = "" }: { children: Reac
  *  Le balayage passe par une transition CSS (le navigateur interpole `inset()` nativement),
  *  et framer-motion ne sert qu'à savoir quand le cadre entre dans l'écran. */
 export const RevealPhoto = ({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) => {
+  // Le cadre observé n'est jamais celui qui porte le clip-path : Chrome calcule l'intersection
+  // sur la zone visible, et un cadre fermé (inset 50 % de chaque côté) ne croise jamais l'écran.
   const ref = useRef<HTMLDivElement>(null);
   const visible = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <div
-      ref={ref}
-      className={`motion-reduce:!opacity-100 motion-reduce:![clip-path:none] ${className}`}
-      style={{
-        opacity: visible ? 1 : 0,
-        clipPath: visible ? "inset(0% 0% 0% 0%)" : "inset(0% 50% 0% 50%)",
-        transition: `clip-path 1.15s ${EASE_CSS} ${delay}s, opacity 1.15s ${EASE_CSS} ${delay}s`,
-      }}
-    >
+    <div ref={ref} className={className}>
       <div
-        className="w-full h-full motion-reduce:!transform-none"
-        style={{ transform: visible ? "scale(1)" : "scale(1.08)", transition: `transform 1.4s ${EASE_CSS} ${delay}s` }}
+        className="w-full h-full motion-reduce:!opacity-100 motion-reduce:![clip-path:none]"
+        style={{
+          opacity: visible ? 1 : 0,
+          clipPath: visible ? "inset(0% 0% 0% 0%)" : "inset(0% 50% 0% 50%)",
+          transition: `clip-path 1.15s ${EASE_CSS} ${delay}s, opacity 1.15s ${EASE_CSS} ${delay}s`,
+        }}
       >
-        {children}
+        <div
+          className="w-full h-full motion-reduce:!transform-none"
+          style={{ transform: visible ? "scale(1)" : "scale(1.08)", transition: `transform 1.4s ${EASE_CSS} ${delay}s` }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

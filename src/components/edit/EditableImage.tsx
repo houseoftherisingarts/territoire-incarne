@@ -26,7 +26,7 @@ export interface Cadre { x: number; y: number; zoom: number; }
 export const CADRE_PAR_DEFAUT: Cadre = { x: 50, y: 50, zoom: 1 };
 export const lireCadre = (brut: string): Cadre => {
   const [x, y, z] = brut.split(",").map(Number);
-  if ([x, y, z].some((n) => Number.isNaN(n))) return CADRE_PAR_DEFAUT;
+  if (![x, y, z].every((n) => Number.isFinite(n))) return CADRE_PAR_DEFAUT;
   return { x: Math.min(100, Math.max(0, x)), y: Math.min(100, Math.max(0, y)), zoom: Math.min(2.5, Math.max(1, z)) };
 };
 export const ecrireCadre = (c: Cadre) => `${Math.round(c.x)},${Math.round(c.y)},${c.zoom.toFixed(2)}`;
