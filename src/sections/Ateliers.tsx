@@ -26,22 +26,19 @@ const useAteliers = () => {
 };
 
 /** La page Ateliers : le répertoire de ce qu'Élise anime, et la porte pour l'inviter.
- *  Le formulaire est celui des interventions éducatives, déjà écrit dans ses mots. */
-export const Ateliers = ({ content }: { content: Content["sections"]["ateliers"] }) => {
+ *  Le formulaire est celui des interventions éducatives, déjà écrit dans ses mots.
+ *  L'intro se lit déjà dans l'en-tête commun (DetailView), donc elle ne se répète pas ici. */
+export const Ateliers = (_props: { content: Content["sections"]["ateliers"] }) => {
   const { items, loading } = useAteliers();
   const [demande, setDemande] = useState(false);
   const config = INTERVENTION_CONFIGS.education;
 
   return (
     <div className="w-full">
-      <p className="max-w-3xl font-serif text-2xl md:text-3xl font-light leading-snug text-ink/85 dark:text-stone-200">
-        {content.intro}
-      </p>
-
       <button
         type="button"
         onClick={() => setDemande(true)}
-        className="mt-8 inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
+        className="inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
       >
         {config.ctaLabel}
         <span className="w-9 h-9 rounded-full bg-paper/15 flex items-center justify-center"><ArrowUpRight size={16} /></span>
