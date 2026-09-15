@@ -1,4 +1,4 @@
-import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject, listAll, getMetadata } from "firebase/storage";
 import { storage } from "../firebase";
 
 export type MediaFolder = "products" | "posts" | "events" | "resources" | "media";
@@ -28,4 +28,36 @@ export async function deleteMediaByUrl(url: string): Promise<void> {
   } catch (err) {
     console.warn("deleteMediaByUrl failed:", err);
   }
+}
+
+export interface FichierMedia {
+  nom: string;
+  url: string;
+  chemin: string;
+  taille: number;
+  /** Date de dépôt en ISO, telle que Storage la donne. */
+  depose: string;
+}
+
+/** Tout ce qui dort dans un dossier de la médiathèque, du plus récent au plus ancien. */
+export async function listMediaFiles(folder: MediaFolder = "media"): Promise<FichierMedia[]> {
+  const { items } = await listAll(ref(storage, folder));
+  const fichiers = await Promise.all(
+    items.map(async (item) => {
+      const [url, meta] = await Promise.all([getDownloadURL(item), getMetadata(item)]);
+      return {
+        nom: item.name.replace(/^\d+_/, ""),
+        url,
+        chemin: item.fullPath,
+        taille: meta.size ?? 0,
+        depose: meta.timeCreated ?? "",
+      };
+    }),
+  );
+  return fichiers.sort((a, b) => b.depose.localeCompare(a.depose));
+}
+
+/** Retire un fichier de la médiathèque par son chemin Storage. */
+export async function deleteMediaByPath(chemin: string): Promise<void> {
+  await deleteObject(ref(storage, chemin));
 }
