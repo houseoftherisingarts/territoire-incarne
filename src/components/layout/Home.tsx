@@ -50,7 +50,6 @@ export const Home = ({ t, onOpen }: Props) => {
   const { visibles, estVisible } = useSections();
   const lang = useLangue();
   const tuiles = SOMMAIRE_ORDER.filter((id) => visibles.includes(id));
-  const ledeApropos = t.sections.apropos.intro.split(". ")[0] + ".";
   /** La boucle vidéo se choisit une fois, selon la largeur : la version 960 px sur téléphone. */
   const [grandEcran, setGrandEcran] = useState<boolean | null>(null);
   useEffect(() => { setGrandEcran(window.matchMedia("(min-width: 768px)").matches); }, []);
@@ -100,7 +99,7 @@ export const Home = ({ t, onOpen }: Props) => {
           </motion.p>
 
           <h1 className="ed-display mt-6 text-[clamp(3rem,7.5vw,8rem)] text-paper leading-[0.98] tracking-[-0.02em] drop-shadow-[0_2px_18px_rgba(0,0,0,0.35)]">
-            <MotsQuiMontent texte="Territoire Incarné" delai={0.4} />
+            <EditableText contentKey="home.hero.titre" defaultValue="Territoire Incarné" defaultValueEn="Territoire Incarné">{(txt) => <MotsQuiMontent texte={txt} delai={0.4} />}</EditableText>
           </h1>
 
           <motion.span
@@ -146,7 +145,7 @@ export const Home = ({ t, onOpen }: Props) => {
                 onClick={handleNav("rendezvous", onOpen)}
                 className="inline-flex items-center gap-3 bg-paper text-ink font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-rust hover:text-paper transition-colors"
               >
-                {t.general.prendreRdv}
+                <EditableText i18n="general.prendreRdv" />
                 <span className="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center"><ArrowUpRight size={16} /></span>
               </a>
             )}
@@ -156,7 +155,7 @@ export const Home = ({ t, onOpen }: Props) => {
                 onClick={handleNav("mouvement", onOpen)}
                 className="inline-flex items-center gap-3 border border-paper/50 text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] px-7 rounded-full hover:bg-paper hover:text-ink transition-colors"
               >
-                {t.general.coursDanse}
+                <EditableText i18n="general.coursDanse" />
               </a>
             )}
           </motion.div>
@@ -178,7 +177,7 @@ export const Home = ({ t, onOpen }: Props) => {
           </RevealPhoto>
           <div className="lg:col-span-7 lg:pl-8">
             <Reveal>
-              <p className="ed-kicker mb-8">{tx(lang, "Qui est Élise")}</p>
+              <p className="ed-kicker mb-8"><EditableText as="span" contentKey="home.qui-est-elise" defaultValue={"Qui est Élise"} /></p>
             </Reveal>
             <Reveal delay={0.08}>
               <h2 className="ed-display [text-wrap:balance] text-[clamp(2.4rem,4.8vw,4.6rem)] text-ink dark:text-stone-100">
@@ -212,7 +211,7 @@ export const Home = ({ t, onOpen }: Props) => {
                 onClick={handleNav("apropos", onOpen)}
                 className="mt-10 inline-flex items-center gap-3 border border-ink/25 dark:border-white/25 text-ink dark:text-stone-100 font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-rust hover:border-rust hover:text-paper transition-colors"
               >
-                {tx(lang, "Lire son parcours")}
+                <EditableText as="span" contentKey="home.lire-son-parcours" defaultValue={"Lire son parcours"} />
                 <span className="w-9 h-9 rounded-full bg-ink/10 dark:bg-white/10 flex items-center justify-center"><ArrowUpRight size={16} /></span>
               </a>
             </Reveal>
@@ -227,7 +226,7 @@ export const Home = ({ t, onOpen }: Props) => {
           rangées de trois, et la dernière rangée se remplit toujours. */}
       <section className="w-full px-5 md:px-12 lg:px-16 py-20 md:py-28 border-t border-ink/10 dark:border-white/10" aria-label={t.general.sommaire}>
         <Reveal>
-          <p className="ed-kicker mb-10">{t.general.sommaire}</p>
+          <p className="ed-kicker mb-10"><EditableText i18n="general.sommaire" /></p>
         </Reveal>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10 dark:bg-white/10">
           {tuiles.map((id, i) => {
@@ -240,11 +239,11 @@ export const Home = ({ t, onOpen }: Props) => {
                   className="group relative flex h-full min-h-[15rem] md:min-h-[17rem] flex-col justify-between text-center bg-white/60 dark:bg-white/[0.05] p-6 md:p-8 hover:bg-white dark:hover:bg-white/[0.09] transition-colors"
                 >
                   <h3 className="ed-display text-[clamp(1.9rem,2.6vw,2.9rem)] text-ink dark:text-stone-100 group-hover:text-rust dark:group-hover:text-white transition-colors">
-                    {t.nav[id]}
+                    <EditableText i18n={`nav.${id}`} />
                   </h3>
                   {section.intro && (
                     <p className="mt-6 max-w-md mx-auto font-serif text-base md:text-lg leading-snug text-ink/65 dark:text-stone-300">
-                      {section.intro}
+                      <EditableText i18n={`sections.${id}.intro`} />
                     </p>
                   )}
                   <span className="absolute top-6 right-6 text-rust opacity-0 group-hover:opacity-100 transition-opacity">
@@ -257,8 +256,6 @@ export const Home = ({ t, onOpen }: Props) => {
         </div>
       </section>
 
-      {/* ledeApropos garde la phrase d'ouverture sous la main pour le SEO et l'affiche. */}
-      <span className="sr-only">{ledeApropos}</span>
     </main>
   );
 };

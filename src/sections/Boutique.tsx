@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { EditableText } from "../components/edit/EditableText";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { onAuthStateChanged, type User } from "firebase/auth";
 import { auth, db } from "../firebase";
@@ -85,13 +86,13 @@ export const Boutique = ({ t, cart, subtotal, onAdd, onRemove }: Props) => {
   };
 
   if (loading) {
-    return <p className="font-serif opacity-60 py-10 text-center">{tx(lang, "Chargement…")}</p>;
+    return <p className="font-serif opacity-60 py-10 text-center"><EditableText as="span" contentKey="boutique.chargement" defaultValue={"Chargement…"} /></p>;
   }
 
   if (products.length === 0) {
     return (
       <p className="font-serif text-lg opacity-60 border-t border-ink/10 dark:border-white/10 pt-10">
-        {tx(lang, "La boutique est en préparation, revenez bientôt.")}
+        <EditableText as="span" contentKey="boutique.la-boutique-est-en-preparation" defaultValue={"La boutique est en préparation, revenez bientôt."} />
       </p>
     );
   }
@@ -114,8 +115,8 @@ export const Boutique = ({ t, cart, subtotal, onAdd, onRemove }: Props) => {
                       image={p.image}
                       stock={p.stock}
                       onAdd={() => onAdd({ name: p.title, price: p.priceCents / 100 })}
-                      addLabel={t.addToCart}
-                      soldLabel={tx(lang, "Rupture")}
+                      addLabel={<EditableText i18n="general.addToCart" />}
+                      soldLabel={<EditableText contentKey="boutique.rupture" defaultValue="Rupture" />}
                     />
                   ))}
                 </div>
@@ -154,8 +155,8 @@ interface ProductCardProps {
   image: string;
   stock: number;
   onAdd: () => void;
-  addLabel: string;
-  soldLabel: string;
+  addLabel: React.ReactNode;
+  soldLabel: React.ReactNode;
 }
 
 const ProductCard = ({ title, desc, price, image, stock, onAdd, addLabel, soldLabel }: ProductCardProps) => {

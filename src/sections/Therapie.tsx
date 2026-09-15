@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { EditableText } from "../components/edit/EditableText";
 import { ArrowUpRight, MapPin, UserPlus, Users } from "lucide-react";
 import { ServiceModal } from "../components/widgets/ServiceModal";
 import { InterventionRequestModal } from "../components/widgets/InterventionRequestModal";
@@ -48,12 +49,12 @@ export const Therapie = ({ content }: { content: Content["sections"]["therapie"]
   return (
     <div className="space-y-12 animate-[fadeIn_1s_ease-out]">
       <div className="space-y-6">
-        <h3 className="text-2xl font-light text-rust dark:text-stone-300">{tx(lang, "Soins offerts")}</h3>
+        <h3 className="text-2xl font-light text-rust dark:text-stone-300"><EditableText as="span" contentKey="therapie.soins-offerts" defaultValue={"Soins offerts"} /></h3>
         {loading ? (
-          <p className="font-serif opacity-60">{tx(lang, "Chargement…")}</p>
+          <p className="font-serif opacity-60"><EditableText as="span" contentKey="therapie.chargement" defaultValue={"Chargement…"} /></p>
         ) : consultations.length === 0 ? (
           <p className="font-serif opacity-60 py-4">
-            {tx(lang, "Les soins seront bientôt accessibles.")}
+            <EditableText as="span" contentKey="therapie.les-soins-seront-bientot-accessibles" defaultValue={"Les soins seront bientôt accessibles."} />
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -110,13 +111,13 @@ export const Therapie = ({ content }: { content: Content["sections"]["therapie"]
 
       {content.locations && content.locations.length > 0 && (
         <div className="flex flex-wrap gap-4">
-          {content.locations.map((loc, i) => (
+          {content.locations.map((_loc, i) => (
             <div key={i} className="flex-1 min-w-[200px] border border-stone-300 dark:border-stone-600 p-6 rounded-none bg-paper/50 dark:bg-black/10">
               <div className="flex items-center gap-2 mb-2 text-rust dark:text-stone-300">
                 <MapPin size={16} />
-                <h4 className="font-sans uppercase tracking-widest text-xs font-bold">{loc.type}</h4>
+                <h4 className="font-sans uppercase tracking-widest text-xs font-bold"><EditableText i18n={`sections.therapie.locations.${i}.type`} /></h4>
               </div>
-              <p className="font-serif text-lg text-ink dark:text-stone-200">{loc.desc}</p>
+              <p className="font-serif text-lg text-ink dark:text-stone-200"><EditableText i18n={`sections.therapie.locations.${i}.desc`} /></p>
             </div>
           ))}
         </div>
@@ -135,35 +136,35 @@ export const Therapie = ({ content }: { content: Content["sections"]["therapie"]
         <div className="bg-rust/5 dark:bg-white/5 border border-rust/20 dark:border-white/10 rounded-none p-6 md:p-8 text-center space-y-4">
           <UserPlus className="mx-auto text-rust dark:text-stone-300 opacity-70" size={26} aria-hidden="true" />
           <h3 className="text-xl md:text-2xl font-light leading-tight">
-            {tx(lang, "Soin individuel")}
+            <EditableText as="span" contentKey="therapie.soin-individuel" defaultValue={"Soin individuel"} />
           </h3>
           <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-            {tx(lang, "Pour prendre rendez-vous, créez votre espace personnel.")}
+            <EditableText as="span" contentKey="therapie.pour-prendre-rendez-vous-creez" defaultValue={"Pour prendre rendez-vous, créez votre espace personnel."} />
           </p>
           <button
             onClick={goToClient}
             className="inline-flex items-center gap-2 px-6 py-2.5 bg-ink text-paper dark:bg-stone-100 dark:text-forest font-sans text-xs tracking-[0.25em] uppercase hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors rounded-full"
           >
-            {tx(lang, "Investir sur mon bien-être")}
+            <EditableText as="span" contentKey="therapie.investir-sur-mon-bien-etre" defaultValue={"Investir sur mon bien-être"} />
           </button>
           <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">
-            {tx(lang, "Connexion Google ou courriel")}
+            <EditableText as="span" contentKey="therapie.connexion-google-ou-courriel" defaultValue={"Connexion Google ou courriel"} />
           </p>
         </div>
 
         <div className="bg-stone-100/50 dark:bg-stone-800/30 border border-stone-300/40 dark:border-stone-600/40 rounded-none p-6 md:p-8 text-center space-y-4">
           <Users className="mx-auto text-stone-600 dark:text-stone-300 opacity-70" size={26} aria-hidden="true" />
           <h3 className="text-xl md:text-2xl font-light leading-tight">
-            {tx(lang, "Soin de groupe / corporatif")}
+            <EditableText as="span" contentKey="therapie.soin-de-groupe-corporatif" defaultValue={"Soin de groupe / corporatif"} />
           </h3>
           <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-            {tx(lang, "Entreprise, équipe, cercle thérapeutique : décrivez-moi votre intention.")}
+            <EditableText as="span" contentKey="therapie.entreprise-equipe-cercle-therapeutique-decrivez" defaultValue={"Entreprise, équipe, cercle thérapeutique : décrivez-moi votre intention."} />
           </p>
           <button
             onClick={() => setShowGroupRequest(true)}
             className="inline-flex items-center gap-2 px-6 py-2.5 border border-ink/30 dark:border-stone-300/30 font-sans text-xs tracking-[0.25em] uppercase hover:bg-ink hover:text-paper dark:hover:bg-stone-100 dark:hover:text-forest transition-colors rounded-full"
           >
-            {tx(lang, "Demander pour un groupe")}
+            <EditableText as="span" contentKey="therapie.demander-pour-un-groupe" defaultValue={"Demander pour un groupe"} />
           </button>
         </div>
       </div>

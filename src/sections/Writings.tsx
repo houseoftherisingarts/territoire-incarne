@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { EditableText } from "../components/edit/EditableText";
 import { ArrowUpRight, Calendar } from "lucide-react";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase";
@@ -6,7 +7,7 @@ import { pathForPost } from "../routes";
 import type { BlogPost } from "../types/blog";
 import type { Lang } from "../types";
 import type { Content } from "../i18n";
-import { locale, tx } from "../i18n/tx";
+import { locale } from "../i18n/tx";
 
 interface Props {
   content?: Content["sections"]["writings"];
@@ -51,12 +52,12 @@ export const Writings = ({ lang = "fr", onOpenPost }: Props) => {
     }
   };
 
-  if (loading) return <p className="font-serif opacity-60 py-10 text-center">{tx(lang, "Chargement…")}</p>;
+  if (loading) return <p className="font-serif opacity-60 py-10 text-center"><EditableText as="span" contentKey="writings.chargement" defaultValue={"Chargement…"} /></p>;
 
   if (posts.length === 0) {
     return (
       <p className="font-serif text-lg opacity-60 border-t border-ink/10 dark:border-white/10 pt-10">
-        {tx(lang, "Les premiers écrits arrivent bientôt.")}
+        <EditableText as="span" contentKey="writings.les-premiers-ecrits-arrivent-bientot" defaultValue={"Les premiers écrits arrivent bientôt."} />
       </p>
     );
   }
@@ -90,7 +91,7 @@ export const Writings = ({ lang = "fr", onOpenPost }: Props) => {
                 <p className="text-sm font-serif opacity-70 leading-relaxed flex-1">{c.excerpt}</p>
               )}
               <span className="mt-4 self-start text-xs font-sans uppercase tracking-widest text-rust dark:text-stone-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                {tx(lang, "Lire l'article")} <ArrowUpRight size={11} />
+                <EditableText as="span" contentKey="writings.lire-l-article" defaultValue={"Lire l'article"} /> <ArrowUpRight size={11} />
               </span>
             </div>
           </a>

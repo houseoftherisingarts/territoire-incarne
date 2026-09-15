@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { EditableText } from "../edit/EditableText";
 import { Lock } from "lucide-react";
 import { onAuthStateChanged, type User } from "firebase/auth";
 import { auth } from "../../firebase";
 import { isAdminUser } from "../../lib/admins";
 import { pathForSection } from "../../routes";
 import { useSections } from "../../hooks/useSections";
-import { tx } from "../../i18n/tx";
-import type { Content } from "../../i18n";
+import { CONTENT, type Content } from "../../i18n";
 import type { Lang, SectionId } from "../../types";
 import { BadgeVexel } from "../common/BadgeVexel";
 import { db } from "../../firebase";
@@ -40,26 +40,26 @@ export const Footer = ({ t, lang, onOpen, onToggleLang }: Props) => {
       <div className="px-5 md:px-12 lg:px-16 pt-16 pb-12 grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-12">
         <div className="md:col-span-4">
           <a href="/" onClick={aller(null)} className="font-serif text-3xl leading-none">Territoire Incarné</a>
-          <p className="ed-kicker mt-3 text-paper/60">{tx(lang, "par Elise .G Lortie")}</p>
+          <p className="ed-kicker mt-3 text-paper/60"><EditableText as="span" contentKey="footer.par-elise-g-lortie" defaultValue={"par Elise .G Lortie"} /></p>
           <p className="mt-6 font-serif text-lg leading-relaxed text-paper/80 max-w-sm">
-            {t.sections.apropos.intro.split(". ")[0]}.
+            <EditableText contentKey="footer.phrase" defaultValue={CONTENT.fr.sections.apropos.intro.split(". ")[0] + "."} defaultValueEn={CONTENT.en.sections.apropos.intro.split(". ")[0] + "."} />
           </p>
         </div>
 
         <nav className="md:col-span-2" aria-label={t.general.naviguer}>
-          <p className="ed-kicker text-paper/50 mb-5">{t.general.naviguer}</p>
+          <p className="ed-kicker text-paper/50 mb-5"><EditableText i18n="general.naviguer" /></p>
           <ul className="space-y-2">
             {visibles.map((id) => (
               <li key={id}>
                 <a href={pathForSection(id)} onClick={aller(id)} className="font-serif text-lg text-paper/85 hover:text-paper transition-colors">
-                  {t.nav[id]}
+                  <EditableText i18n={`nav.${id}`} />
                 </a>
               </li>
             ))}
             {estVisible("rendezvous") && (
               <li>
                 <a href={pathForSection("rendezvous")} onClick={aller("rendezvous")} className="font-serif text-lg text-[#d9a58a] hover:text-paper transition-colors">
-                  {t.general.prendreRdv}
+                  <EditableText i18n="general.prendreRdv" />
                 </a>
               </li>
             )}
@@ -67,15 +67,15 @@ export const Footer = ({ t, lang, onOpen, onToggleLang }: Props) => {
         </nav>
 
         <div className="md:col-span-3">
-          <p className="ed-kicker text-paper/50 mb-5">{t.general.coordonnees}</p>
+          <p className="ed-kicker text-paper/50 mb-5"><EditableText i18n="general.coordonnees" /></p>
           <a href={`mailto:${COURRIEL}`} className="font-serif text-lg text-paper/85 hover:text-paper transition-colors break-all">
             {COURRIEL}
           </a>
-          <p className="mt-2 font-serif text-lg text-paper/60">Québec</p>
+          <p className="mt-2 font-serif text-lg text-paper/60"><EditableText contentKey="footer.lieu" defaultValue="Québec" defaultValueEn="Québec" /></p>
           <ul className="mt-6 space-y-3">
             <li>
               <a href="/client" className="font-serif text-lg text-paper/85 hover:text-paper transition-colors">
-                {user ? t.general.myClientSpace : t.general.clientSpace}
+                <EditableText i18n={user ? "general.myClientSpace" : "general.clientSpace"} />
               </a>
             </li>
             <li>
@@ -84,7 +84,7 @@ export const Footer = ({ t, lang, onOpen, onToggleLang }: Props) => {
                 className="inline-flex items-center gap-2 min-h-[44px] px-5 rounded-full border border-paper/30 font-sans text-xs uppercase tracking-[0.2em] font-semibold text-paper/85 hover:bg-paper hover:text-ink transition-colors"
               >
                 <Lock size={13} strokeWidth={1.75} />
-                {admin ? t.general.tableauDeBord : tx(lang, "Administration")}
+                {admin ? <EditableText i18n="general.tableauDeBord" /> : <EditableText contentKey="footer.administration" defaultValue="Administration" />}
               </a>
             </li>
           </ul>
@@ -106,7 +106,7 @@ export const Footer = ({ t, lang, onOpen, onToggleLang }: Props) => {
 
       <div className="px-5 md:px-12 lg:px-16 py-5 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2 font-sans text-xs uppercase tracking-[0.25em] text-paper/45">
         <span>© {new Date().getFullYear()} Territoire Incarné · Elise .G Lortie</span>
-        <span>{t.general.droits}</span>
+        <span><EditableText i18n="general.droits" /></span>
       </div>
     </footer>
   );

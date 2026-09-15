@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { EditableText } from "../components/edit/EditableText";
 import { useTarifs } from "../hooks/useTarifs";
 import type { Content } from "../i18n";
 import { CalendrierOuvert } from "../components/widgets/CalendrierOuvert";
@@ -24,7 +25,7 @@ export const RendezVous = ({ content }: { content: Content["sections"]["rendezvo
       {!loading && consultations.length > 0 && (
         <Reveal>
           <section aria-label={tx(lang, "Soins ouverts à la réservation")}>
-            <p className="ed-kicker mb-8">{tx(lang, "Soins ouverts à la réservation")}</p>
+            <p className="ed-kicker mb-8"><EditableText as="span" contentKey="rendezvous.soins-ouverts-a-la-reservation" defaultValue={"Soins ouverts à la réservation"} /></p>
             <ul className="border-t border-ink/10 dark:border-white/10">
               {consultations.map((c) => (
                 <li key={c.id} className="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-2 py-7 border-b border-ink/10 dark:border-white/10 items-baseline">
@@ -43,19 +44,19 @@ export const RendezVous = ({ content }: { content: Content["sections"]["rendezvo
 
       <Reveal>
         <section aria-label={tx(lang, "Le parcours")}>
-          <p className="ed-kicker mb-8">{tx(lang, "Le parcours")}</p>
+          <p className="ed-kicker mb-8"><EditableText as="span" contentKey="rendezvous.le-parcours" defaultValue={"Le parcours"} /></p>
           <ol className="border-t border-ink/10 dark:border-white/10">
-            {content.etapes.map((e, i) => (
+            {content.etapes.map((_e, i) => (
               <li key={i} className="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-2 py-7 border-b border-ink/10 dark:border-white/10">
-                <span className="md:col-span-5 font-serif text-2xl md:text-3xl font-light leading-tight text-ink dark:text-stone-100">{e.titre}</span>
-                <span className="md:col-span-7 font-serif text-lg leading-relaxed text-ink/65 dark:text-stone-300">{e.texte}</span>
+                <span className="md:col-span-5 font-serif text-2xl md:text-3xl font-light leading-tight text-ink dark:text-stone-100"><EditableText i18n={`sections.rendezvous.etapes.${i}.titre`} /></span>
+                <span className="md:col-span-7 font-serif text-lg leading-relaxed text-ink/65 dark:text-stone-300"><EditableText i18n={`sections.rendezvous.etapes.${i}.texte`} /></span>
               </li>
             ))}
           </ol>
           <p className="mt-10 max-w-2xl font-serif text-lg leading-relaxed text-ink/65 dark:text-stone-300">
-            {tx(lang, "Le paiement se fait par virement Interac à")}{" "}
+            <EditableText as="span" contentKey="rendezvous.le-paiement-se-fait-par" defaultValue={"Le paiement se fait par virement Interac à"} />{" "}
             <a href="mailto:territoireincarne@gmail.com" className="text-rust underline underline-offset-4">territoireincarne@gmail.com</a>
-            {tx(lang, ", ou par carte quand la caisse en ligne est ouverte.")}
+            <EditableText as="span" contentKey="rendezvous.ou-par-carte-quand-la" defaultValue={", ou par carte quand la caisse en ligne est ouverte."} />
           </p>
         </section>
       </Reveal>

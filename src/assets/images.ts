@@ -19,8 +19,9 @@ export const ELISE_FIELD_HERO = "/media/elise-champ-2400.webp";
  *  la photo d'origine manque aussi, c'est elle qui prend le cadre. Jamais de trou. */
 export const PHOTO_DE_SECOURS = ELISE_FIELD_HERO;
 /** Le hero : la route, recadrée en 2.35:1 depuis la photo d'origine, et sa boucle animée
- *  (caméra verrouillée, une brise dans les herbes, première et dernière image identiques)
- *  rendue par MiniMax H3 sur Higgsfield le 15 septembre 2026. */
+ *  (caméra verrouillée, une vague de vent qui traverse le champ, première et dernière image
+ *  identiques) rendue par MiniMax H3 sur Higgsfield le 15 septembre 2026. La version à la brise
+ *  douce dort dans la médiathèque (route-brise-douce.mp4), la vague aussi (route-vague-de-vent.mp4). */
 export const HERO_POSTER = "/media/elise-route-235.jpg";
 export const HERO_VIDEO = "/media/elise-route-235.mp4";
 export const HERO_VIDEO_WEBM = "/media/elise-route-235.webm";

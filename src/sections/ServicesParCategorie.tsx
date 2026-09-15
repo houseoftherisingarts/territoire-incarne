@@ -78,11 +78,11 @@ export const ServicesParCategorie = ({ categorie, cleTexte, texteParDefaut, dema
           onClick={() => setOuvert(true)}
           className="inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
         >
-          {tx(lang, config.ctaLabel)}
+          <EditableText contentKey={`formulaire.${config.id}.cta`} defaultValue={config.ctaLabel} />
           <span className="w-9 h-9 rounded-full bg-paper/15 flex items-center justify-center"><ArrowUpRight size={16} /></span>
         </button>
         {config.ctaSubtitle && (
-          <p className="mt-3 font-sans text-xs uppercase tracking-[0.18em] text-ink/50 dark:text-stone-400">{tx(lang, config.ctaSubtitle)}</p>
+          <p className="mt-3 font-sans text-xs uppercase tracking-[0.18em] text-ink/50 dark:text-stone-400"><EditableText contentKey={`formulaire.${config.id}.cta-sous`} defaultValue={config.ctaSubtitle ?? ""} /></p>
         )}
       </div>
 

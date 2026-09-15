@@ -4,12 +4,22 @@ import { Pencil, X, Check, RotateCcw } from "lucide-react";
 import { useSiteEdit } from "../../lib/siteEdit";
 import { saveOverride, clearOverride } from "../../hooks/useSiteOverrides";
 import { tx, useLangue } from "../../i18n/tx";
+import { CONTENT } from "../../i18n";
+
+/** Lit une valeur dans le contenu i18n par son chemin, « sections.apropos.title » ou
+ *  « sections.rendezvous.etapes.0.titre ». Une chaîne absente rend vide, jamais une erreur. */
+const lireI18n = (racine: unknown, chemin: string): string => {
+  const v = chemin.split(".").reduce<unknown>((o, k) => (o && typeof o === "object" ? (o as Record<string, unknown>)[k] : undefined), racine);
+  return typeof v === "string" ? v : "";
+};
 
 interface Props {
   /** Stable identifier — e.g. "home.hero.title". Used as the Firestore doc ID. */
-  contentKey: string;
+  contentKey?: string;
+  /** Un chemin dans le contenu i18n (fr.ts / en.ts) : la clé et les deux défauts en découlent. */
+  i18n?: string;
   /** Original copy from the codebase, in French. Shown when no override exists. */
-  defaultValue: string;
+  defaultValue?: string;
   /** The English original. When absent, the French default is looked up in the dictionary. */
   defaultValueEn?: string;
   /** Render tag (h1, h2, p, span, button…). Default: span. */
@@ -26,13 +36,16 @@ interface Props {
  *  anglais se range sous `<contentKey>.en`, si bien que la bascule EN ne montre jamais un
  *  texte français enregistré par-dessus l'anglais d'origine. */
 export const EditableText = ({
-  contentKey, defaultValue, defaultValueEn, as: Tag = "span", className, multiline, children,
+  contentKey: cleDonnee, i18n, defaultValue: defautDonne, defaultValueEn, as: Tag = "span", className, multiline, children,
 }: Props) => {
   const { editing, read } = useSiteEdit();
   const lang = useLangue();
   const [open, setOpen] = useState(false);
+  const contentKey = cleDonnee ?? `i18n.${i18n}`;
+  const defaultValue = defautDonne ?? (i18n ? lireI18n(CONTENT.fr, i18n) : "");
+  const defautEn = defaultValueEn ?? (i18n ? lireI18n(CONTENT.en, i18n) || undefined : undefined);
   const cle = lang === "en" ? `${contentKey}.en` : contentKey;
-  const defaut = lang === "en" ? defaultValueEn ?? tx("en", defaultValue) : defaultValue;
+  const defaut = lang === "en" ? defautEn ?? tx("en", defaultValue) : defaultValue;
   const text = read(cle, defaut);
 
   const content = children ? children(text) : text;

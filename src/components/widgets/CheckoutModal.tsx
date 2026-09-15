@@ -1,4 +1,5 @@
 import { CreditCard, X } from "lucide-react";
+import { EditableText } from "../edit/EditableText";
 import { createPortal } from "react-dom";
 import type { CartItem } from "../../types";
 import type { Content } from "../../i18n";
@@ -12,7 +13,7 @@ interface Props {
   t: Content["general"];
 }
 
-export const CheckoutModal = ({ cart, subtotal, onClose, onConfirm, confirming, t }: Props) => {
+export const CheckoutModal = ({ cart, subtotal, onClose, onConfirm, confirming, t: _t }: Props) => {
   return createPortal(
     <div
       className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
@@ -27,7 +28,7 @@ export const CheckoutModal = ({ cart, subtotal, onClose, onConfirm, confirming, 
         <button onClick={onClose} aria-label="Close" className="absolute top-4 right-4">
           <X size={20} />
         </button>
-        <h2 className="font-serif text-3xl mb-6">{t.checkout}</h2>
+        <h2 className="font-serif text-3xl mb-6"><EditableText i18n="general.checkout" /></h2>
         <div className="mb-6 space-y-2 text-sm opacity-70 border-b border-stone-300 pb-4">
           {cart.map((c, idx) => (
             <div key={idx} className="flex justify-between">
@@ -36,8 +37,8 @@ export const CheckoutModal = ({ cart, subtotal, onClose, onConfirm, confirming, 
             </div>
           ))}
           <div className="flex justify-between font-bold pt-2">
-            <span>{t.shipping}</span>
-            <span>{t.shippingCost}</span>
+            <span><EditableText i18n="general.shipping" /></span>
+            <span><EditableText i18n="general.shippingCost" /></span>
           </div>
           <div className="flex justify-between font-bold text-rust dark:text-white pt-2 text-lg">
             <span>Total</span>

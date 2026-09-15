@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { EditableText } from "../components/edit/EditableText";
 import { Sparkles, UserPlus, MessageSquare } from "lucide-react";
 import { collection, doc, onSnapshot, query, serverTimestamp, setDoc, where } from "firebase/firestore";
 import { onAuthStateChanged, type User } from "firebase/auth";
@@ -115,12 +116,10 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
     });
 
   const payant = cls.priceCents > 0;
-  const label = (() => {
-    if (busy) return "…";
-    if (status === "paid") return tx(lang, "✓ Inscrit·e");
-    if (payant) return tx(lang, "Payer par carte");
-    return tx(lang, "S'inscrire");
-  })();
+  const label = busy ? "…"
+    : status === "paid" ? <EditableText contentKey="mouvement.inscrit" defaultValue="✓ Inscrit·e" />
+    : payant ? <EditableText contentKey="mouvement.payer-par-carte" defaultValue="Payer par carte" />
+    : <EditableText contentKey="mouvement.s-inscrire" defaultValue="S'inscrire" />;
 
   const disabled = busy || status === "paid";
 
@@ -157,15 +156,15 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
               disabled={busy}
               className="min-h-[44px] px-5 text-xs uppercase tracking-widest border border-rust/40 text-rust hover:bg-rust hover:text-paper rounded-full transition-colors disabled:opacity-60"
             >
-              {tx(lang, "Virement Interac")}
+              <EditableText as="span" contentKey="mouvement.virement-interac" defaultValue={"Virement Interac"} />
             </button>
           )}
         </div>
         {(interacAnnonce || (status === "pending" && payant)) && status !== "paid" && (
           <p className="font-serif text-sm leading-relaxed max-w-xs md:text-right opacity-80">
-            {tx(lang, "Place réservée. Envoyez")} {money(lang, cls.priceCents)} {tx(lang, "par virement Interac à")}{" "}
+            <EditableText as="span" contentKey="mouvement.place-reservee-envoyez" defaultValue={"Place réservée. Envoyez"} /> {money(lang, cls.priceCents)} <EditableText as="span" contentKey="mouvement.par-virement-interac-a" defaultValue={"par virement Interac à"} />{" "}
             <a href={`mailto:${COURRIEL_INTERAC}`} className="text-rust underline">{COURRIEL_INTERAC}</a>
-            {tx(lang, ", avec votre nom et le titre du cours en message. Elise confirme votre place dès réception.")}
+            <EditableText as="span" contentKey="mouvement.avec-votre-nom-et-le" defaultValue={", avec votre nom et le titre du cours en message. Elise confirme votre place dès réception."} />
           </p>
         )}
       </div>
@@ -174,7 +173,6 @@ const ClassRow = ({ cls, user }: { cls: DanceClass; user: User | null }) => {
 };
 
 export const Mouvement = ({ content }: { content: Content["sections"]["mouvement"] }) => {
-  const lang = useLangue();
   const { items: classes, loading } = useClasses();
   const [user, setUser] = useState<User | null>(null);
   const [showRequest, setShowRequest] = useState(false);
@@ -193,25 +191,25 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
       <div className="max-w-4xl space-y-12">
         {content.practices && content.practices.length > 0 && (
           <ul className="grid grid-cols-1 gap-4">
-            {content.practices.map((item, i) => (
+            {content.practices.map((_item, i) => (
               <li key={i} className="flex items-center gap-4 py-3 border-b border-stone-200 dark:border-stone-700/50">
                 <span className="text-rust dark:text-stone-400 opacity-60">
                   <OrganicBullet index={i} />
                 </span>
-                <span className="text-xl font-light text-ink dark:text-stone-200">{item}</span>
+                <span className="text-xl font-light text-ink dark:text-stone-200"><EditableText i18n={`sections.mouvement.practices.${i}`} /></span>
               </li>
             ))}
           </ul>
         )}
 
         <div>
-          <h3 className="text-2xl font-light mb-2">{tx(lang, "Cours à venir")}</h3>
+          <h3 className="text-2xl font-light mb-2"><EditableText as="span" contentKey="mouvement.cours-a-venir" defaultValue={"Cours à venir"} /></h3>
           <p className="font-serif text-sm opacity-70 mb-4">
-            {tx(lang, "Inscrivez-vous en un geste, par carte ou par virement Interac.")}
+            <EditableText as="span" contentKey="mouvement.inscrivez-vous-en-un-geste" defaultValue={"Inscrivez-vous en un geste, par carte ou par virement Interac."} />
           </p>
-          {loading && <p className="font-serif opacity-60 py-4">{tx(lang, "Chargement…")}</p>}
+          {loading && <p className="font-serif opacity-60 py-4"><EditableText as="span" contentKey="mouvement.chargement" defaultValue={"Chargement…"} /></p>}
           {!loading && classes.length === 0 && (
-            <p className="font-serif opacity-60 py-4">{tx(lang, "Aucun cours actif pour l'instant.")}</p>
+            <p className="font-serif opacity-60 py-4"><EditableText as="span" contentKey="mouvement.aucun-cours-actif-pour-l" defaultValue={"Aucun cours actif pour l'instant."} /></p>
           )}
           <ul>
             {classes.map((c) => (
@@ -224,16 +222,16 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
       <div className="border border-ink/15 dark:border-white/15 bg-ink/[0.03] dark:bg-white/5 rounded-none p-8 md:p-10 text-center space-y-4">
         <MessageSquare className="mx-auto text-rust dark:text-stone-300" size={26} aria-hidden="true" />
         <h3 className="text-xl md:text-2xl font-light leading-tight">
-          {tx(lang, "Vous voulez organiser un cours dans votre région ?")}
+          <EditableText as="span" contentKey="mouvement.vous-voulez-organiser-un-cours" defaultValue={"Vous voulez organiser un cours dans votre région ?"} />
         </h3>
         <p className="font-serif text-sm text-stone-600 dark:text-stone-300 max-w-md mx-auto leading-relaxed">
-          {tx(lang, "Cours de groupe (10 personnes et plus) ou suivi privé en forfait : écrivez-moi vos détails.")}
+          <EditableText as="span" contentKey="mouvement.cours-de-groupe-10-personnes" defaultValue={"Cours de groupe (10 personnes et plus) ou suivi privé en forfait : écrivez-moi vos détails."} />
         </p>
         <button
           onClick={() => setShowRequest(true)}
           className="inline-flex items-center gap-2 px-6 py-2.5 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-[0.25em] font-bold font-sans hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors"
         >
-          {tx(lang, "Demander un cours")}
+          <EditableText as="span" contentKey="mouvement.demander-un-cours" defaultValue={"Demander un cours"} />
         </button>
       </div>
 
@@ -242,9 +240,9 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
       <section className="border-t border-ink/10 dark:border-white/10 pt-12 md:pt-16 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-8 items-start" aria-label={content.extra}>
         <div className="lg:col-span-4">
           <p className="ed-kicker flex items-center gap-3">
-            <Sparkles size={16} className="text-rust" aria-hidden="true" /> {tx(lang, "Liste de lecture")}
+            <Sparkles size={16} className="text-rust" aria-hidden="true" /> <EditableText as="span" contentKey="mouvement.liste-de-lecture" defaultValue={"Liste de lecture"} />
           </p>
-          <h3 className="ed-display mt-4 text-3xl md:text-4xl text-ink dark:text-stone-100 [text-wrap:balance]">{content.extra}</h3>
+          <h3 className="ed-display mt-4 text-3xl md:text-4xl text-ink dark:text-stone-100 [text-wrap:balance]"><EditableText i18n="sections.mouvement.extra" /></h3>
         </div>
         <div className="lg:col-span-8 w-full">
           <LazyMount className="w-full h-[380px] md:h-[420px]" placeholder={<div className="w-full h-full bg-ink/[0.03] dark:bg-white/[0.04]" aria-hidden="true" />}>
@@ -266,34 +264,33 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
   );
 };
 
-export const MouvementSidebarForm = ({ content }: { content: Content["sections"]["mouvement"] }) => {
-  const lang = useLangue();
+export const MouvementSidebarForm = (_props: { content: Content["sections"]["mouvement"] }) => {
   return (
   <div className="relative z-20 w-full max-w-sm bg-white/60 dark:bg-black/30 backdrop-blur-sm p-8 rounded-none shadow-xl border border-white/20 overflow-y-auto max-h-full text-center space-y-5">
     <UserPlus className="mx-auto text-rust dark:text-stone-300 opacity-70" size={28} aria-hidden="true" />
     <h3 className="font-serif text-2xl text-ink dark:text-stone-100 leading-tight">
-      {tx(lang, "Pour rejoindre un cours, créez votre espace")}
+      <EditableText as="span" contentKey="mouvement.pour-rejoindre-un-cours-creez" defaultValue={"Pour rejoindre un cours, créez votre espace"} />
     </h3>
     <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-      {tx(lang, "Connectez-vous, demandez votre place, et chattez avec votre groupe.")}
+      <EditableText as="span" contentKey="mouvement.connectez-vous-demandez-votre-place" defaultValue={"Connectez-vous, demandez votre place, et chattez avec votre groupe."} />
     </p>
     <a
       href="/client"
       className="inline-flex items-center gap-2 px-8 py-3 bg-ink text-paper dark:bg-stone-100 dark:text-forest font-sans text-xs tracking-[0.25em] uppercase hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors rounded-none"
     >
-      {tx(lang, "Créer un compte")}
+      <EditableText as="span" contentKey="mouvement.creer-un-compte" defaultValue={"Créer un compte"} />
     </a>
     <p className="font-sans text-xs uppercase tracking-[0.25em] opacity-50">
-      {tx(lang, "Connexion Google ou courriel")}
+      <EditableText as="span" contentKey="mouvement.connexion-google-ou-courriel" defaultValue={"Connexion Google ou courriel"} />
     </p>
     <div className="pt-6 border-t border-stone-300 dark:border-stone-600/30">
-      <h4 className="font-serif text-base mb-1">{content.groupTitle}</h4>
-      <p className="text-xs opacity-70 mb-4">{content.groupText}</p>
+      <h4 className="font-serif text-base mb-1"><EditableText i18n="sections.mouvement.groupTitle" /></h4>
+      <p className="text-xs opacity-70 mb-4"><EditableText i18n="sections.mouvement.groupText" /></p>
       <a
         href="mailto:fruitdelaterre@gmail.com"
         className="inline-block px-6 py-2 border border-stone-400 dark:border-stone-500 rounded-full text-xs uppercase tracking-widest hover:bg-white/50 transition-colors"
       >
-        {content.groupBtn}
+        <EditableText i18n="sections.mouvement.groupBtn" />
       </a>
     </div>
   </div>

@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { EditableText } from "../edit/EditableText";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useFirestoreCollection } from "../../hooks/useFirestoreCollection";
 import type { AvailabilitySlot } from "../../types/calendar";
@@ -90,7 +91,7 @@ export const CalendrierOuvert = ({ cible, libelleBouton }: Props) => {
   if (ouverts.size === 0) {
     return (
       <p className="font-serif text-lg text-ink/60 dark:text-stone-400">
-        {tx(lang, "Aucune plage n'est ouverte pour l'instant. Écrivez à Elise depuis votre espace et elle vous proposera un moment.")}
+        <EditableText as="span" contentKey="calendrierouvert.aucune-plage-n-est-ouverte" defaultValue={"Aucune plage n'est ouverte pour l'instant. Écrivez à Elise depuis votre espace et elle vous proposera un moment."} />
       </p>
     );
   }
@@ -141,7 +142,7 @@ export const CalendrierOuvert = ({ cible, libelleBouton }: Props) => {
 
       {/* Les heures du jour choisi */}
       <div className="lg:col-span-6 lg:border-l lg:pl-16 border-ink/10 dark:border-white/10">
-        <p className="ed-kicker mb-2">{tx(lang, "Heures ouvertes")}</p>
+        <p className="ed-kicker mb-2"><EditableText as="span" contentKey="calendrierouvert.heures-ouvertes" defaultValue={"Heures ouvertes"} /></p>
         <p className="font-serif text-2xl text-ink dark:text-stone-100 first-letter:uppercase mb-6">
           {jourActif ? jourLong.format(jourActif) : ""}
         </p>
@@ -164,11 +165,11 @@ export const CalendrierOuvert = ({ cible, libelleBouton }: Props) => {
           href={cible}
           className="mt-10 inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
         >
-          {tx(lang, libelleBouton)}
+          <EditableText contentKey="rendezvous.bouton" defaultValue={libelleBouton} />
           <span className="w-9 h-9 rounded-full bg-paper/15 flex items-center justify-center"><ArrowUpRight size={16} /></span>
         </a>
         <p className="mt-3 font-serif text-base text-ink/55 dark:text-stone-400">
-          {tx(lang, "L'heure choisie se confirme dans votre espace, une fois le compte ouvert.")}
+          <EditableText as="span" contentKey="calendrierouvert.l-heure-choisie-se-confirme" defaultValue={"L'heure choisie se confirme dans votre espace, une fois le compte ouvert."} />
         </p>
       </div>
     </div>

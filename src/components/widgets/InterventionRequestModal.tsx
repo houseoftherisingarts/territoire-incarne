@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { EditableText } from "../edit/EditableText";
 import { createPortal } from "react-dom";
 import { X, Send, Sparkles } from "lucide-react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -87,26 +88,26 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
         {success ? (
           <div className="p-10 text-center space-y-4">
             <Sparkles className="mx-auto text-rust" size={32} />
-            <h3 className="font-serif text-2xl">{tx(lang, "Merci : votre demande est partie.")}</h3>
+            <h3 className="font-serif text-2xl"><EditableText as="span" contentKey="interventionrequestmodal.merci-votre-demande-est-partie" defaultValue={"Merci : votre demande est partie."} /></h3>
             <p className="font-serif text-stone-600 dark:text-stone-300 leading-relaxed">
-              {tx(lang, "Elise lit chaque demande personnellement et reviendra vers vous à l'adresse fournie.")}
+              <EditableText as="span" contentKey="interventionrequestmodal.elise-lit-chaque-demande-personnellement" defaultValue={"Elise lit chaque demande personnellement et reviendra vers vous à l'adresse fournie."} />
             </p>
             <button
               onClick={onClose}
               className="mt-4 inline-flex items-center gap-2 px-6 py-2 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-widest font-bold hover:bg-rust transition-colors"
             >
-              {tx(lang, "Fermer")}
+              <EditableText as="span" contentKey="interventionrequestmodal.fermer" defaultValue={"Fermer"} />
             </button>
           </div>
         ) : (
           <form onSubmit={submit} className="p-6 md:p-8 space-y-5">
             <div>
               <p className="text-xs font-sans uppercase tracking-[0.3em] text-rust dark:text-stone-400 mb-2">
-                {tx(lang, config.label)}
+                <EditableText contentKey={`formulaire.${config.id}.label`} defaultValue={config.label} />
               </p>
-              <h2 className="font-serif text-2xl md:text-3xl mb-3 leading-tight">{tx(lang, config.modalTitle)}</h2>
+              <h2 className="font-serif text-2xl md:text-3xl mb-3 leading-tight"><EditableText contentKey={`formulaire.${config.id}.titre`} defaultValue={config.modalTitle} /></h2>
               <p className="font-serif text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-                {tx(lang, config.intro)}
+                <EditableText contentKey={`formulaire.${config.id}.intro`} defaultValue={config.intro} multiline />
               </p>
             </div>
 
@@ -116,7 +117,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                 return (
                   <div key={f.name} className="space-y-1">
                     <label className="block text-xs font-sans uppercase tracking-[0.25em] opacity-60">
-                      {tx(lang, f.label)}
+                      <EditableText contentKey={`formulaire.${config.id}.${f.name}.label`} defaultValue={f.label} />
                       {f.required && <span className="text-rust ml-1">*</span>}
                     </label>
                     {f.type === "textarea" ? (
@@ -133,7 +134,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                         onChange={(e) => set(f.name, e.target.value)}
                         className="w-full bg-transparent border-b border-stone-400/50 dark:border-stone-500/50 focus:border-rust outline-none py-2 font-serif text-base transition-colors"
                       >
-                        <option value="">{tx(lang, "— Choisir —")}</option>
+                        <option value=""><EditableText as="span" contentKey="interventionrequestmodal.choisir" defaultValue={"— Choisir —"} /></option>
                         {f.options?.map((o) => (
                           <option key={o} value={o} className="bg-paper dark:bg-stone-800">
                             {tx(lang, o)}
@@ -151,7 +152,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                       />
                     )}
                     {f.helpText && (
-                      <p className="text-xs font-serif opacity-50">{tx(lang, f.helpText)}</p>
+                      <p className="text-xs font-serif opacity-50"><EditableText contentKey={`formulaire.${config.id}.${f.name}.aide`} defaultValue={f.helpText} /></p>
                     )}
                   </div>
                 );
@@ -175,7 +176,7 @@ export const InterventionRequestModal = ({ config, onClose }: Props) => {
                 onClick={onClose}
                 className="px-6 py-3 border border-ink/10 dark:border-white/10 rounded-full text-xs uppercase tracking-[0.25em] font-bold font-sans hover:border-rust hover:text-rust transition-colors"
               >
-                {tx(lang, "Annuler")}
+                <EditableText as="span" contentKey="interventionrequestmodal.annuler" defaultValue={"Annuler"} />
               </button>
             </div>
           </form>

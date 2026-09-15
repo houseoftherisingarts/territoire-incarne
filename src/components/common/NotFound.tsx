@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { EditableText } from "../edit/EditableText";
 import type { Content } from "../../i18n";
 import { ELISE_FIELD_IMG } from "../../assets/images";
 import { LinenPattern } from "../decor/LinenPattern";
@@ -32,7 +33,7 @@ export const NotFound = ({ t, onHome }: Props) => {
             className="ed-kicker mb-6 flex items-center gap-3"
           >
             <OrganicBullet index={2} />
-            {nf.kicker}
+            <EditableText i18n="notFound.kicker" />
           </motion.p>
 
           <motion.h1
@@ -41,7 +42,7 @@ export const NotFound = ({ t, onHome }: Props) => {
             transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
             className="ed-display text-[clamp(2.8rem,8vw,6.5rem)] text-ink dark:text-stone-100"
           >
-            {nf.title}
+            <EditableText i18n="notFound.title" />
           </motion.h1>
 
           <motion.p
@@ -50,7 +51,7 @@ export const NotFound = ({ t, onHome }: Props) => {
             transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
             className="mt-8 max-w-xl border-l border-rust/60 pl-5 font-serif text-xl md:text-2xl font-light leading-snug text-ink/85 dark:text-stone-200"
           >
-            « {nf.quote} »
+            « <EditableText i18n="notFound.quote" /> »
           </motion.p>
 
           <motion.div
@@ -59,8 +60,8 @@ export const NotFound = ({ t, onHome }: Props) => {
             transition={{ duration: 0.8, delay: 0.75, ease: EASE }}
             className="mt-8 max-w-xl space-y-2 font-sans text-sm text-ink/70 dark:text-stone-300/80"
           >
-            <p>{nf.line1}</p>
-            <p>{nf.line2}</p>
+            <p><EditableText i18n="notFound.line1" /></p>
+            <p><EditableText i18n="notFound.line2" /></p>
           </motion.div>
 
           <motion.div
@@ -73,7 +74,7 @@ export const NotFound = ({ t, onHome }: Props) => {
               onClick={onHome}
               className="inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs font-semibold uppercase tracking-[0.22em] min-h-[52px] px-7 rounded-full transition-colors hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest"
             >
-              {nf.cta}
+              <EditableText i18n="notFound.cta" />
             </button>
           </motion.div>
         </div>

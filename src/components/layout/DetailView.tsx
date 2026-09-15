@@ -60,7 +60,7 @@ const TEXTE_EDUCATION =
  *  portrait (la vidéo vient d'un téléphone), elle tient la colonne de gauche et le texte
  *  vient se poser à droite, sur la même ligne de base. Sans mouvement demandé, l'affiche
  *  et le texte s'affichent tout de suite. */
-const OuvertureEducation = ({ intro, lang }: { intro: string; lang: Lang }) => {
+const OuvertureEducation = ({ lang }: { lang: Lang }) => {
   const [montre, setMontre] = useState(false);
   const [grandEcran, setGrandEcran] = useState<boolean | null>(null);
   const minuterie = useRef<number | null>(null);
@@ -109,7 +109,7 @@ const OuvertureEducation = ({ intro, lang }: { intro: string; lang: Lang }) => {
         aria-hidden={!montre}
       >
         <p className="max-w-xl font-serif text-xl md:text-2xl font-light leading-snug text-ink/70 dark:text-stone-300">
-          <GlossaryText content={intro} lang={lang} />
+          <EditableText i18n="sections.education.intro" multiline>{(x) => <GlossaryText content={x} lang={lang} />}</EditableText>
         </p>
         <div className="mt-8 max-w-2xl font-serif text-xl leading-relaxed text-ink/75 dark:text-stone-300">
           <EditableText as="p" contentKey="education.texte" defaultValue={TEXTE_EDUCATION} />
@@ -152,7 +152,7 @@ const PhotoDeSection = ({ id, index, photo, navTitle, intro, lang, texte, portra
         {intro && (
           <Reveal>
             <p className="max-w-xl font-serif text-xl md:text-2xl font-light leading-snug text-ink/70 dark:text-stone-300">
-              <GlossaryText content={intro} lang={lang} />
+              <EditableText i18n={`sections.${id}.intro`} multiline>{(x) => <GlossaryText content={x} lang={lang} />}</EditableText>
             </p>
           </Reveal>
         )}
@@ -203,19 +203,19 @@ export const DetailView = ({
             partout. La barre est fixe, d'où le grand dégagement du haut. */}
         <header className="w-full px-5 md:px-12 lg:px-16 pt-32 md:pt-44 pb-16 md:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 items-end">
           <div className="lg:col-span-7">
-            <p className="ed-kicker mb-8">{numero ? `${numero} · ` : ""}{navTitle}</p>
+            <p className="ed-kicker mb-8">{numero ? `${numero} · ` : ""}<EditableText i18n={id === "rendezvous" ? "general.prendreRdv" : `nav.${id}`} /></p>
             <h1 className="ed-display [text-wrap:balance] text-[clamp(2.6rem,5.6vw,5.4rem)] text-ink dark:text-stone-100">
-              {sectionContent.title}
+              <EditableText i18n={`sections.${id}.title`} />
             </h1>
           </div>
           {sectionContent.intro && introDansEntete && (
             <p className="lg:col-span-5 lg:pb-3 max-w-xl font-serif text-xl md:text-2xl font-light leading-snug text-ink/70 dark:text-stone-300">
-              <GlossaryText content={sectionContent.intro} lang={lang} />
+              <EditableText i18n={`sections.${id}.intro`} multiline>{(x) => <GlossaryText content={x} lang={lang} />}</EditableText>
             </p>
           )}
         </header>
 
-        {ouvertureVideo && <OuvertureEducation intro={sectionContent.intro ?? ""} lang={lang} />}
+        {ouvertureVideo && <OuvertureEducation lang={lang} />}
 
         {aPhoto && photo && (
           <PhotoDeSection

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { EditableText } from "../components/edit/EditableText";
 import { ArrowRight, BookOpen, Download, Globe, Lock, PhoneCall } from "lucide-react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { onAuthStateChanged, type User } from "firebase/auth";
@@ -48,12 +49,12 @@ export const Ressources = (_props: { content?: Content["sections"]["ressources"]
     return acc;
   }, {});
 
-  if (loading) return <p className="font-serif opacity-60 py-10 text-center">{tx(lang, "Chargement…")}</p>;
+  if (loading) return <p className="font-serif opacity-60 py-10 text-center"><EditableText as="span" contentKey="ressources.chargement" defaultValue={"Chargement…"} /></p>;
 
   if (items.length === 0) {
     return (
       <p className="font-serif text-lg opacity-60 border-t border-ink/10 dark:border-white/10 pt-10">
-        {tx(lang, "Les ressources arrivent bientôt.")}
+        <EditableText as="span" contentKey="ressources.les-ressources-arrivent-bientot" defaultValue={"Les ressources arrivent bientôt."} />
       </p>
     );
   }

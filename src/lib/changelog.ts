@@ -31,6 +31,8 @@ export const JOURNAL: EntreeJournal[] = [
       "Chaque page se met en page selon la photo que tu lui donnes : une photo en hauteur prend une colonne, avec ton texte à côté (à gauche ou à droite, une page sur deux), et une photo en largeur fait un bandeau. Changer la photo, par le crayon ou par Recadrer les photos, change la page.",
       "La vidéo de l'éducation sexuelle ralentit doucement avant de se figer, au lieu d'un arrêt sec.",
       "La page À propos et le module Qui est Élise reprennent tes mots tels qu'ils paraissent sur le site du Collectif; le paragraphe qui avait été écrit à ta place a disparu.",
+      "Le crayon touche maintenant tous les textes du site public : titres, intros, boutons, étiquettes des formulaires, pied de page, menu, calendrier. Chaque texte a sa version anglaise à part.",
+      "La route de l'accueil est traversée par une vraie vague de vent. La version à la brise douce reste dans ta médiathèque (route-brise-douce.mp4), avec la vague (route-vague-de-vent.mp4).",
     ],
   },
   {

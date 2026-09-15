@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { EditableText } from "../edit/EditableText";
 import { ArrowUpRight } from "lucide-react";
 import { useFirestoreCollection } from "../../hooks/useFirestoreCollection";
 import type { AvailabilitySlot } from "../../types/calendar";
@@ -75,9 +76,9 @@ export const ApercuHoraire = ({ onAller, libelleBouton }: { onAller: () => void;
 
   return (
     <section className="mt-16 border-t border-ink/10 dark:border-white/10 pt-10" aria-label={tx(lang, "Son horaire")}>
-      <p className="ed-kicker">{tx(lang, "Son horaire")}</p>
+      <p className="ed-kicker"><EditableText as="span" contentKey="apercuhoraire.son-horaire" defaultValue={"Son horaire"} /></p>
       <h3 className="ed-display mt-3 text-3xl md:text-4xl text-ink dark:text-stone-100">
-        {tx(lang, "Les prochaines heures ouvertes")}
+        <EditableText as="span" contentKey="apercuhoraire.les-prochaines-heures-ouvertes" defaultValue={"Les prochaines heures ouvertes"} />
       </h3>
       <ul className="mt-8 divide-y divide-ink/10 dark:divide-white/10 border-y border-ink/10 dark:border-white/10">
         {jours.map((j) => (
@@ -103,11 +104,11 @@ export const ApercuHoraire = ({ onAller, libelleBouton }: { onAller: () => void;
         onClick={onAller}
         className="mt-10 inline-flex items-center gap-3 bg-rust text-paper font-sans text-xs uppercase tracking-[0.22em] font-semibold min-h-[52px] pl-7 pr-2 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
       >
-        {tx(lang, libelleBouton)}
+        <EditableText contentKey="rendezvous.bouton" defaultValue={libelleBouton} />
         <span className="w-9 h-9 rounded-full bg-paper/15 flex items-center justify-center"><ArrowUpRight size={16} /></span>
       </button>
       <p className="mt-3 font-serif text-base text-ink/55 dark:text-stone-400">
-        {tx(lang, "Vous choisissez l'heure qui vous convient une fois votre espace ouvert.")}
+        <EditableText as="span" contentKey="apercuhoraire.vous-choisissez-l-heure-qui" defaultValue={"Vous choisissez l'heure qui vous convient une fois votre espace ouvert."} />
       </p>
     </section>
   );

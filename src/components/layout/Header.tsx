@@ -7,6 +7,7 @@ import { auth } from "../../firebase";
 import { pathForSection } from "../../routes";
 import { useSections } from "../../hooks/useSections";
 import { tx } from "../../i18n/tx";
+import { EditableText } from "../edit/EditableText";
 import type { Content } from "../../i18n";
 import type { Lang, SectionId, Theme } from "../../types";
 
@@ -88,7 +89,7 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
             ) : (
               <LogIn size={15} strokeWidth={1.75} />
             )}
-            <span className="hidden sm:inline">{libelleEspace}</span>
+            <span className="hidden sm:inline">{user ? libelleEspace : <EditableText contentKey="header.me-connecter" defaultValue="Me connecter" />}</span>
           </a>
           {estVisible("rendezvous") && (
             <a
@@ -96,8 +97,8 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
               onClick={aller("rendezvous")}
               className="inline-flex whitespace-nowrap items-center bg-rust text-paper font-sans text-xs uppercase tracking-[0.1em] sm:tracking-[0.14em] font-semibold min-h-[44px] px-3 sm:px-4 rounded-full hover:bg-ink dark:hover:bg-stone-100 dark:hover:text-forest transition-colors"
             >
-              <span className="sm:hidden">{t.nav.rendezvous}</span>
-              <span className="hidden sm:inline">{t.general.prendreRdv}</span>
+              <span className="sm:hidden"><EditableText i18n="nav.rendezvous" /></span>
+              <span className="hidden sm:inline"><EditableText i18n="general.prendreRdv" /></span>
             </a>
           )}
           <button
@@ -157,7 +158,7 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
                     >
                       <a href={pathForSection(id)} onClick={aller(id)} className="block py-4">
                         <span className={`font-serif text-2xl sm:text-3xl font-light ${id === "rendezvous" || current === id ? "text-rust" : ""}`}>
-                          {id === "rendezvous" ? t.general.prendreRdv : t.nav[id]}
+                          {id === "rendezvous" ? <EditableText i18n="general.prendreRdv" /> : <EditableText i18n={`nav.${id}`} />}
                         </span>
                       </a>
                     </motion.li>
@@ -165,7 +166,7 @@ export const Header = ({ t, lang, theme, current, accueil = false, onOpen, onTog
                 </ul>
                 <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 font-sans text-xs uppercase tracking-[0.22em]">
                   <a href="/client" className="inline-flex items-center gap-2 min-h-[44px] opacity-70 hover:opacity-100">
-                    <LogIn size={14} /> {libelleEspace}
+                    <LogIn size={14} /> {user ? libelleEspace : <EditableText contentKey="header.me-connecter" defaultValue="Me connecter" />}
                   </a>
                   <button type="button" onClick={onToggleLang} className="min-h-[44px] opacity-70 hover:opacity-100">
                     {lang === "fr" ? "English" : "Français"}

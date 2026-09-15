@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { EditableText } from "../components/edit/EditableText";
 import { History, MapPin, MessageSquare } from "lucide-react";
 import { InterventionRequestModal } from "../components/widgets/InterventionRequestModal";
 import { INTERVENTION_CONFIGS } from "../lib/interventionFields";
@@ -127,22 +128,22 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
       }
     });
 
-  if (loading) return <p className="font-serif opacity-60 py-10 text-center">{tx(lang, "Chargement…")}</p>;
+  if (loading) return <p className="font-serif opacity-60 py-10 text-center"><EditableText as="span" contentKey="events.chargement" defaultValue={"Chargement…"} /></p>;
 
   const proposeBlock = (
     <div className="border border-ink/15 dark:border-white/15 bg-ink/[0.03] dark:bg-white/5 rounded-none p-8 md:p-10 text-center space-y-4">
       <MessageSquare className="mx-auto text-rust dark:text-stone-300" size={26} aria-hidden="true" />
       <h3 className="text-xl md:text-2xl font-light leading-tight">
-        {tx(lang, "Vous portez l'idée d'un événement ?")}
+        <EditableText as="span" contentKey="events.vous-portez-l-idee-d" defaultValue={"Vous portez l'idée d'un événement ?"} />
       </h3>
       <p className="font-serif text-sm text-stone-600 dark:text-stone-300 max-w-md mx-auto leading-relaxed">
-        {tx(lang, "Atelier, retraite, cérémonie, festival : proposez-moi votre vision et nous regarderons ensemble si c'est possible.")}
+        <EditableText as="span" contentKey="events.atelier-retraite-ceremonie-festival-proposez" defaultValue={"Atelier, retraite, cérémonie, festival : proposez-moi votre vision et nous regarderons ensemble si c'est possible."} />
       </p>
       <button
         onClick={() => setShowRequest(true)}
         className="inline-flex items-center gap-2 px-6 py-2.5 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-[0.25em] font-bold font-sans hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors"
       >
-        {tx(lang, "Proposer un événement")}
+        <EditableText as="span" contentKey="events.proposer-un-evenement" defaultValue={"Proposer un événement"} />
       </button>
     </div>
   );
@@ -154,7 +155,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
           <InterventionRequestModal config={INTERVENTION_CONFIGS.events} onClose={() => setShowRequest(false)} />
         )}
         <p className="font-serif opacity-60 py-8 text-center">
-          {tx(lang, "Aucun événement à venir pour l'instant.")}
+          <EditableText as="span" contentKey="events.aucun-evenement-a-venir-pour" defaultValue={"Aucun événement à venir pour l'instant."} />
         </p>
         {proposeBlock}
       </div>
@@ -199,7 +200,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
                   disabled={signingUp === ev.id}
                   className="min-h-[44px] px-6 bg-ink text-paper dark:bg-stone-100 dark:text-forest rounded-full text-xs uppercase tracking-widest hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors disabled:opacity-50"
                 >
-                  {signingUp === ev.id ? "…" : ev.priceCents > 0 ? tx(lang, "Payer par carte") : tx(lang, "S'inscrire")}
+                  {signingUp === ev.id ? "…" : ev.priceCents > 0 ? <EditableText contentKey="events.payer-par-carte" defaultValue="Payer par carte" /> : <EditableText contentKey="events.s-inscrire" defaultValue="S'inscrire" />}
                 </button>
                 {ev.priceCents > 0 && (
                   <button
@@ -207,16 +208,16 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
                     disabled={signingUp === ev.id}
                     className="min-h-[44px] px-5 border border-rust/40 text-rust rounded-full text-xs uppercase tracking-widest hover:bg-rust hover:text-paper transition-colors disabled:opacity-50"
                   >
-                    {tx(lang, "Virement Interac")}
+                    <EditableText as="span" contentKey="events.virement-interac" defaultValue={"Virement Interac"} />
                   </button>
                 )}
               </div>
             </div>
             {interacPour === ev.id && (
               <p className="font-serif text-sm leading-relaxed opacity-80 pt-2">
-                {tx(lang, "Place réservée. Envoyez")} {money(lang, ev.priceCents)} {tx(lang, "par virement Interac à")}{" "}
+                <EditableText as="span" contentKey="events.place-reservee-envoyez" defaultValue={"Place réservée. Envoyez"} /> {money(lang, ev.priceCents)} <EditableText as="span" contentKey="events.par-virement-interac-a" defaultValue={"par virement Interac à"} />{" "}
                 <a href="mailto:territoireincarne@gmail.com" className="text-rust underline">territoireincarne@gmail.com</a>
-                {tx(lang, ", avec votre nom et le titre de l'événement en message. Elise confirme votre place dès réception.")}
+                <EditableText as="span" contentKey="events.avec-votre-nom-et-le" defaultValue={", avec votre nom et le titre de l'événement en message. Elise confirme votre place dès réception."} />
               </p>
             )}
           </div>
@@ -227,7 +228,7 @@ export const Events = (_props: { content?: Content["sections"]["events"] }) => {
         <div className="pt-12 border-t border-stone-300 dark:border-stone-700">
           <h3 className="text-2xl font-light mb-8 flex items-center gap-3 opacity-80">
             <History size={20} className="text-rust dark:text-stone-400" />
-            {tx(lang, "Événements passés")}
+            <EditableText as="span" contentKey="events.evenements-passes" defaultValue={"Événements passés"} />
           </h3>
           <div className="space-y-4 opacity-60">
             {past.slice(0, 6).map((ev) => (

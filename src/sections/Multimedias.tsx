@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { EditableText } from "../components/edit/EditableText";
 import { Video, Podcast } from "lucide-react";
 import { useFirestoreCollection } from "../hooks/useFirestoreCollection";
 import type { Content } from "../i18n";
@@ -62,12 +63,12 @@ export const Multimedias = (_props: { content: Content["sections"]["multimedias"
   return (
     <div className="w-full">
       {loading && (
-        <p className="font-serif text-lg text-ink/50 dark:text-stone-400">{tx(lang, "Chargement…")}</p>
+        <p className="font-serif text-lg text-ink/50 dark:text-stone-400"><EditableText as="span" contentKey="multimedias.chargement" defaultValue={"Chargement…"} /></p>
       )}
 
       {!loading && tries.length === 0 && (
         <p className="font-serif text-lg text-ink/60 dark:text-stone-400 border-t border-ink/10 dark:border-white/10 pt-10">
-          {tx(lang, "Les premières vidéos arrivent.")}
+          <EditableText as="span" contentKey="multimedias.les-premieres-videos-arrivent" defaultValue={"Les premières vidéos arrivent."} />
         </p>
       )}
 
@@ -95,7 +96,7 @@ export const Multimedias = (_props: { content: Content["sections"]["multimedias"
                   <div className="mt-5 w-full bg-ink/[0.03] dark:bg-white/[0.03]">
                     {embed.kind === "lien" && (
                       <a href={httpsSeulement(embed.src) ? embed.src : undefined} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-4 p-5 font-sans text-xs uppercase tracking-[0.18em] text-rust hover:bg-rust/5 transition-colors">
-                        <span>{tx(lang, "Ouvrir sur le site d'origine")}</span>
+                        <span><EditableText as="span" contentKey="multimedias.ouvrir-sur-le-site-d" defaultValue={"Ouvrir sur le site d'origine"} /></span>
                         <span aria-hidden="true">→</span>
                       </a>
                     )}
