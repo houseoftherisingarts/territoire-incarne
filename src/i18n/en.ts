@@ -39,6 +39,7 @@ export const en: Content = {
     events: "Upcoming trainings",
     boutique: "Shop",
     writings: "Blog",
+    multimedias: "Media",
     connecter: "Connect",
     ressources: "Resources",
     rendezvous: "Appointments",
