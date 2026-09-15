@@ -1,9 +1,10 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { Upload, X, RotateCcw, Image as ImageIcon } from "lucide-react";
 import { useSiteEdit } from "../../lib/siteEdit";
 import { saveOverride, clearOverride } from "../../hooks/useSiteOverrides";
 import { uploadMediaFile } from "../../lib/storage";
+import { PHOTO_DE_SECOURS } from "../../assets/images";
 
 interface Props {
   /** Stable identifier — e.g. "home.flower". */
@@ -19,23 +20,50 @@ interface Props {
   children?: (url: string) => ReactNode;
 }
 
+/** Le cadrage d'une photo, tel que l'admin Recadrer les photos l'enregistre :
+ *  « x,y,zoom » en pourcentages et facteur, lu sous la clé `<contentKey>.cadre`. */
+export interface Cadre { x: number; y: number; zoom: number; }
+export const CADRE_PAR_DEFAUT: Cadre = { x: 50, y: 50, zoom: 1 };
+export const lireCadre = (brut: string): Cadre => {
+  const [x, y, z] = brut.split(",").map(Number);
+  if ([x, y, z].some((n) => Number.isNaN(n))) return CADRE_PAR_DEFAUT;
+  return { x: Math.min(100, Math.max(0, x)), y: Math.min(100, Math.max(0, y)), zoom: Math.min(2.5, Math.max(1, z)) };
+};
+export const ecrireCadre = (c: Cadre) => `${Math.round(c.x)},${Math.round(c.y)},${c.zoom.toFixed(2)}`;
+export const styleCadre = (c: Cadre): React.CSSProperties => ({
+  objectPosition: `${c.x}% ${c.y}%`,
+  transform: c.zoom !== 1 ? `scale(${c.zoom})` : undefined,
+  transformOrigin: `${c.x}% ${c.y}%`,
+});
+
+/** Une photo du site que l'admin peut remplacer et recadrer. Si l'adresse enregistrée ne
+ *  répond plus (fichier retiré de la médiathèque), la photo d'origine revient d'elle-même,
+ *  et si celle-là manque aussi, la photo de secours du site prend la place : jamais de cadre vide. */
 export const EditableImage = ({
   contentKey, defaultUrl, alt, className, loading = "lazy", decoding = "async", children,
 }: Props) => {
   const { editing, read } = useSiteEdit();
-  const url = read(contentKey, defaultUrl);
+  const voulue = read(contentKey, defaultUrl);
+  const cadre = lireCadre(read(`${contentKey}.cadre`, ""));
+  const [url, setUrl] = useState(voulue);
+  useEffect(() => { setUrl(voulue); }, [voulue]);
   const [open, setOpen] = useState(false);
+
+  const enPanne = () => {
+    if (url !== defaultUrl && url !== PHOTO_DE_SECOURS) setUrl(defaultUrl);
+    else if (url !== PHOTO_DE_SECOURS) setUrl(PHOTO_DE_SECOURS);
+  };
 
   const img = children
     ? children(url)
-    : <img src={url} alt={alt ?? ""} className={className} loading={loading} decoding={decoding} />;
+    : <img src={url} alt={alt ?? ""} className={className} style={styleCadre(cadre)} loading={loading} decoding={decoding} onError={enPanne} />;
 
   if (!editing) return <>{img}</>;
 
   return (
     <>
       <div
-        className="relative group cursor-pointer"
+        className="relative group cursor-pointer w-full h-full"
         onClick={(e) => { e.stopPropagation(); e.preventDefault(); setOpen(true); }}
       >
         {img}
@@ -93,6 +121,7 @@ const ImagePopover = ({ contentKey, defaultUrl, currentUrl, onClose }: PopoverPr
     setBusy(true);
     try {
       await clearOverride(contentKey);
+      await clearOverride(`${contentKey}.cadre`);
       onClose();
     } finally {
       setBusy(false);
@@ -125,6 +154,10 @@ const ImagePopover = ({ contentKey, defaultUrl, currentUrl, onClose }: PopoverPr
           <Upload size={12} /> {uploading ? "Téléversement…" : "Choisir une nouvelle image"}
           <input type="file" accept="image/*" onChange={onUpload} className="hidden" disabled={uploading} />
         </label>
+
+        <a href="/admin?section=recadrer" className="block text-center text-xs font-sans uppercase tracking-[0.2em] opacity-60 hover:opacity-100 hover:text-rust transition-colors">
+          Recadrer cette photo dans le tableau de bord
+        </a>
 
         {isOverridden && (
           <button
