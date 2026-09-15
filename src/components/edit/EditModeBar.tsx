@@ -19,7 +19,7 @@ export const EditModeBar = () => {
         onClick={enter}
         title="Modifier les textes de cette page"
         aria-label="Modifier les textes de cette page"
-        className="fixed bottom-6 right-6 z-[250] inline-flex items-center gap-2 bg-rust text-paper rounded-full shadow-2xl px-4 py-3 text-xs font-sans uppercase tracking-widest font-bold hover:brightness-110 transition"
+        className="fixed bottom-6 right-6 z-[250] inline-flex items-center justify-center gap-2 min-w-[44px] min-h-[44px] bg-rust text-paper rounded-full shadow-2xl px-4 py-3 text-xs font-sans uppercase tracking-widest font-bold hover:brightness-110 transition"
       >
         <Pencil size={14} />
         <span className="hidden sm:inline">Modifier</span>
