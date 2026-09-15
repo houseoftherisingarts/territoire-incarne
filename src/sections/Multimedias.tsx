@@ -8,30 +8,36 @@ import { Reveal } from "../components/motion/Reveal";
 const YT_RE = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([A-Za-z0-9_-]{6,})/;
 const VIMEO_RE = /vimeo\.com\/(?:video\/)?(\d+)/;
 
-type Embed = { kind: "iframe" | "video" | "audio"; src: string; podcast?: boolean };
+type Embed = { kind: "iframe" | "video" | "audio" | "lien"; src: string; podcast?: boolean };
+
+/** Les seuls hôtes qu'un cadre embarqué peut charger; tout le reste devient un lien. */
+const HOTES_CADRE = ["www.youtube-nocookie.com", "www.youtube.com", "player.vimeo.com", "open.spotify.com", "embed.podcasts.apple.com"];
+const httpsSeulement = (u: string): URL | null => { try { const x = new URL(u); return x.protocol === "https:" ? x : null; } catch { return null; } };
+const cadreSur = (src: string, podcast?: boolean): Embed => { const x = httpsSeulement(src); return x && HOTES_CADRE.includes(x.hostname) ? { kind: "iframe", src: x.toString(), podcast } : { kind: "lien", src }; };
 
 /** Traduit l'adresse déposée par Élise en lecteur embarqué. Jamais de bouton qui ouvre
  *  un nouvel onglet : YouTube et Vimeo passent par leur iframe, Spotify et Apple Podcasts
  *  par la leur, et un fichier audio ou vidéo direct se joue avec la balise native. */
 const embedFor = (m: Multimedia): Embed => {
+  if (!httpsSeulement(m.url)) return { kind: "lien", src: m.url };
   const url = m.url.trim();
   if (m.type === "video") {
     const yt = url.match(YT_RE);
-    if (yt) return { kind: "iframe", src: `https://www.youtube-nocookie.com/embed/${yt[1]}` };
+    if (yt) return cadreSur(`https://www.youtube-nocookie.com/embed/${yt[1]}`);
     const vimeo = url.match(VIMEO_RE);
-    if (vimeo) return { kind: "iframe", src: `https://player.vimeo.com/video/${vimeo[1]}` };
+    if (vimeo) return cadreSur(`https://player.vimeo.com/video/${vimeo[1]}`);
     if (/\.(mp4|webm|mov|ogv)(\?.*)?$/i.test(url)) return { kind: "video", src: url };
-    return { kind: "iframe", src: url };
+    return cadreSur(url);
   }
   if (m.plateforme === "spotify") {
     const src = url.includes("/embed/") ? url : url.replace("open.spotify.com/", "open.spotify.com/embed/");
-    return { kind: "iframe", src, podcast: true };
+    return cadreSur(src, true);
   }
   if (m.plateforme === "apple") {
-    return { kind: "iframe", src: url.replace("podcasts.apple.com", "embed.podcasts.apple.com"), podcast: true };
+    return cadreSur(url.replace("podcasts.apple.com", "embed.podcasts.apple.com"), true);
   }
   if (/\.(mp3|m4a|wav|ogg|aac)(\?.*)?$/i.test(url)) return { kind: "audio", src: url };
-  return { kind: "iframe", src: url, podcast: true };
+  return cadreSur(url, true);
 };
 
 const fmtDate = (iso: string) => {
@@ -87,6 +93,12 @@ export const Multimedias = ({ content }: { content: Content["sections"]["multime
                   )}
 
                   <div className="mt-5 w-full bg-ink/[0.03] dark:bg-white/[0.03]">
+                    {embed.kind === "lien" && (
+                      <a href={httpsSeulement(embed.src) ? embed.src : undefined} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-4 p-5 font-sans text-xs uppercase tracking-[0.18em] text-rust hover:bg-rust/5 transition-colors">
+                        <span>Ouvrir sur le site d'origine</span>
+                        <span aria-hidden="true">→</span>
+                      </a>
+                    )}
                     {embed.kind === "iframe" && embed.podcast && (
                       <iframe
                         src={embed.src}

@@ -60,7 +60,7 @@ export const DetailView = ({
   const photo = photoPour(id);
   const sectionContent = t.sections[id] as { title: string; intro?: string };
   const fullWidth = id === "boutique" || (id === "writings" && !!postSlug);
-  const numero = index >= 0 ? `0${index + 1}` : "";
+  const numero = index >= 0 ? String(index + 1).padStart(2, "0") : "";
 
   return (
     <main id="contenu" className="w-full">

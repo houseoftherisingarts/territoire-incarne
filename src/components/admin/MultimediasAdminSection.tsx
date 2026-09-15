@@ -70,8 +70,11 @@ export const MultimediasAdminSection = () => {
     setForm({ ...form, type, plateforme: dispo[0].value });
   };
 
+  const [erreurUrl, setErreurUrl] = useState("");
   const enregistrer = async () => {
     if (!form.titre.trim() || !form.url.trim()) return;
+    if (!/^https:\/\//i.test(form.url.trim())) { setErreurUrl("L'adresse doit commencer par https://"); return; }
+    setErreurUrl("");
     if (enCours) await update(enCours.id, form);
     else await add(form);
     setOuvert(false);
@@ -145,7 +148,8 @@ export const MultimediasAdminSection = () => {
                 value={form.url}
                 onChange={(e) => setForm({ ...form, url: e.target.value })}
               />
-            </label>
+            {erreurUrl && <span className="block mt-2 font-serif text-base text-rust">{erreurUrl}</span>}
+          </label>
             <label className="block">
               <span className="ed-kicker">Plateforme</span>
               <select className={`${champ} mt-2`} value={form.plateforme} onChange={(e) => setForm({ ...form, plateforme: e.target.value as MultimediaPlateforme })}>

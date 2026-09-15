@@ -152,7 +152,9 @@ service cloud.firestore {
     // ── Multimédias : vidéos et balados d'Élise, lus par tout le monde ─────
     match /multimedias/{multimediaId} {
       allow read:  if true;
-      allow write: if isAdmin();
+      allow write: if isAdmin()
+                   && request.resource.data.url is string
+                   && request.resource.data.url.matches('https://.*');
     }
 
     // ── Events ───────────────────────────────────────────────────────────
