@@ -59,7 +59,7 @@ export const DetailView = ({
 }: Props) => {
   const photo = photoPour(id);
   const sectionContent = t.sections[id] as { title: string; intro?: string };
-  const fullWidth = id === "boutique" || (id === "writings" && !!postSlug);
+  const fullWidth = id === "boutique" || id === "mouvement" || (id === "writings" && !!postSlug);
   const numero = index >= 0 ? String(index + 1).padStart(2, "0") : "";
 
   return (
