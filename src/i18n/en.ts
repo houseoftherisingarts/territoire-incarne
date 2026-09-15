@@ -130,6 +130,10 @@ export const en: Content = {
       title: "Writings",
       intro: "Reflections on slowness, anatomy, and the living.",
     },
+    multimedias: {
+      title: "Media",
+      intro: "Elise's videos and podcasts, here to watch and listen to.",
+    },
     rendezvous: {
       title: "Book a session",
       intro: "To book a session or check whether the approach suits you.",
