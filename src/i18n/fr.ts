@@ -37,6 +37,7 @@ export const fr = {
     events: "Formations à venir",
     boutique: "Boutique",
     writings: "Blog",
+    multimedias: "Multimédias",
     connecter: "Connecter",
     ressources: "Ressources",
     rendezvous: "Rendez-vous",
