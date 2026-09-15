@@ -31,7 +31,7 @@ export const fr = {
     mouvement: "Mouvement",
     therapie: "Pair-aidance",
     massotherapie: "Massothérapie",
-    education: "Éducation sexuelle (3 mains)",
+    education: "Éducation sexuelle",
     ateliers: "Cours à la carte",
     events: "Formations à venir",
     boutique: "Boutique",
@@ -98,7 +98,7 @@ export const fr = {
       intro: "Le travail par le toucher, là où son parcours a commencé en 2005, avant le yoga et l'accompagnement de fin de vie.",
     },
     education: {
-      title: "Éducation sexuelle (3 mains)",
+      title: "Éducation sexuelle",
       intro: "L'éducation à la sexualité dans un cadre sécuritaire, inclusif et non normatif.",
     },
     ateliers: {

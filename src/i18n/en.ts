@@ -33,7 +33,7 @@ export const en: Content = {
     mouvement: "Movement",
     therapie: "Peer support",
     massotherapie: "Massage therapy",
-    education: "Sex education (3 hands)",
+    education: "Sex education",
     ateliers: "À la carte classes",
     events: "Upcoming trainings",
     boutique: "Shop",
@@ -100,7 +100,7 @@ export const en: Content = {
       intro: "Hands-on work, where her path began in 2005, before yoga and end-of-life care.",
     },
     education: {
-      title: "Sex education (3 hands)",
+      title: "Sex education",
       intro: "Sex education in a safe, inclusive and non-normative setting.",
     },
     ateliers: {

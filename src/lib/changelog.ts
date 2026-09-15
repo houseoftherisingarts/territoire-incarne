@@ -20,7 +20,7 @@ export const JOURNAL: EntreeJournal[] = [
     intro:
       "L'accueil présente maintenant tes neuf domaines en tuiles de texte, deux nouvelles pages s'ajoutent, ton horaire s'affiche sur la page Pair-aidance, et la porte Google fonctionne de nouveau.",
     etapes: [
-      "Le sommaire montre Pair-aidance, Massothérapie, Éducation sexuelle (3 mains), Formations à venir, Cours à la carte, Boutique, Blog, Ressources et Mouvement, chacun dans sa case, sans photo ni coin arrondi.",
+      "Le sommaire montre Pair-aidance, Massothérapie, Éducation sexuelle, Formations à venir, Cours à la carte, Boutique, Blog, Ressources et Mouvement, chacun dans sa case, sans photo ni coin arrondi.",
       "Massothérapie et Éducation sexuelle ont leur page : elles affichent les offres que tu ranges dans Consultations, sous la catégorie du même nom, et le texte de présentation se modifie directement sur la page.",
       "Cours à la carte porte le répertoire de ce que tu peux animer. Tu remplis la liste depuis Ateliers, dans ton tableau de bord, et une école ou un festival t'écrit d'un clic.",
       "Sur Pair-aidance, tes prochaines heures ouvertes s'affichent comme un calendrier, et le bouton « Investir sur mon bien-être » mène à la création du compte. La personne est accueillie par « Merci de prendre soin de toi ».",
