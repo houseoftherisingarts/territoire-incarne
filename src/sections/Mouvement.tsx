@@ -184,33 +184,37 @@ export const Mouvement = ({ content }: { content: Content["sections"]["mouvement
           onClose={() => setShowRequest(false)}
         />
       )}
-      {content.practices && content.practices.length > 0 && (
-        <ul className="grid grid-cols-1 gap-4">
-          {content.practices.map((item, i) => (
-            <li key={i} className="flex items-center gap-4 py-3 border-b border-stone-200 dark:border-stone-700/50">
-              <span className="text-rust dark:text-stone-400 opacity-60">
-                <OrganicBullet index={i} />
-              </span>
-              <span className="text-xl font-light text-ink dark:text-stone-200">{item}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div>
-        <h3 className="text-2xl font-light mb-2">Cours à venir</h3>
-        <p className="font-serif text-sm opacity-70 mb-4">
-          Inscrivez-vous en un geste, par carte ou par virement Interac.
-        </p>
-        {loading && <p className="font-serif opacity-60 py-4">Chargement…</p>}
-        {!loading && classes.length === 0 && (
-          <p className="font-serif opacity-60 py-4">Aucun cours actif pour l'instant.</p>
+      {/* Le répertoire des pratiques et l'inscription aux cours restent dans la colonne éditoriale ;
+          les deux blocs d'appel ci-dessous, eux, respirent sur toute la largeur de la page. */}
+      <div className="max-w-4xl space-y-12">
+        {content.practices && content.practices.length > 0 && (
+          <ul className="grid grid-cols-1 gap-4">
+            {content.practices.map((item, i) => (
+              <li key={i} className="flex items-center gap-4 py-3 border-b border-stone-200 dark:border-stone-700/50">
+                <span className="text-rust dark:text-stone-400 opacity-60">
+                  <OrganicBullet index={i} />
+                </span>
+                <span className="text-xl font-light text-ink dark:text-stone-200">{item}</span>
+              </li>
+            ))}
+          </ul>
         )}
-        <ul>
-          {classes.map((c) => (
-            <ClassRow key={c.id} cls={c} user={user} />
-          ))}
-        </ul>
+
+        <div>
+          <h3 className="text-2xl font-light mb-2">Cours à venir</h3>
+          <p className="font-serif text-sm opacity-70 mb-4">
+            Inscrivez-vous en un geste, par carte ou par virement Interac.
+          </p>
+          {loading && <p className="font-serif opacity-60 py-4">Chargement…</p>}
+          {!loading && classes.length === 0 && (
+            <p className="font-serif opacity-60 py-4">Aucun cours actif pour l'instant.</p>
+          )}
+          <ul>
+            {classes.map((c) => (
+              <ClassRow key={c.id} cls={c} user={user} />
+            ))}
+          </ul>
+        </div>
       </div>
 
       <div className="border border-ink/15 dark:border-white/15 bg-ink/[0.03] dark:bg-white/5 rounded-none p-8 md:p-10 text-center space-y-4">
