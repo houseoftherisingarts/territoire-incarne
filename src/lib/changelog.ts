@@ -15,6 +15,15 @@ export interface EntreeJournal {
  */
 export const JOURNAL: EntreeJournal[] = [
   {
+    date: "2026-09-16",
+    titre: "Le collant Vexel se dit un projet créatif",
+    intro:
+      "Une petite précision sur la carte qui s'ouvre quand on clique sur le collant Vexel Webstudio, au bas du site.",
+    etapes: [
+      "La carte dit maintenant que Vexel Webstudio est un projet créatif du Salon des Inconnus, plutôt qu'un projet tout court.",
+    ],
+  },
+  {
     date: "2026-09-15",
     titre: "Une brise pour vrai sur la route, ton portrait à l'accueil, et le site au complet en anglais",
     intro:
