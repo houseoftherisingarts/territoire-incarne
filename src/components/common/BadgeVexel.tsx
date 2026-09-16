@@ -87,7 +87,7 @@ export const BadgeVexel = ({ className = "" }: { className?: string }) => {
                 <X size={20} />
               </button>
             </div>
-            <p className="text-[13px] text-stone-500 dark:text-stone-400 mt-2">un projet du Salon des Inconnus</p>
+            <p className="text-[13px] text-stone-500 dark:text-stone-400 mt-2">un projet créatif du Salon des Inconnus</p>
             <h3 className="font-serif text-2xl mt-2">Un site bâti pour durer</h3>
             <p className="font-serif text-base opacity-80 leading-relaxed mt-3">
               Ce site a été conçu et bâti par Vexel Webstudio, un studio du Québec qui fait des sites sur
