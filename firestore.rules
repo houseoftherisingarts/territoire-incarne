@@ -295,7 +295,7 @@ service cloud.firestore {
     // data-mode lu par tout visiteur; seule Élise écrit.
     match /settings/{settingId} {
       allow read:  if true;
-      allow write: if isAdmin();
+      allow write: if isAdmin() && (settingId != 'vexel' || collantOk('base'));
     }
 
     // ── Occupations : le miroir des créneaux pris (rendez-vous des autres clientes, agenda Google
