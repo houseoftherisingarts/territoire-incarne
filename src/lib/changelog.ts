@@ -15,6 +15,16 @@ export interface EntreeJournal {
  */
 export const JOURNAL: EntreeJournal[] = [
   {
+    date: "2026-09-20",
+    titre: "Le badge de représentante choisit sa couleur",
+    intro:
+      "Le petit badge « Partenaire officiel » que le site montrera une fois votre dossier de représentante ouvert peut maintenant porter une couleur, plutôt qu'une seule finition fixe.",
+    etapes: [
+      "Dans votre panneau « Devenir partenaire Vexel », une nouvelle section laisse choisir la teinte du badge parmi celles ouvertes par votre formule, avec un aperçu qui se met à jour tout de suite.",
+      "Le choix se garde dans votre site à vous, jamais chez Vexel, et personne d'autre que votre administration ne peut le changer.",
+    ],
+  },
+  {
     date: "2026-09-16",
     titre: "Le collant Vexel se dit un projet créatif",
     intro:
