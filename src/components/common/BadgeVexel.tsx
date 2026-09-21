@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { X, ArrowRight } from "lucide-react";
 
-const VEXEL_URL = "https://vexelwebstudio.com/";
+const VEXEL_URL = "https://vexelwebstudio.com/compte";
 const SALON_URL = "https://lesalondesinconnus.com/";
 
 /** Le reflet holographique suit le pointeur (--mx, --my) et incline le collant (--rx, --ry).
@@ -100,8 +100,15 @@ export const BadgeVexel = ({ className = "" }: { className?: string }) => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-ink dark:bg-stone-100 text-paper dark:text-forest font-sans text-xs font-bold uppercase tracking-[0.2em] min-h-[44px] px-6 rounded-full hover:bg-rust dark:hover:bg-rust dark:hover:text-paper transition-colors"
               >
-                Visiter Vexel Webstudio <ArrowRight size={14} />
+                Continuer vers Vexel <ArrowRight size={14} />
               </a>
+              <button
+                type="button"
+                onClick={() => setOuvert(false)}
+                className="inline-flex items-center border border-stone-400/60 hover:border-ink dark:hover:border-stone-100 font-sans text-xs font-bold uppercase tracking-[0.2em] min-h-[44px] px-6 rounded-full transition-colors"
+              >
+                Pas maintenant
+              </button>
             </div>
             <a
               href={SALON_URL}
