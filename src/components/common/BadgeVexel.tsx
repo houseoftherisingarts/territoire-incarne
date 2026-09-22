@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { X, ArrowRight } from "lucide-react";
 
-const VEXEL_URL = "https://vexelwebstudio.com/compte";
+const VEXEL_URL = "https://vexelwebstudio.com/";
 const SALON_URL = "https://lesalondesinconnus.com/";
 
 /** Le reflet holographique suit le pointeur (--mx, --my) et incline le collant (--rx, --ry).
